@@ -2,6 +2,8 @@
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
+import os
+
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -87,6 +89,10 @@ needs_global_options = {
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+local_plantuml_path = os.path.join(os.path.dirname(__file__), "utils", "plantuml-1.2022.14.jar")
+plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
+# plantuml_output_format = 'png'
+plantuml_output_format = "svg_img"
 
 
 # -- Options for HTML output -------------------------------------------------
