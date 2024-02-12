@@ -3,6 +3,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
+import jinja2
 
 
 # -- Project information -----------------------------------------------------
@@ -174,11 +175,14 @@ def rstjinja(app, docname, source):
     Render our pages as a jinja template for fancy templating goodness.
     """
     old_cwd = os.getcwd()
+    
+    jinja2.FileSystemLoader(app.confdir)
     os.chdir(os.path.dirname(__file__))
     src = source[0]
-    rendered = app.builder.templates.render_string(
-        src, app.config.html_context
-    )
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader('.'))
+    template = env.from_string(src)
+    #template = jinja2.Template(src, autoescape=True, environemnt=env)
+    rendered = template.render(**app.config.html_context)
     source[0] = rendered
     os.chdir(old_cwd)
 

@@ -1,5 +1,5 @@
 {% set page="test_runs.rst" %}
-{% include "../demo_page_header.rst" with context %}
+{% include "demo_page_header.rst" with context %}
 
 Test Runs Teen
 ==============
