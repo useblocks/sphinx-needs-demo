@@ -1,7 +1,6 @@
 Granny Car
 ==========
-
-.. team:: GraNny Car
+.. team:: Granny Car
    :id: granny 
    :persons: PETER, ALFRED
    :image: docs/_images/granny_car.jpg

@@ -1,9 +1,13 @@
+{% set page="test_cases.rst" %}
+{% include "../demo_page_header.rst" with context %}
+
 Test Cases Teen
 ===============
 
 
 .. test:: Distance Detection Tests
    :id: TEEN_TEST_DETECTION 
+   :specs: TEEN_DIST
 
    Test Case Specification for Distance Detection Algorithm:
 

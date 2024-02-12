@@ -8,6 +8,11 @@ Sphinx-Needs Demo
 
 This is a demo documentation for showing the features of `Sphinx-Needs <https://sphinx-needs.readthedocs.io/en/latest/>`__. 
 
+.. image:: /_images/sphinx-needs-logo-bg.png
+   :align: center
+   :width: 75%
+
+
 As playground a simple Automotive SW project gets documented, using elements for:
 
 * Requirements
@@ -85,6 +90,7 @@ Demo Object and Meta Model
       tags
       +links
       +author
+      +specs
       +runs
    }
 
@@ -119,6 +125,19 @@ Demo Object and Meta Model
    test --> person
    
    @enduml
+
+ToDo
+----
+
+* Dashboard and Analysis page (tables, flowcharts, pies)
+* Template for need objects, showing connected objects
+* Sphinx-Preview or alternative
+* Much more content
+* Sphinx-Build documentation
+* `needs_constraints` example
+* `conf.py` integration and details
+* CI integration
+* PDF build
 
 
 

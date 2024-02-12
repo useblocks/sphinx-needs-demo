@@ -1,3 +1,6 @@
+{% set page="index.rst" %}
+{% include "../demo_page_header.rst" with context %}
+
 .. _teen_car:
 
 Teen Car

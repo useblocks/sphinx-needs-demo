@@ -1,3 +1,6 @@
+{% set page="releases.rst" %}
+{% include "../demo_page_header.rst" with context %}
+
 Releases Teen
 =============
 

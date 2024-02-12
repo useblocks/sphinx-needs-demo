@@ -65,10 +65,20 @@ needs_extra_links = [
       "incoming": "specified by",
       "outgoing": "specifies",
    },
+   {  # test_case -> spec
+      "option": "spec",
+      "incoming": "test_cases",
+      "outgoing": "specs",
+   },
    {  # test_case -> test_run
       "option": "runs",
       "incoming": "test_cases",
       "outgoing": "runs",
+   },
+   {  # test_case -> spec
+      "option": "specs",
+      "incoming": "test_cases",
+      "outgoing": "specs",
    },
 ]
 
@@ -87,7 +97,7 @@ needs_global_options = {
 ###############################################################################
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'demo_page_header.rst']
 
 local_plantuml_path = os.path.join(os.path.dirname(__file__), "utils", "plantuml-1.2022.14.jar")
 plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
@@ -101,6 +111,9 @@ plantuml_output_format = "svg_img"
 html_theme = 'sphinx_immaterial'
 html_static_path = ['_static']
 
+sphinx_immaterial_override_generic_admonitions = True
+
+html_logo = "_images/sphinx-needs-logo.png"
 html_theme_options = {
     "icon": {
         "repo": "fontawesome/brands/github",
@@ -155,3 +168,16 @@ html_theme_options = {
 html_css_files = [
     'custom.css',
 ]
+
+def rstjinja(app, docname, source):
+    """
+    Render our pages as a jinja template for fancy templating goodness.
+    """
+    src = source[0]
+    rendered = app.builder.templates.render_string(
+        src, app.config.html_context
+    )
+    source[0] = rendered
+
+def setup(app):
+    app.connect("source-read", rstjinja)

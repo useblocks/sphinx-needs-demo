@@ -1,6 +1,8 @@
+{% set page="specifications.rst" %}
+{% include "../demo_page_header.rst" with context %}
+
 Specifications Teen
 ===================
-
 
 .. spec:: Implement RADAR system
    :id: TEEN_RADAR
