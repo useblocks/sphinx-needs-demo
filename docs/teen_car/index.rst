@@ -1,3 +1,5 @@
+.. _teen_car:
+
 Teen Car
 ========
 
@@ -19,4 +21,15 @@ Teen Car
    :caption: Contents:
 
    requirements
+   specifications
+   test_cases
+   test_runs
    releases
+
+Traceability objects
+--------------------
+
+
+.. needtable::
+   :filter: id.startswith("TEEN")
+   :columns: id, title, type, release, author

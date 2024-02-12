@@ -1,0 +1,34 @@
+table.need {
+    width: 100% !important;
+}
+
+table.need tbody {
+    display: table;
+    width: 100%
+}
+
+span.need-part a.internal {
+    vertical-align: super;
+    font-size: 0.8em;
+
+}
+
+table.needs_type_req tr.head td {
+    border-bottom: 2px solid #10b8c4;
+}
+
+table.needs_type_spec tr.head td {
+    border-bottom: 2px solid #3333aa;
+}
+
+table.needs_type_test tr.head td {
+    border-bottom: 2px solid #790691;
+}
+
+table.needs_type_testrun tr.head td {
+    border-bottom: 2px solid #b38405;
+}
+
+table.needs_type_impl tr.head td {
+    border-bottom: 2px solid #b11616;
+}

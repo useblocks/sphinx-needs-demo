@@ -17,7 +17,8 @@ extensions = [
     "sphinx_immaterial",
     "sphinx_needs",
     "sphinx_design",
-    "sphinxcontrib.plantuml"
+    "sphinxcontrib.plantuml",
+    "sphinxcontrib.test_reports"
 ]
 
 
@@ -28,7 +29,7 @@ needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#B
                dict(directive="spec", title="Specification", prefix="S_", color="#FEDCD2", style="node"),
                dict(directive="impl", title="Implementation", prefix="I_", color="#DF744A", style="node"),
                dict(directive="test", title="Test Case", prefix="T_", color="#DCB239", style="node"),
-               dict(directive="person", title="Person", prefix="P_", color="#DCB239", style="participant"),
+               dict(directive="person", title="Person", prefix="P_", color="#DCB239", style="actor"),
                dict(directive="team", title="Team", prefix="T_", color="#DCB239", style="node"),
                dict(directive="release", title="Release", prefix="R_", color="#DCB239", style="node"),
            ]
@@ -52,14 +53,32 @@ needs_extra_links = [
       "incoming": "ownes",
       "outgoing": "author",
    },
+    {  # req -> req, release -> release
+      "option": "based_on",
+      "incoming": "supports",
+      "outgoing": "based on",
+   },
+   {  # spec -> req
+      "option": "reqs",
+      "incoming": "specified by",
+      "outgoing": "specifies",
+   },
+   {  # test_case -> test_run
+      "option": "runs",
+      "incoming": "test_cases",
+      "outgoing": "runs",
+   },
 ]
 
 needs_id_required = True
 needs_id_regex = r".*"
 
+tr_case = ['test_run', 'testrun', 'Test-Run', 'TR_', '#999999', 'node']
+
 needs_global_options = {
    # Without default value
    'collapse': False,
+   'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'")
 }
 
 # SPHINX-NEEDS Config END
@@ -108,21 +127,25 @@ html_theme_options = {
             "scheme": "default",
             "primary": "blue",
             "accent": "light-cyan",
-            "toggle": {
-                "icon": "material/lightbulb-outline",
-                "name": "Switch to dark mode",
-            },
+            # "toggle": {
+            #     "icon": "material/lightbulb-outline",
+            #     "name": "Switch to dark mode",
+            # },
         },
-        {
-            "media": "(prefers-color-scheme: dark)",
-            "scheme": "slate",
-            "primary": "blue",
-            "accent": "light-cyan",
-            "toggle": {
-                "icon": "material/lightbulb",
-                "name": "Switch to light mode",
-            },
-        },
+        # {
+        #     "media": "(prefers-color-scheme: dark)",
+        #     "scheme": "slate",
+        #     "primary": "blue",
+        #     "accent": "light-cyan",
+        #     "toggle": {
+        #         "icon": "material/lightbulb",
+        #         "name": "Switch to light mode",
+        #     },
+        # },
     ],
     "toc_title_is_page_title": True,
 }
+
+html_css_files = [
+    'custom.css',
+]

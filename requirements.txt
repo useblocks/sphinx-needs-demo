@@ -3,3 +3,5 @@ sphinx-needs[plotting]>=2
 sphinx-design
 sphinx-immaterial
 sphinxcontrib-plantuml
+sphinx-autobuild
+sphinx-test-reports
