@@ -173,6 +173,10 @@ html_css_files = [
 def rstjinja(app, docname, source):
     """
     Render our pages as a jinja template for fancy templating goodness.
+
+    This voodoo is needed as we use the jinja command ``include``, which searches
+    for the referenced file. This works locally, but hans't worked on ReadTheDocs.
+    This "complex" cwd and Template-Folder operations make it working
     """
     old_cwd = os.getcwd()
     

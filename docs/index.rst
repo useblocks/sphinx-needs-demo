@@ -131,11 +131,12 @@ ToDo
 
 * Dashboard and Analysis page (tables, flowcharts, pies)
 * Template for need objects, showing connected objects
+* Code API example and linking
 * Sphinx-Preview or alternative
 * Much more content
 * Sphinx-Build documentation
-* `needs_constraints` example
-* `conf.py` integration and details
+* ``needs_constraints`` example
+* ``conf.py`` integration and details
 * CI integration
 * PDF build
 
