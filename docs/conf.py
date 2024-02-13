@@ -119,7 +119,7 @@ needs_global_options = {
 
 preview_config = {
     "selector": "div.md-content a",
-    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference",
+    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference, em.sig-param a",
     "set_icon": True,
     "icon_only": True,
     "icon_click": True,
