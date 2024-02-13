@@ -152,3 +152,4 @@ Page Content
    teen_car/index
    granny_car/index
    persons
+   analysis

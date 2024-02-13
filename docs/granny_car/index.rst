@@ -1,5 +1,5 @@
-Granny Car
-==========
+🚘 Granny Car
+=============
 .. team:: Granny Car
    :id: granny 
    :persons: PETER, ALFRED

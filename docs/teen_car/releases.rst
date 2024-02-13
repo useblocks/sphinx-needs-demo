@@ -1,8 +1,8 @@
 {% set page="releases.rst" %}
 {% include "demo_page_header.rst" with context %}
 
-Releases Teen
-=============
+📦 Releases Teen
+================
 
 
 .. release:: TEEN_2024_6

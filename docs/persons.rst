@@ -1,5 +1,5 @@
-Persons
-=======
+🧍 Persons
+==========
 
 .. person:: Peter Parker
    :id: PETER

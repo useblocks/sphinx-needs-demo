@@ -1,3 +1,8 @@
+.md-grid {
+max-width: 80rem !important;
+
+}
+
 table.need {
     width: 100% !important;
 }
@@ -7,6 +12,10 @@ table.need tbody {
     width: 100%
 }
 
+table.NEEDS_TABLE {
+    width: 100% !important
+}
+
 span.need-part a.internal {
     vertical-align: super;
     font-size: 0.8em;
@@ -14,21 +23,21 @@ span.need-part a.internal {
 }
 
 table.needs_type_req tr.head td {
-    border-bottom: 2px solid #10b8c4;
+    border-bottom: 4px solid #10b8c4;
 }
 
 table.needs_type_spec tr.head td {
-    border-bottom: 2px solid #3333aa;
+    border-bottom: 4px solid #3333aa;
 }
 
 table.needs_type_test tr.head td {
-    border-bottom: 2px solid #790691;
+    border-bottom: 4px solid #b21dcf;
 }
 
 table.needs_type_testrun tr.head td {
-    border-bottom: 2px solid #b38405;
+    border-bottom: 4px solid #b38405;
 }
 
 table.needs_type_impl tr.head td {
-    border-bottom: 2px solid #b11616;
+    border-bottom: 4px solid #b11616;
 }

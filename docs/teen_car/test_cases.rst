@@ -1,13 +1,14 @@
 {% set page="test_cases.rst" %}
 {% include "demo_page_header.rst" with context %}
 
-Test Cases Teen
-===============
+🔧 Test Cases Teen
+==================
 
 
 .. test:: Distance Detection Tests
    :id: TEEN_TEST_DETECTION 
    :specs: TEEN_DIST
+   :status: closed
 
    Test Case Specification for Distance Detection Algorithm:
 
@@ -41,3 +42,26 @@ Test Cases Teen
         Any deviations or failures should be documented and addressed accordingly during the software development process.
 
    This test case specification outlines the test scenarios and expected results to validate the functionality, performance, and compliance of the distance detection algorithm for automotive applications. 
+
+.. test:: Unit Test Radar
+   :id: TEEN_TEST_UNIT_RADAR
+   :specs: TEEN_RADAR
+   :status: in progress
+
+
+   .. note:: We need to define the tests here....
+
+
+.. test:: Integration Test Radar
+   :id: TEEN_TEST_INT_RADAR
+   :specs: TEEN_RADAR
+   :status: open
+
+
+   tbd
+
+.. test:: Invalid test case
+   :id: TEEN_TEST_INVALID
+   :author: PETER 
+
+   This is an invalid/bad test case object, as `status` is not set and a link to a specification is missing.

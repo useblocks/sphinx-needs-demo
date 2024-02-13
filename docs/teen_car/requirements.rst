@@ -1,8 +1,8 @@
 {% set page="requirements.rst" %}
 {% include "demo_page_header.rst" with context %}
 
-Requirements Teen
-=================
+🙇 Requirements Teen
+====================
 
 .. req:: Safety Features
    :id: TEEN_SAFE
@@ -18,7 +18,7 @@ Requirements Teen
    :tags: teen, connection
    :author: ROBERT, PETER
    :release: REL_TEEN_2025_6
-   :status: open
+   :status: in progress
    :based_on: BASE_WIFI, BASE_BT
  
    The car should be equipped with built-in Wi-Fi, Bluetooth connectivity, and compatibility with smartphone integration systems to enable seamless communication and entertainment for teenagers on the go.
@@ -44,7 +44,7 @@ Requirements Teen
    :tags: teen, customization
    :author: PETER
    :release: REL_TEEN_2024_6
-   :status: open
+   :status: closed
  
    The car must offer a range of customization options, including exterior colors, interior finishes, and optional accessories, allowing teenagers to personalize their vehicles to reflect their individual styles and preferences.
 
@@ -53,7 +53,7 @@ Requirements Teen
    :tags: teen, efficiency
    :author: ROBERT
    :release: REL_TEEN_2025_1
-   :status: open
+   :status: closed
    
    The car should prioritize fuel efficiency, with a focus on eco-friendly technologies such as hybrid or electric powertrains, to minimize environmental impact and reduce operating costs for teenage drivers.
 

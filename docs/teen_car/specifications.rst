@@ -1,13 +1,13 @@
 {% set page="specifications.rst" %}
 {% include "demo_page_header.rst" with context %}
 
-Specifications Teen
-===================
+🧠 Specifications Teen
+======================
 
 .. spec:: Implement RADAR system
    :id: TEEN_RADAR
    :reqs: TEEN_SAFE
-   :status: done
+   :status: closed
    :author: SARAH
 
    The RADAR sensor software for the car must accurately detect and track surrounding objects 

@@ -3,8 +3,8 @@
 
 .. _teen_car:
 
-Teen Car
-========
+🚗 Teen Car
+===========
 
 .. team:: Teen Car
    :id: teen
@@ -28,6 +28,7 @@ Teen Car
    test_cases
    test_runs
    releases
+   analysis
 
 Traceability objects
 --------------------
