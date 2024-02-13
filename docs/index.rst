@@ -131,7 +131,7 @@ ToDo
 
 * ☑ Dashboard and Analysis page (tables, flowcharts, pies)
 * ☑ Template for need objects, showing connected objects (for reqs and specs)
-* ☐ Code API example and linking
+* ☑ Code API example and linking
 * ☐ Sphinx-Preview or alternative
 * ☐ Much more content
 * ☐ Sphinx-Build documentation
@@ -151,3 +151,9 @@ Page Content
    granny_car/index
    persons
    analysis
+
+
+.. toctree::
+   :maxdepth: 2
+
+   demo_details

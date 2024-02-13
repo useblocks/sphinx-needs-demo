@@ -8,7 +8,7 @@
 
 .. team:: Teen Car
    :id: TEEN
-   :persons: PETER, ALFRED
+   :persons: PETER, ALFRED, ROBERT, STEVEN, THOMAS
    :image: docs/_images/teen_car.jpg
    :layout: clean_l
 
@@ -45,3 +45,4 @@ Involved persons
 
 .. needextract::
    :filter: "TEEN" in persons_back
+   :layout: complete

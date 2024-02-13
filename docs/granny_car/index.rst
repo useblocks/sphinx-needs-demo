@@ -1,3 +1,6 @@
+{% set page="index.rst" %}
+{% include "demo_page_header.rst" with context %}
+
 🚘 Granny Car
 =============
 .. team:: Granny Car
