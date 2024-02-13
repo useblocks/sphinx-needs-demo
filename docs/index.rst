@@ -132,12 +132,12 @@ ToDo
 * ☑ Dashboard and Analysis page (tables, flowcharts, pies)
 * ☑ Template for need objects, showing connected objects (for reqs and specs)
 * ☑ Code API example and linking
-* ☐ Sphinx-Preview or alternative
+* ☑ Sphinx-Preview or alternative
 * ☐ Much more content
 * ☐ Sphinx-Build documentation
 * ☐ ``needs_constraints`` example
-* ☐ ``conf.py`` integration and details
-* ☐ CI integration (☑ Read the docs, checks GitHub action missing)
+* ☑ ``conf.py`` integration and details
+* ☐ CI integration (☑ Read the docs, checks and GitHub action missing)
 * ☐ PDF build (postponed, as a build with Sphinx-SimpledPDF needs special handling because of images and used Sphinx-Design grids)
 
 Page Content

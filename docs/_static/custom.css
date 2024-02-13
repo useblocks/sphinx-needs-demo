@@ -1,3 +1,7 @@
+span.sp_preview_icon {
+    color: rgba(0,0,0,0.6) !important
+}
+
 .md-grid {
 max-width: 80rem !important;
 

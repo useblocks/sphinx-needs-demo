@@ -31,6 +31,9 @@ Extensions
 :`Sphinx-SimplePDF <https://sphinx-simplepdf.readthedocs.io/>`__:
     Provides a Sphinx builder to create a beautiful PDF out of the documentation.
 
+:`Sphinx-Preview <https://sphinx-preview.readthedocs.io>`__:
+    Allows you to get a quick preview of a link without leaving the page.
+    Especially useful for getting a quick impression of linked Sphinx-Needs objects.
 
 Configurations
 --------------

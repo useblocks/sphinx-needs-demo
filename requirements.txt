@@ -6,4 +6,5 @@ sphinxcontrib-plantuml
 sphinx-autobuild
 sphinx-test-reports
 sphinx-simplepdf
+sphinx-preview
 weasyprint==60.2

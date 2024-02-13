@@ -28,7 +28,8 @@ extensions = [
     "sphinxcontrib.test_reports",
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
-    "sphinx.ext.viewcode"
+    "sphinx.ext.viewcode",
+    "sphinx_preview"
 ]
 
 if os.environ.get("PDF", "0") != "1":
@@ -116,6 +117,22 @@ needs_global_options = {
 # SPHINX-NEEDS Config END
 ###############################################################################
 
+preview_config = {
+    "selector": "div.md-content a",
+    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference",
+    "set_icon": True,
+    "icon_only": True,
+    "icon_click": True,
+    "icon": "🔍",
+    "width": 600,
+    "height": 400,
+    "offset": {
+        "left": 0,
+        "top": 0
+    },
+    "timeout": 0,
+}
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'demo_page_header.rst']
 
@@ -156,7 +173,7 @@ html_theme_options = {
         # "header.autohide",
         "navigation.top",
         # "navigation.tracking",
-        # "search.highlight",
+        "search.highlight",
         "search.share",
         "toc.follow",
         "toc.sticky",
