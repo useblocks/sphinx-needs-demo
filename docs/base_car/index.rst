@@ -2,8 +2,8 @@
 ===========
 
 .. team:: Base Car
-   :id: base
-   :persons: PETER, ALFRED
+   :id: BASE
+   :persons: PETER, ALFRED, ROBERT, SARAH, THOMAS
    :image: docs/_images/base_car.jpg
    :layout: clean_l
 
@@ -27,3 +27,10 @@ Traceability objects
 .. needtable::
    :filter: id.startswith("BASE")
    :columns: id, title, type, release, author
+
+
+Involved persons
+----------------
+
+.. needextract::
+   :filter: "BASE" in persons_back

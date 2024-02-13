@@ -1,9 +1,11 @@
-.. tip:: 
-   :title: Demo page details
-   :collapsible: 
+.. if-builder:: html
 
-   **Page source code: {{page}}** 
+   .. tip:: 
+      :title: Demo page details
+      :collapsible: 
 
-   .. literalinclude:: {{page}}
-      :language: rst
-      :linenos:
+      **Page source code: {{page}}** 
+
+      .. literalinclude:: {{page}}
+         :language: rst
+         :linenos:

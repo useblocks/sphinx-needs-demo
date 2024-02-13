@@ -47,12 +47,12 @@ Demo Object and Meta Model
 
    @startuml
    
-   class "Team" as team {
+   class "Team" as team #b7ff43 {
       id
       title
       + persons
    }
-   class "Person" as person {
+   class "Person" as person #508002 {
       id
       title
       role
@@ -104,7 +104,7 @@ Demo Object and Meta Model
       +based_on
    }
 
-   class "Implementation" as impl {
+   class "Implementation" as impl #b11616  {
       id
       title
       status
@@ -138,7 +138,7 @@ ToDo
 * ☐ ``needs_constraints`` example
 * ☐ ``conf.py`` integration and details
 * ☐ CI integration (☑ Read the docs, checks GitHub action missing)
-* ☐ PDF build
+* ☐ PDF build (postponed, as a build with Sphinx-SimpledPDF needs special handling because of images and used Sphinx-Design grids)
 
 Page Content
 ------------

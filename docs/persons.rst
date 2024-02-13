@@ -1,3 +1,6 @@
+{% set page="persons.rst" %}
+{% include "demo_page_header.rst" with context %}
+
 🧍 Persons
 ==========
 

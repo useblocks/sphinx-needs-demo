@@ -4,6 +4,7 @@
 🧠 Specifications Teen
 ======================
 
+
 .. spec:: Implement RADAR system
    :id: TEEN_RADAR
    :reqs: TEEN_SAFE
@@ -17,6 +18,7 @@
    data on detected objects to enable collision avoidance and adaptive cruise control functionalities. 
    Additionally, it should adhere to industry standards for safety and reliability, with robust 
    error handling mechanisms in place.
+
 
 .. spec:: Implement distant detection
    :id: TEEN_DIST

@@ -5,3 +5,5 @@ sphinx-immaterial
 sphinxcontrib-plantuml
 sphinx-autobuild
 sphinx-test-reports
+sphinx-simplepdf
+weasyprint==60.2

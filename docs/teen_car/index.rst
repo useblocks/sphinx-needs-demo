@@ -7,7 +7,7 @@
 ===========
 
 .. team:: Teen Car
-   :id: teen
+   :id: TEEN
    :persons: PETER, ALFRED
    :image: docs/_images/teen_car.jpg
    :layout: clean_l
@@ -28,6 +28,7 @@
    test_cases
    test_runs
    releases
+   api
    analysis
 
 Traceability objects
@@ -37,3 +38,10 @@ Traceability objects
 .. needtable::
    :filter: id.startswith("TEEN")
    :columns: id, title, type, release, author
+
+
+Involved persons
+----------------
+
+.. needextract::
+   :filter: "TEEN" in persons_back

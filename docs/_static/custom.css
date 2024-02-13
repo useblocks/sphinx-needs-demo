@@ -47,3 +47,11 @@ table.needs_type_testrun tr.head td {
 table.needs_type_impl tr.head td {
     border-bottom: 4px solid #b11616;
 }
+
+table.needs_type_person td.meta {
+    border-top: 4px solid #508002 !important;
+}
+
+table.needs_type_team td.meta {
+    border-top: 4px solid #b7ff43 !important;
+}

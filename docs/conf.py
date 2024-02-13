@@ -4,6 +4,11 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
 import jinja2
+import sys
+
+code_path = os.path.join(os.path.dirname(__file__), "../", "src/")
+sys.path.append(code_path)
+print(f"CODE_PATH: {code_path}")
 
 
 # -- Project information -----------------------------------------------------
@@ -17,13 +22,17 @@ author = 'team useblocks'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx_immaterial",
     "sphinx_needs",
     "sphinx_design",
     "sphinxcontrib.plantuml",
-    "sphinxcontrib.test_reports"
+    "sphinxcontrib.test_reports",
+    "sphinx_simplepdf",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode"
 ]
 
+if os.environ.get("PDF", "0") != "1":
+    extensions.append("sphinx_immaterial")
 
 ###############################################################################
 # SPHINX-NEEDS Config START
@@ -65,6 +74,11 @@ needs_extra_links = [
       "option": "reqs",
       "incoming": "specified by",
       "outgoing": "specifies",
+   },
+   {  # impl -> spec 
+      "option": "implements",
+      "incoming": "implemented by",
+      "outgoing": "implements",
    },
    {  # test_case -> spec
       "option": "spec",
@@ -114,7 +128,10 @@ plantuml_output_format = "svg_img"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_immaterial'
+html_theme = 'alabaster'
+if os.environ.get("PDF", 0) != 1:
+   html_theme = 'sphinx_immaterial'
+
 html_static_path = ['_static']
 
 sphinx_immaterial_override_generic_admonitions = True

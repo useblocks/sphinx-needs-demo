@@ -1,12 +1,14 @@
-.. warning::
-   :title: Object traceability details: {{title}}
-   :collapsible:  
+.. if-builder:: html
 
-   .. needflow::
-      :filter:  "{{id}}"==id or "{{id}}" in reqs_back or "{{id}}" in specs or "{{id}}" in author_back
+   .. warning::
+      :title: Object traceability details: {{title}}
+      :collapsible:  
 
-   .. needtable::
-      :filter:  "{{id}}"==id or "{{id}}" in reqs_back or "{{id}}" in specs or "{{id}}" in author_back
-      :style: table
-      :columns: id, title, type, author
-      
+      .. needflow::
+         :filter:  "{{id}}"==id or "{{id}}" in reqs_back or "{{id}}" in specs or "{{id}}" in author_back or "{{id}}" in implements
+
+      .. needtable::
+         :filter:  "{{id}}"==id or "{{id}}" in reqs_back or "{{id}}" in specs or "{{id}}" in author_back or "{{id}}" in implements
+         :style: table
+         :columns: id, title, type, author
+         
