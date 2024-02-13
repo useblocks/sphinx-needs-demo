@@ -85,8 +85,8 @@
 .. list-table::
    :header-rows: 1
    :stub-columns: 1
-   :width: 100%
    :widths: 20 30 30 20
+   :align: center
 
    - * Filter 
      * Base Car
@@ -110,3 +110,8 @@
      * :need_count:`"granny_car" in docname and type=="testrun"` 
 
 
+Requirement links
+-----------------
+
+.. needflow::
+   :filter: type in ["req"]

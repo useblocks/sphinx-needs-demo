@@ -129,18 +129,16 @@ Demo Object and Meta Model
 ToDo
 ----
 
-* Dashboard and Analysis page (tables, flowcharts, pies)
-* Template for need objects, showing connected objects
-* Code API example and linking
-* Sphinx-Preview or alternative
-* Much more content
-* Sphinx-Build documentation
-* ``needs_constraints`` example
-* ``conf.py`` integration and details
-* CI integration
-* PDF build
-
-
+* ☑ Dashboard and Analysis page (tables, flowcharts, pies)
+* ☑ Template for need objects, showing connected objects (for reqs and specs)
+* ☐ Code API example and linking
+* ☐ Sphinx-Preview or alternative
+* ☐ Much more content
+* ☐ Sphinx-Build documentation
+* ☐ ``needs_constraints`` example
+* ☐ ``conf.py`` integration and details
+* ☐ CI integration (☑ Read the docs, checks GitHub action missing)
+* ☐ PDF build
 
 Page Content
 ------------

@@ -1,0 +1,11 @@
+.. warning::
+   :title: Object traceability details: {{title}}
+   :collapsible:  
+
+   .. needflow::
+      :filter:  "{{id}}"==id or "{{id}}" in reqs or "{{id}}" in author_back
+
+   .. needtable::
+      :style: table
+      :filter:  "{{id}}"==id or "{{id}}" in reqs or "{{id}}" in author_back
+      :columns: id, title, type, author

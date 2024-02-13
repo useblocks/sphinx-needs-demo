@@ -4,12 +4,14 @@
 🙇 Requirements Teen
 ====================
 
+
 .. req:: Safety Features
    :id: TEEN_SAFE
    :tags: teen, safe
    :author: ROBERT
    :release: REL_TEEN_2024_6
    :status: open
+   :post_template: req_post
 
    The car must include advanced safety features such as automatic braking, collision avoidance systems, and adaptive cruise control to ensure the safety of teenage drivers.
 

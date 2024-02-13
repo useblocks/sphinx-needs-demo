@@ -21,4 +21,6 @@
     <testcase classname="car_teen8" file="tests3.py" line="300" name="TEEN_TEST_DETECTION" time="0.000252246856689"></testcase>
     <testcase classname="car_teen9" file="tests.py" line="300" name="TEEN_TEST_DETECTION" time="0.000252246856689"></testcase>
     <testcase classname="car_teen10" file="tests.py" line="300" name="TEEN_TEST_DETECTION" time="0.000252246856689"></testcase>
+
+    <testcase classname="car_teen10" file="tests.py" line="300" name="TEEN_TEST_INT_RADAR" time="0.039"></testcase>
 </testsuite>

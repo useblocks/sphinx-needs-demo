@@ -12,9 +12,15 @@ table.need tbody {
     width: 100%
 }
 
-table.NEEDS_TABLE {
+/* table.NEEDS_TABLE {
     width: 100% !important
 }
+
+table.NEEDS_TABLE tbody, table.NEEDS_TABLE thead {
+    width: 100% !important;
+    display: table;
+
+} */
 
 span.need-part a.internal {
     vertical-align: super;

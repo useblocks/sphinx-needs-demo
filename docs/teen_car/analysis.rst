@@ -35,6 +35,10 @@ Project overview
    Specifications   , "teen_car" in docname and type=="spec" and status=="open"             , "teen_car" in docname and type=="spec" and status=="in progress"              , "teen_car" in docname and type=="spec" and status=="closed" 
    Test Cases       , "teen_car" in docname and type=="test" and status=="open" and is_need , "teen_car" in docname and type=="test" and status=="in progress" and is_need  , "teen_car" in docname and type=="test" and status=="closed" and is_need
 
+.. needflow::
+   :filter: "teen_car"  in docname and type in ["req", "spec", "test", "testrun"]
+
+
 Tests
 -----
 

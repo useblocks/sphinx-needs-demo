@@ -91,7 +91,12 @@ tr_case = ['test_run', 'testrun', 'Test-Run', 'TR_', '#999999', 'node']
 needs_global_options = {
    # Without default value
    'collapse': False,
-   'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'")
+   'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
+   'post_template': [
+       ("req_post", "type in ['req']"),
+       ("spec_post", "type in ['spec']")
+   ],
+   
 }
 
 # SPHINX-NEEDS Config END
