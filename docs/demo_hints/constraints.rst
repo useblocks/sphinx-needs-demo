@@ -2,7 +2,7 @@
       :title: Demo feature hint: Constraints
       :collapsible: 
 
-      For requirements two constraints got defined, which if the ``status`` is set correctly and if a ``release`` is linked.
+      For requirements two constraints are defined, which check if the ``status`` is set correctly and if a ``release`` is linked.
 
       If these constraints are not fulfilled, the need object gets a colored right border and the footer contains the reason why a 
       constraint is not fulfilled.
