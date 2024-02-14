@@ -78,10 +78,10 @@
 
    We need to adapt the configuration of our RADAR system depending on the final customer.
 
-   .. note::
+   .. note:: 
+      :title: Customer based Requirement!
+      :collapsible: 
    
-      **Customer based Requirement!**
-
       This Requirement is using variant handling.
       Depending on the value of the ``customer`` option (``A`` or ``B``), status and author get updated.
 
