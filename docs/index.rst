@@ -27,6 +27,14 @@ There are also Dashboard pages to show specific information for different proces
 
 The complete source code can be found here: https://github.com/useblocks/sphinx-needs-demo
 
+Features and technical details are described inside dropdowns like this one:
+
+.. tip:: 
+   :title: Demo feature hint: Just an example
+   :collapsible:
+
+   Really, this is just an example. Nothing more.
+
 
 Demo Content
 ------------

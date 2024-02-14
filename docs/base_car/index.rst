@@ -6,7 +6,7 @@
 
 .. team:: Base Car
    :id: BASE
-   :persons: PETER, ALFRED, ROBERT, SARAH, THOMAS
+   :persons: PETER, ROBERT, SARAH, THOMAS
    :image: docs/_images/base_car.jpg
    :layout: clean_l
 
@@ -34,6 +34,16 @@ Traceability objects
 
 Involved persons
 ----------------
+.. tip::
+   :title: Demo feature hint
+   :collapsible:
+
+   The below list is auto-generated based on the links in the ``persons`` option of the above ``team`` object.
+
+   Code for this::
+
+      .. needextract::
+         :filter: "GRANNY" in persons_back 
 
 .. needextract::
    :filter: "BASE" in persons_back

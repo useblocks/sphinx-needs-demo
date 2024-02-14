@@ -1,5 +1,5 @@
-Releases Base
-=============
+📦 Releases Base
+================
 
 
 .. release:: REL_BASE_2024

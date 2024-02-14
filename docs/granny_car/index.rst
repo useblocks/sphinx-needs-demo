@@ -14,9 +14,35 @@
    convenience. Safety features include automatic braking and adjustable speed limits. The Granny Glide 
    ensures a smooth and secure ride for seniors, prioritizing their comfort and safety.
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   requirements
+
+
+Traceability objects
+--------------------
+
+
+.. needtable::
+   :filter: id.startswith("GRANNY")
+   :columns: id, title, type, release, author
+
+
 
 Involved persons
 ----------------
+.. tip::
+   :title: Demo feature hint
+   :collapsible:
+
+   The below list is auto-generated based on the links in the ``persons`` option of the above ``team`` object.
+
+   Code for this::
+
+      .. needextract::
+         :filter: "GRANNY" in persons_back   
 
 .. needextract::
    :filter: "GRANNY" in persons_back

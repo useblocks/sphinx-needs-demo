@@ -42,6 +42,16 @@ Traceability objects
 
 Involved persons
 ----------------
+.. tip::
+   :title: Demo feature hint
+   :collapsible:
+
+   The below list is auto-generated based on the links in the ``persons`` option of the above ``team`` object.
+
+   Code for this::
+
+      .. needextract::
+         :filter: "GRANNY" in persons_back 
 
 .. needextract::
    :filter: "TEEN" in persons_back

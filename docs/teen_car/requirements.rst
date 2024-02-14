@@ -1,6 +1,8 @@
 {% set page="requirements.rst" %}
 {% include "demo_page_header.rst" with context %}
 
+.. _req_teen:
+
 🙇 Requirements Teen
 ====================
 
@@ -78,8 +80,8 @@
 
    We need to adapt the configuration of our RADAR system depending on the final customer.
 
-   .. note:: 
-      :title: Customer based Requirement!
+   .. tip:: 
+      :title: Demo feature hint: Variant handling
       :collapsible: 
    
       This Requirement is using variant handling.
@@ -88,6 +90,8 @@
       The variant matrix looks like this:
 
       .. list-table::
+         :header-rows: 1
+         :stub-columns: 1
 
          - * customer
            * author
@@ -98,6 +102,7 @@
          - * B
            * SARAH
            * closed
+
 
       | The used code for the options is:
       | **author**: ``customer_a:ROBERT, customer_b:SARAH``
