@@ -25,6 +25,8 @@ Architecture diagrams get described by PlantUML.
 
 There are also Dashboard pages to show specific information for different process roles.
 
+The complete source code can be found here: https://github.com/useblocks/sphinx-needs-demo
+
 
 Demo Content
 ------------
@@ -90,7 +92,7 @@ Demo Object and Meta Model
       tags
       +links
       +author
-      +specs
+      +spec
       +runs
    }
 
@@ -110,19 +112,34 @@ Demo Object and Meta Model
       status
       tags
       +author
+      +implements
+   }
+
+   class "Release" as release #0d7e6b {
+      id
+      title
+      status
+      tags
+      +author
    }
 
 
-   team -> person
 
-   req <- spec
-   spec <-- test
-   spec <- impl
-   test -> run : Automatically\nlinked
+   team -> person: persons
 
-   req --> person
-   spec --> person
-   test --> person
+   req --> req: based_on
+   req <-- spec : reqs
+   req -left-> release: release
+   spec <-- test: spec
+   spec <- impl: implements
+   test -> run : runs: automatically\nlinked
+
+   req -[#999]-> person:  <color:#999>author 
+   spec -[#999]-> person: <color:#999>author 
+   test -[#999]-> person: <color:#999>author 
+   release -[#999]-> person: <color:#999>author 
+
+
    
    @enduml
 
@@ -140,6 +157,9 @@ ToDo
 * ☑ ``conf.py`` integration and details
 * ☐ CI integration (☑ Read the docs, checks and GitHub action missing)
 * ☐ PDF build (postponed, as a build with Sphinx-SimpledPDF needs special handling because of images and used Sphinx-Design grids)
+* ☐ Add a drawio example
+* ☑ Example for variant handling
+* ☐ List of single features, plus explanation and link to doc, where it is used.
 
 Page Content
 ------------

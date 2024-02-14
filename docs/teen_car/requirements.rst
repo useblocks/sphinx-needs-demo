@@ -66,3 +66,44 @@
    :status: open
 
    The car's interface should be intuitive and easy to use, with a touchscreen infotainment system, voice recognition capabilities, and simplified controls to enhance the driving experience for teenage users.
+
+
+.. req:: Customer specific RADAR configuration
+   :id: TEEN_CUSTOMER
+   :tags: teen, customer
+   :author: customer_a:ROBERT, customer_b:SARAH
+   :release: REL_TEEN_2025_1
+   :status: customer_a:open, customer_b:closed
+   :customer: B
+
+   We need to adapt the configuration of our RADAR system depending on the final customer.
+
+   .. note::
+   
+      **Customer based Requirement!**
+
+      This Requirement is using variant handling.
+      Depending on the value of the ``customer`` option (``A`` or ``B``), status and author get updated.
+
+      The variant matrix looks like this:
+
+      .. list-table::
+
+         - * customer
+           * author
+           * status
+         - * A
+           * ROBERT
+           * open
+         - * B
+           * SARAH
+           * closed
+
+      | The used code for the options is:
+      | **author**: ``customer_a:ROBERT, customer_b:SARAH``
+      | **status**: ``customer_a:open, customer_b:closed``
+
+      The value of ``customer`` in this example is: **[[copy("customer")]]**. Therefore ``author`` is finally **[[copy("author")]]** and ``status`` is **[[copy("status")]]**.
+
+      Setting values of options can be done dynamically and triggered from outside. So different build commands could result in a totally different document thanks
+      to the used ``needs_variant`` feature.

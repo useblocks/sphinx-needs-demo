@@ -52,6 +52,10 @@ table.needs_type_impl tr.head td {
     border-bottom: 4px solid #b11616;
 }
 
+table.needs_type_release tr.head td {
+    border-bottom: 4px solid #0d7e6b;
+}
+
 table.needs_type_person td.meta {
     border-top: 4px solid #508002 !important;
 }

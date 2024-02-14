@@ -65,7 +65,7 @@ needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#B
 
 # Additional options, which shall be available for all need types.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
-needs_extra_options = ['role', 'contact', 'image', 'date']
+needs_extra_options = ['role', 'contact', 'image', 'date', 'customer']
 
 # Extra link types, which shall be available and allow need types to be linked to each other.
 # We use a dedicated linked type for each type of a conncetion, for instance from 
@@ -190,13 +190,24 @@ needs_constraint_failed_options = {
     },
 
     "LOW": {
-        "on_fail": [],
+        "on_fail": ["warn"],
         "style": ["yellow_bar"],
-        "force_style": False
+        "force_style": True
     }
 }
 
-
+# needs_variants allows us to set specific option values based on the currently active variant.
+# A use case is a different ``status``, depending on if the implementation needs to be done for 
+# customer A or customer B.
+# In the rst-code, the variant-values can then be set like this:
+# ``:status: customer_a:open, customer_b:closed``
+needs_variants = {
+  "customer_a": "customer == 'A' or customer not in ['A', 'B']",
+  "customer_b": "customer == 'B'"
+}
+# Activates variants handling for these options only.
+# All other options get not checked, to save some build time, as these checks are quite time consuming.
+needs_variant_options = ["author", "status"]
 
 ###############################################################################
 # SPHINX-NEEDS Config END
