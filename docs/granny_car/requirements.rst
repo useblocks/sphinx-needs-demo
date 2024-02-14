@@ -4,6 +4,7 @@
 🙇 Requirements Granny
 ======================
 
+.. include:: /demo_hints/constraints.rst
 
 Please look into :ref:`req_teen`, which contains currently much more data.
 

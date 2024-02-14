@@ -63,3 +63,11 @@ table.needs_type_person td.meta {
 table.needs_type_team td.meta {
     border-top: 4px solid #b7ff43 !important;
 }
+
+table.needs_style_blue_bar {
+    background: linear-gradient(to right, transparent 99%, #0fbcf9 1%) !important;
+}
+
+table.needs_style_red_bar {
+    background: linear-gradient(to right, transparent 99%, #db0707 1%) !important;
+}

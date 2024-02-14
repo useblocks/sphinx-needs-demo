@@ -159,14 +159,24 @@ needs_global_options = {
        ("req_post", "type in ['req']"),
        ("spec_post", "type in ['spec']")
    ],
+   'constraints': [
+       (["status_set", "release_set"], "type in ['req']")
+   ],
+   'layout': [
+       ('req_constraint', "type in ['req']")
+   ]
 }
 
 needs_constraints = {
-
-    "no_status": {
-        "check_0": "status is None or status == ''",
+    "status_set": {
+        "check_0": "status is not None and status in ['open', 'in progress', 'closed']",
         "severity": "LOW",
-        "error_message": "Status must bet set!"
+        "error_message": "Status is invalid or not set!"
+    },
+    "release_set": {
+        "check_0": "len(release)>0",
+        "severity": "CRITICAL",
+        "error_message": "Requirement is not planned for any release!"
     },
 }
 
@@ -188,11 +198,10 @@ needs_constraint_failed_options = {
         "style": ["yellow_bar"],
         "force_style": False
     },
-
     "LOW": {
-        "on_fail": ["warn"],
-        "style": ["yellow_bar"],
-        "force_style": True
+        "on_fail": [],
+        "style": ["blue_bar"],
+        "force_style": False
     }
 }
 
@@ -208,6 +217,20 @@ needs_variants = {
 # Activates variants handling for these options only.
 # All other options get not checked, to save some build time, as these checks are quite time consuming.
 needs_variant_options = ["author", "status"]
+
+needs_layouts = {
+    "req_constraint": {
+        "grid": "simple_footer",
+        "layout": {
+            "head": [
+                '<<meta("type_name")>>: **<<meta("title")>>** <<meta_id()>>  <<collapse_button("meta", '
+                'collapsed="icon:arrow-down-circle", visible="icon:arrow-right-circle", initial=False)>> '
+            ],
+            "meta": ["<<meta_all(no_links=True, exclude=['constraints_error'])>>", "<<meta_links_all()>>"],
+            "footer": ["**Process feedback**: <<meta('constraints_error')>>"]
+        },
+    },
+}
 
 ###############################################################################
 # SPHINX-NEEDS Config END
@@ -242,7 +265,7 @@ templates_path = ['_templates']
 # Sphinx builds all ``.rst`` files under ``/docs``, no matte if they are part
 # of a toctree or not. So as we have some rst-templates, we need to tell Sphinx to ignore
 # these files.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'demo_page_header.rst']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'demo_page_header.rst', 'demo_hints']
 
 # We bring our own plantuml jar file.
 # These options tell Sphinxcontrib-PlantUML we it can find this file.

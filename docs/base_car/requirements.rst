@@ -1,6 +1,8 @@
 🙇 Requirements Base
 ====================
 
+.. include:: /demo_hints/constraints.rst
+
 .. req:: Automatic Braking
    :id: BASE_BREAK
    :tags: base, safe

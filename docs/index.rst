@@ -161,7 +161,7 @@ ToDo
 * ☐ Much more content
 * ☐ SW Architecture example
 * ☐ Sphinx-Build documentation
-* ☐ ``needs_constraints`` example
+* ☑ ``needs_constraints`` example
 * ☑ ``conf.py`` integration and details
 * ☐ CI integration (☑ Read the docs, checks and GitHub action missing)
 * ☐ PDF build (postponed, as a build with Sphinx-SimpledPDF needs special handling because of images and used Sphinx-Design grids)

@@ -6,6 +6,7 @@
 🙇 Requirements Teen
 ====================
 
+.. include:: /demo_hints/constraints.rst
 
 .. req:: Safety Features
    :id: TEEN_SAFE
@@ -65,12 +66,12 @@
    :tags: teen, user
    :author: ROBERT
    :release: REL_TEEN_2025_1
-   :status: open
+   :status: new
 
    The car's interface should be intuitive and easy to use, with a touchscreen infotainment system, voice recognition capabilities, and simplified controls to enhance the driving experience for teenage users.
 
 
-.. req:: Customer specific RADAR configuration
+.. req:: Customer-specific RADAR configuration
    :id: TEEN_CUSTOMER
    :tags: teen, customer
    :author: customer_a:ROBERT, customer_b:SARAH
@@ -114,8 +115,14 @@
       to the used ``needs_variant`` feature.
 
 
-.. req:: constraint example
-   :id: TEEN_CONST
-   :template: test
+.. req:: Autonomous Driving 
+   :id: TEEN_AUTO
+   
+   The autonomous driving system integrated into the teenager's vehicle must encompass a robust sensor suite 
+   comprising lidar, radar, cameras, and ultrasonic sensors to provide comprehensive environmental perception. 
+   Utilizing deep learning algorithms, the system should enable real-time object detection, classification, 
+   and trajectory prediction for efficient obstacle avoidance. It should employ a hierarchical control architecture, 
+   incorporating motion planning algorithms such as MPC (Model Predictive Control) to ensure smooth and 
+   safe trajectory tracking. Additionally, the system must support secure communication protocols for remote 
+   monitoring and control, allowing guardians to access and manage settings through a secure web interface.
 
-   test
