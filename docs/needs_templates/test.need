@@ -1,0 +1,6 @@
+{{content}}
+
+
+   constraints_passed: {{constraints_passed}}
+
+   constraints_results: {{constraints_results}}

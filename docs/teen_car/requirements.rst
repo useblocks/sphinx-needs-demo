@@ -112,3 +112,10 @@
 
       Setting values of options can be done dynamically and triggered from outside. So different build commands could result in a totally different document thanks
       to the used ``needs_variant`` feature.
+
+
+.. req:: constraint example
+   :id: TEEN_CONST
+   :template: test
+
+   test
