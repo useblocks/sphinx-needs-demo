@@ -6,6 +6,8 @@ import os
 import jinja2
 import sys
 
+# We need to make Python aware of our project source code, which is stored outside `/docs`, 
+# under `src/`
 code_path = os.path.join(os.path.dirname(__file__), "../", "src/")
 sys.path.append(code_path)
 print(f"CODE_PATH: {code_path}")
@@ -21,6 +23,7 @@ author = 'team useblocks'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
+# List of Sphinx extension to use.
 extensions = [
     "sphinx_needs",
     "sphinx_design",
@@ -32,12 +35,25 @@ extensions = [
     "sphinx_preview"
 ]
 
+# During a PDF build with Sphinx-SimplePDF, a special theme is used.
+# But adding "sphinx_immaterial" to the extension list, the "immaterial" already
+# does a lot of sphinx voodoo, which is not needed and does not work during a PDF build.
+# Therefore we add it only, if a special ENV-Var is not set.
+#
+# As we can't ask Sphinx already in the config file, which Builder will be used, we need
+# to set this information by hand, or in this case via an ENV var.
+#
+# To build HTML, just call ``make html
+# To build PDF, call ``env PDF=1 make simplepdf"
 if os.environ.get("PDF", "0") != "1":
     extensions.append("sphinx_immaterial")
 
 ###############################################################################
 # SPHINX-NEEDS Config START
+###############################################################################
 
+# List of need type, we need in our documentation.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
 needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#BFD8D2", style="node"),
                dict(directive="spec", title="Specification", prefix="S_", color="#FEDCD2", style="node"),
                dict(directive="impl", title="Implementation", prefix="I_", color="#DF744A", style="node"),
@@ -47,9 +63,15 @@ needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#B
                dict(directive="release", title="Release", prefix="R_", color="#DCB239", style="node"),
            ]
 
+# Additional options, which shall be available for all need types.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
 needs_extra_options = ['role', 'contact', 'image', 'date']
 
-
+# Extra link types, which shall be available and allow need types to be linked to each other.
+# We use a dedicated linked type for each type of a conncetion, for instance from 
+# a specification to a requirement. This makes filtering and visualization of such connections
+# much easier, as we can sure the target need of a link has always a specific type.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-links
 needs_extra_links = [
    {  # team -> person
       "option": "persons",
@@ -98,28 +120,98 @@ needs_extra_links = [
    },
 ]
 
+# We force the author to set anb ID by hand.
+# Otherwise Sphinx-Needs would create on based on the Need title.
+# So a title change will change the ID and all set links will get invalid.
+# Therefore setting a stable ID by hand is always a good idea.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-required
 needs_id_required = True
+
+# The format of a need gets defined here.
+# In this demo project, we allow any kind of ID. 
+# But it could be also much more complex. 
+# For instance: `^[A-Z]{3}_[0-9]{1,4}$`, which allows IDs like "ABC_1234" or "DEA_3" only.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
 needs_id_regex = r".*"
 
+# We override the default test-case need of Sphinx-Test-Reports, so that is called
+# ``test_run`` instead.
+# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/configuration.html#tr-case
 tr_case = ['test_run', 'testrun', 'Test-Run', 'TR_', '#999999', 'node']
 
+# `needs_global_options` allows us to set values for Sphinx-Need objects globally, based on
+# filters.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
 needs_global_options = {
-   # Without default value
-   'collapse': False,
+   # The meta-area of all Sphinx-Needs objects shall be hidden. 
+   # Supported only, if a "collapse button" is used in the selected need layout.
+   'collapse': "False",
+   # Automatically link test-runs with test-cases.
+   # We use here the dynamic function ``tr_link`` so link 2 needs, 
+   # if the ID of need A is the same as the case_name of need B.
+   # But we do this only for objects of type ``test``.
+   # Docs: https://sphinx-test-reports.readthedocs.io/en/latest/functions.html#tr-link
    'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
+   # By setting ``post_template``, we can add some extra content below a need object.
+   # What gets added is set in the related template file under ``/needs_templates``.
+   # In our case a traceability flow chart is generated, plus the same information as table.
    'post_template': [
        ("req_post", "type in ['req']"),
        ("spec_post", "type in ['spec']")
    ],
-   
 }
 
+needs_constraints = {
+
+    "no_status": {
+        "check_0": "status is None or status == ''",
+        "severity": "LOW",
+        "error_message": "Status must bet set!"
+    },
+}
+
+needs_constraint_failed_options = {
+    "CRITICAL": {
+        "on_fail": ["warn"],
+        "style": ["red_bar"],
+        "force_style": False
+    },
+
+    "HIGH": {
+        "on_fail": ["warn"],
+        "style": ["orange_bar"],
+        "force_style": False
+    },
+
+    "MEDIUM": {
+        "on_fail": ["warn"],
+        "style": ["yellow_bar"],
+        "force_style": False
+    },
+
+    "LOW": {
+        "on_fail": [],
+        "style": ["yellow_bar"],
+        "force_style": False
+    }
+}
+
+
+
+###############################################################################
 # SPHINX-NEEDS Config END
 ###############################################################################
 
+# The config for the preview features, which allows to "sneak" into a link.
+# Docs: https://sphinx-preview.readthedocs.io/en/latest/#configuration
 preview_config = {
+    # Add a preview icon only for this type of links
+    # This is very theme and HTML specific. In this case "div-mo-content" is the content area
+    # and we handle all links there.
     "selector": "div.md-content a",
-    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference, em.sig-param a",
+    # A list of selectors, where no preview icon shall be added, because it makes often no sense.
+    # For instance the own ID of a need object, or the link on an image to open the image.
+    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference, em.sig-param a, a.paginate_button",
     "set_icon": True,
     "icon_only": True,
     "icon_click": True,
@@ -134,8 +226,15 @@ preview_config = {
 }
 
 templates_path = ['_templates']
+
+# List of files/folder to ignore.
+# Sphinx builds all ``.rst`` files under ``/docs``, no matte if they are part
+# of a toctree or not. So as we have some rst-templates, we need to tell Sphinx to ignore
+# these files.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'demo_page_header.rst']
 
+# We bring our own plantuml jar file.
+# These options tell Sphinxcontrib-PlantUML we it can find this file.
 local_plantuml_path = os.path.join(os.path.dirname(__file__), "utils", "plantuml-1.2022.14.jar")
 plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
 # plantuml_output_format = 'png'
@@ -145,7 +244,9 @@ plantuml_output_format = "svg_img"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'alabaster' # Sphinx Defaul Theme
+
+# Set ``html_theme`` to ``sphinx_immaterial`` only, if we do NOT perform a PDF build.
 if os.environ.get("PDF", 0) != 1:
    html_theme = 'sphinx_immaterial'
 
@@ -209,13 +310,19 @@ html_css_files = [
     'custom.css',
 ]
 
+# Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
+# This allows us to use the powerfull jinja-features to create content in a loop, react on
+# external data input, or include templates with parameters.
+# In our case we use it mostly to set the "demo page details" header in each page.
+# A good blog post about this can be found here:
+# Docs: https://ericholscher.com/blog/2016/jul/25/integrating-jinja-rst-sphinx/
 def rstjinja(app, docname, source):
     """
     Render our pages as a jinja template for fancy templating goodness.
 
     This voodoo is needed as we use the jinja command ``include``, which searches
-    for the referenced file. This works locally, but hans't worked on ReadTheDocs.
-    This "complex" cwd and Template-Folder operations make it working
+    for the referenced file. This works locally, but has't worked on ReadTheDocs.
+    These more "complex" cwd and Template-Folder operations make it working.
     """
     old_cwd = os.getcwd()
     
@@ -229,6 +336,10 @@ def rstjinja(app, docname, source):
     source[0] = rendered
     os.chdir(old_cwd)
 
-
+# This function allows us to register any kind of black magic for Sphinx :)
 def setup(app):
+    
+    # We connect our jinja-function from above with the "source-read" event of Sphinx,
+    # which gets called for every file before Sphinx starts to handle the file on its own.
+    # This allows us to manipulate the content.
     app.connect("source-read", rstjinja)

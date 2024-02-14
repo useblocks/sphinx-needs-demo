@@ -13,7 +13,7 @@ This is a demo documentation for showing the features of `Sphinx-Needs <https://
    :width: 75%
 
 
-As playground a simple Automotive SW project gets documented, using elements for:
+A simple Automotive SW project is used as playground, with elements for:
 
 * Requirements
 * Specifications
@@ -134,6 +134,7 @@ ToDo
 * ☑ Code API example and linking
 * ☑ Sphinx-Preview or alternative
 * ☐ Much more content
+* ☐ SW Architecture example
 * ☐ Sphinx-Build documentation
 * ☐ ``needs_constraints`` example
 * ☑ ``conf.py`` integration and details
