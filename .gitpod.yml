@@ -9,7 +9,7 @@ tasks:
     - name: preview the web app
       command: |
           # wait for the port, and then browse a specific path
-          gp ports await 8000 && gp preview --external $(gp url 8080)/docs/_build/_html/index.html
+          gp ports await 8000 && gp preview --external $(gp url 8000)
 
 # Ports to expose on workspace startup
 # Docs:https://www.gitpod.io/docs/configure/workspaces/ports
