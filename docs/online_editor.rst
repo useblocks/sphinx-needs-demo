@@ -20,6 +20,9 @@ Start the Online Editor
    #. Loads preconfigured VS Code extensions, to support you with the development of the documentation
    #. Start an initial documentation build.
    #. Shows the documentation build result as a preview in a browser.
+#. Feel free to edit and save any file under `docs`.
+#. With each change, the docs get built automatically and you can see the result in the preview, after refreshing the page 
+   (normally by pressing ``F5``).
 
 Share your docs
 ---------------
