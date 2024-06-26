@@ -52,6 +52,9 @@ if os.environ.get("PDF", "0") != "1":
 # SPHINX-NEEDS Config START
 ###############################################################################
 
+# Build also the needs.json file with each HTML build
+needs_build_json = True
+
 # List of need type, we need in our documentation.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
 needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#BFD8D2", style="node"),
@@ -245,7 +248,7 @@ preview_config = {
     "selector": "div.md-content a",
     # A list of selectors, where no preview icon shall be added, because it makes often no sense.
     # For instance the own ID of a need object, or the link on an image to open the image.
-    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference, em.sig-param a, a.paginate_button",
+    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.md-content__button, a.image-reference, em.sig-param a, a.paginate_button, a.sd-btn",
     "set_icon": True,
     "icon_only": True,
     "icon_click": True,
