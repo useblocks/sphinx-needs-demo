@@ -3,8 +3,8 @@ image: gitpod/workspace-python-3.12
 # Commands that will run on workspace start
 tasks:
     - name: Build & watch docs
-      before: pip install -r requirements.txt
-      # init: sphinx-build -a -E -v -b html docs docs/_build/html
+      before: sh ./scripts/setup_gitpod.sh
+      init: pip install -r requirements.txt
       # Use sphinx-autobuild to build the docs with each change, 
       # but we can not use it to server the docs, as it starts
       # a websocket-connection, which does not work via the gitpod forwarind
