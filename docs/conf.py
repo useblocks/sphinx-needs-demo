@@ -19,6 +19,7 @@ print(f"CODE_PATH: {code_path}")
 project = 'Sphinx-Needs Demo'
 copyright = '2024, team useblocks'
 author = 'team useblocks'
+version = "1.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
