@@ -52,6 +52,9 @@ if os.environ.get("PDF", "0") != "1":
 # SPHINX-NEEDS Config START
 ###############################################################################
 
+# Build also the needs.json file with each HTML build
+needs_build_json = True
+
 # List of need type, we need in our documentation.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
 needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#BFD8D2", style="node"),
