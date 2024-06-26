@@ -13,13 +13,27 @@ This is a demo documentation for showing the features of `Sphinx-Needs <https://
    :width: 75%
 
 
-A simple Automotive SW project is used as playground, with elements for:
+.. grid:: 1 1 2 2
 
-* Requirements
-* Specifications
-* Implementations
-* Test Cases
-* and Test Results
+   .. grid-item::
+      :columns: 12 12 8 8
+
+      A simple Automotive SW project is used as playground, with elements for:
+
+      * Requirements
+      * Specifications
+      * Implementations
+      * Test Cases
+      * and Test Results
+
+   .. grid-item::
+      :columns: 12 12 4 4
+
+      .. button-link:: https://gitpod.io/#https://github.com/useblocks/sphinx-needs-demo
+         :color: primary
+         :shadow:
+
+         Open this playground in an Online Editor!
 
 Architecture diagrams get described by PlantUML.
 

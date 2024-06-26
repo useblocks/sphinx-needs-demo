@@ -3,9 +3,23 @@
 ⌨ Online Editor
 ===============
 
-The source code of the Sphinx-Needs-Demo project can be loaded automatically in a preconfigured
-VS Code instance on Gitpod, which allows to change data, test some features and see the outcome as a preview
-in the browser. And this all without any installation or costs on your side.
+.. grid:: 1 1 2 2
+
+   .. grid-item::
+      :columns: 12 12 8 8
+
+      The source code of the Sphinx-Needs-Demo project can be loaded automatically in a preconfigured
+      VS Code instance on Gitpod, which allows to change data, test some features and see the outcome as a preview
+      in the browser. And this all without any installation or costs on your side.
+
+   .. grid-item::
+      :columns: 12 12 4 4
+
+      .. button-link:: https://gitpod.io/#https://github.com/useblocks/sphinx-needs-demo
+         :color: primary
+         :shadow:
+
+         Start Online Editor NOW!
 
 Start the Online Editor
 -----------------------
