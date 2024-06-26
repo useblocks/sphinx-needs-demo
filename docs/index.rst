@@ -211,3 +211,4 @@ Page Content
    :maxdepth: 2
 
    demo_details
+   online_editor

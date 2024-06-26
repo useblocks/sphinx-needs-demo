@@ -2,7 +2,7 @@ image: gitpod/workspace-python-3.12
 
 # Commands that will run on workspace start
 tasks:
-    - name: Build & watch docs
+    - name: 1) Build & watch docs
       before: sh ./scripts/setup_gitpod.sh
       init: pip install -r requirements.txt
       # Use sphinx-autobuild to build the docs with each change, 
@@ -10,11 +10,11 @@ tasks:
       # a websocket-connection, which does not work via the gitpod forwarind
       command: sphinx-autobuild --port 8010 docs docs/_build/html 
     
-    - name: Serve docs
+    - name: 2) Serve docs
       # Use a standard http-server to provide the docs.
       # User must reload the page with each change by hand!
       command: python -m http.server 8000 -d docs/_build/html
-    - name: preview the web app
+    - name: 3) Preview the docs
       # We wait till sphinx-autobuild has finished on port 8010,
       # then we start the http-server on port 8000 and show it.
       command: |
@@ -28,6 +28,11 @@ ports:
       onOpen: ignore
       name: Sphinx-Demo docs
       description: Sphinx-Demo docs
+      visibility: public
+    - port: 8010
+      onOpen: ignore
+      name: Sphinx-Demo Autobuilder (not needed!)
+      description: Port of Sphinx-Autobuilder extension, which does not work with gitpod proxy
       visibility: private
 
 vscode:
