@@ -1,0 +1,23 @@
+image: gitpod/workspace-full
+
+# Commands that will run on workspace start
+tasks:
+    - name: Setup
+      init: pip install -r requirements.txt
+    - name: Setup Sphinx autobuild
+      init: pip install sphinx-autobuild
+    - name: Demo build and delivery
+      command: sphinx-autobuild --port 8000 docs docs/_build/html
+    - name: preview the web app
+      command: |
+          # wait for the port, and then browse a specific path
+          gp ports await 8080 && gp preview --external $(gp url 8080)/some/path
+
+# Ports to expose on workspace startup
+# Docs:https://www.gitpod.io/docs/configure/workspaces/ports
+ports:
+    - port: 8000
+      onOpen: ignore
+      name: Sphinx-Demo docs
+      description: Sphinx-Demo docs
+      visibility: private

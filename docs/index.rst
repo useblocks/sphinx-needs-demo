@@ -49,6 +49,25 @@ This demo page is an early alpha version.
 The chapter of :ref:`teen_car` is mostly complete in terms of configuration and show cases, even if the amount
 of requirements and co. is quite small.
 
+Demo playground
+---------------
+This Demo includes also a specialized docs-as-code setup for a Gitpod online IDE.
+
+You can open it by simply clicking this link:
+`Gitpod Sphinx-Needs-Demo IDE <gitpod.io/#https://github.com/useblocks/sphinx-needs-demo>`__.
+
+A login with a Gitpod or GitHub account is needed. After this, you can use 
+the online IDE for 50 hours per month for free.
+
+The Gitpod IDE provides the following features:
+
+* Automatical clone of the requested repository
+* Starting a selected docker container and using it as the build environment
+* Install all needed Python dependencies (Sphinx + extensions)
+* Load preconfigured VS Code extensions (Restructured text support, Esbonio, Previewer)
+* Launch configuration to build the Sphinx demo project
+
+
 Demo Object and Meta Model
 --------------------------
 
