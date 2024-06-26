@@ -12,12 +12,14 @@ tasks:
     
     - name: Serve docs
       # Use a standard http-server to provide the docs.
-      # User must realod the page with each change by hand!
+      # User must reload the page with each change by hand!
       command: python -m http.server 8000 -d docs/_build/html
     - name: preview the web app
+      # We wait till sphinx-autobuild has finished on port 8010,
+      # then we start the http-server on port 8000 and show it.
       command: |
           # wait for the port, and then browse a specific path
-          gp ports await 8000 && gp preview $(gp url 8000)
+          gp ports await 8010 && gp preview $(gp url 8000)
 
 # Ports to expose on workspace startup
 # Docs:https://www.gitpod.io/docs/configure/workspaces/ports
