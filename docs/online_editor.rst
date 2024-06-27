@@ -74,6 +74,13 @@ Open the docs in an extra browser tab has some advantages compared to the intern
 There is a small button in the upper right corner of the VS Code previewer, to open the shown
 page in a new browser tab.
 
+.. info::
+
+   The browser's pop-up policy may not allow to open this link. In this case, just allow it.
+
+   .. image:: /_images/editor_pop_up.png
+      :width: 50%
+      :align: center
 
 
 Ideas for playing around
@@ -121,7 +128,7 @@ If anything is not working, here are some locations where to look for the proble
 Documentation  build problems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the ``Terminal` app, you will see 3 open terminals on the right side:
+In the ``Terminal`` app, you will see 3 open terminals on the right side:
 
 1. Build & watch docs
 2. Serve docs
