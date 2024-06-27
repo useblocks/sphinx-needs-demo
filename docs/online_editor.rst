@@ -82,10 +82,15 @@ Ideas for playing around
          :id: SPEC_MY
          :links: REQ_FIRST
 
-#. Get the traceability tree of your requriement by using ``needflow``::
+#. Get the traceability tree of the :need:`TEEN_SAFE` reqirement by using ``needflow``::
 
       .. needflow::
-         :root_id: REQ_FIRST
+         :root_id: TEEN_SAFE
+         :root_direction: outgoing
+         :show_link_names:
+
+#. After taking a look into the generate needflow image, change the ``root_direction`` to ``incoming`` and watch again.
+
 
 
 
