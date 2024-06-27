@@ -294,6 +294,7 @@ sphinx_immaterial_override_generic_admonitions = True
 
 html_logo = "_images/sphinx-needs-logo.png"
 html_theme_options = {
+    "font": False,
     "icon": {
         "repo": "fontawesome/brands/github",
         "edit": "material/file-edit-outline",
