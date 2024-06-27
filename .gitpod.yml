@@ -1,10 +1,8 @@
-image: gitpod/workspace-python-3.12
-
+image:
+    file: .gitpod.Dockerfile
 # Commands that will run on workspace start
 tasks:
     - name: 1) Build & watch docs
-      before: sh ./scripts/setup_gitpod.sh
-      init: pip install -r requirements.txt
       # Use sphinx-autobuild to build the docs with each change, 
       # but we can not use it to server the docs, as it starts
       # a websocket-connection, which does not work via the gitpod forwarind
