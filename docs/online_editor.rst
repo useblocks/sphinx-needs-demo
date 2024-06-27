@@ -132,3 +132,10 @@ Select one and you see its log messages.
 .. image:: /_images/gitpod_outputs.png
    :width: 80%
    :align: center
+
+Captured Editor run 
+-------------------
+
+.. image:: /_images/editor_showcase.gif
+   :width: 80%
+   :align: center
