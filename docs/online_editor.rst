@@ -60,13 +60,13 @@ Ideas for playing around
 ------------------------
 
 #. Create a new file ``playground.rst`` under ``/docs/``.
-#. Add ``playground`` to the ``.. toctree::`` in the ``/docs/index.rst`` file (end of the file).
-   "Playground" shows up in the left side-menu of the built documentation.
 #. Set a title in ``playground.rst``::
 
       Playground
       ==========
 
+#. Add ``playground`` to the ``.. toctree::`` in the ``/docs/index.rst`` file (end of the file).
+   "Playground" shows up in the left side-menu of the built documentation.
 #. Set a ``needtable`` to get an overview of all Sphinx-Needs objects in the documentation::
 
       .. needtable::
