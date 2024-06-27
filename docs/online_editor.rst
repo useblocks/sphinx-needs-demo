@@ -56,6 +56,26 @@ After everything is running:
    :width: 80%
    :align: center
 
+Watching the built documentation
+--------------------------------
+Your specific build of the Sphinx-Needs-Demo project is publicly available and can be shared 
+with colleagues and other users around the world, as long as your Gitpod instance is running.
+
+You can get the link by opening the "ports" tab and copy the address entry for the port "8000".
+
+.. image:: /_images/editor_ports.gif
+   :align: center
+
+Open the docs in an extra browser tab has some advantages compared to the internal VS Code previewer:
+
+* The VS Code previewer does not show the folder and files in the URL.
+* A page reload (``F5``) reopens the root page and not the current page.
+
+There is a small button in the upper right corner of the VS Code previewer, to open the shown
+page in a new browser tab.
+
+
+
 Ideas for playing around
 ------------------------
 
@@ -92,18 +112,6 @@ Ideas for playing around
 #. After taking a look into the generate needflow image, change the ``root_direction`` to ``incoming`` and watch again.
 
 
-
-
-Share your docs
----------------
-
-Your specific build of the Sphinx-Needs-Demo project is publicly available and can be shared 
-with colleagues and other users around the world, as long as your Gitpod instance is running.
-
-You can get the link by opening the "ports" tab and copy the address entry for the port "8000".
-
-.. image:: /_images/editor_ports.gif
-   :align: center
 
 
 Debug the docs
