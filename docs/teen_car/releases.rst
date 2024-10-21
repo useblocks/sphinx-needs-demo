@@ -9,7 +9,6 @@
    :id: REL_TEEN_2024_6
    :date: 1.6.2024
    :status: open
-   :based_on: REL_BASE_2024
 
    A release for the Teen Car.
 
@@ -20,7 +19,6 @@
    :id: REL_TEEN_2025_1
    :date: 1.1.2025
    :status: open
-   :based_on: REL_BASE_2025
 
    A release for the Teen Car.
 
@@ -31,7 +29,6 @@
    :id: REL_TEEN_2025_6
    :date: 1.6.2025
    :status: open
-   :based_on: REL_BASE_2026
 
    A release for the Teen Car.
 

@@ -9,7 +9,7 @@
 .. team:: Teen Car
    :id: TEEN
    :persons: PETER, ALFRED, ROBERT, STEVEN, THOMAS
-   :image: docs/_images/teen_car.jpg
+   :image: _images/teen_car.jpg
    :layout: clean_l
 
    Presenting the "TeenTrek," an autonomous driving car tailored for teenagers without a driving license. 
@@ -24,6 +24,7 @@
    :caption: Contents:
 
    requirements
+   architecture
    specifications
    test_cases
    test_runs

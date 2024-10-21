@@ -65,6 +65,11 @@ needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#B
                dict(directive="person", title="Person", prefix="P_", color="#DCB239", style="actor"),
                dict(directive="team", title="Team", prefix="T_", color="#DCB239", style="node"),
                dict(directive="release", title="Release", prefix="R_", color="#DCB239", style="node"),
+               # Architecture
+               dict(directive="system", title="System", prefix="SYS_", color="#DCB239", style="node"),
+               dict(directive="component", title="Component", prefix="COM_", color="#DCB239", style="card"),
+               dict(directive="interface", title="Interface", prefix="INT_", color="#DCB239", style="circle"),
+
            ]
 
 # Additional options, which shall be available for all need types.
@@ -121,6 +126,11 @@ needs_extra_links = [
       "option": "specs",
       "incoming": "test_cases",
       "outgoing": "specs",
+   },
+   {  # arch -> arch // All arch elements
+      "option": "contains",
+      "incoming": "integrated into",
+      "outgoing": "contains",
    },
 ]
 
@@ -381,4 +391,5 @@ def setup(app):
     # We connect our jinja-function from above with the "source-read" event of Sphinx,
     # which gets called for every file before Sphinx starts to handle the file on its own.
     # This allows us to manipulate the content.
-    app.connect("source-read", rstjinja)
+    # app.connect("source-read", rstjinja)
+    pass

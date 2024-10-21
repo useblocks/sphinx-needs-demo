@@ -1,4 +1,7 @@
 {
     "sphinx-needs.needsJson": "${workspaceFolder}/docs/_build/html/needs.json",
     "sphinx-needs.srcDir": "${workspaceFolder}/docs/",
+    "ubcode.licenseKey": "EWJWW-ZYVGK-TDQFV-SOFKZ",
+    "ubcode.needsJson": "${workspaceFolder}/docs/_build/html/needs.json",
+    "ubcode.srcDir": "${workspaceFolder}/docs",
 }

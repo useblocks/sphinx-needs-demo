@@ -23,7 +23,6 @@
    :author: ROBERT, PETER
    :release: REL_TEEN_2025_6
    :status: in progress
-   :based_on: BASE_WIFI, BASE_BT
  
    The car should be equipped with built-in Wi-Fi, Bluetooth connectivity, and compatibility with smartphone integration systems to enable seamless communication and entertainment for teenagers on the go.
 

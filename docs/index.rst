@@ -214,11 +214,8 @@ Page Content
 .. toctree::
    :maxdepth: 2
 
-   base_car/index
    teen_car/index
-   granny_car/index
    persons
-   analysis
 
 
 .. toctree::
