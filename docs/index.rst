@@ -57,12 +57,6 @@ Most of the need content was created using AI. Also most of the images were gene
 However, all the meta-data, configuration, and analysis were set by hand, so that the setup shows 
 examples of a real-world use cases and solutions.
 
-Demo Status
------------
-This demo page is an early alpha version.
-The chapter of :ref:`teen_car` is mostly complete in terms of configuration and show cases, even if the amount
-of requirements and co. is quite small.
-
 Demo playground
 ---------------
 This Demo includes also a specialized docs-as-code setup for a Gitpod online IDE.
@@ -82,147 +76,19 @@ The Gitpod IDE provides the following features:
 * Launch configuration to build the Sphinx demo project
 
 
-Demo Object and Meta Model
---------------------------
-
-
-.. uml::
-
-   @startuml
-   
-   class "Team" as team #b7ff43 {
-      id
-      title
-      + persons
-   }
-   class "Person" as person #508002 {
-      id
-      title
-      role
-      contact
-      title
-   }
-   
-   class "Requirement" as req #10b8c4 {
-      id
-      title
-      status
-      tags
-      +links
-      +author
-      +release
-      +based_on
-   }
-   
-   
-   class "Specification" as spec #5555cc {
-      id
-      title
-      status
-      tags
-      +links
-      +author
-      +reqs
-
-   }
-
-   class "Test Case" as test #790691 {
-      id
-      title
-      status
-      tags
-      +links
-      +author
-      +spec
-      +runs
-   }
-
-   class "Test Run" as run #b38405 {
-      id
-      title
-      status
-      tags
-      +author
-      +release
-      +based_on
-   }
-
-   class "Implementation" as impl #b11616  {
-      id
-      title
-      status
-      tags
-      +author
-      +implements
-   }
-
-   class "Release" as release #0d7e6b {
-      id
-      title
-      status
-      tags
-      +author
-   }
-
-
-
-   team -> person: persons
-
-   req --> req: based_on
-   req <-- spec : reqs
-   req -left-> release: release
-   spec <-- test: spec
-   spec <- impl: implements
-   test -> run : runs: automatically\nlinked
-
-   req -[#999]-> person:  <color:#999>author 
-   spec -[#999]-> person: <color:#999>author 
-   test -[#999]-> person: <color:#999>author 
-   release -[#999]-> person: <color:#999>author 
-
-
-   
-   @enduml
-
-ToDo
-----
-
-* ☑ Dashboard and Analysis page (tables, flowcharts, pies)
-* ☑ Template for need objects, showing connected objects (for reqs and specs)
-* ☑ Code API example and linking
-* ☑ Sphinx-Preview or alternative
-* ☐ Much more content
-* ☐ SW Architecture example
-* ☐ Sphinx-Build documentation
-* ☑ ``needs_constraints`` example
-* ☑ ``conf.py`` integration and details
-* ☐ CI integration (☑ Read the docs, checks and GitHub action missing)
-* ☐ PDF build (postponed, as a build with Sphinx-SimpledPDF needs special handling because of images and used Sphinx-Design grids)
-* ☐ Add a drawio example
-* ☑ Example for variant handling
-* ☐ List of single features, plus explanation and link to doc, where it is used.
-* ☐ Nested Needs Example
-* ☐ Better Example data. We need to kind of examples. One for all skill-levels, one for Automotive managers
-
-  * All-Skill-Level: Feature-based development of a Rocket (Req,Specs, Tests all on one feature-page)
-  * Automotive: ECU-dev by V-model. Per type one file/folder
-
 
 Page Content
 ------------
 
 .. toctree::
    :maxdepth: 2
-
-   base_car/index
-   teen_car/index
-   granny_car/index
-   persons
-   analysis
-
-
-.. toctree::
-   :maxdepth: 2
+   :caption: Explanation
 
    demo_details
    online_editor
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Demonstration
+
+   automotive-adas/index

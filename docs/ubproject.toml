@@ -1,0 +1,88 @@
+# all paths are given relative to the location of this file
+
+key = "docs"    # unique key across the organisation
+type = "sphinx" # a Sphinx project, this determines the schema of the other options
+srcdir = "."    # Sphinx srcdir
+
+# URL deployment patterns for tags and branches, used to resolve links during runtime
+[deployment-url-patterns]
+tag = "https://sphinx-needs-demo.readthedocs.io"
+branch = "https://sphinx-needs-demo.readthedocs.io"
+
+# order determines the priority (e.g. if needs.json does not exist, fast-trace is used)
+#[[inventory]]
+#source-type = "needs.json"
+#path = "_build/html/needs.json"
+
+[[inventory]]
+source-type = "fast-trace"
+rst-globs = ["**/*.rst"]   # relative to srcdir
+
+[[needs.types]]
+directive = "req"
+title = "Requirement"
+prefix = "REQ_"
+color = "#aaaaaa"
+style = "node"
+
+[[needs.types]]
+directive = "spec"
+title = "Specifications"
+prefix = "SPEC_"
+color = "#aaaaaa"
+style = "node"
+
+[[needs.types]]
+directive = "test"
+title = "TestCase"
+prefix = "TC_"
+color = "#aaaaaa"
+style = "node"
+
+[[needs.types]]
+directive = "impl"
+title = "Implementation"
+prefix = "IMPL_"
+color = "#aaaaaa"
+style = "node"
+
+[[needs.types]]
+directive = "person"
+title = "Person"
+prefix = "PER"
+color = "#aaaaaa"
+style = "node"
+
+[[needs.types]]
+directive = "team"
+title = "Team"
+prefix = "TEAM"
+color = "#aaaaaa"
+style = "node"
+
+
+[[needs.types]]
+directive = "arch"
+title = "Architecture"
+prefix = "ARCH"
+color = "#aaaaaa"
+style = "node"
+
+[[needs.types]]
+directive = "swarch"
+title = "SW Architecture"
+prefix = "SWARCH"
+color = "#aaaaaa"
+style = "node"
+
+
+[[needs.types]]
+directive = "swreq"
+title = "SW Requirement"
+prefix = "SWREQ"
+color = "#aaaaaa"
+style = "node"
+
+[needs_json]
+path = "_build/html/needs.json"
+src = "."
