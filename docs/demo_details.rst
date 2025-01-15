@@ -62,21 +62,11 @@ Details are explained as comments in the file itself.
 Templates
 ---------
 
-req_post
+all_post
 ~~~~~~~~
-Adds the "Object traceability details" under each requirement.
+Adds the "Object traceability details" under each object.
 
-.. literalinclude:: needs_templates/req_post.need
-   :language: rst
-   :linenos:
-
-spec_post
-~~~~~~~~~
-Adds the "Object traceability details" under each specification.
-
-The used filters are slightly different from the ones used for requirements, therefore an extra template is used.
-
-.. literalinclude:: needs_templates/spec_post.need
+.. literalinclude:: needs_templates/all_post.need
    :language: rst
    :linenos:
 

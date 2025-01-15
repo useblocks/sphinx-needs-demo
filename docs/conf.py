@@ -58,13 +58,17 @@ needs_build_json = True
 
 # List of need type, we need in our documentation.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
-needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#BFD8D2", style="node"),
-               dict(directive="spec", title="Specification", prefix="S_", color="#FEDCD2", style="node"),
-               dict(directive="impl", title="Implementation", prefix="I_", color="#DF744A", style="node"),
-               dict(directive="test", title="Test Case", prefix="T_", color="#DCB239", style="node"),
-               dict(directive="person", title="Person", prefix="P_", color="#DCB239", style="actor"),
-               dict(directive="team", title="Team", prefix="T_", color="#DCB239", style="node"),
-               dict(directive="release", title="Release", prefix="R_", color="#DCB239", style="node"),
+needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#FFB300", style="node"),
+               dict(directive="spec", title="Specification", prefix="S_", color="#803E75", style="node"),
+               dict(directive="impl", title="Implementation", prefix="I_", color="#FF6800", style="node"),
+               dict(directive="test", title="Test Case", prefix="T_", color="#A6BDD7", style="node"),
+               dict(directive="person", title="Person", prefix="P_", color="#C10020", style="actor"),
+               dict(directive="team", title="Team", prefix="T_", color="#CEA262", style="node"),
+               dict(directive="release", title="Release", prefix="R_", color="#817066", style="node"),
+               dict(directive="arch", title="Architecture", prefix="_", color="#4aac73", style="node"),
+               dict(directive="need", title="Need", prefix="_", color="#F6768E", style="node"),
+               dict(directive="swarch", title="SW_Architecture", prefix="SWARCH_", color="#2d86c1", style="node"),
+               dict(directive="swreq", title="SW_Requirement", prefix="SWREQ_", color="#FF7A5C", style="node"),
            ]
 
 # Additional options, which shall be available for all need types.
@@ -160,14 +164,15 @@ needs_global_options = {
    # What gets added is set in the related template file under ``/needs_templates``.
    # In our case a traceability flow chart is generated, plus the same information as table.
    'post_template': [
-       ("req_post", "type in ['req']"),
-       ("spec_post", "type in ['spec']")
-   ],
+       ('all_post', "type not in ['person']"),
+       ('person_post', "type in ['person']"),
+    ],
    'constraints': [
        (["status_set", "release_set"], "type in ['req']")
    ],
    'layout': [
-       ('req_constraint', "type in ['req']")
+       ('req_constraint', "type in ['req']"),
+       ('adas', "type not in ['req']"),
    ]
 }
 
@@ -223,6 +228,17 @@ needs_variants = {
 needs_variant_options = ["author", "status"]
 
 needs_layouts = {
+    "adas": {
+        "grid": "simple_footer",
+        "layout": {
+            "head": [
+                '<<meta("type_name")>>: **<<meta("title")>>** <<meta_id()>>  <<collapse_button("meta", '
+                'collapsed="icon:arrow-down-circle", visible="icon:arrow-right-circle", initial=False)>> '
+            ],
+            "meta": ["<<meta_all(no_links=True, exclude=['constraints_error'])>>", "<<meta_links_all()>>"],
+            "footer": ["**Status**: <<meta('status')>>"]
+        },
+    },
     "req_constraint": {
         "grid": "simple_footer",
         "layout": {

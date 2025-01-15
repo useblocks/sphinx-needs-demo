@@ -32,36 +32,44 @@ span.need-part a.internal {
 
 }
 
-table.needs_type_req tr.head td {
-    border-bottom: 4px solid #10b8c4;
+table.needs_type_need tr.head td {
+    border-bottom: 4px solid #F6768E !important; 
 }
 
-table.needs_type_spec tr.head td {
-    border-bottom: 4px solid #3333aa;
+table.needs_type_req tr.head td {
+    border-bottom: 4px solid #FFB300 !important;
+}
+
+table.needs_type_swreq tr.head td {
+    border-bottom: 4px solid #FF7A5C !important;
+}
+
+table.needs_type_swarch tr.head td {
+    border-bottom: 4px solid #2d86c1 !important;
+}
+
+table.needs_type_arch tr.head td {
+    border-bottom: 4px solid #4aac73 !important;
 }
 
 table.needs_type_test tr.head td {
-    border-bottom: 4px solid #b21dcf;
-}
-
-table.needs_type_testrun tr.head td {
-    border-bottom: 4px solid #b38405;
+    border-bottom: 4px solid #A6BDD7 !important;
 }
 
 table.needs_type_impl tr.head td {
-    border-bottom: 4px solid #b11616;
+    border-bottom: 4px solid #FF6800 !important;
 }
 
 table.needs_type_release tr.head td {
-    border-bottom: 4px solid #0d7e6b;
+    border-bottom: 4px solid #817066 !important;
 }
 
 table.needs_type_person td.meta {
-    border-top: 4px solid #508002 !important;
+    border-top: 4px solid #C10020 !important;
 }
 
 table.needs_type_team td.meta {
-    border-top: 4px solid #b7ff43 !important;
+    border-top: 4px solid #CEA262 !important;
 }
 
 table.needs_style_blue_bar {
