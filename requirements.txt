@@ -4,7 +4,7 @@ sphinx-design
 sphinx-immaterial
 sphinxcontrib-plantuml
 sphinx-autobuild
-sphinx-test-reports
+sphinx-test-reports @ git+https://github.com/useblocks/sphinx-test-reports@master
 sphinx-simplepdf
 sphinx-preview
 weasyprint==60.2
