@@ -153,14 +153,14 @@ Demo Object and Meta Model
    req -left-> release: release
    
    arch <-- test: links
-   arch <-- swarch: links
-   
-   swarch <- swreq: links
+   arch <-- swreq: links
+      
    swarch <-- test : links
    swarch <- impl: links
    
    swreq <-- test : links
    swreq  <- impl: links
+   swreq <-- swarch: links
    
    test -> run : runs: automatically\nlinked
 
