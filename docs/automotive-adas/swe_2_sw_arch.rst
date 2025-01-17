@@ -14,6 +14,23 @@ SWE.2 Software Architecture
 
    Design the software architecture for the Lane Detection Subsystem, including data acquisition, processing, and corrective action modules.
 
+   .. uml::
+      
+      @startuml
+      class LaneDetection {
+          + detectLaneMarkings()
+          + applySteeringCorrection()
+      }
+      class CameraInput {
+          + provideData()
+      }
+      class SteeringControl {
+          + correctSteering()
+      }
+      LaneDetection --> CameraInput
+      LaneDetection --> SteeringControl
+      @enduml
+
 .. swarch:: Adaptive Cruise Control Subsystem
    :id: SWARCH_002
    :status: open
@@ -21,6 +38,23 @@ SWE.2 Software Architecture
    :author: ALFRED
 
    Define the architecture for the Adaptive Cruise Control Subsystem, integrating distance measurement, speed adjustment, and driver override mechanisms.
+
+   .. uml::
+      
+      @startuml
+      class AdaptiveCruiseControl {
+          + measureDistance()
+          + adjustSpeed()
+      }
+      class RadarSensor {
+          + detectObjects()
+      }
+      class SpeedController {
+          + setSpeed()
+      }
+      AdaptiveCruiseControl --> RadarSensor
+      AdaptiveCruiseControl --> SpeedController
+      @enduml
 
 .. swarch:: Collision Avoidance Subsystem
    :id: SWARCH_003
@@ -30,6 +64,23 @@ SWE.2 Software Architecture
 
    Develop the architecture for the Collision Avoidance Subsystem, focusing on predictive analytics, braking control, and vehicle stabilization.
 
+   .. uml::
+      
+      @startuml
+      class CollisionAvoidance {
+          + detectCollisionRisk()
+          + applyEmergencyBraking()
+      }
+      class SensorArray {
+          + collectData()
+      }
+      class BrakingSystem {
+          + applyBrakes()
+      }
+      CollisionAvoidance --> SensorArray
+      CollisionAvoidance --> BrakingSystem
+      @enduml
+
 .. swarch:: Pedestrian Detection Subsystem
    :id: SWARCH_004
    :status: open
@@ -37,6 +88,24 @@ SWE.2 Software Architecture
    :author: SARAH
 
    Create the architecture for the Pedestrian Detection Subsystem, including detection algorithms, path prediction, and safety prioritization modules.
+
+   .. uml::
+      
+      @startuml
+      class PedestrianDetection {
+          + detectPedestrians()
+          + predictPath()
+      }
+      class SensorFusion {
+          + combineData()
+      }
+      class AlertSystem {
+          + triggerAlert()
+      }
+      PedestrianDetection --> SensorFusion
+      PedestrianDetection --> AlertSystem
+      @enduml
+
 
 .. swarch:: Alert Mechanism Framework
    :id: SWARCH_005
@@ -46,6 +115,28 @@ SWE.2 Software Architecture
 
    Design the software framework for managing driver alerts, integrating audio, visual, and haptic feedback systems.
 
+   .. uml::
+      
+      @startuml
+      class AlertFramework {
+          + sendAudioAlert()
+          + sendVisualAlert()
+          + sendHapticAlert()
+      }
+      class AudioSystem {
+          + playSound()
+      }
+      class VisualSystem {
+          + displayAlert()
+      }
+      class HapticSystem {
+          + provideFeedback()
+      }
+      AlertFramework --> AudioSystem
+      AlertFramework --> VisualSystem
+      AlertFramework --> HapticSystem
+      @enduml
+
 .. swarch:: Emergency Braking Subsystem
    :id: SWARCH_006
    :status: closed
@@ -53,3 +144,20 @@ SWE.2 Software Architecture
    :author: SARAH
 
    Define the architecture for the Emergency Braking Subsystem, focusing on pedestrian safety, predictive emergency stops, and optimization of braking efficiency.
+
+   .. uml::
+      
+      @startuml
+      class EmergencyBraking {
+          + evaluateRisk()
+          + applyBraking()
+      }
+      class RiskAnalyzer {
+          + calculateRisk()
+      }
+      class BrakeController {
+          + controlBrakes()
+      }
+      EmergencyBraking --> RiskAnalyzer
+      EmergencyBraking --> BrakeController
+      @enduml

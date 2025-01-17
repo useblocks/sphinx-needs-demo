@@ -29,7 +29,7 @@ extensions = [
     "sphinx_needs",
     "sphinx_design",
     "sphinxcontrib.plantuml",
-    "sphinxcontrib.test_reports",
+    # "sphinxcontrib.test_reports",
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
@@ -159,7 +159,7 @@ needs_global_options = {
    # if the ID of need A is the same as the case_name of need B.
    # But we do this only for objects of type ``test``.
    # Docs: https://sphinx-test-reports.readthedocs.io/en/latest/functions.html#tr-link
-   'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
+   #'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
    # By setting ``post_template``, we can add some extra content below a need object.
    # What gets added is set in the related template file under ``/needs_templates``.
    # In our case a traceability flow chart is generated, plus the same information as table.
