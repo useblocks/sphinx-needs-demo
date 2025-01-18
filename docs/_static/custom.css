@@ -41,7 +41,7 @@ table.needs_type_req tr.head td {
 }
 
 table.needs_type_swreq tr.head td {
-    border-bottom: 4px solid #FF7A5C !important;
+    border-bottom: 4px solid #a8f578 !important;
 }
 
 table.needs_type_swarch tr.head td {
@@ -57,19 +57,23 @@ table.needs_type_test tr.head td {
 }
 
 table.needs_type_impl tr.head td {
-    border-bottom: 4px solid #FF6800 !important;
+    border-bottom: 4px solid #fa8638 !important;
 }
 
 table.needs_type_release tr.head td {
     border-bottom: 4px solid #817066 !important;
 }
 
-table.needs_type_person td.meta {
-    border-top: 4px solid #C10020 !important;
+table.needs_type_person tr.head td  {
+    border-bottom: 4px solid #C10020 !important;
 }
 
-table.needs_type_team td.meta {
-    border-top: 4px solid #CEA262 !important;
+table.needs_type_team tr.head td  {
+    border-bottom: 4px solid #CEA262 !important;
+}
+
+table.needs_type_spec tr.head td  {
+    border-bottom: 4px solid #ec6dd7 !important;
 }
 
 table.needs_style_blue_bar {

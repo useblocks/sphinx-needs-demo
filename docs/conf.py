@@ -59,8 +59,8 @@ needs_build_json = True
 # List of need type, we need in our documentation.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
 needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#FFB300", style="node"),
-               dict(directive="spec", title="Specification", prefix="S_", color="#803E75", style="node"),
-               dict(directive="impl", title="Implementation", prefix="I_", color="#FF6800", style="node"),
+               dict(directive="spec", title="Specification", prefix="S_", color="#ec6dd7", style="node"),
+               dict(directive="impl", title="Implementation", prefix="I_", color="#fa8638", style="node"),
                dict(directive="test", title="Test Case", prefix="T_", color="#A6BDD7", style="node"),
                dict(directive="person", title="Person", prefix="P_", color="#C10020", style="actor"),
                dict(directive="team", title="Team", prefix="T_", color="#CEA262", style="node"),
@@ -68,7 +68,7 @@ needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#F
                dict(directive="arch", title="Architecture", prefix="_", color="#4aac73", style="node"),
                dict(directive="need", title="Need", prefix="_", color="#F6768E", style="node"),
                dict(directive="swarch", title="SW_Architecture", prefix="SWARCH_", color="#2d86c1", style="node"),
-               dict(directive="swreq", title="SW_Requirement", prefix="SWREQ_", color="#FF7A5C", style="node"),
+               dict(directive="swreq", title="SW_Requirement", prefix="SWREQ_", color="#a8f578", style="node"),
            ]
 
 # Additional options, which shall be available for all need types.
@@ -164,11 +164,11 @@ needs_global_options = {
    # What gets added is set in the related template file under ``/needs_templates``.
    # In our case a traceability flow chart is generated, plus the same information as table.
    'post_template': [
-       ('all_post', "type not in ['person']"),
+       ('all_post', "type not in ['person'] and 'automotive-adas' in docname"),
        ('person_post', "type in ['person']"),
     ],
    'constraints': [
-       (["status_set", "release_set"], "type in ['req']")
+       (["status_set", "release_set"], "type in ['req'] and 'automotive-adas' in docname")
    ],
    'layout': [
        ('req_constraint', "type in ['req']"),
@@ -319,7 +319,7 @@ html_theme_options = {
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
     "repo_name": "Sphinx-Needs Demo",
     "edit_uri": "blob/main/docs",
-    "globaltoc_collapse": True,
+    "globaltoc_collapse": False,
     "features": [
         "navigation.expand",
         # "navigation.tabs",

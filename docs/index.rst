@@ -91,4 +91,5 @@ Page Content
    :maxdepth: 2
    :caption: Demonstration
 
+   basic_example/index
    automotive-adas/index
