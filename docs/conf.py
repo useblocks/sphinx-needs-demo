@@ -137,7 +137,7 @@ needs_id_required = True
 
 # The format of a need gets defined here.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
-needs_id_regex = r"[A-Z_]{3,10}_[\d]{1,3}"
+needs_id_regex = r"[A-Z_]{3,10}(_[\d]{1,3})*"
 
 # We override the default test-case need of Sphinx-Test-Reports, so that is called
 # ``test_run`` instead.
