@@ -8,6 +8,7 @@ SYS.1 Requirement Elicitation
    :id: NEED_001
    :status: open
    :author: ROBERT
+   :jira: 1
 
    The system shall detect lane markings and provide corrective steering input to keep the 
    vehicle within the lane.
@@ -16,6 +17,7 @@ SYS.1 Requirement Elicitation
    :id: NEED_002
    :status: open
    :author: ROBERT
+   :jira: 2
 
    The system shall automatically adjust the vehicle's speed to maintain a safe distance 
    from the vehicle ahead.

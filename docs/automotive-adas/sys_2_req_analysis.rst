@@ -13,6 +13,7 @@ SYS.2 Requirement Analysis
    :links: NEED_001
    :release: REL_ADAS_2025_6
    :author: PETER
+   :jira: 3
 
    Develop a lane detection algorithm to process camera input and accurately identify lane markings under various lighting conditions.
 
@@ -22,6 +23,7 @@ SYS.2 Requirement Analysis
    :links: NEED_001
    :release: REL_ADAS_2025_6
    :author: PETER
+   :jira: 4
 
    Implement a control logic module to provide smooth and precise steering corrections based on detected lane positions.
 

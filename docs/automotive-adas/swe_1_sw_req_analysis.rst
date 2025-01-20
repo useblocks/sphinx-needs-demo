@@ -11,6 +11,7 @@ SWE.1 Software Requirements
    :status: open
    :links: ARCH_001, REQ_001
    :author: PETER
+   :github: 4
 
    Develop software to process camera inputs and accurately identify lane markings under various environmental conditions.
 
@@ -19,6 +20,7 @@ SWE.1 Software Requirements
    :status: open
    :links: ARCH_001, REQ_002
    :author: ROBERT
+   :github: 5
 
    Implement a feature to trigger warnings if the vehicle deviates from its lane without proper signaling.
 

@@ -23,6 +23,7 @@
    releases
    persons
    analysis
+   external_data
    sys_1_req_elicitation
    sys_2_req_analysis
    sys_3_sys_arch
@@ -34,6 +35,17 @@
    swe_6_sw_quali_tests
    sys_4_sys_integation_tests
    sys_5_sys_quali_test
+
+
+V-model and service connectors
+------------------------------
+
+.. image:: /_images/useblocks_v_model.png
+   :width: 50%
+
+Commercial connectors for the following services are available by `useblocks <https://useblocks.com/>`__:
+Codebeamer, Jira, Azure DevOps, Github, Excel.
+
 
 Demo Object and Meta Model
 --------------------------

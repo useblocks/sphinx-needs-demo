@@ -73,7 +73,7 @@ needs_types = [dict(directive="req", title="Requirement", prefix="R_", color="#F
 
 # Additional options, which shall be available for all need types.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
-needs_extra_options = ['role', 'contact', 'image', 'date', 'customer']
+needs_extra_options = ['role', 'contact', 'image', 'date', 'customer', 'github', 'jira', 'config']
 
 # Extra link types, which shall be available and allow need types to be linked to each other.
 # We use a dedicated linked type for each type of a conncetion, for instance from 
@@ -136,11 +136,8 @@ needs_extra_links = [
 needs_id_required = True
 
 # The format of a need gets defined here.
-# In this demo project, we allow any kind of ID. 
-# But it could be also much more complex. 
-# For instance: `^[A-Z]{3}_[0-9]{1,4}$`, which allows IDs like "ABC_1234" or "DEA_3" only.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
-needs_id_regex = r".*"
+needs_id_regex = r"[A-Z_]{3,10}_[\d]{1,3}"
 
 # We override the default test-case need of Sphinx-Test-Reports, so that is called
 # ``test_run`` instead.
@@ -250,6 +247,47 @@ needs_layouts = {
             "footer": ["**Process feedback**: <<meta('constraints_error')>>"]
         },
     },
+}
+
+needs_string_links = {
+    # Adds link to the Sphinx-Needs configuration page
+    'config_link': {
+        'regex': r'^(?P<value>\w+)$',
+        'link_url': 'https://sphinx-needs.readthedocs.io/en/latest/configuration.html#{{value | replace("_", "-")}}',
+        'link_name': 'Sphinx-Needs docs for {{value | replace("_", "-") }}',
+        'options': ['config']
+    },
+    # Links to the related github issue
+    'github_link': {
+        'regex': r'^(?P<value>\w+)$',
+        'link_url': 'https://github.com/useblocks/sphinx-needs-demo/issues/{{value}}',
+        'link_name': 'SN Demo #{{value}}',
+        'options': ['github']
+    },
+    # Links to the related jira issue
+    'jira_link': {
+        'regex': r'^(?P<value>\w+)$',
+        'link_url': 'https://useblocks.atlassian.net/browse/ADAS-{{value}}',
+        'link_name': 'JIRA ADAS #{{value}}',
+        'options': ['jira']
+    }
+}
+
+needs_services = {
+    'github-issues': {
+        'url': 'https://api.github.com/',
+        'need_type': 'swreq',
+        'max_amount': 2,
+        'max_content_lines': 20,
+        'id_prefix': 'GH_ISSUE_'
+    },
+    'github-prs': {
+        'url': 'https://api.github.com/',
+        'need_type': 'impl',
+        'max_amount': 2,
+        'max_content_lines': 20,
+        'id_prefix': 'GH_PR_'
+    }
 }
 
 ###############################################################################
