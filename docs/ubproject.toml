@@ -392,8 +392,13 @@ options = true
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys
 [needs.import_keys]
-imported_project = "/needs.json"
+imported_project = "/needs_import.json"
 
+[[needs.external_needs]]
+json_path = "./needs_external.json"
+base_url = "https://example.com"
+target_url = "{{need['id']}}"
+version = "1.0"
 
 # ubCode setting: display a needs.json file in the extension view
 [needs_json]

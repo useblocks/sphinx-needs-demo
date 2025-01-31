@@ -5,7 +5,7 @@
     "1.0": {
       "creator": { "program": "sphinx_needs", "version": "4.2.0" },
       "needs": {
-        "REQ_1_1": {
+        "REQ_1_1_ext": {
           "arch": {},
           "avatar": "",
           "closed_at": "",
@@ -24,7 +24,7 @@
           "full_title": "Requirement page 1 nr 1",
           "has_dead_links": false,
           "has_forbidden_dead_links": false,
-          "id": "REQ_1_1",
+          "id": "REQ_1_1_ext",
           "id_prefix": "",
           "is_external": false,
           "is_modified": false,
@@ -34,7 +34,7 @@
           "layout": "",
           "lineno": 26,
           "links": [],
-          "links_back": ["SPEC_1_1"],
+          "links_back": ["SPEC_1_1_ext"],
           "max_amount": "",
           "max_content_lines": "",
           "modifications": 0,
@@ -65,7 +65,7 @@
           "url_postfix": "",
           "user": ""
         },
-        "REQ_1_2": {
+        "REQ_1_2_ext": {
           "arch": {},
           "avatar": "",
           "closed_at": "",
@@ -84,7 +84,7 @@
           "full_title": "Requirement page 1 nr 2",
           "has_dead_links": false,
           "has_forbidden_dead_links": false,
-          "id": "REQ_1_2",
+          "id": "REQ_1_2_ext",
           "id_prefix": "",
           "is_external": false,
           "is_modified": false,
@@ -94,7 +94,7 @@
           "layout": "",
           "lineno": 31,
           "links": [],
-          "links_back": ["SPEC_1_2"],
+          "links_back": ["SPEC_1_2_ext"],
           "max_amount": "",
           "max_content_lines": "",
           "modifications": 0,
@@ -125,7 +125,7 @@
           "url_postfix": "",
           "user": ""
         },
-        "SPEC_1_1": {
+        "SPEC_1_1_ext": {
           "arch": {},
           "avatar": "",
           "closed_at": "",
@@ -144,7 +144,7 @@
           "full_title": "Specification page 1 nr 1",
           "has_dead_links": false,
           "has_forbidden_dead_links": false,
-          "id": "SPEC_1_1",
+          "id": "SPEC_1_1_ext",
           "id_prefix": "",
           "is_external": false,
           "is_modified": false,
@@ -153,7 +153,7 @@
           "jinja_content": false,
           "layout": "",
           "lineno": 37,
-          "links": ["REQ_1_1"],
+          "links": ["REQ_1_1_ext"],
           "links_back": [],
           "max_amount": "",
           "max_content_lines": "",
@@ -185,7 +185,7 @@
           "url_postfix": "",
           "user": ""
         },
-        "SPEC_1_2": {
+        "SPEC_1_2_ext": {
           "arch": {},
           "avatar": "",
           "closed_at": "",
@@ -204,7 +204,7 @@
           "full_title": "Specification page 1 nr 2",
           "has_dead_links": false,
           "has_forbidden_dead_links": false,
-          "id": "SPEC_1_2",
+          "id": "SPEC_1_2_ext",
           "id_prefix": "",
           "is_external": false,
           "is_modified": false,
@@ -213,7 +213,7 @@
           "jinja_content": false,
           "layout": "",
           "lineno": 42,
-          "links": ["REQ_1_2"],
+          "links": ["REQ_1_2_ext"],
           "links_back": [],
           "max_amount": "",
           "max_content_lines": "",
