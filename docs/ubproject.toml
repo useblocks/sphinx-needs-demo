@@ -376,7 +376,36 @@ max_content_lines = 20
 need_type = "impl"
 url = "https://api.github.com/"
 
-# this is a ubCode specific setting
+# ubCode setting: add custom extensions 
+[parse.extend_directives.uml]
+# see https://github.com/sphinx-contrib/plantuml
+description = "Render UML diagrams"
+argument = true
+content_required = false
+parse_content = false
+content = true
+options = true
+
+[parse.extend_directives.if-builder]
+# see https://sphinx-simplepdf.readthedocs.io/en/latest/directives.html#if-builder
+description = "Sphinx-SimplePDF builder specific content"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = false
+
+[parse.extend_directives.button-link]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+# not yet part of ubCode internal directives
+description = "Sphinx-Design button with link"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = true
+
+# ubCode setting: display a needs.json file in the extension view
 [needs_json]
 path = "_build/html/needs.json"
 src = "."
