@@ -6,7 +6,7 @@
 SYS.4 Integration Test Cases
 ============================
 
-This document provides validation test cases to ensure the architectural elements defined in 
+This document provides validation test cases to ensure the architectural elements defined in
 SYS.3 function as intended.
 
 .. test:: Lane Detection Validation

@@ -2,7 +2,7 @@
 
    .. warning::
       :title: Object traceability details: {{title}}
-      :collapsible:  
+      :collapsible:
 
       .. needflow::
           :filter:  "{{id}}"==id or "{{id}}" in links or "{{id}}" in links_back or "{{id}}" in author_back

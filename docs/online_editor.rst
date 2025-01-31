@@ -26,14 +26,14 @@ Start the Online Editor
 
 .. hint::
 
-   It may take up to a minute to start the Online Editor (~30s) and build the docs (~25s). 
+   It may take up to a minute to start the Online Editor (~30s) and build the docs (~25s).
    After this, the documentation build is only building updated files, which is normally done in under a second.
 
 #. Open the following link in your browser:
    https://gitpod.io/#https://github.com/useblocks/sphinx-needs-demo
 #. You are asked to log in with a Gitpod or Github account.
 #. Select the editor to use. Recommended for this demo is ``VS Code Browser``.
-   
+
    .. image:: /_images/gitpod_config.png
       :align: center
       :width: 40%
@@ -49,7 +49,7 @@ Start the Online Editor
 After everything is running:
 
 #. Feel free to edit and save any file under ``docs``.
-#. With each change, the docs get built automatically and you can see the result in the preview, after refreshing the page 
+#. With each change, the docs get built automatically and you can see the result in the preview, after refreshing the page
    (normally by pressing ``F5``).
 
 .. image:: _images/gitpod_editor.png
@@ -58,7 +58,7 @@ After everything is running:
 
 Watching the built documentation
 --------------------------------
-Your specific build of the Sphinx-Needs-Demo project is publicly available and can be shared 
+Your specific build of the Sphinx-Needs-Demo project is publicly available and can be shared
 with colleagues and other users around the world, as long as your Gitpod instance is running.
 
 You can get the link by opening the "ports" tab and copy the address entry for the port "8000".
@@ -153,7 +153,7 @@ Select one and you see its log messages.
    :width: 80%
    :align: center
 
-Captured Editor run 
+Captured Editor run
 -------------------
 
 .. image:: /_images/editor_showcase.gif

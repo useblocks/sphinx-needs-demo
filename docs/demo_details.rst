@@ -10,7 +10,7 @@ to define this documentation project.
 Extensions
 ----------
 
-:`Sphinx-Needs <https://sphinx-needs.readthedocs.io>`__: 
+:`Sphinx-Needs <https://sphinx-needs.readthedocs.io>`__:
     Used to create and link objects in the documentation, mainly requirements, specifications and tests.
     Provides also features to filter and represent the objects in tables and flow charts.
 
@@ -22,7 +22,7 @@ Extensions
     Provides features to layout the content or to use dropdown, buttons or tabs.
 
 :`Sphinx-Immaterial <https://jbms.github.io/sphinx-immaterial/>`__:
-    The Sphinx theme for this documentation. 
+    The Sphinx theme for this documentation.
 
 :`Sphinxcontrib-PlantUML <https://github.com/sphinx-contrib/plantuml>`__:
     Allows to use `PlantUML <https://plantuml.com/>`__ inside a Sphinx project. Used to create all kinds of diagrams.

@@ -6,7 +6,7 @@
 Sphinx-Needs Demo
 =================
 
-This is a demo documentation for showing the features of `Sphinx-Needs <https://sphinx-needs.readthedocs.io/en/latest/>`__. 
+This is a demo documentation for showing the features of `Sphinx-Needs <https://sphinx-needs.readthedocs.io/en/latest/>`__.
 
 .. image:: /_images/sphinx-needs-logo-bg.png
    :align: center
@@ -43,7 +43,7 @@ The complete source code can be found here: https://github.com/useblocks/sphinx-
 
 Features and technical details are described inside dropdowns like this one:
 
-.. tip:: 
+.. tip::
    :title: Demo feature hint: Just an example
    :collapsible:
 
@@ -54,7 +54,7 @@ Demo Content
 ------------
 Most of the need content was created using AI. Also most of the images were generated this way.
 
-However, all the meta-data, configuration, and analysis were set by hand, so that the setup shows 
+However, all the meta-data, configuration, and analysis were set by hand, so that the setup shows
 examples of a real-world use cases and solutions.
 
 Demo playground
@@ -64,7 +64,7 @@ This Demo includes also a specialized docs-as-code setup for a Gitpod online IDE
 You can open it by simply clicking this link:
 `Gitpod Sphinx-Needs-Demo IDE <gitpod.io/#https://github.com/useblocks/sphinx-needs-demo>`__.
 
-A login with a Gitpod or GitHub account is needed. After this, you can use 
+A login with a Gitpod or GitHub account is needed. After this, you can use
 the online IDE for 50 hours per month for free.
 
 The Gitpod IDE provides the following features:

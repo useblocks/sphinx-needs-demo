@@ -1,5 +1,11 @@
 import unittest
-from automotive_adas import LaneDetection, AdaptiveCruiseControl, CollisionAvoidance, PedestrianDetection
+from automotive_adas import (
+    LaneDetection,
+    AdaptiveCruiseControl,
+    CollisionAvoidance,
+    PedestrianDetection,
+)
+
 
 class TestLaneDetection(unittest.TestCase):
     """
@@ -31,7 +37,10 @@ class TestLaneDetection(unittest.TestCase):
         """
         lane_detection = LaneDetection()
         # Mock lane data
-        self.assertTrue(lane_detection.apply_steering_correction(lane_data="mock_lane_data"))
+        self.assertTrue(
+            lane_detection.apply_steering_correction(lane_data="mock_lane_data")
+        )
+
 
 class TestAdaptiveCruiseControl(unittest.TestCase):
     """
@@ -63,6 +72,7 @@ class TestAdaptiveCruiseControl(unittest.TestCase):
         acc = AdaptiveCruiseControl()
         self.assertTrue(acc.adjust_speed(target_speed=60))
 
+
 class TestCollisionAvoidance(unittest.TestCase):
     """
     .. test:: Collision Avoidance Tests
@@ -90,6 +100,7 @@ class TestCollisionAvoidance(unittest.TestCase):
         """
         ca = CollisionAvoidance()
         self.assertTrue(ca.apply_emergency_braking())
+
 
 class TestPedestrianDetection(unittest.TestCase):
     """
@@ -127,6 +138,7 @@ class TestPedestrianDetection(unittest.TestCase):
         """
         pd = PedestrianDetection()
         self.assertTrue(pd.initiate_emergency_brake())
+
 
 if __name__ == "__main__":
     unittest.main()

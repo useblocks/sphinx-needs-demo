@@ -7,7 +7,7 @@ Github
 Links
 ~~~~~
 
-Links to GitHub objects are set directly in the Sphinx-Needs objects by using 
+Links to GitHub objects are set directly in the Sphinx-Needs objects by using
 `string-links <https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links>`__.
 
 See for instance the ``github`` option of :need:`SWREQ_001` or :need:`SWREQ_002`
@@ -22,12 +22,12 @@ PRs
    :+links: SWREQ_001
 
 
-.. tip:: 
+.. tip::
    :title: Show used documentation code.
    :collapsible:
-   
+
    .. code-block:: rst
-   
+
       .. needservice:: github-prs
          :specific: useblocks/sphinx-needs-demo/3
          :layout: adas
@@ -48,10 +48,10 @@ Issues
 .. needextend:: "Lane Deviation" in title
    :+links:  SWREQ_002
 
-.. tip:: 
+.. tip::
    :title: Show used documentation code.
    :collapsible:
-   
+
    .. code-block:: rst
 
       .. needservice:: github-issues
@@ -71,7 +71,7 @@ Jira
 
 Links
 ~~~~~
-Links to Jira objects are set directly in the Sphinx-Needs objects by using 
+Links to Jira objects are set directly in the Sphinx-Needs objects by using
 `string-links <https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links>`__.
 
 See for instance the ``jira`` option of :need:`NEED_001` or :need:`REQ_001`

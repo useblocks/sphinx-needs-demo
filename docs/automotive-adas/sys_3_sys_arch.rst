@@ -16,7 +16,7 @@ SYS.3 Architecture Design
    Design the architecture for the Lane Detection Module, including components for camera input processing, lane identification, and integration with steering control.
 
    .. uml::
-      
+
       @startuml
       node "Vehicle" {
           component LaneDetection  {
@@ -105,7 +105,7 @@ SYS.3 Architecture Design
    Create the architecture for the Pedestrian Safety Framework, integrating pedestrian detection, alert mechanisms, and emergency braking functionalities.
 
    .. uml::
-      
+
       @startuml
       node "Vehicle" {
           component PedestrianSafety {
