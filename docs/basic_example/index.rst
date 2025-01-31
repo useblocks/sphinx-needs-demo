@@ -106,3 +106,14 @@ Imported needs
 --------------
 
 .. needimport:: imported_project
+
+External needs
+--------------
+
+Here are some needs that are external to the documentation,
+but can still be linked in this documentation:
+
+- :need:`REQ_1_1_ext`
+- :need:`REQ_1_2_ext`
+- :need:`SPEC_1_1_ext`
+- :need:`SPEC_1_2_ext`
