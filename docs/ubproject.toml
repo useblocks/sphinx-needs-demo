@@ -1,88 +1,417 @@
-# all paths are given relative to the location of this file
+"$schema" = "https://ubcode.useblocks.com/ubproject.schema.json"
 
-key = "docs"    # unique key across the organisation
-type = "sphinx" # a Sphinx project, this determines the schema of the other options
-srcdir = "."    # Sphinx srcdir
+# This is the Sphinx-Needs configuration file in TOML format.
+# It is announced to Sphinx-Needs by putting
+#   needs_from_toml = "ubproject.toml"
+# into conf.py.
+# This is required to make the project work with ubCode.
+# For details see https://ubcode.useblocks.com
+# Also a declarative configuration format is generally a good idea.
 
-# URL deployment patterns for tags and branches, used to resolve links during runtime
-[deployment-url-patterns]
-tag = "https://sphinx-needs-demo.readthedocs.io"
-branch = "https://sphinx-needs-demo.readthedocs.io"
+[project]
+name = "Sphinx-Needs Demo"
+description = "Showcases for working with Sphinx-Needs"
+srcdir = "."
 
-# order determines the priority (e.g. if needs.json does not exist, fast-trace is used)
-#[[inventory]]
-#source-type = "needs.json"
-#path = "_build/html/needs.json"
+# all needs configuration goes to then needs table;
+# the varibles do not have the needs_ prefix in the name
+[needs]
+build_json = true
 
-[[inventory]]
-source-type = "fast-trace"
-rst-globs = ["**/*.rst"]   # relative to srcdir
+# Additional options, which shall be available for all need types.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
+extra_options = [
+    "role",
+    "contact",
+    "image",
+    "date",
+    "customer",
+    "github",
+    "jira",
+    "config",
+    "number",  # for needimport
+]
 
+# Force the author to set an ID by hand.
+# Otherwise Sphinx-Needs would create one based on the Need title.
+# So a title change will change the ID and all set links will get invalid.
+# Therefore setting a stable ID by hand is always a good idea.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-required
+id_required = true
+
+# The format of a need gets defined here.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
+id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
+
+# Activates variants handling for these options only.
+# All other options get not checked, to save some build time, as these checks are quite time consuming.
+# See https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-options
+variant_options = [
+    "author",
+    "status",
+]
+
+# needs_global_options allows us to set values for Sphinx-Need objects globally, based on
+# filters.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
+[needs.global_options]
+# The meta-area of all Sphinx-Needs objects shall be hidden.
+# Supported only, if a "collapse button" is used in the selected need layout.
+collapse = "False"
+constraints = [
+    [
+        [
+            "status_set",
+            "release_set",
+        ],
+        "type in ['req'] and 'automotive-adas' in docname",
+    ],
+]
+layout = [
+    [
+        "req_constraint",
+        "type in ['req']",
+    ],
+    [
+        "adas",
+        "type not in ['req']",
+    ],
+]
+# Automatically link test-runs with test-cases.
+# We use here the dynamic function ``tr_link`` so link 2 needs,
+# if the ID of need A is the same as the case_name of need B.
+# But we do this only for objects of type ``test``.
+# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/functions.html#tr-link
+# 'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
+# By setting ``post_template``, we can add some extra content below a need object.
+# What gets added is set in the related template file under ``/needs_templates``.
+# In our case a traceability flow chart is generated, plus the same information as table.
+post_template = [
+    [
+        "all_post",
+        "type not in ['person'] and 'automotive-adas' in docname",
+    ],
+    [
+        "person_post",
+        "type in ['person']",
+    ],
+]
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraints
+[needs.constraints.release_set]
+check_0 = "len(release)>0"
+error_message = "Requirement is not planned for any release!"
+severity = "CRITICAL"
+
+[needs.constraints.status_set]
+check_0 = "status is not None and status in ['open', 'in progress', 'closed']"
+error_message = "Status is invalid or not set!"
+severity = "LOW"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraint-failed-options
+[needs.constraint_failed_options.CRITICAL]
+force_style = false
+on_fail = ["warn"]
+style = ["red_bar"]
+
+[needs.constraint_failed_options.HIGH]
+force_style = false
+on_fail = ["warn"]
+style = ["orange_bar"]
+
+[needs.constraint_failed_options.LOW]
+force_style = false
+on_fail = []
+style = ["blue_bar"]
+
+[needs.constraint_failed_options.MEDIUM]
+force_style = false
+on_fail = ["warn"]
+style = ["yellow_bar"]
+
+# needs_variants allows to set specific option values based on the currently active variant.
+# A use case is a different ``status``, depending on if the implementation needs to be done for
+# customer A or customer B.
+# In the rst-code, the variant-values can then be set like this:
+# ``:status: customer_a:open, customer_b:closed``
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variants
+[needs.variants]
+customer_a = "customer == 'A' or customer not in ['A', 'B']"
+customer_b = "customer == 'B'"
+
+# List of need type used in the documentation.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
 [[needs.types]]
 directive = "req"
 title = "Requirement"
-prefix = "REQ_"
-color = "#aaaaaa"
+prefix = "R_"
+color = "#FFB300"
 style = "node"
 
 [[needs.types]]
 directive = "spec"
-title = "Specifications"
-prefix = "SPEC_"
-color = "#aaaaaa"
-style = "node"
-
-[[needs.types]]
-directive = "test"
-title = "TestCase"
-prefix = "TC_"
-color = "#aaaaaa"
+title = "Specification"
+prefix = "S_"
+color = "#ec6dd7"
 style = "node"
 
 [[needs.types]]
 directive = "impl"
 title = "Implementation"
-prefix = "IMPL_"
-color = "#aaaaaa"
+prefix = "I_"
+color = "#fa8638"
+style = "node"
+
+[[needs.types]]
+directive = "test"
+title = "Test Case"
+prefix = "T_"
+color = "#A6BDD7"
 style = "node"
 
 [[needs.types]]
 directive = "person"
 title = "Person"
-prefix = "PER"
-color = "#aaaaaa"
-style = "node"
+prefix = "P_"
+color = "#C10020"
+style = "actor"
 
 [[needs.types]]
 directive = "team"
 title = "Team"
-prefix = "TEAM"
-color = "#aaaaaa"
+prefix = "T_"
+color = "#CEA262"
 style = "node"
 
+[[needs.types]]
+directive = "release"
+title = "Release"
+prefix = "R_"
+color = "#817066"
+style = "node"
 
 [[needs.types]]
 directive = "arch"
 title = "Architecture"
-prefix = "ARCH"
-color = "#aaaaaa"
+prefix = "_"
+color = "#4aac73"
+style = "node"
+
+[[needs.types]]
+directive = "need"
+title = "Need"
+prefix = "_"
+color = "#F6768E"
 style = "node"
 
 [[needs.types]]
 directive = "swarch"
-title = "SW Architecture"
-prefix = "SWARCH"
-color = "#aaaaaa"
+title = "SW_Architecture"
+prefix = "SWARCH_"
+color = "#2d86c1"
 style = "node"
-
 
 [[needs.types]]
 directive = "swreq"
-title = "SW Requirement"
-prefix = "SWREQ"
-color = "#aaaaaa"
+title = "SW_Requirement"
+prefix = "SWREQ_"
+color = "#a8f578"
 style = "node"
 
+# Extra link types, which shall be available and allow need types to be linked to each other.
+# We use a dedicated linked type for each type of a conncetion, for instance from
+# a specification to a requirement. This makes filtering and visualization of such connections
+# much easier, as we can sure the target need of a link has always a specific type.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-links
+[[needs.extra_links]]
+option = "links"
+outgoing = "links outgoing"
+incoming = "links incoming"
+copy = false
+color = "#000000"
+
+[[needs.extra_links]]
+option = "parent_needs"
+outgoing = "parent needs"
+incoming = "child needs"
+copy = false
+color = "#333333"
+
+[[needs.extra_links]]
+# team -> person
+option = "persons"
+incoming = "is working for"
+outgoing = "persons"
+
+[[needs.extra_links]]
+# req -> release
+option = "release"
+incoming = "contains"
+outgoing = "release"
+
+[[needs.extra_links]]
+# req -> author
+option = "author"
+incoming = "ownes"
+outgoing = "author"
+
+[[needs.extra_links]]
+# req -> req, release -> release
+option = "based_on"
+incoming = "supports"
+outgoing = "based on"
+
+[[needs.extra_links]]
+# spec -> req
+option = "reqs"
+incoming = "specified by"
+outgoing = "specifies"
+
+[[needs.extra_links]]
+# impl -> spec
+option = "implements"
+incoming = "implemented by"
+outgoing = "implements"
+
+[[needs.extra_links]]
+# test_case -> spec
+option = "spec"
+incoming = "test_cases"
+outgoing = "specs"
+
+[[needs.extra_links]]
+# test_case -> test_run
+option = "runs"
+incoming = "test_cases"
+outgoing = "runs"
+
+[[needs.extra_links]]
+# test_case -> spec
+option = "specs"
+incoming = "test_cases"
+outgoing = "specs"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
+[needs.layouts.adas]
+grid = "simple_footer"
+
+[needs.layouts.adas.layout]
+head = [
+    "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+    "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+    "<<meta_links_all()>>",
+]
+footer = [
+    "**Status**: <<meta('status')>>",
+]
+
+[needs.layouts.req_constraint]
+grid = "simple_footer"
+
+[needs.layouts.req_constraint.layout]
+head = [
+    "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+    "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+    "<<meta_links_all()>>",
+]
+footer = [
+    "**Process feedback**: <<meta('constraints_error')>>",
+]
+
+[needs.layouts.test]
+grid = "simple"
+
+[needs.layouts.test.layout]
+head = [
+    "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+    "<<meta_all(no_links=True)>>",
+    "<<meta_links_all()>>",
+]
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links
+[needs.string_links.config_link]
+# Adds link to the Sphinx-Needs configuration page
+link_name = "Sphinx-Needs docs for {{value | replace(\"_\", \"-\") }}"
+link_url = "https://sphinx-needs.readthedocs.io/en/latest/configuration.html#{{value | replace(\"_\", \"-\")}}"
+options = [
+    "config",
+]
+regex = "^(?P<value>\\w+)$"
+
+[needs.string_links.github_link]
+# Links to the related github issue
+link_name = "SN Demo #{{value}}"
+link_url = "https://github.com/useblocks/sphinx-needs-demo/issues/{{value}}"
+options = [
+    "github",
+]
+regex = "^(?P<value>\\w+)$"
+
+[needs.string_links.jira_link]
+# Links to the related jira issue
+link_name = "JIRA ADAS #{{value}}"
+link_url = "https://useblocks.atlassian.net/browse/ADAS-{{value}}"
+options = [
+    "jira",
+]
+regex = "^(?P<value>\\w+)$"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-services
+[needs.services.github-issues]
+id_prefix = "GH_ISSUE_"
+max_amount = 2
+max_content_lines = 20
+need_type = "swreq"
+url = "https://api.github.com/"
+
+[needs.services.github-prs]
+id_prefix = "GH_PR_"
+max_amount = 2
+max_content_lines = 20
+need_type = "impl"
+url = "https://api.github.com/"
+
+# ubCode setting: add custom extensions 
+[parse.extend_directives.uml]
+# see https://github.com/sphinx-contrib/plantuml
+description = "Render UML diagrams"
+argument = true
+content_required = false
+parse_content = false
+content = true
+options = true
+
+[parse.extend_directives.if-builder]
+# see https://sphinx-simplepdf.readthedocs.io/en/latest/directives.html#if-builder
+description = "Sphinx-SimplePDF builder specific content"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = false
+
+[parse.extend_directives.button-link]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+# not yet part of ubCode internal directives
+description = "Sphinx-Design button with link"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = true
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys
+[needs.import_keys]
+imported_project = "/needs.json"
+
+
+# ubCode setting: display a needs.json file in the extension view
 [needs_json]
-path = "_build/html/needs.json"
+path = "./_build/html/needs.json"
 src = "."

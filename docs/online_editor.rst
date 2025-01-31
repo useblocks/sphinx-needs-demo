@@ -74,7 +74,7 @@ Open the docs in an extra browser tab has some advantages compared to the intern
 There is a small button in the upper right corner of the VS Code previewer, to open the shown
 page in a new browser tab.
 
-.. info::
+.. note::
 
    The browser's pop-up policy may not allow to open this link. In this case, just allow it.
 

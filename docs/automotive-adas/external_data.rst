@@ -10,7 +10,7 @@ Links
 Links to GitHub objects are set directly in the Sphinx-Needs objects by using 
 `string-links <https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links>`__.
 
-See for instance the `github` option of :need:`SWREQ_001` or :need:`SWREQ_002`
+See for instance the ``github`` option of :need:`SWREQ_001` or :need:`SWREQ_002`
 
 PRs
 ~~~
@@ -74,4 +74,4 @@ Links
 Links to Jira objects are set directly in the Sphinx-Needs objects by using 
 `string-links <https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links>`__.
 
-See for instance the `jira` option of :need:`NEED_001` or :need:`REQ_001`
+See for instance the ``jira`` option of :need:`NEED_001` or :need:`REQ_001`
