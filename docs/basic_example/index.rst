@@ -54,10 +54,11 @@ Sphinx-Needs objects
                node B
                A --> B
 
+This example test cases also links against an external need:
 
 .. test:: Example Test case
    :id: EX_TEST_001
-   :links: EX_SPEC_001
+   :links: EX_SPEC_001, REQ_1_1_ext
    :status: passed
 
    And for sure also all features from Sphinx-Needs, like this needflow:
@@ -111,9 +112,9 @@ External needs
 --------------
 
 Here are some needs that are external to the documentation,
-but can still be linked in this documentation:
+but can still be linked by other needs in this documentation:
 
-- :need:`REQ_1_1_ext`
+- :need:`REQ_1_1_ext` (this is linked in this documentation by :need:`EX_TEST_001`)
 - :need:`REQ_1_2_ext`
 - :need:`SPEC_1_1_ext`
 - :need:`SPEC_1_2_ext`
