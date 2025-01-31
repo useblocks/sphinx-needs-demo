@@ -101,3 +101,8 @@ it is presented.
    :layout: debug
 
    Some content   
+
+Imported needs
+--------------
+
+.. needimport:: imported_project

@@ -29,6 +29,7 @@ extra_options = [
     "github",
     "jira",
     "config",
+    "number",  # for needimport
 ]
 
 # Force the author to set an ID by hand.
@@ -405,7 +406,12 @@ content = true
 content_required = true
 options = true
 
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys
+[needs.import_keys]
+imported_project = "/needs.json"
+
+
 # ubCode setting: display a needs.json file in the extension view
 [needs_json]
-path = "_build/html/needs.json"
+path = "./_build/html/needs.json"
 src = "."
