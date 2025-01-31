@@ -8,7 +8,7 @@ Overview
 --------
 
 .. needtable::
-   :filter: "automotive-adas" in docname
+   :filter: docname is not None and "automotive-adas" in docname
    :columns: id, title, type, status, author
 
 .. tip::
@@ -16,7 +16,7 @@ Overview
    :collapsible:
 
    .. needflow::
-      :filter: "automotive-adas" in docname
+      :filter: docname is not None and "automotive-adas" in docname
 
 ADAS Objects
 ------------
@@ -28,21 +28,21 @@ ADAS Objects
       .. needpie:: Object Types of ADAS project
          :labels: need, req, arch, swreq, swarch, test, impl
 
-         "automotive-adas" in docname and type=="need"
-         "automotive-adas" in docname and type=="req"
-         "automotive-adas" in docname and type=="arch"
-         "automotive-adas" in docname and type=="swreq"
-         "automotive-adas" in docname and type=="swarch"
-         "automotive-adas" in docname and type=="test"
-         "automotive-adas" in docname and type=="impl"
+         docname is not None and "automotive-adas" in docname and type=="need"
+         docname is not None and "automotive-adas" in docname and type=="req"
+         docname is not None and "automotive-adas" in docname and type=="arch"
+         docname is not None and "automotive-adas" in docname and type=="swreq"
+         docname is not None and "automotive-adas" in docname and type=="swarch"
+         docname is not None and "automotive-adas" in docname and type=="test"
+         docname is not None and "automotive-adas" in docname and type=="impl"
 
    .. grid-item::
 
       .. needpie:: Object status of ADAS project
          :labels: open, closed
 
-         "automotive-adas" in docname and status=="open"
-         "automotive-adas" in docname and status=="closed"
+         docname is not None and "automotive-adas" in docname and status=="open"
+         docname is not None and "automotive-adas" in docname and status=="closed"
 
 .. needbar:: Object authors
    :legend:
@@ -53,12 +53,12 @@ ADAS Objects
    :stacked:
 
    , Peter, Steven, Sarah, Thomas
-   SW Reqs, "automotive-adas" in docname and "PETER" in author and type=="swreq", "automotive-adas" in docname and "STEVEN" in author and type=="swreq", "automotive-adas" in docname and "SARAH" in author  and type=="swreq", "automotive-adas" in docname and "THOMAS" in author and type=="swreq"
-   SW Arch, "automotive-adas" in docname and "PETER" in author and type=="swarch", "automotive-adas" in docname and "STEVEN" in author and type=="swarch", "automotive-adas" in docname and "SARAH" in author  and type=="swarch", "automotive-adas" in docname and "THOMAS" in author and type=="swarch"
-   Tests, "automotive-adas" in docname and "PETER" in author and type=="test", "automotive-adas" in docname and "STEVEN" in author and type=="test", "automotive-adas" in docname and "SARAH" in author  and type=="test", "automotive-adas" in docname and "THOMAS" in author and type=="test"
+   SW Reqs, docname is not None and "automotive-adas" in docname and "PETER" in author and type=="swreq", docname is not None and "automotive-adas" in docname and "STEVEN" in author and type=="swreq", docname is not None and "automotive-adas" in docname and "SARAH" in author  and type=="swreq", docname is not None and "automotive-adas" in docname and "THOMAS" in author and type=="swreq"
+   SW Arch, docname is not None and "automotive-adas" in docname and "PETER" in author and type=="swarch", docname is not None and "automotive-adas" in docname and "STEVEN" in author and type=="swarch", docname is not None and "automotive-adas" in docname and "SARAH" in author  and type=="swarch", docname is not None and "automotive-adas" in docname and "THOMAS" in author and type=="swarch"
+   Tests, docname is not None and "automotive-adas" in docname and "PETER" in author and type=="test", docname is not None and "automotive-adas" in docname and "STEVEN" in author and type=="test", docname is not None and "automotive-adas" in docname and "SARAH" in author  and type=="test", docname is not None and "automotive-adas" in docname and "THOMAS" in author and type=="test"
 
 SWE Implementation
 ------------------
 
 .. needflow::
-   :filter: "automotive-adas" in docname and type in ["swreq", "swarch", "impl"]
+   :filter: docname is not None and "automotive-adas" in docname and type in ["swreq", "swarch", "impl"]

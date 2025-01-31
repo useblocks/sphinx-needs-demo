@@ -61,7 +61,7 @@ constraints = [
       "status_set",
       "release_set",
     ],
-    "type in ['req'] and 'automotive-adas' in docname",
+    "type in ['req'] and docname is not None and 'automotive-adas' in docname",
   ],
 ]
 layout = [
@@ -86,7 +86,7 @@ layout = [
 post_template = [
   [
     "all_post",
-    "type not in ['person'] and 'automotive-adas' in docname",
+    "type not in ['person'] and docname is not None and 'automotive-adas' in docname",
   ],
   [
     "person_post",

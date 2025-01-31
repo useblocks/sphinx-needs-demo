@@ -63,7 +63,7 @@ Sphinx-Needs objects
    And for sure also all features from Sphinx-Needs, like this needflow:
 
    .. needflow::
-      :filter: "basic_example" in docname
+      :filter: docname is not None and "basic_example" in docname
 
 Sphinx-Needs filtering
 ----------------------
@@ -71,19 +71,19 @@ Sphinx-Needs filtering
 .. code-block:: rst
 
    .. needtable::
-      :filter: "basic_example" in docname
+      :filter: docname is not None and "basic_example" in docname
 
 .. needtable::
-      :filter: "basic_example" in docname
+      :filter: docname is not None and "basic_example" in docname
 
 
 .. code-block:: rst
 
    .. needflow::
-      :filter: "basic_example" in docname
+      :filter: docname is not None and "basic_example" in docname
 
 .. needflow::
-      :filter: "basic_example" in docname
+      :filter: docname is not None and "basic_example" in docname
 
 
 Sphinx-Needs debuging
