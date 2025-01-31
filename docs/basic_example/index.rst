@@ -17,10 +17,10 @@ Sphinx-Needs objects
    The content supports all kind of Sphinx features, like:
 
    **Bold** or *italic* text
-   
+
    Web links, like this `google <https://google.com>`__ link.
-   
-   Or even images: 
+
+   Or even images:
 
    .. image:: /_images/sphinx-needs-logo.png
       :width: 50px
@@ -31,7 +31,7 @@ Sphinx-Needs objects
    :tags: security, safety
    :status: closed
 
-   
+
    But also features from integated Sphinx exentions can be used, like this PlantUML generated image from this code
 
    .. grid:: 2
@@ -41,15 +41,15 @@ Sphinx-Needs objects
          .. code-block:: rst
 
             .. uml::
-            
+
                node A
                node B
                A --> B
-   
+
       .. grid-item::
 
          .. uml::
-            
+
                node A
                node B
                A --> B
@@ -100,7 +100,7 @@ it is presented.
    :tags: debug
    :layout: debug
 
-   Some content   
+   Some content
 
 Imported needs
 --------------

@@ -15,7 +15,7 @@ SWE.2 Software Architecture
    Design the software architecture for the Lane Detection Subsystem, including data acquisition, processing, and corrective action modules.
 
    .. uml::
-      
+
       @startuml
       class LaneDetection {
           + detectLaneMarkings()
@@ -40,7 +40,7 @@ SWE.2 Software Architecture
    Define the architecture for the Adaptive Cruise Control Subsystem, integrating distance measurement, speed adjustment, and driver override mechanisms.
 
    .. uml::
-      
+
       @startuml
       class AdaptiveCruiseControl {
           + measureDistance()
@@ -65,7 +65,7 @@ SWE.2 Software Architecture
    Develop the architecture for the Collision Avoidance Subsystem, focusing on predictive analytics, braking control, and vehicle stabilization.
 
    .. uml::
-      
+
       @startuml
       class CollisionAvoidance {
           + detectCollisionRisk()
@@ -90,7 +90,7 @@ SWE.2 Software Architecture
    Create the architecture for the Pedestrian Detection Subsystem, including detection algorithms, path prediction, and safety prioritization modules.
 
    .. uml::
-      
+
       @startuml
       class PedestrianDetection {
           + detectPedestrians()
@@ -116,7 +116,7 @@ SWE.2 Software Architecture
    Design the software framework for managing driver alerts, integrating audio, visual, and haptic feedback systems.
 
    .. uml::
-      
+
       @startuml
       class AlertFramework {
           + sendAudioAlert()
@@ -146,7 +146,7 @@ SWE.2 Software Architecture
    Define the architecture for the Emergency Braking Subsystem, focusing on pedestrian safety, predictive emergency stops, and optimization of braking efficiency.
 
    .. uml::
-      
+
       @startuml
       class EmergencyBraking {
           + evaluateRisk()

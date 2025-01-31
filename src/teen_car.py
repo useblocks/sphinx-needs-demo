@@ -5,10 +5,11 @@ Teen car module.
    :id: TEEN_IMPL_CAR
    :implements: TEEN_DIST, TEEN_RADAR
 
-   Overall implementation of all Teen Car specifications. 
+   Overall implementation of all Teen Car specifications.
 """
 
 import time
+
 
 class TeenCar:
     """
@@ -19,30 +20,29 @@ class TeenCar:
 
     def __init__(self, color):
         """
-        Initiliases the teen car. 
-        
+        Initiliases the teen car.
+
         @param color: HEX value of car. Example #FFCC00
         """
         self.color = color
         return
-    
+
     def _drive(self, max_speed=100):
         """
         Drives the car with given max speed.
-        
+
 
         :param max_speed: max speed in km/h. Example "120".
         """
         print("doing magic stuff")
         return
-    
+
     def _get_position(self):
         """get the current position of the car"""
 
         position = "somewhere"
         return position
 
-    
     def auto_drive(self, target, sleep=0.1):
         """
         .. impl:: Drive the passengers autonomously to the given target address.
@@ -60,7 +60,3 @@ class TeenCar:
                 target_reached = True
             self._drive()
             time.sleep(sleep)
-
-
-
-

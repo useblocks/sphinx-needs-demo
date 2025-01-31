@@ -29,6 +29,7 @@ class LaneDetection:
         # Implementation here
         pass
 
+
 class AdaptiveCruiseControl:
     """
     .. impl:: Radar-Based Distance Measurement
@@ -60,6 +61,7 @@ class AdaptiveCruiseControl:
         # Implementation here
         pass
 
+
 class CollisionAvoidance:
     """
     .. impl:: Collision Risk Estimation
@@ -90,6 +92,7 @@ class CollisionAvoidance:
         """
         # Implementation here
         pass
+
 
 class PedestrianDetection:
     """

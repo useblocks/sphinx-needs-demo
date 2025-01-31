@@ -11,10 +11,10 @@
    :image: docs/_images/adas.png
    :layout: clean_l
 
-   This project focuses on developing a modular software platform for 
-   Advanced Driver Assistance Systems (ADAS), aimed at enhancing vehicle safety 
-   and automation. The primary objective is to create a robust system that 
-   integrates multiple functionalities such as lane-keeping assistance, adaptive 
+   This project focuses on developing a modular software platform for
+   Advanced Driver Assistance Systems (ADAS), aimed at enhancing vehicle safety
+   and automation. The primary objective is to create a robust system that
+   integrates multiple functionalities such as lane-keeping assistance, adaptive
    cruise control, emergency braking, and pedestrian detection.
 
 .. toctree::
@@ -53,7 +53,7 @@ Demo Object and Meta Model
 .. uml::
 
    @startuml
-   
+
    class "Team" as team #CEA262 {
       id
       title
@@ -66,8 +66,8 @@ Demo Object and Meta Model
       contact
       title
    }
-   
-   
+
+
    class "Need" as need #F6768E {
       id
       title
@@ -77,7 +77,7 @@ Demo Object and Meta Model
       +author
       +release
    }
-   
+
    class "Requirement" as req #FFB300 {
       id
       title
@@ -88,8 +88,8 @@ Demo Object and Meta Model
       +release
       +based_on
    }
-   
-   
+
+
    class "Architecture" as arch #4aac73 {
       id
       title
@@ -100,7 +100,7 @@ Demo Object and Meta Model
       +reqs
 
    }
-   
+
    class "SW Requirement" as swreq #FF7A5C {
       id
       title
@@ -108,7 +108,7 @@ Demo Object and Meta Model
       +links
       +author
    }
-   
+
    class "SW Architecture" as swarch #2d86c1 {
       id
       title
@@ -158,29 +158,29 @@ Demo Object and Meta Model
    team -> person: persons
 
    need <-- req: links
-   
+
    req <- arch : links
    req <-- swreq : links
    req <-- test : links
    req -left-> release: release
-   
+
    arch <-- test: links
    arch <-- swreq: links
-      
+
    swarch <-- test : links
    swarch <- impl: links
-   
+
    swreq <-- test : links
    swreq  <- impl: links
    swreq <-- swarch: links
-   
+
    test -> run : runs: automatically\nlinked
 
-   req -[#999]-> person:  <color:#999>author 
-   arch -[#999]-> person: <color:#999>author 
-   swreq -[#999]-> person:  <color:#999>author 
-   swarch -[#999]-> person: <color:#999>author 
-   test -[#999]-> person: <color:#999>author 
-   release -[#999]-> person: <color:#999>author 
-   
+   req -[#999]-> person:  <color:#999>author
+   arch -[#999]-> person: <color:#999>author
+   swreq -[#999]-> person:  <color:#999>author
+   swarch -[#999]-> person: <color:#999>author
+   test -[#999]-> person: <color:#999>author
+   release -[#999]-> person: <color:#999>author
+
    @enduml

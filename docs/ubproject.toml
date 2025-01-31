@@ -21,15 +21,15 @@ build_json = true
 # Additional options, which shall be available for all need types.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
 extra_options = [
-    "role",
-    "contact",
-    "image",
-    "date",
-    "customer",
-    "github",
-    "jira",
-    "config",
-    "number",  # for needimport
+  "role",
+  "contact",
+  "image",
+  "date",
+  "customer",
+  "github",
+  "jira",
+  "config",
+  "number",   # for needimport
 ]
 
 # Force the author to set an ID by hand.
@@ -46,10 +46,7 @@ id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
 # Activates variants handling for these options only.
 # All other options get not checked, to save some build time, as these checks are quite time consuming.
 # See https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-options
-variant_options = [
-    "author",
-    "status",
-]
+variant_options = ["author", "status"]
 
 # needs_global_options allows us to set values for Sphinx-Need objects globally, based on
 # filters.
@@ -59,23 +56,23 @@ variant_options = [
 # Supported only, if a "collapse button" is used in the selected need layout.
 collapse = "False"
 constraints = [
+  [
     [
-        [
-            "status_set",
-            "release_set",
-        ],
-        "type in ['req'] and 'automotive-adas' in docname",
+      "status_set",
+      "release_set",
     ],
+    "type in ['req'] and 'automotive-adas' in docname",
+  ],
 ]
 layout = [
-    [
-        "req_constraint",
-        "type in ['req']",
-    ],
-    [
-        "adas",
-        "type not in ['req']",
-    ],
+  [
+    "req_constraint",
+    "type in ['req']",
+  ],
+  [
+    "adas",
+    "type not in ['req']",
+  ],
 ]
 # Automatically link test-runs with test-cases.
 # We use here the dynamic function ``tr_link`` so link 2 needs,
@@ -87,14 +84,14 @@ layout = [
 # What gets added is set in the related template file under ``/needs_templates``.
 # In our case a traceability flow chart is generated, plus the same information as table.
 post_template = [
-    [
-        "all_post",
-        "type not in ['person'] and 'automotive-adas' in docname",
-    ],
-    [
-        "person_post",
-        "type in ['person']",
-    ],
+  [
+    "all_post",
+    "type not in ['person'] and 'automotive-adas' in docname",
+  ],
+  [
+    "person_post",
+    "type in ['person']",
+  ],
 ]
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraints
@@ -297,69 +294,56 @@ grid = "simple_footer"
 
 [needs.layouts.adas.layout]
 head = [
-    "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
 ]
 meta = [
-    "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
-    "<<meta_links_all()>>",
+  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+  "<<meta_links_all()>>",
 ]
-footer = [
-    "**Status**: <<meta('status')>>",
-]
+footer = ["**Status**: <<meta('status')>>"]
 
 [needs.layouts.req_constraint]
 grid = "simple_footer"
 
 [needs.layouts.req_constraint.layout]
 head = [
-    "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
 ]
 meta = [
-    "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
-    "<<meta_links_all()>>",
+  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+  "<<meta_links_all()>>",
 ]
-footer = [
-    "**Process feedback**: <<meta('constraints_error')>>",
-]
+footer = ["**Process feedback**: <<meta('constraints_error')>>"]
 
 [needs.layouts.test]
 grid = "simple"
 
 [needs.layouts.test.layout]
 head = [
-    "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
 ]
-meta = [
-    "<<meta_all(no_links=True)>>",
-    "<<meta_links_all()>>",
-]
+meta = ["<<meta_all(no_links=True)>>", "<<meta_links_all()>>"]
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links
 [needs.string_links.config_link]
 # Adds link to the Sphinx-Needs configuration page
 link_name = "Sphinx-Needs docs for {{value | replace(\"_\", \"-\") }}"
 link_url = "https://sphinx-needs.readthedocs.io/en/latest/configuration.html#{{value | replace(\"_\", \"-\")}}"
-options = [
-    "config",
-]
+options = ["config"]
 regex = "^(?P<value>\\w+)$"
 
 [needs.string_links.github_link]
 # Links to the related github issue
 link_name = "SN Demo #{{value}}"
 link_url = "https://github.com/useblocks/sphinx-needs-demo/issues/{{value}}"
-options = [
-    "github",
-]
+options = ["github"]
 regex = "^(?P<value>\\w+)$"
 
 [needs.string_links.jira_link]
 # Links to the related jira issue
 link_name = "JIRA ADAS #{{value}}"
 link_url = "https://useblocks.atlassian.net/browse/ADAS-{{value}}"
-options = [
-    "jira",
-]
+options = ["jira"]
 regex = "^(?P<value>\\w+)$"
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-services
@@ -377,7 +361,7 @@ max_content_lines = 20
 need_type = "impl"
 url = "https://api.github.com/"
 
-# ubCode setting: add custom extensions 
+# ubCode setting: add custom extensions
 [parse.extend_directives.uml]
 # see https://github.com/sphinx-contrib/plantuml
 description = "Render UML diagrams"

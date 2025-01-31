@@ -1,10 +1,10 @@
 .. if-builder:: html
 
-   .. tip:: 
+   .. tip::
       :title: Demo page details
-      :collapsible: 
+      :collapsible:
 
-      **Page source code: {{page}}** 
+      **Page source code: {{page}}**
 
       .. literalinclude:: {{page}}
          :language: rst

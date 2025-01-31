@@ -11,7 +11,7 @@ Overview
    :filter: "automotive-adas" in docname
    :columns: id, title, type, status, author
 
-.. tip:: 
+.. tip::
    :title: Big picture
    :collapsible:
 
@@ -62,4 +62,3 @@ SWE Implementation
 
 .. needflow::
    :filter: "automotive-adas" in docname and type in ["swreq", "swarch", "impl"]
-

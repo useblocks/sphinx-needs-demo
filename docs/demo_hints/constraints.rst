@@ -1,10 +1,10 @@
-.. tip:: 
+.. tip::
       :title: Demo feature hint: Constraints
-      :collapsible: 
+      :collapsible:
 
       For requirements two constraints are defined, which check if the ``status`` is set correctly and if a ``release`` is linked.
 
-      If these constraints are not fulfilled, the need object gets a colored right border and the footer contains the reason why a 
+      If these constraints are not fulfilled, the need object gets a colored right border and the footer contains the reason why a
       constraint is not fulfilled.
 
       Constraints can be defined in the ``conf.py`` file:
