@@ -399,3 +399,7 @@ imported_project = "/needs.json"
 [needs_json]
 path = "./_build/html/needs.json"
 src = "."
+
+# ubCode setting: run a script command
+[scripts]
+sphinx = "sphinx-build -b html . _build/html"
