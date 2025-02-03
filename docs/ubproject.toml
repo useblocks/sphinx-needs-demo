@@ -394,11 +394,19 @@ options = true
 [needs.import_keys]
 imported_project = "/needs_import.json"
 
+
+# External needs originate from external systems, like JIRA or other requirement tracking systems.
+# They can be referenced using :need: roles, can be linked to by other needs and they
+# can appear in visualisations (tables, needflow, ...).
+# They can be picked up from remote URLs or also pre-downloaded outside of Sphinx/Sphinx-Needs and
+# then referenced by a local path.
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-external-needs
 [[needs.external_needs]]
 json_path = "./needs_external.json"
+# use this to download from a remote
+# json_url = "https://sphinx-needs.readthedocs.io/en/latest/needs.json"
 base_url = "https://example.com"
 target_url = "{{need['id']}}"
-version = "1.0"
 
 # ubCode setting: display a needs.json file in the extension view
 [needs_json]
