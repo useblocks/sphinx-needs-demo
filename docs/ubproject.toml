@@ -394,13 +394,15 @@ options = true
 [needs.import_keys]
 imported_project = "/needs_import.json"
 
-
 # External needs originate from external systems, like JIRA or other requirement tracking systems.
 # They can be referenced using :need: roles, can be linked to by other needs and they
 # can appear in visualisations (tables, needflow, ...).
 # They can be picked up from remote URLs or also pre-downloaded outside of Sphinx/Sphinx-Needs and
-# then referenced by a local path.
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-external-needs
+# then referenced by a local path. This use case is configured below.
+# A difference of external needs to imported needs (needimport directive) is that a needs.json
+# produced by a project will never contain external needs as they are not part of the project.
+# Imported needs however are treated the same way as locally defined needs in rst (or md).
+# See https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-external-needs
 [[needs.external_needs]]
 json_path = "./needs_external.json"
 # use this to download from a remote
