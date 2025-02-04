@@ -19,7 +19,7 @@ srcdir = "."
 build_json = true
 
 # Additional options, which shall be available for all need types.
-# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
 extra_options = [
   "role",
   "contact",
@@ -36,21 +36,36 @@ extra_options = [
 # Otherwise Sphinx-Needs would create one based on the Need title.
 # So a title change will change the ID and all set links will get invalid.
 # Therefore setting a stable ID by hand is always a good idea.
-# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-required
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-required
 id_required = true
 
 # The format of a need gets defined here.
-# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
 id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
 
 # Activates variants handling for these options only.
 # All other options get not checked, to save some build time, as these checks are quite time consuming.
-# See https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-options
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-options
 variant_options = ["author", "status"]
+
+# allowed values for need status core field
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-statuses
+[[needs.statuses]]
+name = "open"
+description = "Open"
+
+[[needs.statuses]]
+name = "closed"
+description = "Closed"
+
+[[needs.statuses]]
+name = "passed"
+description = "Passed"
+
 
 # needs_global_options allows us to set values for Sphinx-Need objects globally, based on
 # filters.
-# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
 [needs.global_options]
 # The meta-area of all Sphinx-Needs objects shall be hidden.
 # Supported only, if a "collapse button" is used in the selected need layout.
