@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "sphinx-build html",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "sphinx",
+            "args": ["-W", "--keep-going", "-j", "4", "-v", "-b", "html", ".", "_build/html"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/docs",
+            "justMyCode": false,
+        }
+    ]
+}

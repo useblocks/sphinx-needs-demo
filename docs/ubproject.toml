@@ -61,7 +61,7 @@ constraints = [
       "status_set",
       "release_set",
     ],
-    "type in ['req'] and 'automotive-adas' in docname",
+    "type in ['req'] and docname is not None and 'automotive-adas' in docname",
   ],
 ]
 layout = [
@@ -86,7 +86,7 @@ layout = [
 post_template = [
   [
     "all_post",
-    "type not in ['person'] and 'automotive-adas' in docname",
+    "type not in ['person'] and docname is not None and 'automotive-adas' in docname",
   ],
   [
     "person_post",
@@ -392,8 +392,23 @@ options = true
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys
 [needs.import_keys]
-imported_project = "/needs.json"
+imported_project = "/needs_import.json"
 
+# External needs originate from external systems, like JIRA or other requirement tracking systems.
+# They can be referenced using :need: roles, can be linked to by other needs and they
+# can appear in visualisations (tables, needflow, ...).
+# They can be picked up from remote URLs or also pre-downloaded outside of Sphinx/Sphinx-Needs and
+# then referenced by a local path. This use case is configured below.
+# A difference of external needs to imported needs (needimport directive) is that a needs.json
+# produced by a project will never contain external needs as they are not part of the project.
+# Imported needs however are treated the same way as locally defined needs in rst (or md).
+# See https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-external-needs
+[[needs.external_needs]]
+json_path = "./needs_external.json"
+# use this to download from a remote
+# json_url = "https://sphinx-needs.readthedocs.io/en/latest/needs.json"
+base_url = "https://example.com"
+target_url = "{{need['id']}}"
 
 # ubCode setting: display a needs.json file in the extension view
 [needs_json]
