@@ -36,4 +36,4 @@ ports:
 vscode:
   extensions:
     - trond-snekvik.simple-rst
-    - useblocks.ubcode
+    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/useblocks/vsextensions/ubcode/0.6.2/vspackage
