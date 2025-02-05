@@ -36,4 +36,4 @@ ports:
 vscode:
   extensions:
     - trond-snekvik.simple-rst
-    - https://marketplace.visualstudio.com/_apis/public/gallery/publishers/useblocks/vsextensions/sphinx-needs-vscode/0.3.1/vspackage
+    - useblocks.ubcode
