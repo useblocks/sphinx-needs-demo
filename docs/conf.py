@@ -30,7 +30,7 @@ extensions = [
     "sphinx_needs",
     "sphinx_design",
     "sphinxcontrib.plantuml",
-    # "sphinxcontrib.test_reports",
+    "sphinxcontrib.test_reports",
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
@@ -72,7 +72,7 @@ needs_from_toml = "ubproject.toml"
 # Override the default test-case need of Sphinx-Test-Reports, so that is called
 # ``test_run`` instead.
 # Docs: https://sphinx-test-reports.readthedocs.io/en/latest/configuration.html#tr-case
-tr_case = ["test_run", "testrun", "Test-Run", "TR_", "#999999", "node"]
+tr_case = ["test-run", "testrun", "Test-Run", "TR_", "#999999", "node"]
 
 ###############################################################################
 # SPHINX-TEST-REPORTS Config END
