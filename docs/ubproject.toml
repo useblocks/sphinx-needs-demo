@@ -62,11 +62,6 @@ description = "Closed"
 name = "passed"
 description = "Passed"
 
-[[needs.statuses]]
-name = "approved"
-description = "Approved"
-
-
 # needs_global_options allows us to set values for Sphinx-Need objects globally, based on
 # filters.
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
