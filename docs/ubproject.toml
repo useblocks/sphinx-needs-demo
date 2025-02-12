@@ -50,17 +50,17 @@ variant_options = ["author", "status"]
 
 # allowed values for need status core field
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-statuses
-[[needs.statuses]]
-name = "open"
-description = "Open"
+# [[needs.statuses]]
+# name = "open"
+# description = "Open"
 
-[[needs.statuses]]
-name = "closed"
-description = "Closed"
+# [[needs.statuses]]
+# name = "closed"
+# description = "Closed"
 
-[[needs.statuses]]
-name = "passed"
-description = "Passed"
+# [[needs.statuses]]
+# name = "passed"
+# description = "Passed"
 
 
 # needs_global_options allows us to set values for Sphinx-Need objects globally, based on
