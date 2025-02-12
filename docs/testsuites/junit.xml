@@ -2,15 +2,15 @@
     
     <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_001" time="0.123"/>
     
-    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_001" time="0.100">
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_002" time="0.100">
         <failure message="Expected true but was false">AssertionError: Expected true but was false</failure>
     </testcase>
     
-    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_001" time="0.098">
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_003" time="0.098">
         <error message="NullPointerException">java.lang.NullPointerException</error>
     </testcase>
     
-    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_001" time="0.024">
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_004" time="0.024">
         <skipped message="Test not applicable"/>
     </testcase>
 </testsuite>
