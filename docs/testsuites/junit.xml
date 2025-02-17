@@ -1,4 +1,4 @@
-<testsuite name="ExampleTestSuite" tests="3" failures="1" errors="1" skipped="1" time="0.345">
+<testsuite name="ExampleTestSuite" passed="0" tests="4" failures="3" errors="0" skipped="1" time="0.345">
     <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_001" time="0.123">
         <failure message="Expected true but was false">AssertionError: Expected true but was false</failure>
     </testcase>
