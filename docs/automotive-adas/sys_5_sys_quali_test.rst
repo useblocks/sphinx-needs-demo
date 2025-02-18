@@ -10,25 +10,25 @@ This document provides verification test cases to ensure the requirements define
 
 .. test:: Lane Detection Verification
    :id: TEST_SYS_QUAL_001
-   :links: REQ_001, REQ_002
+   :links: REQ_001, REQ_002, [[tr_link('id', 'case')]]
 
    Verify the lane detection system meets requirements for detecting lane markings and providing corrective steering actions.
 
 .. test:: Adaptive Cruise Control Verification
    :id: TEST_SYS_QUAL_002
-   :links: REQ_003, REQ_004
+   :links: REQ_003, REQ_004, [[tr_link('id', 'case')]]
 
    Verify the adaptive cruise control system satisfies requirements for distance measurement and dynamic speed control.
 
 .. test:: Collision Avoidance Verification
    :id: TEST_SYS_QUAL_003
-   :links: REQ_005, REQ_006
+   :links: REQ_005, REQ_006, [[tr_link('id', 'case')]]
 
    Verify the collision avoidance system adheres to requirements for collision detection and emergency braking activation.
 
 .. test:: Pedestrian Detection Verification
    :id: TEST_SYS_QUAL_004
-   :links: REQ_007, REQ_008, REQ_009
+   :links: REQ_007, REQ_008, REQ_009, [[tr_link('id', 'case')]]
 
    Verify the pedestrian detection system fulfills requirements for detection, alerting, and emergency braking in pedestrian scenarios.
 
