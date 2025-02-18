@@ -1,0 +1,17 @@
+<testsuite name="ExampleTestSuite" passed="0" tests="4" failures="3" errors="0" skipped="1" time="0.345">
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_001" time="0.123">
+        <failure message="Expected true but was false">AssertionError: Expected true but was false</failure>
+    </testcase>
+
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_002" time="0.100">
+        <failure message="Expected true but was false">AssertionError: Expected true but was false</failure>
+    </testcase>
+    
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_003" time="0.098">
+        <failure message="NullPointerException">java.lang.NullPointerException</failure>
+    </testcase>
+    
+    <testcase classname="com.example.tests.ExampleTest" name="TEST_SYS_QUAL_004" time="0.024">
+        <skipped message="Test not applicable">Not applicable</skipped>
+    </testcase>
+</testsuite>

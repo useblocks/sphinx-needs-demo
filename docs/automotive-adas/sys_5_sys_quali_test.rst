@@ -37,3 +37,11 @@ This document provides verification test cases to ensure the requirements define
    :links: REQ_001, REQ_003, REQ_005
 
    Verify the integration and functionality of lane detection, adaptive cruise control, and collision avoidance subsystems.
+
+
+SYS.5 Qualification Test Results
+--------------------------------
+
+Summary of the test Results
+
+- :need:`TF_TEST_SYS_QUAL_TEST_SUMMARY`
