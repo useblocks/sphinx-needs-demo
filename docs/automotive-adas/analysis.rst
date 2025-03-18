@@ -11,9 +11,7 @@ Overview
    :filter: docname is not None and "automotive-adas" in docname
    :columns: id, title, type, status, author
 
-.. tip::
-   :title: Big picture
-   :collapsible:
+.. dropdown:: Big picture
 
    .. needflow::
       :filter: docname is not None and "automotive-adas" in docname

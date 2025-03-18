@@ -1,6 +1,4 @@
-.. tip::
-      :title: Demo feature hint: Constraints
-      :collapsible:
+.. dropdown:: Demo feature hint: Constraints
 
       For requirements two constraints are defined, which check if the ``status`` is set correctly and if a ``release`` is linked.
 
