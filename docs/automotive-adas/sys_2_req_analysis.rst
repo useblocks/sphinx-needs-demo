@@ -14,6 +14,7 @@ SYS.2 Requirement Analysis
    :release: REL_ADAS_2025_6
    :author: PETER
    :jira: 3
+   :post_template: all_post
 
    Develop a lane detection algorithm to process camera input and accurately identify lane markings under various lighting conditions.
 
@@ -24,6 +25,7 @@ SYS.2 Requirement Analysis
    :release: REL_ADAS_2025_6
    :author: PETER
    :jira: 4
+   :post_template: all_post
 
    Implement a control logic module to provide smooth and precise steering corrections based on detected lane positions.
 
@@ -33,6 +35,7 @@ SYS.2 Requirement Analysis
    :links: NEED_002
    :release: REL_ADAS_2025_12
    :author: PETER
+   :post_template: all_post
 
    Design a system to measure the distance to the vehicle ahead using radar or LiDAR sensors for adaptive cruise control.
 
@@ -42,6 +45,7 @@ SYS.2 Requirement Analysis
    :links: NEED_002
    :release: REL_ADAS_2025_12
    :author: ROBERT
+   :post_template: all_post
 
    Create an algorithm to adjust vehicle speed dynamically while maintaining a safe following distance.
 
@@ -50,6 +54,7 @@ SYS.2 Requirement Analysis
    :status: open
    :links: NEED_003
    :author: ROBERT
+   :post_template: all_post
 
    Develop a module to identify potential collisions using sensor data and predict the time-to-impact.
 
@@ -58,6 +63,7 @@ SYS.2 Requirement Analysis
    :status: open
    :links: NEED_003
    :author: ROBERT
+   :post_template: all_post
 
    Implement logic to autonomously apply brakes when a collision is imminent based on predictions from the collision detection module.
 
@@ -67,6 +73,7 @@ SYS.2 Requirement Analysis
    :links: NEED_004
    :release: REL_ADAS_2025_12
    :author: ROBERT
+   :post_template: all_post
 
    Create a system to detect pedestrians in the vehicle's path using machine learning and sensor fusion.
 
@@ -76,6 +83,7 @@ SYS.2 Requirement Analysis
    :links: NEED_004
    :release: REL_ADAS_2025_6
    :author: ROBERT
+   :post_template: all_post
 
    Design a mechanism to issue audio or visual alerts when pedestrians are detected near the vehicle.
 
@@ -85,5 +93,6 @@ SYS.2 Requirement Analysis
    :links: NEED_004
    :release: REL_ADAS_2026_6
    :author: ROBERT
+   :post_template: all_post
 
    Develop functionality to initiate emergency braking when a pedestrian is in the collision path.
