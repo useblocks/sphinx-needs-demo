@@ -1,0 +1,28 @@
+/* Common fixes for Sphinx-Needs.
+   Mostly for layout and styles. 
+   Color fixes should be done in the Sphinx-Needs style specifc file (drk/modern)
+*/
+
+table.need {
+  /* border: 1px solid #111 !important; * /* Overwrites too much, e.g. license information */
+  border-collapse: collapse;
+}
+
+table.need td {
+  padding: 0.5rem;
+}
+
+/* Put collapse button image to the right side of the text */
+span.needs_collapse img.sn_collapse_img {
+  display: inline;
+}
+html.dark img.sn_collapse_img {
+  filter: brightness(0) invert(1);
+}
+
+/* Correct position of all meta TD elements in the same need */
+td.meta {
+  vertical-align: top;
+  /* width: 100%;
+  display: inline-block; */
+}

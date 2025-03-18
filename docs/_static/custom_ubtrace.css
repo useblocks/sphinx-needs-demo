@@ -1,0 +1,701 @@
+:root {
+  --ubtrace-admonition-icon--note: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+PHBhdGggZD0iTTIxLjczMSAyLjI2OWEyLjYyNSAyLjYyNSAwIDAgMC0zLjcxMiAwbC0xLjE1NyAxLjE1NyAzLjcxMiAzLjcxMiAxLjE1Ny0xLjE1N2EyLjYyNSAyLjYyNSAwIDAgMCAwLTMuNzEyWk0xOS41MTMgOC4xOTlsLTMuNzEyLTMuNzEyLTguNCA4LjRhNS4yNSA1LjI1IDAgMCAwLTEuMzIgMi4yMTRsLS44IDIuNjg1YS43NS43NSAwIDAgMCAuOTMzLjkzM2wyLjY4NS0uOGE1LjI1IDUuMjUgMCAwIDAgMi4yMTQtMS4zMmw4LjQtOC40WiIgLz48cGF0aCBkPSJNNS4yNSA1LjI1YTMgMyAwIDAgMC0zIDN2MTAuNWEzIDMgMCAwIDAgMyAzaDEwLjVhMyAzIDAgMCAwIDMtM1YxMy41YS43NS43NSAwIDAgMC0xLjUgMHY1LjI1YTEuNSAxLjUgMCAwIDEtMS41IDEuNUg1LjI1YTEuNSAxLjUgMCAwIDEtMS41LTEuNVY4LjI1YTEuNSAxLjUgMCAwIDEgMS41LTEuNWg1LjI1YS43NS43NSAwIDAgMCAwLTEuNUg1LjI1WiIgLz48L3N2Zz4=');
+  --ubtrace-admonition-icon--abstract: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNy41MDIgNmg3LjEyOEEzLjM3NSAzLjM3NSAwIDAgMSAxOCA5LjM3NXY5LjM3NWEzIDMgMCAwIDAgMy0zVjYuMTA4YzAtMS41MDUtMS4xMjUtMi44MTEtMi42NjQtMi45NGE0OC45NzIgNDguOTcyIDAgMCAwLS42NzMtLjA1QTMgMyAwIDAgMCAxNSAxLjVoLTEuNWEzIDMgMCAwIDAtMi42NjMgMS42MThjLS4yMjUuMDE1LS40NS4wMzItLjY3My4wNUM4LjY2MiAzLjI5NSA3LjU1NCA0LjU0MiA3LjUwMiA2Wk0xMy41IDNBMS41IDEuNSAwIDAgMCAxMiA0LjVoNC41QTEuNSAxLjUgMCAwIDAgMTUgM2gtMS41WiIgY2xpcC1ydWxlPSJldmVub2RkIiAvPgogIDxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTMgOS4zNzVDMyA4LjMzOSAzLjg0IDcuNSA0Ljg3NSA3LjVoOS43NWMxLjAzNiAwIDEuODc1Ljg0IDEuODc1IDEuODc1djExLjI1YzAgMS4wMzUtLjg0IDEuODc1LTEuODc1IDEuODc1aC05Ljc1QTEuODc1IDEuODc1IDAgMCAxIDMgMjAuNjI1VjkuMzc1Wk02IDEyYS43NS43NSAwIDAgMSAuNzUtLjc1aC4wMDhhLjc1Ljc1IDAgMCAxIC43NS43NXYuMDA4YS43NS43NSAwIDAgMS0uNzUuNzVINi43NWEuNzUuNzUgMCAwIDEtLjc1LS43NVYxMlptMi4yNSAwYS43NS43NSAwIDAgMSAuNzUtLjc1aDMuNzVhLjc1Ljc1IDAgMCAxIDAgMS41SDlhLjc1Ljc1IDAgMCAxLS43NS0uNzVaTTYgMTVhLjc1Ljc1IDAgMCAxIC43NS0uNzVoLjAwOGEuNzUuNzUgMCAwIDEgLjc1Ljc1di4wMDhhLjc1Ljc1IDAgMCAxLS43NS43NUg2Ljc1YS43NS43NSAwIDAgMS0uNzUtLjc1VjE1Wm0yLjI1IDBhLjc1Ljc1IDAgMCAxIC43NS0uNzVoMy43NWEuNzUuNzUgMCAwIDEgMCAxLjVIOWEuNzUuNzUgMCAwIDEtLjc1LS43NVpNNiAxOGEuNzUuNzUgMCAwIDEgLjc1LS43NWguMDA4YS43NS43NSAwIDAgMSAuNzUuNzV2LjAwOGEuNzUuNzUgMCAwIDEtLjc1Ljc1SDYuNzVhLjc1Ljc1IDAgMCAxLS43NS0uNzVWMThabTIuMjUgMGEuNzUuNzUgMCAwIDEgLjc1LS43NWgzLjc1YS43NS43NSAwIDAgMSAwIDEuNUg5YS43NS43NSAwIDAgMS0uNzUtLjc1WiIgY2xpcC1ydWxlPSJldmVub2RkIiAvPgo8L3N2Zz4K');
+  --ubtrace-admonition-icon--info: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMi4yNSAxMmMwLTUuMzg1IDQuMzY1LTkuNzUgOS43NS05Ljc1czkuNzUgNC4zNjUgOS43NSA5Ljc1LTQuMzY1IDkuNzUtOS43NSA5Ljc1UzIuMjUgMTcuMzg1IDIuMjUgMTJabTguNzA2LTEuNDQyYzEuMTQ2LS41NzMgMi40MzcuNDYzIDIuMTI2IDEuNzA2bC0uNzA5IDIuODM2LjA0Mi0uMDJhLjc1Ljc1IDAgMCAxIC42NyAxLjM0bC0uMDQuMDIyYy0xLjE0Ny41NzMtMi40MzgtLjQ2My0yLjEyNy0xLjcwNmwuNzEtMi44MzYtLjA0Mi4wMmEuNzUuNzUgMCAxIDEtLjY3MS0xLjM0bC4wNDEtLjAyMlpNMTIgOWEuNzUuNzUgMCAxIDAgMC0xLjUuNzUuNzUgMCAwIDAgMCAxLjVaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIC8+Cjwvc3ZnPgo=');
+  --ubtrace-admonition-icon--tip: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZD0iTTEyIC43NWE4LjI1IDguMjUgMCAwIDAtNC4xMzUgMTUuMzljLjY4Ni4zOTggMS4xMTUgMS4wMDggMS4xMzQgMS42MjNhLjc1Ljc1IDAgMCAwIC41NzcuNzA2Yy4zNTIuMDgzLjcxLjE0OCAxLjA3NC4xOTUuMzIzLjA0MS42LS4yMTguNi0uNTQ0di00LjY2MWE2LjcxNCA2LjcxNCAwIDAgMS0uOTM3LS4xNzEuNzUuNzUgMCAxIDEgLjM3NC0xLjQ1MyA1LjI2MSA1LjI2MSAwIDAgMCAyLjYyNiAwIC43NS43NSAwIDEgMSAuMzc0IDEuNDUyIDYuNzEyIDYuNzEyIDAgMCAxLS45MzcuMTcydjQuNjZjMCAuMzI3LjI3Ny41ODYuNi41NDUuMzY0LS4wNDcuNzIyLS4xMTIgMS4wNzQtLjE5NWEuNzUuNzUgMCAwIDAgLjU3Ny0uNzA2Yy4wMi0uNjE1LjQ0OC0xLjIyNSAxLjEzNC0xLjYyM0E4LjI1IDguMjUgMCAwIDAgMTIgLjc1WiIgLz4KICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05LjAxMyAxOS45YS43NS43NSAwIDAgMSAuODc3LS41OTcgMTEuMzE5IDExLjMxOSAwIDAgMCA0LjIyIDAgLjc1Ljc1IDAgMSAxIC4yOCAxLjQ3MyAxMi44MTkgMTIuODE5IDAgMCAxLTQuNzggMCAuNzUuNzUgMCAwIDEtLjU5Ny0uODc2Wk05Ljc1NCAyMi4zNDRhLjc1Ljc1IDAgMCAxIC44MjQtLjY2OCAxMy42ODIgMTMuNjgyIDAgMCAwIDIuODQ0IDAgLjc1Ljc1IDAgMSAxIC4xNTYgMS40OTIgMTUuMTU2IDE1LjE1NiAwIDAgMS0zLjE1NiAwIC43NS43NSAwIDAgMS0uNjY4LS44MjRaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIC8+Cjwvc3ZnPgo=');
+  --ubtrace-admonition-icon--success: url('data:image/svg+xml;base64,dXJsKCJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeU5DQXlOQ0lnWm1sc2JEMGlZM1Z5Y21WdWRFTnZiRzl5SWlCamJHRnpjejBpZHkwMklHZ3ROaUkrQ2lBZ1BIQmhkR2dnWkQwaVRURXlJQzQzTldFNExqSTFJRGd1TWpVZ01DQXdJREF0TkM0eE16VWdNVFV1TXpsakxqWTROaTR6T1RnZ01TNHhNVFVnTVM0d01EZ2dNUzR4TXpRZ01TNDJNak5oTGpjMUxqYzFJREFnTUNBd0lDNDFOemN1TnpBMll5NHpOVEl1TURnekxqY3hMakUwT0NBeExqQTNOQzR4T1RVdU16SXpMakEwTVM0MkxTNHlNVGd1TmkwdU5UUTBkaTAwTGpZMk1XRTJMamN4TkNBMkxqY3hOQ0F3SURBZ01TMHVPVE0zTFM0eE56RXVOelV1TnpVZ01DQXhJREVnTGpNM05DMHhMalExTXlBMUxqSTJNU0ExTGpJMk1TQXdJREFnTUNBeUxqWXlOaUF3SUM0M05TNDNOU0F3SURFZ01TQXVNemMwSURFdU5EVXlJRFl1TnpFeUlEWXVOekV5SURBZ01DQXhMUzQ1TXpjdU1UY3lkalF1Tmpaak1DQXVNekkzTGpJM055NDFPRFl1Tmk0MU5EVXVNelkwTFM0d05EY3VOekl5TFM0eE1USWdNUzR3TnpRdExqRTVOV0V1TnpVdU56VWdNQ0F3SURBZ0xqVTNOeTB1TnpBMll5NHdNaTB1TmpFMUxqUTBPQzB4TGpJeU5TQXhMakV6TkMweExqWXlNMEU0TGpJMUlEZ3VNalVnTUNBd0lEQWdNVElnTGpjMVdpSWdMejRLSUNBOGNHRjBhQ0JtYVd4c0xYSjFiR1U5SW1WMlpXNXZaR1FpSUdROUlrMDVMakF4TXlBeE9TNDVZUzQzTlM0M05TQXdJREFnTVNBdU9EYzNMUzQxT1RjZ01URXVNekU1SURFeExqTXhPU0F3SURBZ01DQTBMakl5SURBZ0xqYzFMamMxSURBZ01TQXhJQzR5T0NBeExqUTNNeUF4TWk0NE1Ua2dNVEl1T0RFNUlEQWdNQ0F4TFRRdU56Z2dNQ0F1TnpVdU56VWdNQ0F3SURFdExqVTVOeTB1T0RjMldrMDVMamMxTkNBeU1pNHpORFJoTGpjMUxqYzFJREFnTUNBeElDNDRNalF0TGpZMk9DQXhNeTQyT0RJZ01UTXVOamd5SURBZ01DQXdJREl1T0RRMElEQWdMamMxTGpjMUlEQWdNU0F4SUM0eE5UWWdNUzQwT1RJZ01UVXVNVFUySURFMUxqRTFOaUF3SURBZ01TMHpMakUxTmlBd0lDNDNOUzQzTlNBd0lEQWdNUzB1TmpZNExTNDRNalJhSWlCamJHbHdMWEoxYkdVOUltVjJaVzV2WkdRaUlDOCtDand2YzNablBnbz0iKQ==');
+  --ubtrace-admonition-icon--question: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMi4yNSAxMmMwLTUuMzg1IDQuMzY1LTkuNzUgOS43NS05Ljc1czkuNzUgNC4zNjUgOS43NSA5Ljc1LTQuMzY1IDkuNzUtOS43NSA5Ljc1UzIuMjUgMTcuMzg1IDIuMjUgMTJabTExLjM3OC0zLjkxN2MtLjg5LS43NzctMi4zNjYtLjc3Ny0zLjI1NSAwYS43NS43NSAwIDAgMS0uOTg4LTEuMTI5YzEuNDU0LTEuMjcyIDMuNzc2LTEuMjcyIDUuMjMgMCAxLjUxMyAxLjMyNCAxLjUxMyAzLjUxOCAwIDQuODQyYTMuNzUgMy43NSAwIDAgMS0uODM3LjU1MmMtLjY3Ni4zMjgtMS4wMjguNzc0LTEuMDI4IDEuMTUydi43NWEuNzUuNzUgMCAwIDEtMS41IDB2LS43NWMwLTEuMjc5IDEuMDYtMi4xMDcgMS44NzUtMi41MDIuMTgyLS4wODguMzUxLS4xOTkuNTAzLS4zMzEuODMtLjcyNy44My0xLjg1NyAwLTIuNTg0Wk0xMiAxOGEuNzUuNzUgMCAxIDAgMC0xLjUuNzUuNzUgMCAwIDAgMCAxLjVaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIC8+Cjwvc3ZnPgo=');
+  --ubtrace-admonition-icon--warning: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOS40MDEgMy4wMDNjMS4xNTUtMiA0LjA0My0yIDUuMTk3IDBsNy4zNTUgMTIuNzQ4YzEuMTU0IDItLjI5IDQuNS0yLjU5OSA0LjVINC42NDVjLTIuMzA5IDAtMy43NTItMi41LTIuNTk4LTQuNUw5LjQgMy4wMDNaTTEyIDguMjVhLjc1Ljc1IDAgMCAxIC43NS43NXYzLjc1YS43NS43NSAwIDAgMS0xLjUgMFY5YS43NS43NSAwIDAgMSAuNzUtLjc1Wm0wIDguMjVhLjc1Ljc1IDAgMSAwIDAtMS41Ljc1Ljc1IDAgMCAwIDAgMS41WiIgY2xpcC1ydWxlPSJldmVub2RkIiAvPgo8L3N2Zz4K');
+  --ubtrace-admonition-icon--failure: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTIgMi4yNWMtNS4zODUgMC05Ljc1IDQuMzY1LTkuNzUgOS43NXM0LjM2NSA5Ljc1IDkuNzUgOS43NSA5Ljc1LTQuMzY1IDkuNzUtOS43NVMxNy4zODUgMi4yNSAxMiAyLjI1Wm0tMS43MiA2Ljk3YS43NS43NSAwIDEgMC0xLjA2IDEuMDZMMTAuOTQgMTJsLTEuNzIgMS43MmEuNzUuNzUgMCAxIDAgMS4wNiAxLjA2TDEyIDEzLjA2bDEuNzIgMS43MmEuNzUuNzUgMCAxIDAgMS4wNi0xLjA2TDEzLjA2IDEybDEuNzItMS43MmEuNzUuNzUgMCAxIDAtMS4wNi0xLjA2TDEyIDEwLjk0bC0xLjcyLTEuNzJaIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIC8+Cjwvc3ZnPgo=');
+  --ubtrace-admonition-icon--danger: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZD0ibTIwLjc5OCAxMS4wMTItMy4xODggMy40MTZMOS40NjIgNi4yOGw0LjI0LTQuNTQyYS43NS43NSAwIDAgMSAxLjI3Mi43MUwxMi45ODIgOS43NWg3LjI2OGEuNzUuNzUgMCAwIDEgLjU0OCAxLjI2MlpNMy4yMDIgMTIuOTg4IDYuMzkgOS41NzJsOC4xNDggOC4xNDgtNC4yNCA0LjU0MmEuNzUuNzUgMCAwIDEtMS4yNzItLjcxbDEuOTkyLTcuMzAySDMuNzVhLjc1Ljc1IDAgMCAxLS41NDgtMS4yNjJaTTMuNTMgMi40N2EuNzUuNzUgMCAwIDAtMS4wNiAxLjA2bDE4IDE4YS43NS43NSAwIDEgMCAxLjA2LTEuMDZsLTE4LTE4WiIgLz4KPC9zdmc+Cg==');
+  --ubtrace-admonition-icon--bug: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOC40NzggMS42YS43NS43NSAwIDAgMSAuMjczIDEuMDI2IDMuNzIgMy43MiAwIDAgMC0uNDI1IDEuMTIxYy4wNTguMDU4LjExOC4xMTQuMTguMTY4QTQuNDkxIDQuNDkxIDAgMCAxIDEyIDIuMjVjMS40MTMgMCAyLjY3My42NTEgMy40OTcgMS42NjguMDYtLjA1NC4xMi0uMTEuMTc4LS4xNjdhMy43MTcgMy43MTcgMCAwIDAtLjQyNi0xLjEyNS43NS43NSAwIDEgMSAxLjI5OC0uNzUyIDUuMjIgNS4yMiAwIDAgMSAuNjcxIDIuMDQ2Ljc1Ljc1IDAgMCAxLS4xODcuNTgyYy0uMjQxLjI3LS41MDUuNTItLjc4Ny43NDlhNC40OTQgNC40OTQgMCAwIDEgLjIxNiAyLjFjLS4xMDYuNzkyLS43NTMgMS4yOTUtMS40MTcgMS40MDMtLjE4Mi4wMy0uMzY0LjA1Ny0uNTQ3LjA4MS4xNTIuMjI3LjI3My40NzYuMzU5Ljc0MmEyMy4xMjIgMjMuMTIyIDAgMCAwIDMuODMyLS44MDMgMjMuMjQxIDIzLjI0MSAwIDAgMC0uMzQ1LTIuNjM0Ljc1Ljc1IDAgMCAxIDEuNDc0LS4yOGMuMjEgMS4xMTUuMzQ4IDIuMjU2LjQwNCAzLjQxOGEuNzUuNzUgMCAwIDEtLjUxNi43NWMtMS41MjcuNDk5LTMuMTE5Ljg1NC00Ljc2IDEuMDQ5LS4wNzQuMzgtLjIyLjczNS0uNDIzIDEuMDUgMi4wNjYuMjA5IDQuMDU4LjY3MiA1Ljk0MyAxLjM1OGEuNzUuNzUgMCAwIDEgLjQ5Mi43NSAyNC42NjUgMjQuNjY1IDAgMCAxLTEuMTg5IDYuMjUuNzUuNzUgMCAwIDEtMS40MjUtLjQ3IDIzLjE0IDIzLjE0IDAgMCAwIDEuMDc3LTUuMzA2Yy0uNS0uMTY5LTEuMDA5LS4zMi0xLjUyNC0uNDU1LjA2OC4yMzQuMTA0LjQ4NC4xMDQuNzQ2IDAgMy45NTYtMi41MjEgNy41LTYgNy41LTMuNDc4IDAtNi0zLjU0NC02LTcuNSAwLS4yNjIuMDM3LS41MTEuMTA0LS43NDYtLjUxNC4xMzUtMS4wMjIuMjg2LTEuNTIyLjQ1NS4xNTQgMS44MzguNTIgMy42MTYgMS4wNzcgNS4zMDdhLjc1Ljc1IDAgMSAxLTEuNDI1LjQ2OCAyNC42NjIgMjQuNjYyIDAgMCAxLTEuMTktNi4yNS43NS43NSAwIDAgMSAuNDkzLS43NDkgMjQuNTg2IDI0LjU4NiAwIDAgMSA0Ljk2NC0xLjI0aC4wMWMuMzIxLS4wNDYuNjQ0LS4wODUuOTY5LS4xMThhMi45ODMgMi45ODMgMCAwIDEtLjQyNC0xLjA1IDI0LjYxNCAyNC42MTQgMCAwIDEtNC43Ni0xLjA1Ljc1Ljc1IDAgMCAxLS41MTYtLjc1Yy4wNTctMS4xNi4xOTQtMi4zMDIuNDA1LTMuNDE3YS43NS43NSAwIDAgMSAxLjQ3NC4yOGMtLjE2NC44NjItLjI4IDEuNzQtLjM0NSAyLjYzNCAxLjIzNy4zNzEgMi41MTcuNjQyIDMuODMyLjgwMy4wODUtLjI2Ni4yMDctLjUxNS4zNTktLjc0MmExOC42OTggMTguNjk4IDAgMCAxLS41NDctLjA4Yy0uNjY0LS4xMS0xLjMxMS0uNjEyLTEuNDE3LTEuNDA0YTQuNTM1IDQuNTM1IDAgMCAxIC4yMTctMi4xMDMgNi43ODggNi43ODggMCAwIDEtLjc4OC0uNzUxLjc1Ljc1IDAgMCAxLS4xODctLjU4MyA1LjIyIDUuMjIgMCAwIDEgLjY3LTIuMDQuNzUuNzUgMCAwIDEgMS4wMjYtLjI3M1oiIGNsaXAtcnVsZT0iZXZlbm9kZCIgLz4KPC9zdmc+Cg==');
+  --ubtrace-admonition-icon--example: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAuNSAzLjc5OHY1LjAyYTMgMyAwIDAgMS0uODc5IDIuMTIxbC0yLjM3NyAyLjM3N2E5Ljg0NSA5Ljg0NSAwIDAgMSA1LjA5MSAxLjAxMyA4LjMxNSA4LjMxNSAwIDAgMCA1LjcxMy42MzZsLjI4NS0uMDcxLTMuOTU0LTMuOTU1YTMgMyAwIDAgMS0uODc5LTIuMTIxdi01LjAyYTIzLjYxNCAyMy42MTQgMCAwIDAtMyAwWm00LjUuMTM4YS43NS43NSAwIDAgMCAuMDkzLTEuNDk1QTI0LjgzNyAyNC44MzcgMCAwIDAgMTIgMi4yNWEyNS4wNDggMjUuMDQ4IDAgMCAwLTMuMDkzLjE5MUEuNzUuNzUgMCAwIDAgOSAzLjkzNnY0Ljg4MmExLjUgMS41IDAgMCAxLS40NCAxLjA2bC02LjI5MyA2LjI5NGMtMS42MiAxLjYyMS0uOTAzIDQuNDc1IDEuNDcxIDQuODggMi42ODYuNDYgNS40NDcuNjk4IDguMjYyLjY5OCAyLjgxNiAwIDUuNTc2LS4yMzkgOC4yNjItLjY5NyAyLjM3My0uNDA2IDMuMDkyLTMuMjYgMS40Ny00Ljg4MUwxNS40NCA5Ljg3OUExLjUgMS41IDAgMCAxIDE1IDguODE4VjMuOTM2WiIgY2xpcC1ydWxlPSJldmVub2RkIiAvPgo8L3N2Zz4K');
+  --ubtrace-admonition-icon--quote: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNC44MDQgMjEuNjQ0QTYuNzA3IDYuNzA3IDAgMCAwIDYgMjEuNzVhNi43MjEgNi43MjEgMCAwIDAgMy41ODMtMS4wMjljLjc3NC4xODIgMS41ODQuMjc5IDIuNDE3LjI3OSA1LjMyMiAwIDkuNzUtMy45NyA5Ljc1LTkgMC01LjAzLTQuNDI4LTktOS43NS05cy05Ljc1IDMuOTctOS43NSA5YzAgMi40MDkgMS4wMjUgNC41ODcgMi42NzQgNi4xOTIuMjMyLjIyNi4yNzcuNDI4LjI1NC41NDNhMy43MyAzLjczIDAgMCAxLS44MTQgMS42ODYuNzUuNzUgMCAwIDAgLjQ0IDEuMjIzWk04LjI1IDEwLjg3NWExLjEyNSAxLjEyNSAwIDEgMCAwIDIuMjUgMS4xMjUgMS4xMjUgMCAwIDAgMC0yLjI1Wk0xMC44NzUgMTJhMS4xMjUgMS4xMjUgMCAxIDEgMi4yNSAwIDEuMTI1IDEuMTI1IDAgMCAxLTIuMjUgMFptNC44NzUtMS4xMjVhMS4xMjUgMS4xMjUgMCAxIDAgMCAyLjI1IDEuMTI1IDEuMTI1IDAgMCAwIDAtMi4yNVoiIGNsaXAtcnVsZT0iZXZlbm9kZCIgLz4KPC9zdmc+Cg==');
+  --ubtrace-admonition-icon--toc: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0idy02IGgtNiI+CiAgPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMS41IDUuNjI1YzAtMS4wMzYuODQtMS44NzUgMS44NzUtMS44NzVoMTcuMjVjMS4wMzUgMCAxLjg3NS44NCAxLjg3NSAxLjg3NXYxMi43NWMwIDEuMDM1LS44NCAxLjg3NS0xLjg3NSAxLjg3NUgzLjM3NUExLjg3NSAxLjg3NSAwIDAgMSAxLjUgMTguMzc1VjUuNjI1Wk0yMSA5LjM3NUEuMzc1LjM3NSAwIDAgMCAyMC42MjUgOWgtNy41YS4zNzUuMzc1IDAgMCAwLS4zNzUuMzc1djEuNWMwIC4yMDcuMTY4LjM3NS4zNzUuMzc1aDcuNWEuMzc1LjM3NSAwIDAgMCAuMzc1LS4zNzV2LTEuNVptMCAzLjc1YS4zNzUuMzc1IDAgMCAwLS4zNzUtLjM3NWgtNy41YS4zNzUuMzc1IDAgMCAwLS4zNzUuMzc1djEuNWMwIC4yMDcuMTY4LjM3NS4zNzUuMzc1aDcuNWEuMzc1LjM3NSAwIDAgMCAuMzc1LS4zNzV2LTEuNVptMCAzLjc1YS4zNzUuMzc1IDAgMCAwLS4zNzUtLjM3NWgtNy41YS4zNzUuMzc1IDAgMCAwLS4zNzUuMzc1djEuNWMwIC4yMDcuMTY4LjM3NS4zNzUuMzc1aDcuNWEuMzc1LjM3NSAwIDAgMCAuMzc1LS4zNzV2LTEuNVpNMTAuODc1IDE4Ljc1YS4zNzUuMzc1IDAgMCAwIC4zNzUtLjM3NXYtMS41YS4zNzUuMzc1IDAgMCAwLS4zNzUtLjM3NWgtNy41YS4zNzUuMzc1IDAgMCAwLS4zNzUuMzc1djEuNWMwIC4yMDcuMTY4LjM3NS4zNzUuMzc1aDcuNVpNMy4zNzUgMTVoNy41YS4zNzUuMzc1IDAgMCAwIC4zNzUtLjM3NXYtMS41YS4zNzUuMzc1IDAgMCAwLS4zNzUtLjM3NWgtNy41YS4zNzUuMzc1IDAgMCAwLS4zNzUuMzc1djEuNWMwIC4yMDcuMTY4LjM3NS4zNzUuMzc1Wm0wLTMuNzVoNy41YS4zNzUuMzc1IDAgMCAwIC4zNzUtLjM3NXYtMS41QS4zNzUuMzc1IDAgMCAwIDEwLjg3NSA5aC03LjVBLjM3NS4zNzUgMCAwIDAgMyA5LjM3NXYxLjVjMCAuMjA3LjE2OC4zNzUuMzc1LjM3NVoiIGNsaXAtcnVsZT0iZXZlbm9kZCIgLz4KPC9zdmc+Cg==');
+}
+
+/* The content are shall not get too much width, otherwise the text lines get too long
+and can't be read */
+html,
+body,
+div#ubtrace-app-body {
+  max-width: 1920px;
+  margin: auto;
+}
+
+/************************/
+/* IMAGE POSITIONS START*/
+
+/* Image center */
+img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img.align-left {
+  display: block;
+  margin-right: auto;
+}
+
+img.align-right {
+  display: block;
+  margin-left: auto;
+}
+/* IMAGE POSITIONS END*/
+/**********************/
+
+body span.ub_slash,
+div.sd-card-title {
+  color: rgb(var(--color-primary-500));
+}
+
+/* Content logo */
+div.content-ubtrace-logo {
+  text-align: center;
+}
+
+/* Content title */
+div.useblocks-title {
+  text-align: center;
+  font-weight: 400;
+}
+div.useblocks-title small {
+  text-align: center;
+  font-weight: 100;
+  font-size: 0.8em;
+  /*text-decoration: underline;*/
+}
+div.useblocks-title small.sub {
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.6em;
+  /*text-decoration: underline;*/
+}
+
+div.ubtrace-example {
+  /*border: 1px solid black;*/
+  background-color: rgba(32, 32, 32, 0.05);
+}
+
+div.sd-card.sn,
+.dark div.sd-card.sn {
+  background-color: #2094f3;
+  color: #ffffff;
+}
+
+body div.sd-card.ub {
+  border: 2px solid rgb(var(--color-primary-500));
+  /*background-color: var(--color-primary-500);*/
+  color: inherit;
+}
+
+/* Sphinx-Need fixes to support focus-layout with clean-styles for releases*/
+div.need_container div.ubtrace-table-responsive {
+  padding: 0 !important;
+  font-size: 1em !important;
+}
+
+/* ubTrace features card on manin page */
+.dark div.ubtrace-benefits div.sd-card,
+.dark div.ubtrace-persona div.sd-card {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.dark div.ubtrace-features div.sd-card {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+div.ubtrace-features div.sd-card-title,
+div.ubtrace-benefits div.sd-card-title {
+  font-size: 1.05em;
+}
+
+/*# Needs title */
+span.needs_title {
+  font-size: 1.4em; /* Bigger title */
+}
+
+/* Release colors */
+/*
+current month: 226, 6, 6, 0.5
+next month: 240, 169, 15, 0.774
++2 month: 
++3 month: 
+past, >3 month: None
+tbd: 90, 90, 90, 0.774
+*/
+table.needs_style_release_2023_11 td.head_center {
+  border-bottom: 5px solid rgba(226, 6, 6, 0.5) !important;
+}
+
+table.needs_style_release_2023_12 td.head_center {
+  border-bottom: 5px solid rgba(240, 169, 15, 0.774) !important;
+}
+
+table.needs_style_release_2024_1 td.head_center {
+  border-bottom: 5px solid rgba(126, 8, 180, 0.774) !important;
+}
+
+table.needs_style_release_2024_2 td.head_center {
+  border-bottom: 5px solid rgba(17, 38, 160, 0.774) !important;
+}
+
+table.needs_style_release_tbd td.head_center {
+  border-bottom: 5px solid rgba(90, 90, 90, 0.774) !important;
+}
+
+td.head_center,
+td.head_right,
+td.footer_right {
+  vertical-align: middle !important;
+  text-align: right !important;
+}
+
+td.head_center,
+td.footer_center {
+  vertical-align: middle !important;
+  text-align: left !important;
+}
+
+table.needs_type_roadmap tr.head {
+  border-bottom: 3px solid #707bb9 !important;
+}
+
+table.needs_type_request tr.head {
+  border-bottom: 3px solid #a8c1dd !important;
+}
+
+table.needs_type_feature td:is(.head_left, .head_center) {
+  border-bottom: 3px solid #32ac46 !important;
+}
+
+table.needs_type_release td:is(.head_left, .head_center) {
+  border-bottom: 3px solid #7d47e2 !important;
+}
+
+table.needs_type_story tr.head {
+  border-bottom: 3px solid #e2c13f !important;
+}
+
+table.needs_type_spec tr.head {
+  border-bottom: 3px solid #ca4c43 !important;
+}
+
+table.needs_type_impl tr.head {
+  border-bottom: 3px solid #2a34b3 !important;
+}
+
+table.needs_type_test tr.head {
+  border-bottom: 3px solid #b30e97 !important;
+}
+
+table.needs_type_problem tr.head {
+  border-bottom: 3px solid #ee3322 !important;
+}
+
+table.needs_type_phase tr.head {
+  border-bottom: 3px solid #cccccc !important;
+}
+
+table.needs_type_obj td:is(.head_left, .head_center) {
+  border-bottom: 3px solid #1bd8cf !important;
+}
+
+table.needs_type_key td.head {
+  border-bottom: 3px solid #8f0b5c !important;
+}
+
+.okr-row figure,
+.okr-row img {
+  margin: auto;
+}
+
+.okr-row img {
+  max-height: 200px;
+}
+
+span.need-part a.needs-id {
+  vertical-align: super;
+  font-size: 0.7em;
+}
+
+a.need-btn {
+  line-height: 1 !important;
+  padding: 0.2rem 0.7rem !important;
+  font-size: 1em;
+}
+
+table.need hr.docutils {
+  margin: 0;
+}
+
+/* License color for Feature needs */
+table.needs_style_LIC_COM,
+#LIC_COM,
+tr.need_LIC_COM {
+  border-right: 5px solid #018b13 !important;
+}
+
+table.needs_style_LIC_ENT,
+#LIC_ENT,
+tr.need_LIC_ENT {
+  border-right: 5px solid #4859eb !important;
+}
+
+td.head_left,
+td.footer_left {
+  width: 50%;
+}
+
+td.head_center,
+td.head_right,
+td.footer_center,
+td.footer_right {
+  width: 25%;
+}
+
+table.needs_type_ukc td.head_center,
+table.needs_type_ukc td.footer_center {
+  width: 25%;
+}
+
+table.needs_type_ukc td.head_right,
+table.needs_type_ukc td.footer_right {
+  width: 5%;
+  min-width: 75px;
+}
+
+tr.need td.side {
+  width: 20%;
+  min-width: 100px;
+  padding: 0 !important;
+}
+
+div.needs_side img {
+  width: 100%;
+}
+
+tr.need td.head {
+  height: 100%;
+}
+
+/*REDUCING CONTENT->FOOTER SPACE: START */
+table.need td.content {
+  padding: 0 1.25em !important;
+}
+
+table.need .sd-mb-4 {
+  margin-bottom: 0 !important;
+}
+
+.prose ul {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+/*REDUCING CONTENT->FOOTER SPACE: END */
+
+#ubtrace_contentTarget.prose :is(img, svg) {
+  max-width: 100%;
+}
+
+/* Do not use ub_theme filters for dark mode on images */
+img.needs_image {
+  filter: none !important;
+}
+
+/* Sphinx Design Card title */
+div.sd-card-title {
+  font-size: 1.3em;
+}
+
+/* Sphinx Design Card image top for categories page */
+div.ubtrace-categories img.sd-card-img-top {
+  max-width: 200px;
+  align-self: center;
+}
+
+/* do not show (empty) meta data in team member needs */
+table.needs_type_member td.meta {
+  display: none;
+}
+
+/* Status colors for need head */
+table.needs_style_status_open td.head_right,
+table.needs_style_status_new td.head_right {
+  border-bottom: 5px solid rgb(12, 106, 168) !important;
+}
+
+table.needs_style_status_appr td.head_right {
+  border-bottom: 5px solid rgb(224, 133, 14) !important;
+}
+
+table.needs_style_status_done td.head_right {
+  border-bottom: 5px solid rgba(0, 255, 0, 0.5) !important;
+}
+
+table.needs_style_status_rejected td.head_right {
+  border-bottom: 5px solid rgba(255, 31, 31, 0.8) !important;
+}
+
+/* Status colors for needtable rows */
+tr.ub_new,
+tr.ub_open {
+  border-left: 5px solid rgb(12, 106, 168) !important;
+}
+
+tr.ub_appr {
+  border-left: 5px solid rgb(224, 133, 14) !important;
+}
+
+tr.ub_done {
+  border-left: 5px solid rgba(0, 255, 0, 0.5) !important;
+}
+
+tr.ub_rej {
+  border-left: 5px solid rgba(200, 200, 200, 0.2) !important;
+}
+
+/* Table row colors for status */
+tr.needs_status_new {
+  background-color: rgba(12, 106, 168, 0.2);
+}
+
+tr.needs_status_appr {
+  background-color: rgba(224, 133, 14, 0.2);
+}
+
+tr.needs_status_done {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+tr.needs_status_rej {
+  background-color: rgba(200, 200, 200, 0.2);
+}
+
+/* JIRA issue button in Stories*/
+div.story-action {
+  text-align: right;
+}
+
+/* No padding for the content are in Sphinx-Needs and other paragraphs */
+.sd-container,
+.sd-container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Tool NEEDS */
+table.needs_type_tool td.side {
+  width: 15% !important;
+  max-width: 250px !important;
+  vertical-align: middle !important;
+}
+
+table.needs_type_tool div.needs_side img {
+  padding: 10%;
+  width: 100%;
+}
+
+code {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dark code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Devs container on main page */
+div.ubtrace-devs {
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+/* Applied Admonition Styles */
+:is(.admonition, .topic, .contents) {
+  display: flow-root;
+  break-inside: avoid;
+  padding: 0 0.625rem;
+  border: 1px solid #3b82f6;
+  border-radius: 0.25rem;
+  margin: 0.625rem 0 !important;
+}
+
+:is(.admonition, .topic, .contents) > * {
+  box-sizing: border-box;
+}
+#ubtrace_contentTarget.prose :is(.admonition, .topic, .contents) > :last-child {
+  margin-bottom: 0.25rem;
+}
+:is(.admonition-title, .topic-title) {
+  position: relative;
+  background-color: #3b83f61a;
+  padding: 0.375rem 0.625rem 0 2rem;
+  margin: 0 -0.625rem !important;
+  border-width: 0px;
+  border-top-left-radius: 0.125rem;
+  border-top-right-radius: 0.125rem;
+  font-weight: 500;
+}
+/* Convert svg markup to base64 using this online converter: https://fffuel.co/eeencode/ and copy URL string*/
+:is(.admonition-title, .topic-title)::before {
+  position: absolute;
+  top: 0.525rem;
+  left: 0.625rem;
+  background-color: #3b83f6;
+  height: 1.25rem;
+  width: 1.25rem;
+  content: '';
+  -webkit-mask-image: var(--ubtrace-admonition-icon--note);
+  mask-image: var(--ubtrace-admonition-icon--note);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+/* note admonition */
+:is(.note) {
+  border-color: #3b83f6;
+}
+:is(.note) > .admonition-title {
+  background-color: #3b83f61a;
+}
+:is(.note) > :is(.admonition-title, summary):before {
+  background-color: #3b83f6;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--note);
+  mask-image: var(--ubtrace-admonition-icon--note);
+}
+:is(.note) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #3b83f6;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--note);
+  mask-image: var(--ubtrace-admonition-icon--note);
+}
+/* abstract & summary admonitions */
+:is(.abstract, .summary, .topic) {
+  border-color: #93c5fd;
+}
+:is(.abstract, .summary, .topic) > :is(.admonition-title, .topic-title) {
+  background-color: #93c5fd1a;
+}
+:is(.abstract, .summary, .topic) > :is(.admonition-title, .topic-title, summary):before {
+  background-color: #93c5fd;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--abstract);
+  mask-image: var(--ubtrace-admonition-icon--abstract);
+}
+:-webkit-any(.abstract, .summary, .topic)
+  > :-webkit-any(.admonition-title, .topic-title, summary):before {
+  background-color: #93c5fd;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--abstract);
+  mask-image: var(--ubtrace-admonition-icon--abstract);
+}
+/* info & todo admonitions */
+:is(.info, .todo) {
+  border-color: #0e7490;
+}
+:is(.info, .todo) > .admonition-title {
+  background-color: #0e74901a;
+}
+:is(.info, .todo) > :is(.admonition-title, summary):before {
+  background-color: #0e7490;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--info);
+  mask-image: var(--ubtrace-admonition-icon--info);
+}
+:-webkit-any(.info, .todo) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #0e7490;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--info);
+  mask-image: var(--ubtrace-admonition-icon--info);
+}
+/* tip, hint & important admonitions */
+:is(.tip, .hint, .important) {
+  border-color: #0f766e;
+}
+:is(.tip, .hint, .important) > .admonition-title {
+  background-color: #0f766e1a;
+}
+:is(.tip, .hint, .important) > :is(.admonition-title, summary):before {
+  background-color: #0f766e;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--tip);
+  mask-image: var(--ubtrace-admonition-icon--tip);
+}
+:-webkit-any(.tip, .hint, .important) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #0f766e;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--tip);
+  mask-image: var(--ubtrace-admonition-icon--tip);
+}
+
+/* success, check & done admonitions */
+:is(.success, .check, .done) {
+  border-color: #15803d;
+}
+:is(.success, .check, .done) > .admonition-title {
+  background-color: #15803d1a;
+}
+:is(.success, .check, .done) > :is(.admonition-title, summary):before {
+  background-color: #15803d;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--success);
+  mask-image: var(--ubtrace-admonition-icon--success);
+}
+:-webkit-any(.success, .check, .done) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #15803d;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--success);
+  mask-image: var(--ubtrace-admonition-icon--success);
+}
+
+/* question, help & faq admonitions */
+:is(.question, .help, .faq) {
+  border-color: #86efac;
+}
+:is(.question, .help, .faq) > .admonition-title {
+  background-color: #86efac1a;
+}
+:is(.question, .help, .faq) > :is(.admonition-title, summary):before {
+  background-color: #86efac;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--question);
+  mask-image: var(--ubtrace-admonition-icon--question);
+}
+:-webkit-any(.question, .help, .faq) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #86efac;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--question);
+  mask-image: var(--ubtrace-admonition-icon--question);
+}
+
+/* warning, caution & attention admonitions */
+:is(.warning, .caution, .attention) {
+  border-color: #fb923c;
+}
+:is(.warning, .caution, .attention) > .admonition-title {
+  background-color: #fb923c1a;
+}
+:is(.warning, .caution, .attention) > :is(.admonition-title, summary):before {
+  background-color: #fb923c;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--warning);
+  mask-image: var(--ubtrace-admonition-icon--warning);
+}
+:-webkit-any(.warning, .caution, .attention) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #fb923c;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--warning);
+  mask-image: var(--ubtrace-admonition-icon--warning);
+}
+
+/* failure, fail & missing admonitions */
+:is(.failure, .fail, .missing) {
+  border-color: #fca5a5;
+}
+:is(.failure, .fail, .missing) > .admonition-title {
+  background-color: #fca5a51a;
+}
+:is(.failure, .fail, .missing) > :is(.admonition-title, summary):before {
+  background-color: #fca5a5;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--failure);
+  mask-image: var(--ubtrace-admonition-icon--failure);
+}
+:-webkit-any(.failure, .fail, .missing) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #fca5a5;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--failure);
+  mask-image: var(--ubtrace-admonition-icon--failure);
+}
+
+/* danger & error admonitions */
+:is(.danger, .error) {
+  border-color: #e11d48;
+}
+:is(.danger, .error) > .admonition-title {
+  background-color: #e11d481a;
+}
+:is(.danger, .error) > :is(.admonition-title, summary):before {
+  background-color: #e11d48;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--danger);
+  mask-image: var(--ubtrace-admonition-icon--danger);
+}
+:-webkit-any(.danger, .error) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #e11d48;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--danger);
+  mask-image: var(--ubtrace-admonition-icon--danger);
+}
+
+/* bug admonition */
+:is(.bug) {
+  border-color: #f87171;
+}
+:is(.bug) > .admonition-title {
+  background-color: #f871711a;
+}
+:is(.bug) > :is(.admonition-title, summary):before {
+  background-color: #f87171;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--bug);
+  mask-image: var(--ubtrace-admonition-icon--bug);
+}
+:-webkit-any(.bug) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #f87171;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--bug);
+  mask-image: var(--ubtrace-admonition-icon--bug);
+}
+
+/* example admonition */
+:is(.example) {
+  border-color: #c084fc;
+}
+:is(.example) > .admonition-title {
+  background-color: #c084fc1a;
+}
+:is(.example) > :is(.admonition-title, summary):before {
+  background-color: #c084fc;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--example);
+  mask-image: var(--ubtrace-admonition-icon--example);
+}
+:-webkit-any(.example) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #c084fc;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--example);
+  mask-image: var(--ubtrace-admonition-icon--example);
+}
+
+/* cite & quote admonitions */
+:is(.cite, .quote) {
+  border-color: #9ca3af;
+}
+:is(.cite, .quote) > .admonition-title {
+  background-color: #9ca3af1a;
+}
+:is(.cite, .quote) > :is(.admonition-title, summary):before {
+  background-color: #9ca3af;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--quote);
+  mask-image: var(--ubtrace-admonition-icon--quote);
+}
+:-webkit-any(.cite, .quote) > :-webkit-any(.admonition-title, summary):before {
+  background-color: #9ca3af;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--quote);
+  mask-image: var(--ubtrace-admonition-icon--quote);
+}
+
+/* contents table */
+:is(.contents) {
+  border-color: #84cc16;
+}
+:is(.contents) > :is(.topic-title) {
+  background-color: #84cc161a;
+}
+:is(.contents) > :is(.topic-title, summary):before {
+  background-color: #84cc16;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--toc);
+  mask-image: var(--ubtrace-admonition-icon--toc);
+}
+:-webkit-any(.contents) > :-webkit-any(.topic-title, summary):before {
+  background-color: #84cc16;
+  -webkit-mask-image: var(--ubtrace-admonition-icon--toc);
+  mask-image: var(--ubtrace-admonition-icon--toc);
+}
+
+/* SVG support for dark mode */
+/* html.dark
+  #ubtrace_contentTarget
+  img:is([src$='.svg' i], [src$='.drawio.png' i]):not(.sn_collapse_img),
+html.dark #ubtrace_contentTarget svg:not(:is([class*='sd-'], [class*='icon'])) {
+  background-color: rgba(var(--color-surface-100));
+  padding: 0.25rem;
+} */
+/* Fix SVG background for SN collapse buttons */
+/* html.dark #ubtrace_contentTarget span.needs_collapse svg {
+  background-color: transparent;
+  padding: 0;
+  height: 1.25rem;
+} */
