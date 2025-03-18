@@ -115,7 +115,7 @@ plantuml_output_format = "svg_img"
 
 html_css_files = []
 html_static_path = ["_static"]
-html_logo = "_images/sphinx-needs-logo.png"
+html_logo = "_static/sphinx-needs-logo.svg"
 html_favicon = "_static/favicon.ico"
 
 if os.getenv("UBTRACE_BUILD", "0") == "1":
@@ -178,12 +178,12 @@ if os.getenv("UBTRACE_BUILD", "0") == "1":
     ubtrace_theme_options = {
         "logo": {
             "desktop": {
-                "light": "_static/useblocks_light.svg",
-                "dark": "_static/useblocks_dark.svg",
+                "light": "_static/sphinx-needs-logo.svg",
+                "dark": "_static/sphinx-needs-logo.svg",
             },
             "mobile": {
-                "light": "_static/useblocks_mobile_light.svg",
-                "dark": "_static/useblocks_mobile_dark.svg",
+                "light": "_static/sphinx-needs-logo.svg",
+                "dark": "_static/sphinx-needs-logo.svg",
             },
         },
     }
