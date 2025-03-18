@@ -134,14 +134,26 @@ if os.getenv("UBTRACE_BUILD", "0") == "1":
             "font_awesome/font_awesome_all.min.css",  # Add CSS for FontAwesome icons
         ],
     )
-    ubtrace_project_id = "sphinx-needs-demo"
+    ubtrace_project_id = "sphinx-needs-demo"  # used as ubtrace identifier for APIs
+    ubtrace_tag = "main"  # used as ubtrace version
     ubtrace_roles = {
         "open": [],
         "authenticated": ["authenticated"],
         "lic_ubtrace": ["lic_ubtrace", "authenticated"],
         "lic_partner": ["lic_partner", "lic_ubtrace", "authenticated"],
-        "int_developer": ["int_developer", "lic_partner", "lic_ubtrace", "authenticated"],
-        "admin": ["admin", "int_developer", "lic_partner", "lic_ubtrace", "authenticated"],
+        "int_developer": [
+            "int_developer",
+            "lic_partner",
+            "lic_ubtrace",
+            "authenticated",
+        ],
+        "admin": [
+            "admin",
+            "int_developer",
+            "lic_partner",
+            "lic_ubtrace",
+            "authenticated",
+        ],
     }
 
     ubtrace_users = [
@@ -196,11 +208,8 @@ else:
     if os.environ.get("PDF", 0) != 1:
         html_theme = "sphinx_immaterial"
 
-    
-
     sphinx_immaterial_override_generic_admonitions = True
 
-    
     html_theme_options = {
         "font": False,
         "icon": {
