@@ -43,9 +43,7 @@ The complete source code can be found here: https://github.com/useblocks/sphinx-
 
 Features and technical details are described inside dropdowns like this one:
 
-.. tip::
-   :title: Demo feature hint: Just an example
-   :collapsible:
+.. dropdown:: Demo feature hint: Just an example
 
    Really, this is just an example. Nothing more.
 

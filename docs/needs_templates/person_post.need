@@ -1,13 +1,10 @@
-.. if-builder:: html
 
-   .. warning::
-      :title: Object traceability details: {{title}}
-      :collapsible:
+.. dropdown:: Object traceability details: {{title}}
 
-      .. needflow::
-          :filter:  "{{id}}"==id or "{{id}}" in links or "{{id}}" in links_back or "{{id}}" in author
+    .. needflow::
+        :filter:  "{{id}}"==id or "{{id}}" in links or "{{id}}" in links_back or "{{id}}" in author
 
-      .. needtable::
-          :style: table
-          :filter:  "{{id}}"==id or "{{id}}" in links or "{{id}}" in links_back or "{{id}}" in author
-          :columns: id, title, type, author
+    .. needtable::
+        :style: table
+        :filter:  "{{id}}"==id or "{{id}}" in links or "{{id}}" in links_back or "{{id}}" in author
+        :columns: id, title, type, author

@@ -86,13 +86,10 @@ variant_options = ["author", "status"]
 # description = "Passed"
 
 
-# needs_global_options allows us to set values for Sphinx-Need objects globally, based on
+# needs_global_options allows to set values for Sphinx-Need objects globally, based on
 # filters.
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
-# needs_global_options allows us to set values for Sphinx-Need objects globally, based on
-# filters.
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
-# [needs.global_options]
+[needs.global_options]
 # collapse = { "default" = "False" } # The meta-area of all Sphinx-Needs objects shall be hidden.
 
 [needs.global_options.constraints]
@@ -128,20 +125,20 @@ predicates = [
 # 'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
 predicates = [["type=='test'", "[[tr_link('id', 'case_name')]]"]]
 
-# [needs.global_options.post_template]
-# # By setting ``post_template``, we can add some extra content below a need object.
-# # What gets added is set in the related template file under ``/needs_templates``.
-# # In our case a traceability flow chart is generated, plus the same information as table.
-# predicates = [
-#   [
-#     "type not in ['person'] and docname is not None and 'automotive-adas' in docname",
-#     "all_post",
-#   ],
-#   [
-#     "type in ['person']",
-#     "person_post",
-#   ],
-# ]
+[needs.global_options.post_template]
+# By setting ``post_template``, we can add some extra content below a need object.
+# What gets added is set in the related template file under ``/needs_templates``.
+# In our case a traceability flow chart is generated, plus the same information as table.
+predicates = [
+  [
+    "type not in ['person'] and docname is not None and 'automotive-adas' in docname",
+    "all_post",
+  ],
+  [
+    "type in ['person']",
+    "person_post",
+  ],
+]
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraints
 [needs.constraints.release_set]
@@ -437,6 +434,15 @@ argument = true
 argument_required = true
 content = true
 content_required = true
+options = true
+
+[parse.extend_directives.test-file]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+# not yet part of ubCode internal directives
+description = "Sphinx-Test-Reports test file"
+argument = true
+argument_required = true
+content = false
 options = true
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys

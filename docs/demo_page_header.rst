@@ -1,11 +1,8 @@
-.. if-builder:: html
 
-   .. tip::
-      :title: Demo page details
-      :collapsible:
+.. dropdown:: Demo page details
 
-      **Page source code: {{page}}**
+   **Page source code: {{page}}**
 
-      .. literalinclude:: {{page}}
-         :language: rst
-         :linenos:
+   .. literalinclude:: {{page}}
+      :language: rst
+      :linenos:

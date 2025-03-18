@@ -1,5 +1,5 @@
 sphinx>=7
-sphinx-needs[plotting] >= 4.2.0
+sphinx-needs[plotting] @ git+https://github.com/useblocks/sphinx-needs.git@cd5327c5260404be94a07c9a7339b033915a0987
 sphinx-design
 sphinx-immaterial
 sphinxcontrib-plantuml

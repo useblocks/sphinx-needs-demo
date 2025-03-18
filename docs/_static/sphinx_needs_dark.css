@@ -1,0 +1,86 @@
+/*  Used for html.dark and overwrites the settings from sphinx-needs modern.css 
+    Taken from dark.css from the Sphinx-Needs project, but removed all not color related stuff.
+
+    Layout fixes is done somehwere else, as these affects odern.css as well
+
+*/
+
+.dark table.need {
+  background-color: #333 !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  /* border: 1px solid #555; */
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.dark table.need tr.head {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  /* border-bottom: 1px solid #555; */
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.dark table.need tr.meta {
+  /* border-bottom: 1px solid #555; */
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.dark table.need tr.footer {
+  /* border-top: 1px solid #555; */
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+/* DataTable layout*/
+.dark div.dataTables_length select option {
+  /* background: #333; */
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.dark div.dataTables_filter input {
+  background: inherit;
+  /* border: 1px solid #666; */
+  border: 1px solid rgba(0, 0, 0, 0.7);
+}
+
+/*DataTables Download Buttons*/
+.dark div.dt-buttons button {
+  /* border: 1px solid #999; */
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.dark .darkbutton.dt-button:hover:not(.disabled),
+div.dt-button:hover:not(.disabled),
+a.dt-button:hover:not(.disabled) {
+  background-color: inherit;
+}
+
+/*DataTables Column visibility Select list*/
+.dark div.dt-button-collection {
+  /* background-color: #333; */
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* Button active*/
+.dark div.dt-button-collection button.dt-button:active:not(.disabled),
+.dark div.dt-button-collection button.dt-button.active:not(.disabled),
+.dark div.dt-button-collection div.dt-button:active:not(.disabled),
+.dark div.dt-button-collection div.dt-button.active:not(.disabled),
+.dark div.dt-button-collection a.dt-button:active:not(.disabled),
+.dark div.dt-button-collection a.dt-button.active:not(.disabled) {
+  background: #444 none;
+}
+
+/* Button active hover*/
+.dark button.dt-button:hover:not(.disabled),
+.dark div.dt-button:hover:not(.disabled),
+.dark a.dt-button:hover:not(.disabled) {
+  background: #333 none;
+}
+
+/* Button deactivated hover*/
+.dark button.dt-button:active:not(.disabled):hover:not(.disabled),
+.dark button.dt-button.active:not(.disabled):hover:not(.disabled),
+.dark div.dt-button:active:not(.disabled):hover:not(.disabled),
+.dark div.dt-button.active:not(.disabled):hover:not(.disabled),
+.dark a.dt-button:active:not(.disabled):hover:not(.disabled),
+.dark a.dt-button.active:not(.disabled):hover:not(.disabled) {
+  background: #555 none;
+}
