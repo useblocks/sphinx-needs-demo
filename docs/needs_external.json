@@ -15,7 +15,6 @@
           "constraints_results": {},
           "content": "",
           "created_at": "",
-          "delete": false,
           "docname": "page_1",
           "doctype": ".rst",
           "duration": "",
@@ -75,7 +74,6 @@
           "constraints_results": {},
           "content": "",
           "created_at": "",
-          "delete": false,
           "docname": "page_1",
           "doctype": ".rst",
           "duration": "",
@@ -135,7 +133,6 @@
           "constraints_results": {},
           "content": "",
           "created_at": "",
-          "delete": false,
           "docname": "page_1",
           "doctype": ".rst",
           "duration": "",
@@ -195,7 +192,6 @@
           "constraints_results": {},
           "content": "",
           "created_at": "",
-          "delete": false,
           "docname": "page_1",
           "doctype": ".rst",
           "duration": "",
@@ -312,12 +308,6 @@
             "description": "Added by service github-issues",
             "field_type": "extra",
             "type": "string"
-          },
-          "delete": {
-            "default": false,
-            "description": "If true, the need is deleted entirely.",
-            "field_type": "core",
-            "type": "boolean"
           },
           "docname": {
             "default": null,
