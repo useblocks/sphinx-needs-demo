@@ -413,6 +413,15 @@ content = true
 content_required = true
 options = true
 
+[parse.extend_directives.test-file]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+# not yet part of ubCode internal directives
+description = "Sphinx-Test-Reports test file"
+argument = true
+argument_required = true
+content = false
+options = true
+
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys
 [needs.import_keys]
 imported_project = "/needs_import.json"
