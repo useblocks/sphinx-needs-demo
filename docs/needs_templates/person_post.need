@@ -1,7 +1,5 @@
 
-.. warning::
-    :title: Object traceability details: {{title}}
-    :collapsible:
+.. dropdown:: Object traceability details: {{title}}
 
     .. needflow::
         :filter:  "{{id}}"==id or "{{id}}" in links or "{{id}}" in links_back or "{{id}}" in author

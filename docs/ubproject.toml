@@ -66,7 +66,7 @@ variant_options = ["author", "status"]
 # needs_global_options allows us to set values for Sphinx-Need objects globally, based on
 # filters.
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
-# [needs.global_options]
+[needs.global_options]
 # collapse = { "default" = "False" } # The meta-area of all Sphinx-Needs objects shall be hidden.
 
 [needs.global_options.constraints]
@@ -102,20 +102,20 @@ predicates = [
 # 'runs': ("[[tr_link('id', 'case_name')]]", "type=='test'"),
 predicates = [["type=='test'", "[[tr_link('id', 'case_name')]]"]]
 
-# [needs.global_options.post_template]
-# # By setting ``post_template``, we can add some extra content below a need object.
-# # What gets added is set in the related template file under ``/needs_templates``.
-# # In our case a traceability flow chart is generated, plus the same information as table.
-# predicates = [
-#   [
-#     "type not in ['person'] and docname is not None and 'automotive-adas' in docname",
-#     "all_post",
-#   ],
-#   [
-#     "type in ['person']",
-#     "person_post",
-#   ],
-# ]
+[needs.global_options.post_template]
+# By setting ``post_template``, we can add some extra content below a need object.
+# What gets added is set in the related template file under ``/needs_templates``.
+# In our case a traceability flow chart is generated, plus the same information as table.
+predicates = [
+  [
+    "type not in ['person'] and docname is not None and 'automotive-adas' in docname",
+    "all_post",
+  ],
+  [
+    "type in ['person']",
+    "person_post",
+  ],
+]
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraints
 [needs.constraints.release_set]

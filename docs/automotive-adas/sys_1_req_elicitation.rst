@@ -9,7 +9,6 @@ SYS.1 Requirement Elicitation
    :status: open
    :author: ROBERT
    :jira: 1
-   :post_template: all_post
 
    The system shall detect lane markings and provide corrective steering input to keep the
    vehicle within the lane.
@@ -19,7 +18,6 @@ SYS.1 Requirement Elicitation
    :status: open
    :author: ROBERT
    :jira: 2
-   :post_template: all_post
 
    The system shall automatically adjust the vehicle's speed to maintain a safe distance
    from the vehicle ahead.
@@ -28,7 +26,6 @@ SYS.1 Requirement Elicitation
    :id: NEED_003
    :status: open
    :author: ROBERT
-   :post_template: all_post
 
    The system shall detect potential collisions and apply the brakes autonomously to
    avoid or mitigate the impact.
@@ -37,7 +34,6 @@ SYS.1 Requirement Elicitation
    :id: NEED_004
    :status: open
    :author: ROBERT
-   :post_template: all_post
 
    The system shall identify pedestrians in the vehicle's path and issue warnings or
    initiate braking to prevent collisions.
