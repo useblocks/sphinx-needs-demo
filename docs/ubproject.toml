@@ -13,6 +13,26 @@ name = "Sphinx-Needs Demo"
 description = "Showcases for working with Sphinx-Needs"
 srcdir = "."
 
+[format_rst]
+fail_on_warning = []
+validate = true
+blockquote_indent = 2
+definition_list_indent = 2
+directive_indent = 3
+enum_list_auto = "preserve"
+enum_list_style = "preserve"
+field_list_align_body = false
+field_list_body_on_new_line = 20
+field_list_indent = 2
+literal_indent = 2
+paragraph_line_length = 70
+paragraph_semantic_wrap = false
+simple_table_space = 2
+substitution_indent = 3
+transition_char = "-"
+transition_length = 10
+
+
 # all needs configuration goes to then needs table;
 # the varibles do not have the needs_ prefix in the name
 [needs]
