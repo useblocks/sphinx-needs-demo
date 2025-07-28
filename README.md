@@ -15,3 +15,9 @@ Just start it by following this link:
 https://gitpod.io/#https://github.com/useblocks/sphinx-needs-demo
 
 It does not cost anything, but an account creation may be needed.
+
+## Development Container
+
+This project includes a preconfigured development container (devcontainer) setup, making it easy to get started with a consistent development environment.
+
+To learn how to use the devcontainer, see the detailed instructions in [.devcontainer/README.md](.devcontainer/README.md). 
