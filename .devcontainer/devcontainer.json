@@ -1,0 +1,47 @@
+{
+    "name": "sphinx_needs",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "."
+    },
+    "postCreateCommand": "bash -i ./scripts/postCreateCommand.sh",
+    "mounts": [
+        //"source=${localEnv:HOME}/.cache,target=/home/vscode/.cache,type=bind,consistency=cached",
+        //"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+        //"source=${localEnv:HOME}/.netrc,target=/home/vscode/.netrc,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.docker,target=/home/vscode/.docker,type=bind,consistency=cached",
+        
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "containerEnv": {
+        "UBCODE_LICENSE_KEY": "${localEnv:UBCODE_LICENSE_KEY}",
+        "UBCODE_LICENSE_USER": "${localEnv:UBCODE_LICENSE_USER}"
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "useblocks.ubcode",
+                "ms-python.python"
+            ]
+        },
+        "settings": {
+            "terminal.integrated.shell.linux": "bash",
+            "terminal.integrated.profiles.linux": {
+                "bash (container default)": {
+                    "path": "/usr/bin/bash",
+                    "overrideName": true
+                }
+            }
+        }
+    },
+    "remoteUser": "vscode",
+    "runArgs": [
+        "--shm-size=2gb",
+        "--network=host",
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined",
+        "--privileged"
+    ]
+}
