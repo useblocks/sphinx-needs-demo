@@ -1,0 +1,37 @@
+[project]
+name = "sphinx-needs-demo"
+version = "0.1.0"
+description = "Sphinx-needs documentation"
+authors = [
+    { name = "Daniel Woste", email = "daniel.woste@useblocks.com" }
+]
+dependencies = [
+    "sphinx[test]>=8.2.3",
+    "sphinx-needs[plotting]>=5.1.0",
+    "sphinxcontrib-plantuml>=0.30",
+    "sphinx-design>=0.6.1",
+    "sphinx-simplepdf>=1.6.0",
+    "sphinx-test-reports>=1.2.0",
+    "furo>=2024.8.6",
+    "sphinx-preview>=0.1.2",
+    "sphinx-immaterial>=0.13.6",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.rye.scripts]
+docs = "sphinx-build -a -E docs docs/_build/html"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eac"]
