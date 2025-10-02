@@ -21,8 +21,13 @@ build:
     pre_create_environment:
       - echo "DOT details"
       - which dot
+    install:
+      - pip install uv
+      - uv sync --all-groups --all-extras
+    build:
+      html:
+         - uv run sphinx-build -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
     post_create_environment:
-      # Install uv
       - pip install uv
       # Sync dependencies using uv
       - uv sync --all-groups --all-extras
