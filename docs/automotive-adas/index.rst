@@ -35,6 +35,7 @@
    swe_6_sw_quali_tests
    sys_4_sys_integation_tests
    sys_5_sys_quali_test
+   sys_5_sys_quali_test_results
 
 
 V-model and service connectors

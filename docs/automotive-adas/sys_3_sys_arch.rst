@@ -127,3 +127,73 @@ SYS.3 Architecture Design
       AlertSystem --> EmergencyBrakeController
       EmergencyBrakeController --> PedestrianSafety
       @enduml
+
+.. arch:: Alert System Framework
+   :id: ARCH_005
+   :status: open
+   :links: REQ_008
+   :author: ALFRED
+
+   Design the system-level architecture for the Alert System Framework, integrating multiple types of driver alerts including audio, visual, and haptic feedback mechanisms.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component AlertSystem {
+              agent manageAlerts
+              agent prioritizeAlerts
+          }
+          component AudioAlerts {
+              agent generateAudioAlert
+          }
+          component VisualAlerts {
+              agent displayVisualAlert
+          }
+          component HapticAlerts {
+              agent provideHapticFeedback
+          }
+          component SensorInputs {
+              agent receiveAlertTriggers
+          }
+      }
+      SensorInputs --> AlertSystem
+      AlertSystem --> AudioAlerts
+      AlertSystem --> VisualAlerts
+      AlertSystem --> HapticAlerts
+      @enduml
+
+.. arch:: Emergency Braking System
+   :id: ARCH_006
+   :status: open
+   :links: REQ_009
+   :author: ALFRED
+
+   Create the system architecture for the Emergency Braking System, focusing on rapid response, optimal braking force calculation, and integration with pedestrian detection systems.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component EmergencyBrakingSystem {
+              agent calculateBrakingForce
+              agent initiateEmergencyBraking
+          }
+          component BrakeActuator {
+              agent applyBrakes
+          }
+          component ForceCalculator {
+              agent optimizeBrakingForce
+          }
+          component ResponseTimer {
+              agent measureResponseTime
+          }
+          component PedestrianDetection {
+              agent detectPedestrianThreat
+          }
+      }
+      PedestrianDetection --> EmergencyBrakingSystem
+      EmergencyBrakingSystem --> ForceCalculator
+      ForceCalculator --> BrakeActuator
+      EmergencyBrakingSystem --> ResponseTimer
+      @enduml
