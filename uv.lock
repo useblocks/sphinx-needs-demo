@@ -1470,8 +1470,8 @@ wheels = [
 
 [[package]]
 name = "sphinx-needs"
-version = "6.0.0"
-source = { git = "https://github.com/useblocks/sphinx-needs.git?rev=02eb6e771a6cc39cc8875c9a77520c02135cc084#02eb6e771a6cc39cc8875c9a77520c02135cc084" }
+version = "6.0.1"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema", extra = ["format"] },
     { name = "requests" },
@@ -1481,6 +1481,10 @@ dependencies = [
     { name = "sphinxcontrib-jquery" },
     { name = "typeguard" },
     { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/29/c4/63c86d3ee0414e30edc30a2ea7c05f9f3e39bba61ed5e0481e275c52559a/sphinx_needs-6.0.1.tar.gz", hash = "sha256:4f6af9711c48e0cc85ecc6d7b592356a80d72bb2be6d1add1ac8fc218402b4d0", size = 27576446, upload-time = "2025-10-02T12:14:24.251Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/72/08/cef70d961e95aea271a4b497b0cc249ef44e036309095a3f88971632faca/sphinx_needs-6.0.1-py3-none-any.whl", hash = "sha256:330422c06f0b5863dae3c24d8bb2c0ba6e4ec036ea19a557aa9646a5bc51e983", size = 2679092, upload-time = "2025-10-02T12:14:21.683Z" },
 ]
 
 [package.optional-dependencies]
@@ -1510,10 +1514,10 @@ requires-dist = [
     { name = "sphinx", extras = ["test"], specifier = ">=8.2.3" },
     { name = "sphinx-design", specifier = ">=0.6.1" },
     { name = "sphinx-immaterial", specifier = ">=0.13.6" },
-    { name = "sphinx-needs", extras = ["plotting"], git = "https://github.com/useblocks/sphinx-needs.git?rev=02eb6e771a6cc39cc8875c9a77520c02135cc084" },
+    { name = "sphinx-needs", extras = ["plotting"], specifier = "==6.0.1" },
     { name = "sphinx-preview", specifier = ">=0.1.2" },
     { name = "sphinx-simplepdf", specifier = ">=1.6.0" },
-    { name = "sphinx-test-reports", git = "https://github.com/useblocks/sphinx-test-reports.git?rev=23a1f6b9cd1454e6637b18945a7c55f49ed8d283" },
+    { name = "sphinx-test-reports", git = "https://github.com/useblocks/sphinx-test-reports.git?rev=7a12d1c00ad051f67a5b0cdedb82c25a012eefdd" },
     { name = "sphinxcontrib-plantuml", specifier = ">=0.30" },
 ]
 
@@ -1544,7 +1548,7 @@ wheels = [
 [[package]]
 name = "sphinx-test-reports"
 version = "1.3.0"
-source = { git = "https://github.com/useblocks/sphinx-test-reports.git?rev=23a1f6b9cd1454e6637b18945a7c55f49ed8d283#23a1f6b9cd1454e6637b18945a7c55f49ed8d283" }
+source = { git = "https://github.com/useblocks/sphinx-test-reports.git?rev=7a12d1c00ad051f67a5b0cdedb82c25a012eefdd#7a12d1c00ad051f67a5b0cdedb82c25a012eefdd" }
 dependencies = [
     { name = "lxml" },
     { name = "sphinx" },

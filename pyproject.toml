@@ -7,11 +7,11 @@ authors = [
 ]
 dependencies = [
     "sphinx[test]>=8.2.3",
-    "sphinx-needs[plotting] @ git+https://github.com/useblocks/sphinx-needs.git@02eb6e771a6cc39cc8875c9a77520c02135cc084",
+    "sphinx-needs[plotting]==6.0.1",
     "sphinxcontrib-plantuml>=0.30",
     "sphinx-design>=0.6.1",
     "sphinx-simplepdf>=1.6.0",
-    "sphinx-test-reports @ git+https://github.com/useblocks/sphinx-test-reports.git@23a1f6b9cd1454e6637b18945a7c55f49ed8d283",
+    "sphinx-test-reports @ git+https://github.com/useblocks/sphinx-test-reports.git@7a12d1c00ad051f67a5b0cdedb82c25a012eefdd",
     "furo>=2024.8.6",
     "sphinx-preview>=0.1.2",
     "sphinx-immaterial>=0.13.6",
