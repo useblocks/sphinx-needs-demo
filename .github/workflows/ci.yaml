@@ -14,5 +14,5 @@ jobs:
         with:
           python-version-file: ".python-version"
       - name: Build docs
-        run: uv run sphinx-build -b html . _build/html
+        run: uv run sphinx-build -W -b html . _build/html
         working-directory: docs
