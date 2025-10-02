@@ -69,7 +69,7 @@ id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
 # Activates variants handling for these options only.
 # All other options get not checked, to save some build time, as these checks are quite time consuming.
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-options
-variant_options = ["author", "status"]
+variant_options = ["status"]
 
 # allowed values for need status core field
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-statuses
