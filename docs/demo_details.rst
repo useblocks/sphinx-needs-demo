@@ -38,16 +38,17 @@ Extensions
 Configurations
 --------------
 
-requirements.txt
-~~~~~~~~~~~~~~~~
-Used to install all needed packages for the used Python environment.
+pyproject.toml
+~~~~~~~~~~~~~~
+Used to specify project metadata and install all needed packages for the used Python environment.
 
-Can be used like ``pip install -r requirements.txt``
+The file will be consumed when calling::
 
-.. literalinclude:: ../requirements.txt
-   :language: text
-   :linenos:
+    pip install .
 
+or::
+
+    uv sync
 
 conf.py
 ~~~~~~~
