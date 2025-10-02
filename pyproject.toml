@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "sphinx[test]>=8.2.3",
-    "sphinx-needs[plotting]>=5.1.0",
+    "sphinx-needs[plotting]~=5.1.0",
     "sphinxcontrib-plantuml>=0.30",
     "sphinx-design>=0.6.1",
     "sphinx-simplepdf>=1.6.0",
