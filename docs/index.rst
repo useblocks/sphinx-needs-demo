@@ -88,17 +88,7 @@ Codespaces Demo playground
 This Demo includes also a specialized docs-as-code setup for a GitHub Codespaces online IDE.
 Everything that applies for the Gitpod IDE also applies here.
 
-In addition, Codespaces provides the ubCode extension. A ubcode license is needed to use it. 
-
-Want to use [ubcode](https://ubcode.useblocks.com/) inside the Codespace? 
-Then you need to configure the required environment variables as Codespace s
-ecrets in your github user settings:
-
-1. **Navigate to your GitHub user settings**
-2. **Go to Settings → Code, planning, and automation → Codespaces**
-3. **Add the following Codespace user secrets** and assign them to the useblocks sphinx-needs-demo repository:
-   - `UBCODE_LICENSE_KEY`: Your ubCode license key
-   - `UBCODE_LICENSE_USER`: Your registered email address
+In addition, Codespaces provides the ubCode extension. 
 
 
 Page Content
