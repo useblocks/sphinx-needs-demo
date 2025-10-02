@@ -21,11 +21,6 @@ build:
     pre_create_environment:
       - echo "DOT details"
       - which dot
-    post_create_environment:
-      # Install uv
-      - pip install uv
-      # Sync dependencies using uv
-      - uv sync --all-groups --all-extras
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
   configuration: docs/conf.py
@@ -39,7 +34,7 @@ sphinx:
 # to build your documentation
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
 # Dependencies are installed via uv sync in post_create_environment
-# python:
-#    install:
-#    - method: pip
-#      path: .
+python:
+   install:
+   - method: pip
+     path: .
