@@ -49,6 +49,7 @@ SYS.2 Requirement Analysis
    :id: REQ_005
    :status: open
    :links: NEED_003
+   :release: REL_ADAS_2025_12
    :author: ROBERT
 
    Develop a module to identify potential collisions using sensor data and predict the time-to-impact.
@@ -57,6 +58,7 @@ SYS.2 Requirement Analysis
    :id: REQ_006
    :status: open
    :links: NEED_003
+   :release: REL_ADAS_2025_12
    :author: ROBERT
 
    Implement logic to autonomously apply brakes when a collision is imminent based on predictions from the collision detection module.
