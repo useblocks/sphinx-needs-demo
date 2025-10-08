@@ -16,3 +16,13 @@ jobs:
       - name: Build docs
         run: uv run sphinx-build -W -b html . _build/html
         working-directory: docs
+  ubc:
+    name: ubc
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: useblocks/ubc-action@0.1
+        with:
+          working-directory: docs
+      - name: Run 'ubc check .'
+        run: ubc check .

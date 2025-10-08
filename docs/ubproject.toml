@@ -467,3 +467,8 @@ src = "."
 # ubCode setting: run a script command
 [scripts]
 sphinx = "sphinx-build -b html . _build/html"
+
+[parse]
+ignore_directives = [ 
+  "test-file"
+ ]
