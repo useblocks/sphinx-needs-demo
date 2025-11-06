@@ -8,7 +8,7 @@ Overview
 --------
 
 .. needtable::
-   :filter: docname is not None and "automotive-adas" in docname
+   :filter: c.this_doc()
    :columns: id, title, type, status, author
 
 .. tip::
@@ -16,7 +16,7 @@ Overview
    :collapsible:
 
    .. needflow::
-      :filter: docname is not None and "automotive-adas" in docname
+      :filter: c.this_doc()
 
 ADAS Objects
 ------------
@@ -61,4 +61,4 @@ SWE Implementation
 ------------------
 
 .. needflow::
-   :filter: docname is not None and "automotive-adas" in docname and type in ["swreq", "swarch", "impl"]
+   :filter: c.this_doc() and type in ["swreq", "swarch", "impl"]
