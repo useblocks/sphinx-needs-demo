@@ -79,7 +79,7 @@
         "local": {
           "properties": {
             "id": {
-              "pattern": "^(R_|SWREQ_|REQ_)[A-Z0-9_]+$"
+              "pattern": "^(R_|SWREQ_|REQ_|EX_REQ_)[A-Za-z0-9_]+$"
             }
           }
         }
@@ -96,7 +96,7 @@
         "local": {
           "properties": {
             "id": {
-              "pattern": "^(S_|SPEC_)[A-Z0-9_]+$"
+              "pattern": "^(S_|SPEC_|EX_SPEC_)[A-Za-z0-9_]+$"
             }
           }
         }
@@ -113,7 +113,7 @@
         "local": {
           "properties": {
             "id": {
-              "pattern": "^(I_|IMPL_|GH_PR_)[A-Z0-9_]+$"
+              "pattern": "^(I_|IMPL_|GH_PR_)[A-Za-z0-9_]+$"
             }
           }
         }
@@ -130,7 +130,7 @@
         "local": {
           "properties": {
             "id": {
-              "pattern": "^(T_|TEST_)[A-Z0-9_]+$"
+              "pattern": "^(T_|TEST_|EX_TEST_)[A-Za-z0-9_]+$"
             }
           }
         }

@@ -1517,7 +1517,7 @@ requires-dist = [
     { name = "sphinx-needs", extras = ["plotting"], specifier = "==6.1.0" },
     { name = "sphinx-preview", specifier = ">=0.1.2" },
     { name = "sphinx-simplepdf", specifier = ">=1.6.0" },
-    { name = "sphinx-test-reports", specifier = "==1.3.1" },
+    { name = "sphinx-test-reports", specifier = ">=1.3.1" },
     { name = "sphinxcontrib-plantuml", specifier = ">=0.30" },
 ]
 

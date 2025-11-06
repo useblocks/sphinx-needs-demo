@@ -11,7 +11,7 @@ dependencies = [
     "sphinxcontrib-plantuml>=0.30",
     "sphinx-design>=0.6.1",
     "sphinx-simplepdf>=1.6.0",
-    "sphinx-test-reports==1.3.1",  # pin as RTD consumes this file, not uv.lock
+    "sphinx-test-reports>=1.3.1",  # pin as RTD consumes this file, not uv.lock
     "furo>=2024.8.6",
     "sphinx-preview>=0.1.2",
     "sphinx-immaterial>=0.13.6",
