@@ -2,16 +2,19 @@ image:
     file: .gitpod.Dockerfile
 # Commands that will run on workspace start
 tasks:
+    - name: 0) Install dependencies
+      init: uv sync
+      
     - name: 1) Build & watch docs
       # Use sphinx-autobuild to build the docs with each change,
       # but we can not use it to server the docs, as it starts
       # a websocket-connection, which does not work via the gitpod forwarind
-      command: sphinx-autobuild --port 8010 docs docs/_build/html
+      command: uv run sphinx-autobuild --port 8010 docs docs/_build/html
 
     - name: 2) Serve docs
       # Use a standard http-server to provide the docs.
       # User must reload the page with each change by hand!
-      command: python -m http.server 8000 -d docs/_build/html
+      command: uv run python -m http.server 8000 -d docs/_build/html
     - name: 3) Preview the docs
       # We wait till sphinx-autobuild has finished on port 8010,
       # then we start the http-server on port 8000 and show it.

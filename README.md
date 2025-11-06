@@ -41,3 +41,33 @@ Key validation features:
 - **Status Checks**: Ensures valid status values across all needs
 
 See [docs/SCHEMA_VALIDATION.md](docs/SCHEMA_VALIDATION.md) for complete documentation.
+
+## Local Development
+
+### Building the Documentation
+
+This project uses `uv` for dependency management. To build the documentation:
+
+```bash
+# From the docs directory (recommended for development)
+cd docs
+uv run sphinx-build -b html . _build/html
+
+# Or using the full path from project root
+uv run sphinx-build -a -E docs docs/_build/html
+```
+
+### Quick Start
+
+```bash
+# Install dependencies
+uv sync
+
+# Build documentation
+cd docs
+uv run sphinx-build -b html . _build/html
+
+# View the built docs
+open _build/html/index.html  # macOS
+xdg-open _build/html/index.html  # Linux
+```

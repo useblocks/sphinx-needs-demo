@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "sphinx[test]>=8.2.3",
-    "sphinx-needs[plotting]==6.0.1",  # pin as RTD consumes this file, not uv.lock
+    "sphinx-needs[plotting]==6.1.0",  # pin as RTD consumes this file, not uv.lock
     "sphinxcontrib-plantuml>=0.30",
     "sphinx-design>=0.6.1",
     "sphinx-simplepdf>=1.6.0",
@@ -23,15 +23,11 @@ requires-python = ">= 3.12"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.rye]
-managed = true
-dev-dependencies = []
-
-[tool.rye.scripts]
-docs = "sphinx-build -a -E docs docs/_build/html"
-
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/eac"]
+
+[tool.uv]
+managed = true

@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.12"
 
 [[package]]
@@ -1470,7 +1470,7 @@ wheels = [
 
 [[package]]
 name = "sphinx-needs"
-version = "6.0.1"
+version = "6.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema", extra = ["format"] },
@@ -1482,9 +1482,9 @@ dependencies = [
     { name = "typeguard" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/29/c4/63c86d3ee0414e30edc30a2ea7c05f9f3e39bba61ed5e0481e275c52559a/sphinx_needs-6.0.1.tar.gz", hash = "sha256:4f6af9711c48e0cc85ecc6d7b592356a80d72bb2be6d1add1ac8fc218402b4d0", size = 27576446, upload-time = "2025-10-02T12:14:24.251Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/8d/2066cf72cc30d00b7ade16d97f51203c33052f13bb3a43f2a49cd5713f1f/sphinx_needs-6.1.0.tar.gz", hash = "sha256:2c689302888e62919d80bef07c02c95c524f90402e61507e19162def990f3368", size = 27585352, upload-time = "2025-10-31T12:44:22.043Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/72/08/cef70d961e95aea271a4b497b0cc249ef44e036309095a3f88971632faca/sphinx_needs-6.0.1-py3-none-any.whl", hash = "sha256:330422c06f0b5863dae3c24d8bb2c0ba6e4ec036ea19a557aa9646a5bc51e983", size = 2679092, upload-time = "2025-10-02T12:14:21.683Z" },
+    { url = "https://files.pythonhosted.org/packages/80/4d/e7e889433c47959eeed47db4a333cb027c38e580b1ce36ac004be518ad19/sphinx_needs-6.1.0-py3-none-any.whl", hash = "sha256:0a78c5d64b1ffaed1ff2413c20bb3241937152f5d583fe7deb0dbd1730c37d55", size = 2678822, upload-time = "2025-10-31T12:44:18.925Z" },
 ]
 
 [package.optional-dependencies]
@@ -1514,7 +1514,7 @@ requires-dist = [
     { name = "sphinx", extras = ["test"], specifier = ">=8.2.3" },
     { name = "sphinx-design", specifier = ">=0.6.1" },
     { name = "sphinx-immaterial", specifier = ">=0.13.6" },
-    { name = "sphinx-needs", extras = ["plotting"], specifier = "==6.0.1" },
+    { name = "sphinx-needs", extras = ["plotting"], specifier = "==6.1.0" },
     { name = "sphinx-preview", specifier = ">=0.1.2" },
     { name = "sphinx-simplepdf", specifier = ">=1.6.0" },
     { name = "sphinx-test-reports", specifier = "==1.3.1" },

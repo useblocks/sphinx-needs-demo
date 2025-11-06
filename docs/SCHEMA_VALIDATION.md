@@ -75,14 +75,9 @@ cd docs
 uv run sphinx-build -b html . _build/html
 ```
 
-or using `rye`
-
-```bash
-rye run docs
-```
-
 Look for an output like:
-```
+
+```text
 WARNING: Need 'REQ_005' has validation errors:
   Severity:       warning
   Field:          release
@@ -150,6 +145,7 @@ Reference with `"$ref": "#/$defs/my-common-pattern"`
 - **`info`**: Informational messages for best practices
 
 Change the global minimum severity in `ubproject.toml`:
+
 ```toml
 schema_severity = "violation"  # Only show violations, suppress warnings/info
 ```
