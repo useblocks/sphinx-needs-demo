@@ -4,6 +4,8 @@ RUN sudo install-packages \
     graphviz \
     openjdk-19-jre
 
-COPY requirements.txt requirements.txt
+# Install uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
-RUN pip install --upgrade -r requirements.txt
+# Add uv to PATH
+ENV PATH="/home/gitpod/.cargo/bin:$PATH"

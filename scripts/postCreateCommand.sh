@@ -1,13 +1,10 @@
 #!/bin/bash
 
-# Environment variables to configure the installed packages
+# Install uv package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Add uv to PATH for current session
+export PATH="$HOME/.cargo/bin:$PATH"
 
-export RYE_INSTALL_OPTION="--yes"
-
-curl -sSf https://rye.astral.sh/get | bash
-echo 'source "$HOME/.rye/env"' >> ~/.bashrc
-#echo 'source "$HOME/.rye/env"' >> ~/.profile
-
-source "$HOME/.rye/env"
-rye sync
+# Sync dependencies
+uv sync
