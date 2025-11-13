@@ -47,20 +47,6 @@ schema_definitions_from_json = "schemas.json"
 schema_severity = "warning"
 schema_debug_active = false
 
-# Additional options, which shall be available for all need types.
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
-extra_options = [
-  "role",
-  "contact",
-  "image",
-  "date",
-  "customer",
-  "github",
-  "jira",
-  "config",
-  "number",   # for needimport
-]
-
 # Force the author to set an ID by hand.
 # Otherwise Sphinx-Needs would create one based on the Need title.
 # So a title change will change the ID and all set links will get invalid.
@@ -75,7 +61,7 @@ id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
 # Activates variants handling for these options only.
 # All other options get not checked, to save some build time, as these checks are quite time consuming.
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-options
-variant_options = ["status"]
+variant_options = ["status", "jira"]
 
 # allowed values for need status core field
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-statuses
@@ -100,6 +86,50 @@ variant_options = ["status"]
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-global-options
 # [needs.global_options]
 # collapse = { "default" = "False" } # The meta-area of all Sphinx-Needs objects shall be hidden.
+
+# Additional options, which shall be available for all need types.
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-extra-options
+[[needs.extra_options]]
+name = "role"
+
+[[needs.extra_options]]
+name = "contact"
+
+[[needs.extra_options]]
+name = "image"
+
+[[needs.extra_options]]
+name = "date"
+
+[[needs.extra_options]]
+name = "customer"
+
+[[needs.extra_options]]
+name = "github"
+
+[[needs.extra_options]]
+name = "jira"
+
+[[needs.extra_options]]
+name = "config"
+
+[[needs.extra_options]]
+name = "number"
+
+[[needs.extra_options]]
+name = "effort"
+description = "Story points (Fibonacci sequence)"
+
+[needs.extra_options.schema]
+type = "integer"
+enum = [1, 2, 3, 5, 8, 13, 21, 34]
+
+[[needs.extra_options]]
+name = "approved"
+description = "Approval status of the requirement"
+
+[needs.extra_options.schema]
+type = "boolean"
 
 [needs.global_options.constraints]
 predicates = [

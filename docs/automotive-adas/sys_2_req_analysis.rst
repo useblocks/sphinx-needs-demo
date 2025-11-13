@@ -19,11 +19,13 @@ SYS.2 Requirement Analysis
 
 .. req:: Steering Control Logic
    :id: REQ_002
-   :status: open
+   :status: <<[approved == True]: in progress, open>>
    :links: NEED_001
    :release: REL_ADAS_2025_6
    :author: PETER
    :jira: 4
+   :effort: 2
+   :approved: False
 
    Implement a control logic module to provide smooth and precise steering corrections based on detected lane positions.
 
