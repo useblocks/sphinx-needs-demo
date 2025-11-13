@@ -10,7 +10,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "sphinx",
-            "args": ["-W", "--keep-going", "-j", "4", "-v", "-b", "html", ".", "_build/html"],
+            "args": ["-aW", "--keep-going", "-v", "-b", "html", ".", "_build/html"],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/docs",
             "justMyCode": false,
