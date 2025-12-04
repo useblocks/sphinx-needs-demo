@@ -8,7 +8,7 @@ Overview
 --------
 
 .. needtable::
-   :filter: c.this_doc()
+   :filter: docname is not None and "automotive-adas" in docname
    :columns: id, title, type, status, author
 
 .. tip::
@@ -16,7 +16,7 @@ Overview
    :collapsible:
 
    .. needflow::
-      :filter: c.this_doc()
+      :filter: docname is not None and "automotive-adas" in docname
 
 ADAS Objects
 ------------
