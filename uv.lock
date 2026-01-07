@@ -1517,7 +1517,7 @@ requires-dist = [
     { name = "sphinx-needs", extras = ["plotting"], specifier = "==6.1.0" },
     { name = "sphinx-preview", specifier = ">=0.1.2" },
     { name = "sphinx-simplepdf", specifier = ">=1.6.0" },
-    { name = "sphinx-test-reports", specifier = ">=1.3.1" },
+    { name = "sphinx-test-reports", specifier = ">=1.3.2" },
     { name = "sphinxcontrib-plantuml", specifier = ">=0.30" },
 ]
 
@@ -1547,16 +1547,16 @@ wheels = [
 
 [[package]]
 name = "sphinx-test-reports"
-version = "1.3.1"
+version = "1.3.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "lxml" },
     { name = "sphinx" },
     { name = "sphinx-needs" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ec/e6/05c00cbd42170b07ec07de388546ac2c70ed9917d5157f491ce761154d07/sphinx_test_reports-1.3.1.tar.gz", hash = "sha256:e7a550681c1231507d4385506944fb3b551c49670b4058220cf98937eaf4eba6", size = 18559, upload-time = "2025-10-02T13:24:23.566Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/41/e4/7aeb5c9e7761437fd2acfde0d80008e7eb70bb77b79e8b8c0160227abdbc/sphinx_test_reports-1.3.2.tar.gz", hash = "sha256:02c73190e9c36426570cf85b5680afe73c02cf5400715e72a7e6d8ee4ee329e8", size = 18650, upload-time = "2025-11-13T19:55:50.555Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/dc/2f4590f4d62c75a3bef05d42641228b432a0db65362705b72b10f399b0ae/sphinx_test_reports-1.3.1-py3-none-any.whl", hash = "sha256:750c6d6591158a85f4d677216b598d4c9e3e51f11987d5b4d3cee70247472bcc", size = 25777, upload-time = "2025-10-02T13:24:22.425Z" },
+    { url = "https://files.pythonhosted.org/packages/c9/c5/ead646aea273c439a56cc091739d677636b8c62a6ee16be11b7c909f1888/sphinx_test_reports-1.3.2-py3-none-any.whl", hash = "sha256:8465deb5b8c822e23863443d87762355a585a13c2fc7480a6d019eaedd473bbc", size = 25846, upload-time = "2025-11-13T19:55:49.021Z" },
 ]
 
 [[package]]

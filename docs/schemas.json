@@ -65,6 +65,42 @@
           "enum": ["open", "in progress", "closed", "passed", "failed"]
         }
       }
+    },
+    "type-hazard": {
+      "properties": {
+        "type": { "const": "hazard" }
+      }
+    },
+    "type-safety_goal": {
+      "properties": {
+        "type": { "const": "safety_goal" }
+      }
+    },
+    "type-fsr": {
+      "properties": {
+        "type": { "const": "fsr" }
+      }
+    },
+    "type-sysreq": {
+      "properties": {
+        "type": { "const": "sysreq" }
+      }
+    },
+    "safety-example": {
+      "properties": {
+        "docname": {
+          "type": "string",
+          "pattern": ".*safety_example.*"
+        }
+      },
+      "required": ["docname"]
+    },
+    "valid-asil": {
+      "properties": {
+        "asil": {
+          "enum": ["QM", "A", "B", "C", "D"]
+        }
+      }
     }
   },
   "schemas": [
@@ -318,6 +354,189 @@
             }
           },
           "required": ["persons"]
+        }
+      }
+    },
+    {
+      "id": "hazard-id-pattern",
+      "severity": "warning",
+      "message": "Hazard IDs should follow the pattern HAZ_*",
+      "select": {
+        "$ref": "#/$defs/type-hazard"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^HAZ_[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "safety-goal-id-pattern",
+      "severity": "warning",
+      "message": "Safety Goal IDs should follow the pattern SG_*",
+      "select": {
+        "$ref": "#/$defs/type-safety_goal"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^SG_[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fsr-id-pattern",
+      "severity": "warning",
+      "message": "FSR IDs should follow the pattern FSR_*",
+      "select": {
+        "$ref": "#/$defs/type-fsr"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^FSR_[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "hazard-asil-required",
+      "severity": "warning",
+      "message": "Hazards in safety_example must have a valid ASIL rating",
+      "select": {
+        "allOf": [
+          { "$ref": "#/$defs/type-hazard" },
+          { "$ref": "#/$defs/safety-example" }
+        ]
+      },
+      "validate": {
+        "local": {
+          "allOf": [
+            { "$ref": "#/$defs/valid-asil" }
+          ],
+          "required": ["asil"]
+        }
+      }
+    },
+    {
+      "id": "safety-goal-asil-required",
+      "severity": "warning",
+      "message": "Safety Goals must have ASIL and mitigate at least one hazard",
+      "select": {
+        "allOf": [
+          { "$ref": "#/$defs/type-safety_goal" },
+          { "$ref": "#/$defs/safety-example" }
+        ]
+      },
+      "validate": {
+        "local": {
+          "allOf": [
+            { "$ref": "#/$defs/valid-asil" }
+          ],
+          "required": ["asil", "mitigates"],
+          "properties": {
+            "mitigates": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        },
+        "network": {
+          "mitigates": {
+            "items": {
+              "local": {
+                "$ref": "#/$defs/type-hazard"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fsr-derives-from-safety-goal",
+      "severity": "warning",
+      "message": "FSRs should derive from at least one Safety Goal",
+      "select": {
+        "allOf": [
+          { "$ref": "#/$defs/type-fsr" },
+          { "$ref": "#/$defs/safety-example" }
+        ]
+      },
+      "validate": {
+        "local": {
+          "required": ["derives_from", "asil"],
+          "properties": {
+            "derives_from": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        },
+        "network": {
+          "derives_from": {
+            "items": {
+              "local": {
+                "$ref": "#/$defs/type-safety_goal"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sysreq-id-pattern",
+      "severity": "warning",
+      "message": "System Requirement IDs should follow the pattern SYSREQ_*",
+      "select": {
+        "$ref": "#/$defs/type-sysreq"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^SYSREQ_[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sysreq-implements-fsr",
+      "severity": "warning",
+      "message": "System Requirements should implement at least one FSR",
+      "select": {
+        "allOf": [
+          { "$ref": "#/$defs/type-sysreq" },
+          { "$ref": "#/$defs/safety-example" }
+        ]
+      },
+      "validate": {
+        "local": {
+          "required": ["implements", "asil"],
+          "properties": {
+            "implements": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        },
+        "network": {
+          "implements": {
+            "items": {
+              "local": {
+                "$ref": "#/$defs/type-fsr"
+              }
+            }
+          }
         }
       }
     }

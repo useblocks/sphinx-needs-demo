@@ -107,3 +107,4 @@ Page Content
 
    basic_example/index
    automotive-adas/index
+   safety_example/index
