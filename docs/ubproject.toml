@@ -131,6 +131,34 @@ description = "Approval status of the requirement"
 [needs.extra_options.schema]
 type = "boolean"
 
+[[needs.extra_options]]
+name = "asil"
+description = "Automotive Safety Integrity Level (ISO 26262)"
+
+[needs.extra_options.schema]
+type = "string"
+enum = ["QM", "A", "B", "C", "D"]
+
+[[needs.extra_options]]
+name = "severity"
+description = "Severity rating (S0-S3) for HARA"
+
+[[needs.extra_options]]
+name = "exposure"
+description = "Exposure rating (E0-E4) for HARA"
+
+[[needs.extra_options]]
+name = "controllability"
+description = "Controllability rating (C0-C3) for HARA"
+
+[[needs.extra_options]]
+name = "scenario"
+description = "Operational scenario for hazard occurrence"
+
+[[needs.extra_options]]
+name = "safe_state"
+description = "Target safe state for safety goal"
+
 [needs.global_options.constraints]
 predicates = [
   [
@@ -150,7 +178,11 @@ predicates = [
     "req_constraint",
   ],
   [
-    "type not in ['req']",
+    "type in ['hazard', 'safety_goal', 'fsr', 'sysreq']",
+    "safety",
+  ],
+  [
+    "type not in ['req', 'hazard', 'safety_goal', 'fsr', 'sysreq']",
     "adas",
   ],
 ]
@@ -189,6 +221,17 @@ severity = "CRITICAL"
 check_0 = "status is not None and status in ['open', 'in progress', 'closed']"
 error_message = "Status is invalid or not set!"
 severity = "LOW"
+
+[needs.constraints.hazard_asil_required]
+check_0 = "asil is not None and asil in ['QM', 'A', 'B', 'C', 'D']"
+error_message = "Hazard must have a valid ASIL assignment!"
+severity = "CRITICAL"
+
+[needs.constraints.safety_goal_asil_required]
+check_0 = "asil is not None and asil in ['A', 'B', 'C', 'D']"
+check_1 = "len(mitigates) > 0"
+error_message = "Safety Goal must have ASIL (A-D) and link to at least one hazard!"
+severity = "CRITICAL"
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraint-failed-options
 [needs.constraint_failed_options.CRITICAL]
@@ -300,6 +343,41 @@ prefix = "SWREQ_"
 color = "#a8f578"
 style = "node"
 
+[[needs.types]]
+directive = "sys-arch"
+title = "System Architecture"
+prefix = "SYSARCH_"
+color = "#f39c12"
+style = "node"
+
+[[needs.types]]
+directive = "hazard"
+title = "Hazard"
+prefix = "HAZ_"
+color = "#DC143C"  # Crimson red - high visibility for safety-critical hazards
+style = "node"
+
+[[needs.types]]
+directive = "safety_goal"
+title = "Safety Goal"
+prefix = "SG_"
+color = "#FF8C00"  # Dark orange - warning/safety indicator
+style = "node"
+
+[[needs.types]]
+directive = "fsr"
+title = "Functional Safety Requirement"
+prefix = "FSR_"
+color = "#FFD700"  # Gold - important derived safety requirement
+style = "node"
+
+[[needs.types]]
+directive = "sysreq"
+title = "System Requirement"
+prefix = "SYSREQ_"
+color = "#9B59B6"  # Purple - system-level requirements
+style = "node"
+
 # Extra link types, which shall be available and allow need types to be linked to each other.
 # We use a dedicated linked type for each type of a conncetion, for instance from
 # a specification to a requirement. This makes filtering and visualization of such connections
@@ -373,6 +451,20 @@ option = "specs"
 incoming = "test_cases"
 outgoing = "specs"
 
+[[needs.extra_links]]
+# safety_goal -> hazard
+option = "mitigates"
+incoming = "mitigated by"
+outgoing = "mitigates"
+color = "#DC143C"
+
+[[needs.extra_links]]
+# fsr -> safety_goal
+option = "derives_from"
+incoming = "decomposed to"
+outgoing = "derives from"
+color = "#FF8C00"
+
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
 [needs.layouts.adas]
 grid = "simple_footer"
@@ -408,6 +500,19 @@ head = [
   "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
 ]
 meta = ["<<meta_all(no_links=True)>>", "<<meta_links_all()>>"]
+
+[needs.layouts.safety]
+grid = "simple_footer"
+
+[needs.layouts.safety.layout]
+head = [
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+  "<<meta_links_all()>>",
+]
+footer = ["**ASIL**: <<meta('asil')>>"]
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links
 [needs.string_links.config_link]
