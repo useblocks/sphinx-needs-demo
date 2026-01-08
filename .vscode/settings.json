@@ -1,4 +1,27 @@
 {
     "sphinx-needs.needsJson": "${workspaceFolder}/docs/_build/html/needs.json",
     "sphinx-needs.srcDir": "${workspaceFolder}/docs/",
+
+    // General Settings
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.insertSpaces": true,
+    "editor.tabCompletion": "on",
+
+    // When using ruff for formatting 88 characters per line is the standard.
+    "editor.rulers": [88],
+
+    "[python]": {
+        "editor.tabSize": 4,
+    },
+
+    // RST Settings
+    "[restructuredtext]": {
+        "editor.tabSize": 3,
+    },
+
+    "[json]": {
+        "editor.tabSize": 4,
+    }
 }
