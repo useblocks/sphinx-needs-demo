@@ -337,6 +337,20 @@ color = "#2d86c1"
 style = "node"
 
 [[needs.types]]
+directive = "component"
+title = "Component"
+prefix = "COMP_"
+color = "#3498db"
+style = "component"
+
+[[needs.types]]
+directive = "interface"
+title = "Interface"
+prefix = "INTF_"
+color = "#16a085"
+style = "interface"
+
+[[needs.types]]
 directive = "swreq"
 title = "SW_Requirement"
 prefix = "SWREQ_"
@@ -476,6 +490,26 @@ option = "derives_from"
 incoming = "decomposed to"
 outgoing = "derives from"
 color = "#FF8C00"
+
+[[needs.extra_links]]
+# component -> interface (lollipop provider side)
+option = "provides"
+incoming = "provided by"
+outgoing = "provides"
+color = "#16a085"
+style = "bold"
+style_start = "-"
+style_end = "-"
+
+[[needs.extra_links]]
+# component -> interface (socket consumer side)
+option = "consumes"
+incoming = "consumed by"
+outgoing = "consumes"
+color = "#3498db"
+style = "dashed"
+style_start = "-"
+style_end = "-("
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
 [needs.layouts.adas]

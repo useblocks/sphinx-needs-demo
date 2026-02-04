@@ -154,19 +154,16 @@ circular references and ensure deterministic behavior. The following
 diagram shows the architectural modules and their relationships:
 
 .. needflow::
-   :types: swarch
+   :types: component, interface
    :filter: docname is not None and "coffee-machine" in docname
-   :show_link_names:
 
-TODO: we want to also draw the architectural interfaces and their
-connections here.
-
-.. swarch:: Temperature Controller Module
-   :id: SWARCH_TEMP_CTRL
+.. component:: Temperature Controller Module
+   :id: COMP_TEMP_CTRL
    :status: open
    :tags: module, control
    :implements: SWREQ_TEMP_REGULATION
-   :depends_on: SWARCH_SAFETY_MON
+   :provides: INTF_TEMP_STATUS, INTF_SAFETY_STATUS
+   :consumes: INTF_SAFETY_CMD, INTF_SENSOR_DATA
    :collapse: true
 
    Module responsible for PID-based temperature control. Interfaces:
@@ -176,12 +173,13 @@ connections here.
    - Safety: Reports temperature status to Safety Monitor
    - Safety: Responds to emergency shutdown commands
 
-.. swarch:: Brew Controller Module
-   :id: SWARCH_BREW_CTRL
+.. component:: Brew Controller Module
+   :id: COMP_BREW_CTRL
    :status: open
    :tags: module, control
    :implements: SWREQ_BREW_STRENGTH
-   :depends_on: SWARCH_TEMP_CTRL, SWARCH_SAFETY_MON
+   :provides: INTF_SAFETY_STATUS
+   :consumes: INTF_TEMP_STATUS, INTF_SAFETY_CMD, INTF_USER_CMD
    :collapse: true
 
    Module managing the brewing process state machine. States: IDLE,
@@ -189,27 +187,164 @@ connections here.
    based on selected strength. Waits for temperature ready signal before
    initiating brew cycle. Monitors safety status continuously.
 
-.. swarch:: User Interface Module
-   :id: SWARCH_UI_MODULE
+.. component:: User Interface Module
+   :id: COMP_UI_MODULE
    :status: open
    :tags: module, ui
    :implements: SWREQ_BUTTON_INPUT
-   :depends_on: SWARCH_BREW_CTRL
+   :provides: INTF_USER_CMD
    :collapse: true
 
    Module handling all user interactions including button debouncing, LED
    status indicators, and display updates. Interfaces with the Brew
    Controller to send user commands (strength selection, start/stop).
 
-.. swarch:: Safety Monitor Module
-   :id: SWARCH_SAFETY_MON
+.. component:: Safety Monitor Module
+   :id: COMP_SAFETY_MON
    :status: open
    :tags: module, safety
    :implements: SWREQ_WATER_LEVEL, SWREQ_OVERTEMP_SHUTDOWN
+   :provides: INTF_SAFETY_CMD
+   :consumes: INTF_SAFETY_STATUS, INTF_SENSOR_DATA
    :collapse: true
 
    Module performing continuous safety checks on temperature and water
    level. Implements fail-safe shutdown procedures.
+
+.. component:: Hardware Abstraction Layer
+   :id: COMP_HAL
+   :status: open
+   :tags: module, hardware, driver
+   :provides: INTF_SENSOR_DATA
+   :collapse: true
+
+   Module providing abstraction over hardware sensors and actuators.
+   Handles low-level sensor reading via ADC, signal conditioning, and
+   calibration. Interfaces:
+
+   - Input: Temperature sensor (NTC thermistor via ADC channel 0)
+   - Input: Water level sensor (capacitive via ADC channel 1)
+   - Output: Heating element control (PWM channel)
+   - Output: Pump control (GPIO)
+
+   Implements DMA-based ADC sampling at 100Hz with automatic averaging
+   and outlier rejection for robust sensor readings.
+
+Component Interfaces
+^^^^^^^^^^^^^^^^^^^^
+
+The following interfaces define the communication contracts between
+architectural components. Each interface specifies the data exchanged,
+protocols used, and timing constraints to ensure deterministic and
+safe inter-component communication.
+
+.. interface:: Temperature Status Interface
+   :id: INTF_TEMP_STATUS
+   :status: open
+   :tags: interface, control
+   :collapse: true
+
+   **Provider**: Temperature Controller Module
+
+   **Consumer**: Brew Controller Module
+
+   **Description**: Provides current temperature readings and heating
+   status to the brew controller.
+
+   **Data Elements**:
+
+   - current_temp: int16 (°C × 10 for 0.1°C resolution)
+   - target_temp: int16 (°C × 10)
+   - is_ready: bool (true when within target range)
+   - heating_active: bool
+
+   **Protocol**: Shared memory with atomic updates, 100ms refresh rate
+
+.. interface:: Safety Command Interface
+   :id: INTF_SAFETY_CMD
+   :status: open
+   :tags: interface, safety
+   :collapse: true
+
+   **Provider**: Safety Monitor Module
+
+   **Consumers**: Temperature Controller, Brew Controller
+
+   **Description**: Emergency shutdown commands from safety monitor to
+   all controlled subsystems.
+
+   **Commands**:
+
+   - EMERGENCY_STOP: Immediate shutdown (<100ms response required)
+   - RESUME_NORMAL: Clear emergency state after fault resolved
+
+   **Protocol**: Interrupt-driven with hardware watchdog backup, highest
+   priority
+
+.. interface:: Safety Status Interface
+   :id: INTF_SAFETY_STATUS
+   :status: open
+   :tags: interface, safety
+   :collapse: true
+
+   **Providers**: Temperature Controller, Brew Controller
+
+   **Consumer**: Safety Monitor Module
+
+   **Description**: Continuous status reporting from all modules to the
+   safety monitor for fault detection.
+
+   **Data Elements**:
+
+   - module_id: uint8
+   - heartbeat_counter: uint32 (incremented each cycle)
+   - fault_flags: uint16 (bitfield of detected faults)
+   - temperature_value: int16 (from temp controller)
+   - water_level: uint8 (0-100%)
+
+   **Protocol**: Polled by safety monitor at 10Hz
+
+.. interface:: User Command Interface
+   :id: INTF_USER_CMD
+   :status: open
+   :tags: interface, ui
+   :collapse: true
+
+   **Provider**: User Interface Module
+
+   **Consumer**: Brew Controller Module
+
+   **Description**: User commands and settings passed from UI to the
+   brewing state machine.
+
+   **Commands**:
+
+   - START_BREW(strength: enum {WEAK, MEDIUM, STRONG})
+   - STOP_BREW
+   - SELECT_STRENGTH(strength: enum)
+
+   **Protocol**: Message queue with event-driven processing, debounced at
+   UI layer
+
+.. interface:: Sensor Data Interface
+   :id: INTF_SENSOR_DATA
+   :status: open
+   :tags: interface, hardware
+   :collapse: true
+
+   **Provider**: Hardware sensors (temperature, water level)
+
+   **Consumers**: Temperature Controller, Safety Monitor
+
+   **Description**: Raw sensor readings from hardware via ADC.
+
+   **Data Elements**:
+
+   - temp_sensor_raw: uint16 (ADC value 0-4095)
+   - water_level_raw: uint16 (ADC value 0-4095)
+   - sensor_timestamp: uint32 (milliseconds)
+
+   **Protocol**: ADC DMA with double buffering, 100Hz sampling rate
 
 Implementation
 --------------
@@ -237,7 +372,7 @@ architectural decomposition.
    :id: IMPL_TEMP_PID
    :status: open
    :tags: rust, control, embedded
-   :realizes: SWARCH_TEMP_CTRL
+   :realizes: COMP_TEMP_CTRL
    :collapse: true
 
    Implementation: ``brewmaster-controller/src/temperature.rs::TemperatureController``
@@ -250,7 +385,7 @@ architectural decomposition.
    :id: IMPL_BREW_FSM
    :status: open
    :tags: rust, control, embedded
-   :realizes: SWARCH_BREW_CTRL
+   :realizes: COMP_BREW_CTRL
    :collapse: true
 
    Implementation: ``brewmaster-controller/src/brew_controller.rs::BrewStateMachine``
@@ -263,7 +398,7 @@ architectural decomposition.
    :id: IMPL_BUTTON_HANDLER
    :status: open
    :tags: rust, ui, embedded
-   :realizes: SWARCH_UI_MODULE
+   :realizes: COMP_UI_MODULE
    :collapse: true
 
    Implementation: ``brewmaster-controller/src/ui.rs::ButtonHandler``
@@ -276,7 +411,7 @@ architectural decomposition.
    :id: IMPL_SAFETY_WATCHDOG
    :status: open
    :tags: rust, safety, embedded
-   :realizes: SWARCH_SAFETY_MON
+   :realizes: COMP_SAFETY_MON
    :collapse: true
 
    Implementation: ``brewmaster-controller/src/safety.rs::SafetyWatchdog``
@@ -285,6 +420,23 @@ architectural decomposition.
    parameters. Implements hardware watchdog timer reset to prevent
    lockup. Uses lock-free atomic operations for zero-allocation safety
    checks.
+
+.. impl:: Hardware Abstraction Layer
+   :id: IMPL_HAL
+   :status: open
+   :tags: rust, hardware, driver, embedded
+   :realizes: COMP_HAL
+   :collapse: true
+
+   Implementation: ``brewmaster-controller/src/hal.rs::HardwareAbstractionLayer``
+
+   Hardware abstraction layer providing sensor data acquisition and
+   actuator control. Uses DMA-based ADC sampling with circular buffering
+   for zero-copy operation. Implements calibration tables for NTC
+   thermistor linearization (Steinhart-Hart equation) and capacitive
+   water level sensor compensation. PWM generation uses hardware timers
+   with 10kHz frequency for heating element control. All hardware access
+   is abstracted through safe Rust interfaces using embedded-hal traits.
 
 Test Cases
 ----------
@@ -428,7 +580,7 @@ The following diagram shows all needs and their connections in this
 coffee machine example:
 
 .. needflow::
-   :types: req, swreq, swarch, impl, test
+   :types: req, swreq, component, interface, impl, test
    :filter: docname is not None and "coffee-machine" in docname
    :show_link_names:
    :show_filters:
