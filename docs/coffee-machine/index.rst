@@ -1,12 +1,28 @@
-Coffee Machine Example
-======================
+☕️ Coffee Machine Example
+==========================
 
 This example demonstrates a complete traceability chain for a coffee
 machine system, from high-level requirements down to implementation
 and test cases.
 
+The **BrewMaster Pro 3000** is an advanced automatic coffee machine
+designed for commercial and high-end residential use. Featuring
+precision temperature control, customizable brew strength settings,
+and comprehensive safety mechanisms, it represents the cutting edge of
+coffee brewing technology. This document traces the complete
+development lifecycle from initial customer needs through verified
+implementation.
+
 System Requirements
 -------------------
+
+The system requirements capture the fundamental capabilities that the
+BrewMaster Pro 3000 must deliver to meet customer expectations and
+safety standards. These high-level requirements define what the system
+does from an external perspective, focusing on user-visible behavior
+and safety constraints. Each requirement has been derived from market
+analysis, customer feedback, and applicable safety regulations for
+household appliances.
 
 .. req:: Brew Coffee
    :id: REQ_BREW_COFFEE
@@ -42,6 +58,16 @@ System Requirements
 
 Software Requirements
 ---------------------
+
+The software requirements section refines the high-level system
+requirements into detailed, implementable specifications for the
+embedded control system. The BrewMaster Pro 3000 runs on a custom
+Python-based embedded platform with real-time capabilities, chosen for
+its rapid development cycle and extensive library support. These
+requirements specify precise timing constraints, control algorithms,
+and safety-critical behavior that must be implemented in software.
+Each software requirement is traceable back to one or more system
+requirements, ensuring complete coverage of customer needs.
 
 .. swreq:: Temperature Regulation
    :id: SWREQ_TEMP_REGULATION
@@ -98,7 +124,20 @@ Software Requirements
 Software Architecture
 ---------------------
 
-This section defines the software modules and their dependencies.
+The software architecture defines the modular structure of the
+BrewMaster Pro 3000's embedded control system. The architecture
+follows a layered approach with clear separation of concerns:
+safety-critical functions are isolated in dedicated modules, control
+algorithms are encapsulated for reusability, and user interface logic
+is decoupled from core brewing operations. This modular design enables
+independent testing, facilitates maintenance, and provides clear
+interfaces between components.
+
+The architecture emphasizes fail-safe design principles. The Safety
+Monitor Module operates with the highest priority and can override all
+other subsystems. Module dependencies are carefully managed to prevent
+circular references and ensure deterministic behavior. The following
+diagram shows the architectural modules and their relationships:
 
 .. needflow::
    :types: swarch
@@ -154,6 +193,20 @@ This section defines the software modules and their dependencies.
 Implementation
 --------------
 
+The implementation phase translates the architectural designs into
+working code. All BrewMaster Pro 3000 software is implemented in
+Python 3.11, running on a Raspberry Pi Compute Module with real-time
+extensions. The implementation follows strict coding standards
+including comprehensive type hinting, defensive programming practices,
+and extensive inline documentation.
+
+Each implementation artifact maps directly to an architectural module,
+ensuring traceability from design to code. The code is organized in
+the ``src/coffee_controller.py`` module, with clear class boundaries
+matching the architectural decomposition. All safety-critical code
+undergoes additional review and is marked with special annotations for
+audit purposes.
+
 .. impl:: Temperature PID Controller
    :id: IMPL_TEMP_PID
    :status: open
@@ -201,6 +254,24 @@ Implementation
 
 Test Cases
 ----------
+
+Comprehensive testing ensures that the BrewMaster Pro 3000 meets all
+specified requirements and operates safely under all conditions. The
+test strategy employs multiple levels:
+
+- **Unit Tests**: Verify individual components in isolation (temperature
+  control, button debouncing, state machine transitions)
+- **Integration Tests**: Validate interactions between modules (brew
+  controller coordinating with temperature controller)
+- **System Tests**: End-to-end verification of complete brewing cycles
+- **Safety Tests**: Dedicated verification of all safety-critical
+  functions under normal and fault conditions
+
+All tests are automated and integrated into the continuous integration
+pipeline. Safety-critical tests are executed on hardware-in-the-loop
+test benches that simulate real sensors, actuators, and fault
+conditions. Test coverage targets are set based on the criticality of
+each component.
 
 .. test:: Test Temperature Control
    :id: TEST_TEMP_CONTROL
@@ -287,7 +358,17 @@ Test Cases
 Traceability Overview
 ---------------------
 
-This example demonstrates:
+Complete traceability is a cornerstone of the BrewMaster Pro 3000
+development process. Every line of code can be traced back through
+architectural designs and requirements to the original customer need
+or safety regulation. Conversely, every requirement can be traced
+forward to its implementation and verification test cases. This
+bidirectional traceability ensures nothing is missed and enables rapid
+impact analysis when requirements change.
+
+The sphinx-needs tool automates traceability management, maintaining
+links between artifacts and generating visual diagrams. This example
+demonstrates:
 
 - **Requirements → SW Requirements**: High-level needs decomposed into
   software-specific requirements
