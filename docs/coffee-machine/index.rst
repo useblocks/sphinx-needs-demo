@@ -13,6 +13,11 @@ coffee brewing technology. This document traces the complete
 development lifecycle from initial customer needs through verified
 implementation.
 
+.. image:: ../_images/BrewMaster-Pro-3000.jpg
+   :width: 600px
+   :align: center
+   :alt: BrewMaster Pro 3000 Coffee Machine
+
 System Requirements
 -------------------
 
