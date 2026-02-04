@@ -354,28 +354,28 @@ style = "node"
 directive = "hazard"
 title = "Hazard"
 prefix = "HAZ_"
-color = "#DC143C"  # Crimson red - high visibility for safety-critical hazards
+color = "#DC143C"    # Crimson red - high visibility for safety-critical hazards
 style = "node"
 
 [[needs.types]]
 directive = "safety_goal"
 title = "Safety Goal"
 prefix = "SG_"
-color = "#FF8C00"  # Dark orange - warning/safety indicator
+color = "#FF8C00"         # Dark orange - warning/safety indicator
 style = "node"
 
 [[needs.types]]
 directive = "fsr"
 title = "Functional Safety Requirement"
 prefix = "FSR_"
-color = "#FFD700"  # Gold - important derived safety requirement
+color = "#FFD700"                       # Gold - important derived safety requirement
 style = "node"
 
 [[needs.types]]
 directive = "sysreq"
 title = "System Requirement"
 prefix = "SYSREQ_"
-color = "#9B59B6"  # Purple - system-level requirements
+color = "#9B59B6"            # Purple - system-level requirements
 style = "node"
 
 # Extra link types, which shall be available and allow need types to be linked to each other.
@@ -432,6 +432,18 @@ outgoing = "specifies"
 option = "implements"
 incoming = "implemented by"
 outgoing = "implements"
+
+[[needs.extra_links]]
+# arch -> arch
+option = "depends_on"
+incoming = "depended by"
+outgoing = "depends_on"
+
+[[needs.extra_links]]
+# arch -> arch
+option = "realizes"
+incoming = "realized by"
+outgoing = "realizes"
 
 [[needs.extra_links]]
 # test_case -> spec
@@ -610,6 +622,4 @@ src = "."
 sphinx = "sphinx-build -b html . _build/html"
 
 [parse]
-ignore_directives = [ 
-  "test-file"
- ]
+ignore_directives = ["test-file"]
