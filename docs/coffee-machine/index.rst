@@ -33,6 +33,7 @@ household appliances.
    :id: REQ_BREW_COFFEE
    :status: open
    :tags: brewing, core
+   :collapse: true
 
    The coffee machine shall be able to brew coffee with user-selected
    strength (weak, medium, strong).
@@ -41,6 +42,7 @@ household appliances.
    :id: REQ_HEAT_WATER
    :status: open
    :tags: heating, safety
+   :collapse: true
 
    The coffee machine shall heat water to the appropriate temperature
    (85-95°C) for brewing coffee.
@@ -49,6 +51,7 @@ household appliances.
    :id: REQ_USER_INTERFACE
    :status: open
    :tags: ui, usability
+   :collapse: true
 
    The coffee machine shall provide a user interface with buttons for
    selecting coffee strength and starting the brewing process.
@@ -57,6 +60,7 @@ household appliances.
    :id: REQ_SAFETY_SHUTDOWN
    :status: open
    :tags: safety, critical
+   :collapse: true
 
    The coffee machine shall automatically shut down if the water
    temperature exceeds 100°C or if no water is detected.
@@ -79,6 +83,7 @@ requirements, ensuring complete coverage of customer needs.
    :status: open
    :tags: control, heating
    :reqs: REQ_HEAT_WATER
+   :collapse: true
 
    The temperature control software shall monitor the water temperature
    sensor and regulate the heating element to maintain temperature
@@ -89,6 +94,7 @@ requirements, ensuring complete coverage of customer needs.
    :status: open
    :tags: safety, critical
    :reqs: REQ_SAFETY_SHUTDOWN
+   :collapse: true
 
    The software shall continuously monitor water temperature and trigger
    an emergency shutdown within 100ms if temperature exceeds 100°C to
@@ -99,6 +105,7 @@ requirements, ensuring complete coverage of customer needs.
    :status: open
    :tags: control, brewing
    :reqs: REQ_BREW_COFFEE
+   :collapse: true
 
    The software shall implement brew strength selection by controlling
    the water flow rate and brewing time:
@@ -112,6 +119,7 @@ requirements, ensuring complete coverage of customer needs.
    :status: open
    :tags: ui, input
    :reqs: REQ_USER_INTERFACE
+   :collapse: true
 
    The software shall process button inputs with debouncing and trigger
    appropriate actions (strength selection, start brewing, stop/cancel).
@@ -121,6 +129,7 @@ requirements, ensuring complete coverage of customer needs.
    :status: open
    :tags: safety, monitoring
    :reqs: REQ_SAFETY_SHUTDOWN
+   :collapse: true
 
    The software shall continuously monitor the water level sensor and
    prevent brewing operations when water level is below minimum
@@ -158,6 +167,7 @@ connections here.
    :tags: module, control
    :implements: SWREQ_TEMP_REGULATION
    :depends_on: SWARCH_SAFETY_MON
+   :collapse: true
 
    Module responsible for PID-based temperature control. Interfaces:
 
@@ -172,6 +182,7 @@ connections here.
    :tags: module, control
    :implements: SWREQ_BREW_STRENGTH
    :depends_on: SWARCH_TEMP_CTRL, SWARCH_SAFETY_MON
+   :collapse: true
 
    Module managing the brewing process state machine. States: IDLE,
    HEATING, BREWING, COMPLETE, ERROR. Controls pump and valve timing
@@ -184,6 +195,7 @@ connections here.
    :tags: module, ui
    :implements: SWREQ_BUTTON_INPUT
    :depends_on: SWARCH_BREW_CTRL
+   :collapse: true
 
    Module handling all user interactions including button debouncing, LED
    status indicators, and display updates. Interfaces with the Brew
@@ -194,6 +206,7 @@ connections here.
    :status: open
    :tags: module, safety
    :implements: SWREQ_WATER_LEVEL, SWREQ_OVERTEMP_SHUTDOWN
+   :collapse: true
 
    Module performing continuous safety checks on temperature and water
    level. Implements fail-safe shutdown procedures.
@@ -225,6 +238,7 @@ architectural decomposition.
    :status: open
    :tags: rust, control, embedded
    :realizes: SWARCH_TEMP_CTRL
+   :collapse: true
 
    Implementation: ``brewmaster-controller/src/temperature.rs::TemperatureController``
 
@@ -237,6 +251,7 @@ architectural decomposition.
    :status: open
    :tags: rust, control, embedded
    :realizes: SWARCH_BREW_CTRL
+   :collapse: true
 
    Implementation: ``brewmaster-controller/src/brew_controller.rs::BrewStateMachine``
 
@@ -249,6 +264,7 @@ architectural decomposition.
    :status: open
    :tags: rust, ui, embedded
    :realizes: SWARCH_UI_MODULE
+   :collapse: true
 
    Implementation: ``brewmaster-controller/src/ui.rs::ButtonHandler``
 
@@ -261,6 +277,7 @@ architectural decomposition.
    :status: open
    :tags: rust, safety, embedded
    :realizes: SWARCH_SAFETY_MON
+   :collapse: true
 
    Implementation: ``brewmaster-controller/src/safety.rs::SafetyWatchdog``
 
@@ -295,6 +312,7 @@ each component.
    :status: open
    :tags: unit, control
    :specs: SWREQ_TEMP_REGULATION
+   :collapse: true
 
    **Objective**: Verify temperature controller maintains target
    temperature within ±2°C.
@@ -313,6 +331,7 @@ each component.
    :status: open
    :tags: integration, brewing
    :specs: SWREQ_BREW_STRENGTH
+   :collapse: true
 
    **Objective**: Verify all three strength settings produce correct
    timing and water volume.
@@ -328,6 +347,7 @@ each component.
    :status: open
    :tags: unit, ui
    :specs: SWREQ_BUTTON_INPUT
+   :collapse: true
 
    **Objective**: Verify button handler correctly debounces rapid inputs.
 
@@ -344,6 +364,7 @@ each component.
    :status: open
    :tags: integration, safety
    :specs: SWREQ_OVERTEMP_SHUTDOWN, SWREQ_WATER_LEVEL
+   :collapse: true
 
    **Objective**: Verify safety monitor triggers shutdown on critical
    conditions.
@@ -359,6 +380,7 @@ each component.
    :status: open
    :tags: system, e2e
    :specs: SWREQ_BREW_STRENGTH, SWREQ_TEMP_REGULATION, SWREQ_BUTTON_INPUT
+   :collapse: true
 
    **Objective**: Verify complete brewing cycle from user input to coffee
    output.
