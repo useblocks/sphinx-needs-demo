@@ -149,6 +149,9 @@ diagram shows the architectural modules and their relationships:
    :filter: docname is not None and "coffee-machine" in docname
    :show_link_names:
 
+TODO: we want to also draw the architectural interfaces and their
+connections here.
+
 .. swarch:: Temperature Controller Module
    :id: SWARCH_TEMP_CTRL
    :status: open
@@ -199,63 +202,72 @@ Implementation
 --------------
 
 The implementation phase translates the architectural designs into
-working code. All BrewMaster Pro 3000 software is implemented in
-Python 3.11, running on a Raspberry Pi Compute Module with real-time
-extensions. The implementation follows strict coding standards
-including comprehensive type hinting, defensive programming practices,
-and extensive inline documentation.
+working code. All BrewMaster Pro 3000 software is implemented in Rust,
+leveraging its memory safety guarantees, zero-cost abstractions, and
+excellent embedded systems support.
+
+The choice of Rust provides critical advantages for safety-critical
+applications: compile-time memory safety prevents entire classes of
+bugs, the type system enforces correct API usage, and the no_std
+capability enables bare-metal operation if needed. The implementation
+follows strict coding standards including comprehensive documentation,
+clippy linting at the pedantic level, and zero unsafe code in
+safety-critical modules.
 
 Each implementation artifact maps directly to an architectural module,
-ensuring traceability from design to code. The code is organized in
-the ``src/coffee_controller.py`` module, with clear class boundaries
-matching the architectural decomposition. All safety-critical code
-undergoes additional review and is marked with special annotations for
-audit purposes.
+ensuring traceability from design to code. The code is organized as a
+Cargo workspace located in ``../../brewmaster-controller/`` relative
+to this documentation, with clear module boundaries matching the
+architectural decomposition.
 
 .. impl:: Temperature PID Controller
    :id: IMPL_TEMP_PID
    :status: open
-   :tags: python, control
+   :tags: rust, control, embedded
    :realizes: SWARCH_TEMP_CTRL
 
-   Implementation: ``src/coffee_controller.py::TemperatureController``
+   Implementation: ``brewmaster-controller/src/temperature.rs::TemperatureController``
 
    PID controller with Kp=2.0, Ki=0.5, Kd=1.0 tuned for rapid heating
-   with minimal overshoot.
+   with minimal overshoot. Implements fixed-point arithmetic for
+   deterministic real-time behavior without floating-point dependencies.
 
 .. impl:: Brew State Machine
    :id: IMPL_BREW_FSM
    :status: open
-   :tags: python, control
+   :tags: rust, control, embedded
    :realizes: SWARCH_BREW_CTRL
 
-   Implementation: ``src/coffee_controller.py::BrewStateMachine``
+   Implementation: ``brewmaster-controller/src/brew_controller.rs::BrewStateMachine``
 
-   Finite state machine managing brewing workflow with configurable
-   timing parameters per strength setting.
+   Type-safe finite state machine using Rust enums. Manages brewing
+   workflow with configurable timing parameters per strength setting.
+   State transitions are compile-time verified to prevent invalid states.
 
 .. impl:: Button Handler
    :id: IMPL_BUTTON_HANDLER
    :status: open
-   :tags: python, ui
+   :tags: rust, ui, embedded
    :realizes: SWARCH_UI_MODULE
 
-   Implementation: ``src/coffee_controller.py::ButtonHandler``
+   Implementation: ``brewmaster-controller/src/ui.rs::ButtonHandler``
 
-   Interrupt-driven button handler with 50ms debounce timeout. Sends
-   commands to the brew state machine to select strength and initiate
-   brewing.
+   Interrupt-driven button handler with 50ms debounce using hardware
+   timer. Sends commands to the brew state machine via type-safe message
+   passing channels to ensure thread safety.
 
 .. impl:: Safety Watchdog
    :id: IMPL_SAFETY_WATCHDOG
    :status: open
-   :tags: python, safety
+   :tags: rust, safety, embedded
    :realizes: SWARCH_SAFETY_MON
 
-   Implementation: ``src/coffee_controller.py::SafetyWatchdog``
+   Implementation: ``brewmaster-controller/src/safety.rs::SafetyWatchdog``
 
-   Runs at 10Hz monitoring all safety-critical parameters. Implements
-   hardware watchdog timer reset to prevent lockup.
+   High-priority task running at 10Hz monitoring all safety-critical
+   parameters. Implements hardware watchdog timer reset to prevent
+   lockup. Uses lock-free atomic operations for zero-allocation safety
+   checks.
 
 Test Cases
 ----------
