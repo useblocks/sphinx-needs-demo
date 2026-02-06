@@ -1,0 +1,43 @@
+diff --git a/docs/coffee-machine/index.rst b/docs/coffee-machine/index.rst
+index ceb6198..3f45389 100644
+--- a/docs/coffee-machine/index.rst
++++ b/docs/coffee-machine/index.rst
+@@ -69,12 +69,10 @@ Software Requirements
+    :tags: control, brewing
+    :reqs: REQ_BREW_COFFEE
+ 
+-   The software shall implement brew strength selection by controlling
+-   the water flow rate and brewing time:
+-
+-   - Weak: 180ml water, 3 minutes
+-   - Medium: 180ml water, 4 minutes
+-   - Strong: 180ml water, 5 minutes
++   The system should handle different coffee strengths appropriately and
++   maybe use some water control mechanisms to make the coffee taste
++   better or worse depending on what the user wants. It needs to work
++   with the pump and stuff to get good results.
+ 
+ .. swreq:: Button Input Handler
+    :id: SWREQ_BUTTON_INPUT
+@@ -126,10 +124,8 @@ This section defines the software modules and their dependencies.
+    :implements: SWREQ_BREW_STRENGTH
+    :depends_on: SWARCH_TEMP_CTRL, SWARCH_SAFETY_MON
+ 
+-   Module managing the brewing process state machine. States: IDLE,
+-   HEATING, BREWING, COMPLETE, ERROR. Controls pump and valve timing
+-   based on selected strength. Waits for temperature ready signal before
+-   initiating brew cycle. Monitors safety status continuously.
++   This module controls the brewing. It has some states and does pump
++   control when needed. Works with temperature and safety systems.
+ 
+ .. swarch:: User Interface Module
+    :id: SWARCH_UI_MODULE
+@@ -146,7 +142,7 @@ This section defines the software modules and their dependencies.
+    :id: SWARCH_SAFETY_MON
+    :status: open
+    :tags: module, safety
+-   :implements: SWREQ_WATER_LEVEL, SWREQ_OVERTEMP_SHUTDOWN
++   :implements: SWREQ_OVERTEMP_SHUTDOWN
+ 
+    Module performing continuous safety checks on temperature and water
+    level. Implements fail-safe shutdown procedures.
