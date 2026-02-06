@@ -1,0 +1,6 @@
+{
+    // extensions added here will be recommended to users when they open this workspace
+    "recommendations": [
+        "useblocks.ubcode",
+    ]
+}
