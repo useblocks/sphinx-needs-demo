@@ -154,7 +154,7 @@ class TestLaneConfidenceMonitor(unittest.TestCase):
         .. test:: Confidence Threshold Test
            :id: TEST_014
            :links: SWREQ_021, REQ_010
-        
+
         Verifies confidence threshold of 0.65 is applied correctly.
         """
         monitor = LaneConfidenceMonitor()
@@ -168,7 +168,7 @@ class TestLaneConfidenceMonitor(unittest.TestCase):
         .. test:: Degraded Mode Entry Timing Test
            :id: TEST_015
            :links: SWREQ_021, REQ_010
-        
+
         Verifies 2-second delay before entering degraded mode (REQ_010 AC-1).
         """
         monitor = LaneConfidenceMonitor()
@@ -182,7 +182,7 @@ class TestLaneConfidenceMonitor(unittest.TestCase):
         .. test:: Normal Mode Recovery Timing Test
            :id: TEST_016
            :links: SWREQ_021, REQ_010
-        
+
         Verifies 1-second persistence before recovering to normal mode (REQ_010 AC-5).
         """
         monitor = LaneConfidenceMonitor()
@@ -205,7 +205,7 @@ class TestDegradedModeNotifier(unittest.TestCase):
         .. test:: Visual Warning Trigger Test
            :id: TEST_017
            :links: SWREQ_022, REQ_010
-        
+
         Verifies visual warning triggers at degraded mode entry (REQ_010 AC-1).
         """
         notifier = DegradedModeNotifier()
@@ -217,7 +217,7 @@ class TestDegradedModeNotifier(unittest.TestCase):
         .. test:: Audible Alert Persistence Test
            :id: TEST_018
            :links: SWREQ_022, REQ_010
-        
+
         Verifies audible alert continues for 5 seconds (REQ_010 AC-2).
         """
         notifier = DegradedModeNotifier()
@@ -229,7 +229,7 @@ class TestDegradedModeNotifier(unittest.TestCase):
         .. test:: Warning Clear Test
            :id: TEST_019
            :links: SWREQ_022, REQ_010
-        
+
         Verifies warnings clear on recovery to normal mode.
         """
         notifier = DegradedModeNotifier()
@@ -243,7 +243,7 @@ class TestDegradedModeNotifier(unittest.TestCase):
         .. test:: CAN Message Format Test
            :id: TEST_020
            :links: SWREQ_022
-        
+
         Verifies CAN message at address 0x2A1 with correct format.
         """
         notifier = DegradedModeNotifier()
@@ -261,7 +261,7 @@ class TestOperationalDomainMonitor(unittest.TestCase):
         .. test:: Speed Lower Bound Test
            :id: TEST_021
            :links: SWREQ_023, REQ_011
-        
+
         Verifies 60 km/h minimum speed constraint (REQ_011 AC-1).
         """
         monitor = OperationalDomainMonitor()
@@ -273,7 +273,7 @@ class TestOperationalDomainMonitor(unittest.TestCase):
         .. test:: Speed Upper Bound Test
            :id: TEST_022
            :links: SWREQ_023, REQ_011
-        
+
         Verifies 180 km/h maximum speed constraint (REQ_011 AC-1).
         """
         monitor = OperationalDomainMonitor()
@@ -285,7 +285,7 @@ class TestOperationalDomainMonitor(unittest.TestCase):
         .. test:: Curve Radius Minimum Test
            :id: TEST_023
            :links: SWREQ_023, REQ_011
-        
+
         Verifies 250m minimum curve radius (REQ_011 AC-2).
         """
         monitor = OperationalDomainMonitor()
@@ -299,7 +299,7 @@ class TestOperationalDomainMonitor(unittest.TestCase):
         .. test:: Steering Angle Constraint Test
            :id: TEST_024
            :links: SWREQ_023, REQ_011
-        
+
         Verifies ±15° steering angle limit (REQ_011 AC-3).
         """
         monitor = OperationalDomainMonitor()
@@ -311,7 +311,7 @@ class TestOperationalDomainMonitor(unittest.TestCase):
         .. test:: Lane Width Constraints Test
            :id: TEST_025
            :links: SWREQ_023, REQ_011
-        
+
         Verifies 10-30cm lane marking width (REQ_011 AC-4).
         """
         monitor = OperationalDomainMonitor()
@@ -324,7 +324,7 @@ class TestOperationalDomainMonitor(unittest.TestCase):
         .. test:: Domain Status Aggregation Test
            :id: TEST_026
            :links: SWREQ_023, REQ_011
-        
+
         Verifies all constraints checked at 10Hz.
         """
         monitor = OperationalDomainMonitor()
@@ -351,7 +351,7 @@ class TestLaneKeepStateManager(unittest.TestCase):
         .. test:: State Transition to Degraded Test
            :id: TEST_027
            :links: SWREQ_024, REQ_010
-        
+
         Verifies transition from NORMAL to DEGRADED mode.
         """
         manager = LaneKeepStateManager()
@@ -369,7 +369,7 @@ class TestLaneKeepStateManager(unittest.TestCase):
         .. test:: Steering Disabled in Degraded Mode Test
            :id: TEST_028
            :links: SWREQ_024, REQ_010
-        
+
         Verifies no steering corrections when confidence < 0.65 (REQ_010 AC-3).
         """
         manager = LaneKeepStateManager()
@@ -382,7 +382,7 @@ class TestLaneKeepStateManager(unittest.TestCase):
         .. test:: Disengagement on Driver Override Test
            :id: TEST_029
            :links: SWREQ_024, REQ_010
-        
+
         Verifies system enters DISENGAGING state on driver intervention.
         """
         manager = LaneKeepStateManager()
@@ -399,7 +399,7 @@ class TestLaneKeepStateManager(unittest.TestCase):
         .. test:: No Auto-Reengagement Test
            :id: TEST_030
            :links: SWREQ_024, REQ_010
-        
+
         Verifies no automatic re-engagement after driver override (REQ_010 AC-4).
         """
         manager = LaneKeepStateManager()
@@ -417,7 +417,7 @@ class TestLaneKeepStateManager(unittest.TestCase):
         .. test:: Notification Trigger Timing Test
            :id: TEST_031
            :links: SWREQ_024, REQ_010
-        
+
         Verifies notification triggers occur at correct state transitions.
         """
         manager = LaneKeepStateManager()
@@ -431,7 +431,7 @@ class TestLaneKeepStateManager(unittest.TestCase):
         .. test:: Disengagement Timer Test
            :id: TEST_032
            :links: SWREQ_024, REQ_010
-        
+
         Verifies 5-second disengagement timer for audible alerts (REQ_010 AC-2).
         """
         manager = LaneKeepStateManager()

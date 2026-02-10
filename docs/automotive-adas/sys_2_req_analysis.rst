@@ -94,7 +94,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Lane Detection Error Handling
    :id: REQ_010
-   :status: in progress
+   :status: closed
    :links: NEED_001, REQ_001
    :release: REL_ADAS_2025_6
    :author: PETER
@@ -111,7 +111,7 @@ SYS.2 Requirement Analysis
    * AC-5: System SHALL automatically re-engage when lane confidence exceeds threshold for >1 second
 
    **Error Conditions:**
-   
+
    - Faded or missing lane markings
    - Construction zones with temporary markings
    - Heavy rain/snow obscuring camera view
@@ -120,7 +120,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Lane Keeping Operational Limits
    :id: REQ_011
-   :status: in progress
+   :status: closed
    :links: NEED_001, REQ_001, REQ_002
    :release: REL_ADAS_2025_6
    :author: PETER
@@ -138,5 +138,5 @@ SYS.2 Requirement Analysis
    * AC-6: System SHALL remain disengaged until driver explicitly re-enables (no automatic re-engagement after limit violation)
 
    **Rationale:**
-   
+
    Operating outside these limits may result in unsafe steering corrections or unreliable lane detection.

@@ -15,7 +15,7 @@ class LaneDetection:
            :links: SWREQ_002, SWARCH_001
 
            Analyzes the camera feed to identify lane deviations and trigger warnings.
-           
+
         Returns:
             dict: Lane data including 'confidence' metric (0.0-1.0) for degraded mode detection.
                   Implements: REQ_010 AC-1, AC-2, AC-3
@@ -32,11 +32,11 @@ class LaneDetection:
 
            Provides corrective steering actions to keep the vehicle within the lane.
            Now checks system state before applying corrections (REQ_010, REQ_011).
-           
+
         Args:
             lane_data: Lane detection results including confidence
             system_state: Current state from LaneKeepStateManager
-            
+
         Returns:
             float: Steering correction angle (degrees) or 0 if disabled
                    Implements: REQ_010 AC-3, REQ_011 AC-4
@@ -177,13 +177,13 @@ class LaneConfidenceMonitor:
     def calculate_confidence(self, lane_data):
         """
         Calculate aggregate confidence score from left and right lane markings.
-        
+
         Args:
             lane_data (dict): Dictionary with 'quality' or left/right confidence
-            
+
         Returns:
             float: Aggregate confidence score
-            
+
         Implements: SWREQ_021 FR-1
         """
         if isinstance(lane_data, dict) and 'quality' in lane_data:
@@ -193,14 +193,14 @@ class LaneConfidenceMonitor:
     def update_state(self, confidence, timestamp):
         """
         Update system state based on confidence and time thresholds.
-        
+
         Args:
             confidence (float): Current aggregate confidence
             timestamp (float): Current time
-            
+
         Returns:
             tuple: (state, is_degraded) - Current state and degraded flag
-            
+
         Implements:
             - SWREQ_021 FR-4, FR-5, FR-6, FR-7
             - REQ_010 AC-1, AC-2
@@ -221,7 +221,7 @@ class LaneConfidenceMonitor:
                 self.state = 'normal'
                 self.state_transition_log.append(('degraded_to_normal', timestamp))
             self.low_confidence_start = None
-        
+
         return self.state, self.state == 'degraded'
 
 
@@ -247,13 +247,13 @@ class DegradedModeNotifier:
     def trigger_visual_warning(self, duration_in_degraded=2.0):
         """
         Display visual warning if degraded mode exceeds threshold.
-        
+
         Args:
             duration_in_degraded (float): Time spent in degraded mode (seconds)
-            
+
         Returns:
             bool: True if warning triggered
-            
+
         Implements: SWREQ_022 FR-1, REQ_010 AC-1
         """
         if duration_in_degraded >= self.visual_warning_delay:
@@ -265,13 +265,13 @@ class DegradedModeNotifier:
     def trigger_audible_alert(self, duration_sec=5.0):
         """
         Issue audible alert if degraded mode exceeds threshold.
-        
+
         Args:
             duration_sec (float): Time spent in degraded mode (seconds)
-            
+
         Returns:
             bool: True if alert triggered
-            
+
         Implements: SWREQ_022 FR-2, REQ_010 AC-2
         """
         if duration_sec >= self.audible_alert_delay:
@@ -283,10 +283,10 @@ class DegradedModeNotifier:
     def clear_warnings(self):
         """
         Clear visual warnings when exiting degraded mode.
-        
+
         Returns:
             bool: True if cleared successfully
-            
+
         Implements: SWREQ_022 FR-3
         """
         self.visual_active = False
@@ -297,14 +297,14 @@ class DegradedModeNotifier:
     def send_can_message(self, can_id, data):
         """
         Send HMI notification via CAN bus.
-        
+
         Args:
             can_id (int): CAN message ID (0x2A1)
             data (bytes): Message payload
-            
+
         Returns:
             bool: True if message sent successfully
-            
+
         Implements: SWREQ_022 FR-4
         """
         if can_id == self.can_message_id:
@@ -337,13 +337,13 @@ class OperationalDomainMonitor:
     def check_speed_constraint(self, speed_kmh):
         """
         Verify vehicle speed is within operational range.
-        
+
         Args:
             speed_kmh (float): Current vehicle speed (km/h)
-            
+
         Returns:
             bool: True if within range
-            
+
         Implements: SWREQ_023 FR-1, REQ_011 AC-1
         """
         return self.speed_min <= speed_kmh <= self.speed_max
@@ -351,13 +351,13 @@ class OperationalDomainMonitor:
     def estimate_curve_radius(self, lane_geometry):
         """
         Estimate road curvature from lane geometry.
-        
+
         Args:
             lane_geometry (list): List of (x, y) lane points
-            
+
         Returns:
             float: Estimated curve radius (meters)
-            
+
         Implements: SWREQ_023 FR-2, REQ_011 AC-2
         """
         if len(lane_geometry) < 3:
@@ -367,7 +367,7 @@ class OperationalDomainMonitor:
         x1, y1 = lane_geometry[0]
         x2, y2 = lane_geometry[1]
         x3, y3 = lane_geometry[2] if len(lane_geometry) > 2 else (x2, y2 + 1)
-        
+
         # Calculate radius from three points
         d = 2 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
         if abs(d) < 0.001:
@@ -380,13 +380,13 @@ class OperationalDomainMonitor:
     def check_steering_angle(self, steering_angle_deg):
         """
         Verify steering wheel angle is within limits.
-        
+
         Args:
             steering_angle_deg (float): Current steering angle (degrees)
-            
+
         Returns:
             bool: True if within ±15°
-            
+
         Implements: SWREQ_023 FR-3, REQ_011 AC-4
         """
         return abs(steering_angle_deg) <= self.max_steering_angle
@@ -394,13 +394,13 @@ class OperationalDomainMonitor:
     def check_lane_width(self, lane_width_m):
         """
         Verify lane marking width is within acceptable range.
-        
+
         Args:
             lane_width_m (float): Lane marking width (meters)
-            
+
         Returns:
             bool: True if 10-30cm
-            
+
         Implements: SWREQ_023 FR-4, REQ_011 AC-3
         """
         width_cm = lane_width_m * 100
@@ -409,16 +409,16 @@ class OperationalDomainMonitor:
     def get_domain_status(self, speed_kmh, lane_points, steering_angle_deg, lane_width_m):
         """
         Evaluate overall operational domain status.
-        
+
         Args:
             speed_kmh (float): Vehicle speed
             lane_points (list): Lane geometry points
             steering_angle_deg (float): Steering angle
             lane_width_m (float): Lane width in meters
-            
+
         Returns:
             dict: Status of each constraint
-                  
+
         Implements:
             - SWREQ_023 FR-5, FR-6, FR-7
             - REQ_011 AC-5 (3-second warning)
@@ -428,7 +428,7 @@ class OperationalDomainMonitor:
         curve_ok = radius >= self.min_curve_radius
         steering_ok = self.check_steering_angle(steering_angle_deg)
         lane_width_ok = self.check_lane_width(lane_width_m)
-        
+
         return {
             'speed_ok': speed_ok,
             'curve_ok': curve_ok,
@@ -465,19 +465,19 @@ class LaneKeepStateManager:
     def process_inputs(self, confidence_state, domain_status, driver_override):
         """
         Process inputs from monitors and driver to determine state transitions.
-        
+
         Args:
             confidence_state (str): 'normal' or 'degraded' from LaneConfidenceMonitor
             domain_status (dict): Domain status from OperationalDomainMonitor
             driver_override (bool): True if driver is overriding
-            
+
         Returns:
             str: New state after processing
-            
+
         Implements: SWREQ_024 FR-1, FR-2
         """
         old_state = self.current_state
-        
+
         if driver_override:
             self.current_state = self.STATE_DISENGAGING
             self.disengagement_reason = 'driver_override'
@@ -490,19 +490,19 @@ class LaneKeepStateManager:
         elif self.current_state == self.STATE_ENABLED_DEGRADED:
             if confidence_state == 'normal' and domain_status.get('all_ok', False):
                 self.current_state = self.STATE_ENABLED_NORMAL
-        
+
         if old_state != self.current_state:
             self.transition_log.append((old_state, self.current_state))
-        
+
         return self.current_state
 
     def should_enable_steering(self):
         """
         Determine if steering corrections should be enabled.
-        
+
         Returns:
             bool: True if state == ENABLED_NORMAL
-            
+
         Implements: SWREQ_024 FR-3, REQ_010 AC-3
         """
         return self.current_state == self.STATE_ENABLED_NORMAL
@@ -510,13 +510,13 @@ class LaneKeepStateManager:
     def get_notification_trigger(self, new_state):
         """
         Determine if notifications should be triggered based on state transition.
-        
+
         Args:
             new_state (str): New state being entered
-            
+
         Returns:
             str: Notification type or None
-            
+
         Implements: SWREQ_024 FR-4
         """
         if new_state == self.STATE_ENABLED_DEGRADED:
@@ -528,13 +528,13 @@ class LaneKeepStateManager:
     def update_disengagement_timer(self, delta_time):
         """
         Update disengagement timer.
-        
+
         Args:
             delta_time (float): Time since last update (seconds)
-            
+
         Returns:
             float: Remaining time on timer
-            
+
         Implements: SWREQ_024 FR-5, REQ_011 AC-5
         """
         if self.current_state == self.STATE_DISENGAGING:
@@ -548,15 +548,15 @@ class LaneKeepStateManager:
     def check_reengagement_allowed(self, confidence_state, domain_status, driver_action):
         """
         Verify if automatic re-engagement is allowed.
-        
+
         Args:
             confidence_state (str): Current confidence state
             domain_status (dict): Current domain status
             driver_action (str): Driver action ('none', 'engage', 'disengage')
-            
+
         Returns:
             bool: False - never auto-reengage after driver override
-            
+
         Implements: SWREQ_024 FR-6, REQ_011 AC-6
         """
         # No automatic re-engagement - requires explicit driver action
@@ -566,13 +566,13 @@ class LaneKeepStateManager:
     def log_transition(self, from_state, to_state, reason, timestamp):
         """
         Log state transition with timestamp.
-        
+
         Args:
             from_state (str): Previous state
             to_state (str): New state
             reason (str): Reason for transition
             timestamp (float): Time of transition
-            
+
         Implements: SWREQ_024 FR-7, REQ_010 AC-4
         """
         self.transition_log.append({

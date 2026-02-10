@@ -90,7 +90,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Lane Confidence Monitoring
    :id: SWREQ_021
-   :status: in progress
+   :status: closed
    :links: ARCH_001, REQ_001, REQ_010, SWREQ_001
    :author: PETER
 
@@ -108,13 +108,13 @@ SWE.1 Software Requirements
    * FR-7: Trigger degraded mode exit after 1.0 seconds above threshold
 
    **Interface:**
-   
+
    - Input: Lane confidence from SWREQ_001 (left/right, 0.0-1.0)
    - Output: System state (normal/degraded), state duration
 
 .. swreq:: Degraded Mode Notification System
    :id: SWREQ_022
-   :status: in progress
+   :status: closed
    :links: ARCH_001, REQ_010
    :author: PETER
 
@@ -130,13 +130,13 @@ SWE.1 Software Requirements
    * FR-5: Log all notification events to system event log
 
    **Interface:**
-   
+
    - Input: System state from SWREQ_021
    - Output: HMI notification commands, CAN messages
 
 .. swreq:: Lane Keep Operational Domain Monitor
    :id: SWREQ_023
-   :status: in progress
+   :status: closed
    :links: ARCH_001, REQ_011
    :author: PETER
 
@@ -154,13 +154,13 @@ SWE.1 Software Requirements
    * FR-7: Update operational domain status at 10 Hz
 
    **Interface:**
-   
+
    - Input: Vehicle CAN data, lane geometry from SWREQ_001
    - Output: Operational domain status (in/out/warning), constraint violations
 
 .. swreq:: Lane Keep System State Manager
    :id: SWREQ_024
-   :status: in progress
+   :status: closed
    :links: ARCH_001, REQ_010, REQ_011, SWREQ_021, SWREQ_023
    :author: PETER
 
@@ -170,14 +170,14 @@ SWE.1 Software Requirements
    **State Machine:**
 
    States:
-   
+
    - DISABLED: System off (driver hasn't activated)
    - ENABLED_NORMAL: Actively providing steering, normal conditions
    - ENABLED_DEGRADED: No steering, confidence too low (per REQ_010)
    - DISENGAGING: 3-second countdown before disabling (per REQ_011)
 
    Transitions:
-   
+
    - DISABLED → ENABLED_NORMAL: Driver activation + all constraints satisfied
    - ENABLED_NORMAL → ENABLED_DEGRADED: Confidence drops per SWREQ_021
    - ENABLED_DEGRADED → ENABLED_NORMAL: Confidence recovers per SWREQ_021
@@ -197,7 +197,7 @@ SWE.1 Software Requirements
    * FR-7: Log all state transitions with timestamp
 
    **Interface:**
-   
+
    - Input: Confidence state (SWREQ_021), domain status (SWREQ_023), driver commands
    - Output: System state, steering enable/disable, notification triggers
 
