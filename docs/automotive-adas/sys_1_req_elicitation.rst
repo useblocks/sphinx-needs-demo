@@ -11,7 +11,8 @@ SYS.1 Requirement Elicitation
    :jira: 1
 
    The system shall detect lane markings and provide corrective steering input to keep the
-   vehicle within the lane.
+   vehicle within the lane. The system shall operate safely within its design constraints
+   and gracefully handle situations where lane markings cannot be reliably detected.
 
 .. need:: Adaptive Cruise Control
    :id: NEED_002
