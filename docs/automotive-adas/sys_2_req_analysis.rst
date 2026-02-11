@@ -8,8 +8,8 @@ SYS.2 Requirement Analysis
 ==========================
 
 .. req:: Lane Detection Algorithm
-   :id: REQ_001
-   :status: open
+   :id: REQ2_001
+   :status: open2
    :links: NEED_001
    :release: REL_ADAS_2025_6
    :author: PETER

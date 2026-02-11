@@ -143,15 +143,6 @@
             "properties": {
               "type": { "const": "req" }
             }
-          },
-          {
-            "properties": {
-              "docname": {
-                "type": "string",
-                "pattern": ".*automotive-adas.*"
-              }
-            },
-            "required": ["docname"]
           }
         ]
       },
