@@ -1,115 +1,13 @@
 {
-  "$defs": {
-    "type-req": {
-      "properties": {
-        "type": { "const": "req" }
-      }
-    },
-    "type-spec": {
-      "properties": {
-        "type": { "const": "spec" }
-      }
-    },
-    "type-impl": {
-      "properties": {
-        "type": { "const": "impl" }
-      }
-    },
-    "type-test": {
-      "properties": {
-        "type": { "const": "test" }
-      }
-    },
-    "type-person": {
-      "properties": {
-        "type": { "const": "person" }
-      }
-    },
-    "type-team": {
-      "properties": {
-        "type": { "const": "team" }
-      }
-    },
-    "type-release": {
-      "properties": {
-        "type": { "const": "release" }
-      }
-    },
-    "type-arch": {
-      "properties": {
-        "type": { "const": "arch" }
-      }
-    },
-    "type-swarch": {
-      "properties": {
-        "type": { "const": "swarch" }
-      }
-    },
-    "type-swreq": {
-      "properties": {
-        "type": { "const": "swreq" }
-      }
-    },
-    "automotive-adas": {
-      "properties": {
-        "docname": {
-          "type": "string",
-          "pattern": ".*automotive-adas.*"
-        }
-      },
-      "required": ["docname"]
-    },
-    "valid-status": {
-      "properties": {
-        "status": {
-          "enum": ["open", "in progress", "closed", "passed", "failed"]
-        }
-      }
-    },
-    "type-hazard": {
-      "properties": {
-        "type": { "const": "hazard" }
-      }
-    },
-    "type-safety_goal": {
-      "properties": {
-        "type": { "const": "safety_goal" }
-      }
-    },
-    "type-fsr": {
-      "properties": {
-        "type": { "const": "fsr" }
-      }
-    },
-    "type-sysreq": {
-      "properties": {
-        "type": { "const": "sysreq" }
-      }
-    },
-    "safety-example": {
-      "properties": {
-        "docname": {
-          "type": "string",
-          "pattern": ".*safety_example.*"
-        }
-      },
-      "required": ["docname"]
-    },
-    "valid-asil": {
-      "properties": {
-        "asil": {
-          "enum": ["QM", "A", "B", "C", "D"]
-        }
-      }
-    }
-  },
   "schemas": [
     {
       "id": "req-id-pattern",
       "severity": "info",
       "message": "Requirement IDs should follow consistent patterns",
       "select": {
-        "$ref": "#/$defs/type-req"
+        "properties": {
+          "type": { "const": "req" }
+        }
       },
       "validate": {
         "local": {
@@ -126,7 +24,9 @@
       "severity": "info",
       "message": "Specification IDs should follow consistent patterns",
       "select": {
-        "$ref": "#/$defs/type-spec"
+        "properties": {
+          "type": { "const": "spec" }
+        }
       },
       "validate": {
         "local": {
@@ -143,7 +43,9 @@
       "severity": "info",
       "message": "Implementation IDs should follow consistent patterns",
       "select": {
-        "$ref": "#/$defs/type-impl"
+        "properties": {
+          "type": { "const": "impl" }
+        }
       },
       "validate": {
         "local": {
@@ -160,7 +62,9 @@
       "severity": "info",
       "message": "Test IDs should follow consistent patterns",
       "select": {
-        "$ref": "#/$defs/type-test"
+        "properties": {
+          "type": { "const": "test" }
+        }
       },
       "validate": {
         "local": {
@@ -177,7 +81,9 @@
       "severity": "info",
       "message": "Person IDs should ideally follow the pattern P_* but names are also acceptable",
       "select": {
-        "$ref": "#/$defs/type-person"
+        "properties": {
+          "type": { "const": "person" }
+        }
       },
       "validate": {
         "local": {
@@ -194,7 +100,9 @@
       "severity": "warning",
       "message": "SW Architecture IDs should follow the pattern SWARCH_*",
       "select": {
-        "$ref": "#/$defs/type-swarch"
+        "properties": {
+          "type": { "const": "swarch" }
+        }
       },
       "validate": {
         "local": {
@@ -211,7 +119,9 @@
       "severity": "info",
       "message": "SW Requirement IDs should follow consistent patterns",
       "select": {
-        "$ref": "#/$defs/type-swreq"
+        "properties": {
+          "type": { "const": "swreq" }
+        }
       },
       "validate": {
         "local": {
@@ -229,15 +139,29 @@
       "message": "Requirements in automotive-adas must have a valid status set",
       "select": {
         "allOf": [
-          { "$ref": "#/$defs/type-req" },
-          { "$ref": "#/$defs/automotive-adas" }
+          {
+            "properties": {
+              "type": { "const": "req" }
+            }
+          },
+          {
+            "properties": {
+              "docname": {
+                "type": "string",
+                "pattern": ".*automotive-adas.*"
+              }
+            },
+            "required": ["docname"]
+          }
         ]
       },
       "validate": {
         "local": {
-          "allOf": [
-            { "$ref": "#/$defs/valid-status" }
-          ],
+          "properties": {
+            "status": {
+              "enum": ["open", "in progress", "closed", "passed", "failed"]
+            }
+          },
           "required": ["status"]
         }
       }
@@ -248,8 +172,20 @@
       "message": "Requirements in automotive-adas must be linked to a release",
       "select": {
         "allOf": [
-          { "$ref": "#/$defs/type-req" },
-          { "$ref": "#/$defs/automotive-adas" }
+          {
+            "properties": {
+              "type": { "const": "req" }
+            }
+          },
+          {
+            "properties": {
+              "docname": {
+                "type": "string",
+                "pattern": ".*automotive-adas.*"
+              }
+            },
+            "required": ["docname"]
+          }
         ]
       },
       "validate": {
@@ -269,14 +205,18 @@
       "severity": "info",
       "message": "Specifications should link to requirements using 'reqs' link type",
       "select": {
-        "$ref": "#/$defs/type-spec"
+        "properties": {
+          "type": { "const": "spec" }
+        }
       },
       "validate": {
         "network": {
           "reqs": {
             "items": {
               "local": {
-                "$ref": "#/$defs/type-req"
+                "properties": {
+                  "type": { "const": "req" }
+                }
               }
             }
           }
@@ -288,14 +228,18 @@
       "severity": "info",
       "message": "Implementations should link to specifications using 'implements' link type",
       "select": {
-        "$ref": "#/$defs/type-impl"
+        "properties": {
+          "type": { "const": "impl" }
+        }
       },
       "validate": {
         "network": {
           "implements": {
             "items": {
               "local": {
-                "$ref": "#/$defs/type-spec"
+                "properties": {
+                  "type": { "const": "spec" }
+                }
               }
             }
           }
@@ -307,7 +251,9 @@
       "severity": "info",
       "message": "Test cases should link to either specs or implementations",
       "select": {
-        "$ref": "#/$defs/type-test"
+        "properties": {
+          "type": { "const": "test" }
+        }
       },
       "validate": {
         "local": {
@@ -324,7 +270,9 @@
       "severity": "info",
       "message": "Person needs should have a role defined",
       "select": {
-        "$ref": "#/$defs/type-person"
+        "properties": {
+          "type": { "const": "person" }
+        }
       },
       "validate": {
         "local": {
@@ -343,7 +291,9 @@
       "severity": "info",
       "message": "Team needs should have persons assigned",
       "select": {
-        "$ref": "#/$defs/type-team"
+        "properties": {
+          "type": { "const": "team" }
+        }
       },
       "validate": {
         "local": {
@@ -362,7 +312,9 @@
       "severity": "warning",
       "message": "Hazard IDs should follow the pattern HAZ_*",
       "select": {
-        "$ref": "#/$defs/type-hazard"
+        "properties": {
+          "type": { "const": "hazard" }
+        }
       },
       "validate": {
         "local": {
@@ -379,7 +331,9 @@
       "severity": "warning",
       "message": "Safety Goal IDs should follow the pattern SG_*",
       "select": {
-        "$ref": "#/$defs/type-safety_goal"
+        "properties": {
+          "type": { "const": "safety_goal" }
+        }
       },
       "validate": {
         "local": {
@@ -396,7 +350,9 @@
       "severity": "warning",
       "message": "FSR IDs should follow the pattern FSR_*",
       "select": {
-        "$ref": "#/$defs/type-fsr"
+        "properties": {
+          "type": { "const": "fsr" }
+        }
       },
       "validate": {
         "local": {
@@ -414,15 +370,29 @@
       "message": "Hazards in safety_example must have a valid ASIL rating",
       "select": {
         "allOf": [
-          { "$ref": "#/$defs/type-hazard" },
-          { "$ref": "#/$defs/safety-example" }
+          {
+            "properties": {
+              "type": { "const": "hazard" }
+            }
+          },
+          {
+            "properties": {
+              "docname": {
+                "type": "string",
+                "pattern": ".*safety_example.*"
+              }
+            },
+            "required": ["docname"]
+          }
         ]
       },
       "validate": {
         "local": {
-          "allOf": [
-            { "$ref": "#/$defs/valid-asil" }
-          ],
+          "properties": {
+            "asil": {
+              "enum": ["QM", "A", "B", "C", "D"]
+            }
+          },
           "required": ["asil"]
         }
       }
@@ -433,28 +403,42 @@
       "message": "Safety Goals must have ASIL and mitigate at least one hazard",
       "select": {
         "allOf": [
-          { "$ref": "#/$defs/type-safety_goal" },
-          { "$ref": "#/$defs/safety-example" }
+          {
+            "properties": {
+              "type": { "const": "safety_goal" }
+            }
+          },
+          {
+            "properties": {
+              "docname": {
+                "type": "string",
+                "pattern": ".*safety_example.*"
+              }
+            },
+            "required": ["docname"]
+          }
         ]
       },
       "validate": {
         "local": {
-          "allOf": [
-            { "$ref": "#/$defs/valid-asil" }
-          ],
-          "required": ["asil", "mitigates"],
           "properties": {
+            "asil": {
+              "enum": ["QM", "A", "B", "C", "D"]
+            },
             "mitigates": {
               "type": "array",
               "minItems": 1
             }
-          }
+          },
+          "required": ["asil", "mitigates"]
         },
         "network": {
           "mitigates": {
             "items": {
               "local": {
-                "$ref": "#/$defs/type-hazard"
+                "properties": {
+                  "type": { "const": "hazard" }
+                }
               }
             }
           }
@@ -467,8 +451,20 @@
       "message": "FSRs should derive from at least one Safety Goal",
       "select": {
         "allOf": [
-          { "$ref": "#/$defs/type-fsr" },
-          { "$ref": "#/$defs/safety-example" }
+          {
+            "properties": {
+              "type": { "const": "fsr" }
+            }
+          },
+          {
+            "properties": {
+              "docname": {
+                "type": "string",
+                "pattern": ".*safety_example.*"
+              }
+            },
+            "required": ["docname"]
+          }
         ]
       },
       "validate": {
@@ -485,7 +481,9 @@
           "derives_from": {
             "items": {
               "local": {
-                "$ref": "#/$defs/type-safety_goal"
+                "properties": {
+                  "type": { "const": "safety_goal" }
+                }
               }
             }
           }
@@ -497,7 +495,9 @@
       "severity": "warning",
       "message": "System Requirement IDs should follow the pattern SYSREQ_*",
       "select": {
-        "$ref": "#/$defs/type-sysreq"
+        "properties": {
+          "type": { "const": "sysreq" }
+        }
       },
       "validate": {
         "local": {
@@ -515,8 +515,20 @@
       "message": "System Requirements should implement at least one FSR",
       "select": {
         "allOf": [
-          { "$ref": "#/$defs/type-sysreq" },
-          { "$ref": "#/$defs/safety-example" }
+          {
+            "properties": {
+              "type": { "const": "sysreq" }
+            }
+          },
+          {
+            "properties": {
+              "docname": {
+                "type": "string",
+                "pattern": ".*safety_example.*"
+              }
+            },
+            "required": ["docname"]
+          }
         ]
       },
       "validate": {
@@ -533,7 +545,9 @@
           "implements": {
             "items": {
               "local": {
-                "$ref": "#/$defs/type-fsr"
+                "properties": {
+                  "type": { "const": "fsr" }
+                }
               }
             }
           }
