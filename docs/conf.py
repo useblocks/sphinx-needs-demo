@@ -35,20 +35,8 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx_preview",
+    "ubt_sphinx"
 ]
-
-# During a PDF build with Sphinx-SimplePDF, a special theme is used.
-# But adding "sphinx_immaterial" to the extension list, the "immaterial" already
-# does a lot of sphinx voodoo, which is not needed and does not work during a PDF build.
-# Therefore we add it only, if a special ENV-Var is not set.
-#
-# As we can't ask Sphinx already in the config file, which Builder will be used, we need
-# to set this information by hand, or in this case via an ENV var.
-#
-# To build HTML, just call ``make html
-# To build PDF, call ``env PDF=1 make simplepdf"
-if os.environ.get("PDF", "0") != "1":
-    extensions.append("sphinx_immaterial")
 
 ###############################################################################
 # SPHINX-NEEDS Config START
@@ -127,13 +115,8 @@ plantuml_output_format = "svg_img"
 
 html_theme = "alabaster"  # Sphinx Defaul Theme
 
-# Set ``html_theme`` to ``sphinx_immaterial`` only, if we do NOT perform a PDF build.
-if os.environ.get("PDF", 0) != 1:
-    html_theme = "sphinx_immaterial"
 
 html_static_path = ["_static"]
-
-sphinx_immaterial_override_generic_admonitions = True
 
 html_logo = "_images/sphinx-needs-logo.png"
 html_theme_options = {
@@ -142,7 +125,7 @@ html_theme_options = {
         "repo": "fontawesome/brands/github",
         "edit": "material/file-edit-outline",
     },
-    "site_url": "https://jbms.github.io/sphinx-immaterial/",
+    "site_url": "https://sphinx-needs.com",
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
     "repo_name": "Sphinx-Needs Demo",
     "edit_uri": "blob/main/docs",
@@ -191,6 +174,34 @@ html_theme_options = {
 html_css_files = [
     "custom.css",
 ]
+
+##################################################################
+# ubTrace Builder options                                        #
+##################################################################
+ubtrace_organization = "useblocks"
+ubtrace_project = "sphinx-needs-demo"
+ubtrace_version = "1"
+
+# Pattern to secure pages manually.
+# Example: {"developer_handbook/features/": ["int_developer"]}
+ubtrace_secure_pattern = {}
+
+# ubTrace Theme Options
+ubtrace_theme_options = {
+    "logo": {
+        "desktop": {
+            "light": "_static/sn_demo_logo_light.png",
+            "dark": "_static/sn_demo_logo_dark.png",
+        },
+        "mobile": {
+            "light": "_static/sn_demo_logo_light.png",
+            "dark": "_static/sn_demo_logo_dark.png",
+        },
+    },
+    "repo_url": "https://github.com/useblocks/sphinx-needs-demo/",
+    "edit_uri": "/edit/main/docs/",
+    "view_source_uri": "/blob/main/docs/",
+}
 
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
