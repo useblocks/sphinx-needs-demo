@@ -368,75 +368,16 @@ Cargo workspace located in ``../../brewmaster-controller/`` relative
 to this documentation, with clear module boundaries matching the
 architectural decomposition.
 
-.. impl:: Temperature PID Controller
-   :id: IMPL_TEMP_PID
-   :status: open
-   :tags: rust, control, embedded
-   :realizes: COMP_TEMP_CTRL
-   :collapse: true
+Rust Interface Implementations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-   Implementation: ``brewmaster-controller/src/temperature.rs::TemperatureController``
+The following interface implementations are extracted from the Rust
+source code in ``crates/cofee-machine/src/interfaces.rs``. Each
+implementation is automatically traced to its corresponding interface
+and component specifications through codelinks annotations.
 
-   PID controller with Kp=2.0, Ki=0.5, Kd=1.0 tuned for rapid heating
-   with minimal overshoot. Implements fixed-point arithmetic for
-   deterministic real-time behavior without floating-point dependencies.
-
-.. impl:: Brew State Machine
-   :id: IMPL_BREW_FSM
-   :status: open
-   :tags: rust, control, embedded
-   :realizes: COMP_BREW_CTRL
-   :collapse: true
-
-   Implementation: ``brewmaster-controller/src/brew_controller.rs::BrewStateMachine``
-
-   Type-safe finite state machine using Rust enums. Manages brewing
-   workflow with configurable timing parameters per strength setting.
-   State transitions are compile-time verified to prevent invalid states.
-
-.. impl:: Button Handler
-   :id: IMPL_BUTTON_HANDLER
-   :status: open
-   :tags: rust, ui, embedded
-   :realizes: COMP_UI_MODULE
-   :collapse: true
-
-   Implementation: ``brewmaster-controller/src/ui.rs::ButtonHandler``
-
-   Interrupt-driven button handler with 50ms debounce using hardware
-   timer. Sends commands to the brew state machine via type-safe message
-   passing channels to ensure thread safety.
-
-.. impl:: Safety Watchdog
-   :id: IMPL_SAFETY_WATCHDOG
-   :status: open
-   :tags: rust, safety, embedded
-   :realizes: COMP_SAFETY_MON
-   :collapse: true
-
-   Implementation: ``brewmaster-controller/src/safety.rs::SafetyWatchdog``
-
-   High-priority task running at 10Hz monitoring all safety-critical
-   parameters. Implements hardware watchdog timer reset to prevent
-   lockup. Uses lock-free atomic operations for zero-allocation safety
-   checks.
-
-.. impl:: Hardware Abstraction Layer
-   :id: IMPL_HAL
-   :status: open
-   :tags: rust, hardware, driver, embedded
-   :realizes: COMP_HAL
-   :collapse: true
-
-   Implementation: ``brewmaster-controller/src/hal.rs::HardwareAbstractionLayer``
-
-   Hardware abstraction layer providing sensor data acquisition and
-   actuator control. Uses DMA-based ADC sampling with circular buffering
-   for zero-copy operation. Implements calibration tables for NTC
-   thermistor linearization (Steinhart-Hart equation) and capacitive
-   water level sensor compensation. PWM generation uses hardware timers
-   with 10kHz frequency for heating element control. All hardware access
-   is abstracted through safe Rust interfaces using embedded-hal traits.
+.. src-trace:: 
+   :project: coffee_machine
 
 Test Cases
 ----------
