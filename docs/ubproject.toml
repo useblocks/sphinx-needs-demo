@@ -656,7 +656,10 @@ src = "."
 sphinx = "sphinx-build -b html . _build/html"
 
 [parse]
-ignore_directives = ["test-file"]
+ignore_directives = [
+  "test-file",
+  "src-trace"
+]
 
 ###############################################################################
 # SPHINX-CODELINKS Configuration
