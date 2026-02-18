@@ -442,7 +442,7 @@ incoming = "specified by"
 outgoing = "specifies"
 
 [[needs.extra_links]]
-# impl -> spec
+# impl -> spec, component, interface
 option = "implements"
 incoming = "implemented by"
 outgoing = "implements"
@@ -693,5 +693,5 @@ needs_fields = [
   { "name" = "title", "type" = "str" },
   { "name" = "id", "type" = "str" },
   { "name" = "type", "type" = "str", "default" = "impl" },
-  { "name" = "links", "type" = "list[str]", "default" = [] },
+  { "name" = "implements", "type" = "list[str]", "default" = [] },
 ]
