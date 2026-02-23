@@ -110,6 +110,6 @@ Page Content
    :caption: Demonstration
 
    basic_example/index
+   coffee-machine/index
    automotive-adas/index
    safety_example/index
-   coffee-machine/index
