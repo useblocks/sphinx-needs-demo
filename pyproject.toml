@@ -7,8 +7,8 @@ authors = [
 ]
 dependencies = [
     "sphinx[test]>=8.2.3",
-    "sphinx-needs[plotting]==6.1.0",  # pin as RTD consumes this file, not uv.lock
-    "sphinx-codelinks @ git+https://github.com/useblocks/sphinx-codelinks.git", # We need the latest version from the repo for Rust support.
+    "sphinx-needs[plotting]==6.3.0",  # pin as RTD consumes this file, not uv.lock
+    "sphinx-codelinks>=1.2.0",
     "sphinxcontrib-plantuml>=0.30",
     "sphinx-design>=0.6.1",
     "sphinx-simplepdf>=1.6.0",
