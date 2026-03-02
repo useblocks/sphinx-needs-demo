@@ -71,12 +71,13 @@ Software Requirements
 The software requirements section refines the high-level system
 requirements into detailed, implementable specifications for the
 embedded control system. The BrewMaster Pro 3000 runs on a custom
-Python-based embedded platform with real-time capabilities, chosen for
-its rapid development cycle and extensive library support. These
-requirements specify precise timing constraints, control algorithms,
-and safety-critical behavior that must be implemented in software.
-Each software requirement is traceable back to one or more system
-requirements, ensuring complete coverage of customer needs.
+Rust-based embedded platform with real-time capabilities, chosen for
+its memory safety guarantees, zero-cost abstractions, and excellent
+embedded systems support. These requirements specify precise timing
+constraints, control algorithms, and safety-critical behavior that
+must be implemented in software. Each software requirement is
+traceable back to one or more system requirements, ensuring complete
+coverage of customer needs.
 
 .. swreq:: Temperature Regulation
    :id: SWREQ_TEMP_REGULATION

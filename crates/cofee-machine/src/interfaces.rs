@@ -102,48 +102,42 @@ pub trait TemperatureStatusConsumer {
     fn update_temperature_status(&mut self, status: TemperatureStatus);
 }
 
-/// Safety Status Interfaces (INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS)
+/// Temperature Controller Status Interface (INTF_TEMP_CTRL_STATUS)
 ///
-/// **Provider (INTF_TEMP_CTRL_STATUS)**: Temperature Controller
+/// **Provider**: Temperature Controller Module (COMP_TEMP_CTRL)
 ///
-/// **Provider (INTF_BREW_CTRL_STATUS)**: Brew Controller
+/// **Consumer**: Safety Monitor Module (COMP_SAFETY_MON)
 ///
-/// **Consumer**: Safety Monitor Module
-///
-/// **Description**: Continuous status reporting from all modules to the
-/// safety monitor for fault detection.
+/// **Description**: Continuous status reporting from the Temperature Controller
+/// to the Safety Monitor, including temperature readings and fault flags.
 ///
 /// **Protocol**: Polled by safety monitor at 10Hz
-// @ SafetyStatus struct, IMPL_SAFETY_STATUS, impl, [INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS]
+// @ TempCtrlStatus struct, IMPL_TEMP_CTRL_STATUS, impl, [INTF_TEMP_CTRL_STATUS]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct SafetyStatus {
-    /// Module identifier
+pub struct TempCtrlStatus {
+    /// Module identifier (fixed value for Temperature Controller)
     pub module_id: u8,
-    /// Heartbeat counter (incremented each cycle)
+    /// Heartbeat counter (incremented each control cycle)
     pub heartbeat_counter: u32,
-    /// Bitfield of detected faults
+    /// Bitfield of detected faults (0 = no fault)
     pub fault_flags: u16,
-    /// Temperature value from temp controller (°C × 10)
+    /// Current measured temperature (°C × 10 for 0.1°C resolution)
     pub temperature_value: i16,
-    /// Water level (0-100%)
-    pub water_level: u8,
 }
 
-impl SafetyStatus {
-    /// Create a new safety status
+impl TempCtrlStatus {
+    /// Create a new temperature controller status
     pub fn new(
         module_id: u8,
         heartbeat_counter: u32,
         fault_flags: u16,
         temperature_value: i16,
-        water_level: u8,
     ) -> Self {
         Self {
             module_id,
             heartbeat_counter,
             fault_flags,
             temperature_value,
-            water_level,
         }
     }
 
@@ -158,22 +152,85 @@ impl SafetyStatus {
     }
 }
 
-// @ SafetyStatusProvider trait, IMPL_SAFETY_STATUS_PROVIDER, impl, [INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS, COMP_TEMP_CTRL, COMP_BREW_CTRL]
-/// Trait for components that provide safety status
+// @ TempCtrlStatusProvider trait, IMPL_TEMP_CTRL_STATUS_PROVIDER, impl, [INTF_TEMP_CTRL_STATUS, COMP_TEMP_CTRL]
+/// Trait for the Temperature Controller to expose its status to the Safety Monitor
 ///
-/// Implements: Temperature Controller (COMP_TEMP_CTRL), Brew Controller (COMP_BREW_CTRL)
-pub trait SafetyStatusProvider {
-    /// Get the current safety status for this module
-    fn get_safety_status(&self) -> SafetyStatus;
+/// Implements: Temperature Controller Module (COMP_TEMP_CTRL)
+pub trait TempCtrlStatusProvider {
+    /// Get the current temperature controller status
+    fn get_temp_ctrl_status(&self) -> TempCtrlStatus;
 }
 
-// @ SafetyStatusConsumer trait, IMPL_SAFETY_STATUS_CONSUMER, impl, [INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS, COMP_SAFETY_MON]
-/// Trait for components that consume safety status
+// @ TempCtrlStatusConsumer trait, IMPL_TEMP_CTRL_STATUS_CONSUMER, impl, [INTF_TEMP_CTRL_STATUS, COMP_SAFETY_MON]
+/// Trait for the Safety Monitor to consume temperature controller status
 ///
 /// Implements: Safety Monitor Module (COMP_SAFETY_MON)
-pub trait SafetyStatusConsumer {
-    /// Process safety status from a module
-    fn process_safety_status(&mut self, status: SafetyStatus);
+pub trait TempCtrlStatusConsumer {
+    /// Process a temperature controller status update
+    fn process_temp_ctrl_status(&mut self, status: TempCtrlStatus);
+}
+
+/// Brew Controller Status Interface (INTF_BREW_CTRL_STATUS)
+///
+/// **Provider**: Brew Controller Module (COMP_BREW_CTRL)
+///
+/// **Consumer**: Safety Monitor Module (COMP_SAFETY_MON)
+///
+/// **Description**: Continuous status reporting from the Brew Controller
+/// to the Safety Monitor, including water level readings and fault flags.
+///
+/// **Protocol**: Polled by safety monitor at 10Hz
+// @ BrewCtrlStatus struct, IMPL_BREW_CTRL_STATUS, impl, [INTF_BREW_CTRL_STATUS]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct BrewCtrlStatus {
+    /// Module identifier (fixed value for Brew Controller)
+    pub module_id: u8,
+    /// Heartbeat counter (incremented each control cycle)
+    pub heartbeat_counter: u32,
+    /// Bitfield of detected faults (0 = no fault)
+    pub fault_flags: u16,
+    /// Current water level (0–100%)
+    pub water_level: u8,
+}
+
+impl BrewCtrlStatus {
+    /// Create a new brew controller status
+    pub fn new(
+        module_id: u8,
+        heartbeat_counter: u32,
+        fault_flags: u16,
+        water_level: u8,
+    ) -> Self {
+        Self {
+            module_id,
+            heartbeat_counter,
+            fault_flags,
+            water_level,
+        }
+    }
+
+    /// Check if any faults are present
+    pub fn has_faults(&self) -> bool {
+        self.fault_flags != 0
+    }
+}
+
+// @ BrewCtrlStatusProvider trait, IMPL_BREW_CTRL_STATUS_PROVIDER, impl, [INTF_BREW_CTRL_STATUS, COMP_BREW_CTRL]
+/// Trait for the Brew Controller to expose its status to the Safety Monitor
+///
+/// Implements: Brew Controller Module (COMP_BREW_CTRL)
+pub trait BrewCtrlStatusProvider {
+    /// Get the current brew controller status
+    fn get_brew_ctrl_status(&self) -> BrewCtrlStatus;
+}
+
+// @ BrewCtrlStatusConsumer trait, IMPL_BREW_CTRL_STATUS_CONSUMER, impl, [INTF_BREW_CTRL_STATUS, COMP_SAFETY_MON]
+/// Trait for the Safety Monitor to consume brew controller status
+///
+/// Implements: Safety Monitor Module (COMP_SAFETY_MON)
+pub trait BrewCtrlStatusConsumer {
+    /// Process a brew controller status update
+    fn process_brew_ctrl_status(&mut self, status: BrewCtrlStatus);
 }
 
 /// Safety Command Interface (INTF_SAFETY_CMD)
@@ -289,11 +346,22 @@ mod tests {
     }
 
     #[test]
-    fn test_safety_status_fault_detection() {
-        let status_no_fault = SafetyStatus::new(1, 100, 0, 900, 80);
+    fn test_temp_ctrl_status_fault_detection() {
+        let status_no_fault = TempCtrlStatus::new(1, 100, 0, 900);
         assert_eq!(status_no_fault.has_faults(), false);
+        assert_eq!(status_no_fault.temperature_celsius(), 90.0);
 
-        let status_with_fault = SafetyStatus::new(1, 101, 0x0001, 900, 80);
+        let status_with_fault = TempCtrlStatus::new(1, 101, 0x0001, 900);
+        assert_eq!(status_with_fault.has_faults(), true);
+    }
+
+    #[test]
+    fn test_brew_ctrl_status_fault_detection() {
+        let status_no_fault = BrewCtrlStatus::new(2, 100, 0, 80);
+        assert_eq!(status_no_fault.has_faults(), false);
+        assert_eq!(status_no_fault.water_level, 80);
+
+        let status_with_fault = BrewCtrlStatus::new(2, 101, 0x0001, 80);
         assert_eq!(status_with_fault.has_faults(), true);
     }
 
