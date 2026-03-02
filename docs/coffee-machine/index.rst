@@ -71,12 +71,13 @@ Software Requirements
 The software requirements section refines the high-level system
 requirements into detailed, implementable specifications for the
 embedded control system. The BrewMaster Pro 3000 runs on a custom
-Python-based embedded platform with real-time capabilities, chosen for
-its rapid development cycle and extensive library support. These
-requirements specify precise timing constraints, control algorithms,
-and safety-critical behavior that must be implemented in software.
-Each software requirement is traceable back to one or more system
-requirements, ensuring complete coverage of customer needs.
+Rust-based embedded platform with real-time capabilities, chosen for
+its memory safety guarantees, zero-cost abstractions, and excellent
+embedded systems support. These requirements specify precise timing
+constraints, control algorithms, and safety-critical behavior that
+must be implemented in software. Each software requirement is
+traceable back to one or more system requirements, ensuring complete
+coverage of customer needs.
 
 .. swreq:: Temperature Regulation
    :id: SWREQ_TEMP_REGULATION
@@ -153,17 +154,14 @@ other subsystems. Module dependencies are carefully managed to prevent
 circular references and ensure deterministic behavior. The following
 diagram shows the architectural modules and their relationships:
 
-.. needflow::
-   :types: component, interface
-   :filter: docname is not None and "coffee-machine" in docname
-
 .. component:: Temperature Controller Module
    :id: COMP_TEMP_CTRL
    :status: open
    :tags: module, control
    :implements: SWREQ_TEMP_REGULATION
-   :provides: INTF_TEMP_STATUS, INTF_SAFETY_STATUS
-   :consumes: INTF_SAFETY_CMD, INTF_SENSOR_DATA
+   :uses: INTF_SAFETY_CMD, INTF_SENSOR_DATA
+   :startup_calls: SEQSTART_07
+   :shutdown_calls: SEQSHTDWN_03
    :collapse: true
 
    Module responsible for PID-based temperature control. Interfaces:
@@ -178,8 +176,9 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, control
    :implements: SWREQ_BREW_STRENGTH
-   :provides: INTF_SAFETY_STATUS
-   :consumes: INTF_TEMP_STATUS, INTF_SAFETY_CMD, INTF_USER_CMD
+   :uses: INTF_TEMP_STATUS, INTF_SAFETY_CMD, INTF_USER_CMD
+   :startup_calls: SEQSTART_09
+   :shutdown_calls: SEQSHTDWN_05
    :collapse: true
 
    Module managing the brewing process state machine. States: IDLE,
@@ -192,7 +191,7 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, ui
    :implements: SWREQ_BUTTON_INPUT
-   :provides: INTF_USER_CMD
+   :startup_calls: SEQSTART_01, SEQSTART_03
    :collapse: true
 
    Module handling all user interactions including button debouncing, LED
@@ -204,8 +203,9 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, safety
    :implements: SWREQ_WATER_LEVEL, SWREQ_OVERTEMP_SHUTDOWN
-   :provides: INTF_SAFETY_CMD
-   :consumes: INTF_SAFETY_STATUS, INTF_SENSOR_DATA
+   :uses: INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS, INTF_SENSOR_DATA
+   :startup_calls: SEQSTART_04, SEQSTART_06, SEQSTART_08, SEQSTART_10
+   :shutdown_calls: SEQSHTDWN_02, SEQSHTDWN_04, SEQSHTDWN_06
    :collapse: true
 
    Module performing continuous safety checks on temperature and water
@@ -215,7 +215,8 @@ diagram shows the architectural modules and their relationships:
    :id: COMP_HAL
    :status: open
    :tags: module, hardware, driver
-   :provides: INTF_SENSOR_DATA
+   :startup_calls: SEQSTART_02, SEQSTART_05
+   :shutdown_calls: SEQSHTDWN_01
    :collapse: true
 
    Module providing abstraction over hardware sensors and actuators.
@@ -242,6 +243,7 @@ safe inter-component communication.
    :id: INTF_TEMP_STATUS
    :status: open
    :tags: interface, control
+   :provided_by: COMP_TEMP_CTRL
    :collapse: true
 
    **Provider**: Temperature Controller Module
@@ -264,6 +266,7 @@ safe inter-component communication.
    :id: INTF_SAFETY_CMD
    :status: open
    :tags: interface, safety
+   :provided_by: COMP_SAFETY_MON
    :collapse: true
 
    **Provider**: Safety Monitor Module
@@ -281,25 +284,48 @@ safe inter-component communication.
    **Protocol**: Interrupt-driven with hardware watchdog backup, highest
    priority
 
-.. interface:: Safety Status Interface
-   :id: INTF_SAFETY_STATUS
+.. interface:: Temperature Controller Safety Status Interface
+   :id: INTF_TEMP_CTRL_STATUS
    :status: open
    :tags: interface, safety
+   :provided_by: COMP_TEMP_CTRL
    :collapse: true
 
-   **Providers**: Temperature Controller, Brew Controller
+   **Provider**: Temperature Controller Module
 
    **Consumer**: Safety Monitor Module
 
-   **Description**: Continuous status reporting from all modules to the
-   safety monitor for fault detection.
+   **Description**: Heartbeat and fault status reported by the
+   Temperature Controller to the Safety Monitor for fault detection.
 
    **Data Elements**:
 
    - module_id: uint8
    - heartbeat_counter: uint32 (incremented each cycle)
    - fault_flags: uint16 (bitfield of detected faults)
-   - temperature_value: int16 (from temp controller)
+   - temperature_value: int16 (current measured temperature)
+
+   **Protocol**: Polled by safety monitor at 10Hz
+
+.. interface:: Brew Controller Safety Status Interface
+   :id: INTF_BREW_CTRL_STATUS
+   :status: open
+   :tags: interface, safety
+   :provided_by: COMP_BREW_CTRL
+   :collapse: true
+
+   **Provider**: Brew Controller Module
+
+   **Consumer**: Safety Monitor Module
+
+   **Description**: Heartbeat and fault status reported by the Brew
+   Controller to the Safety Monitor for fault detection.
+
+   **Data Elements**:
+
+   - module_id: uint8
+   - heartbeat_counter: uint32 (incremented each cycle)
+   - fault_flags: uint16 (bitfield of detected faults)
    - water_level: uint8 (0-100%)
 
    **Protocol**: Polled by safety monitor at 10Hz
@@ -308,6 +334,7 @@ safe inter-component communication.
    :id: INTF_USER_CMD
    :status: open
    :tags: interface, ui
+   :provided_by: COMP_UI_MODULE
    :collapse: true
 
    **Provider**: User Interface Module
@@ -330,6 +357,7 @@ safe inter-component communication.
    :id: INTF_SENSOR_DATA
    :status: open
    :tags: interface, hardware
+   :provided_by: COMP_HAL
    :collapse: true
 
    **Provider**: Hardware sensors (temperature, water level)
@@ -345,6 +373,180 @@ safe inter-component communication.
    - sensor_timestamp: uint32 (milliseconds)
 
    **Protocol**: ADC DMA with double buffering, 100Hz sampling rate
+
+Static View
+^^^^^^^^^^^
+
+.. needflow::
+   :types: component, interface
+   :filter: docname is not None and "coffee-machine" in docname
+   :link_types: uses, provided_by
+   :show_link_names:
+   :config: toptobottom
+
+Dynamic View
+^^^^^^^^^^^^
+
+The sequence diagrams below show how the architectural components
+interact at runtime. Participants map directly to the components
+defined in the Static View.
+
+The diagrams are generated by ``needsequence``, which traverses the ``startup_calls``
+/ ``shutdown_calls`` links defined on each component need.  Each :need:`seq_msg <SEQSTART_01>`
+need in the chain represents one message; odd hops are *participants*,
+even hops are *messages*.
+
+Startup Sequence
+""""""""""""""""
+
+On power-on the system initialises hardware, validates initial sensor
+readings, then brings all control modules online in dependency order
+before signalling readiness to the user.
+
+The sequence message needs (``SEQSTART_01``–``SEQSTART_10``) are
+defined below.  ``COMP_UI_MODULE`` is the starting participant.
+
+.. dropdown:: Startup Sequence Messages
+
+   .. seq_msg:: init()
+      :id: SEQSTART_01
+      :startup_calls: COMP_HAL
+      :collapse: true
+
+      HAL hardware initialisation call from UI Module.
+
+   .. seq_msg:: init_ok
+      :id: SEQSTART_02
+      :startup_calls: COMP_UI_MODULE
+      :collapse: true
+
+      HAL confirms successful ADC calibration to UI Module.
+
+   .. seq_msg:: start() — Safety Monitor
+      :id: SEQSTART_03
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      UI Module requests Safety Monitor to start and run pre-checks.
+
+   .. seq_msg:: read_sensors()
+      :id: SEQSTART_04
+      :startup_calls: COMP_HAL
+      :collapse: true
+
+      Safety Monitor polls HAL for initial sensor readings.
+
+   .. seq_msg:: temp=22°C, water_level=85%
+      :id: SEQSTART_05
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      HAL returns ``INTF_SENSOR_DATA`` values; Safety Monitor asserts
+      pre-conditions (temp < 100 °C, water > threshold).
+
+   .. seq_msg:: start() — Temp Controller
+      :id: SEQSTART_06
+      :startup_calls: COMP_TEMP_CTRL
+      :collapse: true
+
+      Safety Monitor starts Temperature Controller Module.
+
+   .. seq_msg:: started (INTF_TEMP_CTRL_STATUS heartbeat)
+      :id: SEQSTART_07
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      Temperature Controller confirms startup via heartbeat on ``INTF_TEMP_CTRL_STATUS``.
+
+   .. seq_msg:: start() — Brew Controller
+      :id: SEQSTART_08
+      :startup_calls: COMP_BREW_CTRL
+      :collapse: true
+
+      Safety Monitor starts Brew Controller Module.
+
+   .. seq_msg:: started (INTF_BREW_CTRL_STATUS heartbeat)
+      :id: SEQSTART_09
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      Brew Controller confirms startup via heartbeat on ``INTF_BREW_CTRL_STATUS``.
+
+   .. seq_msg:: system_ready
+      :id: SEQSTART_10
+      :startup_calls: COMP_UI_MODULE
+      :collapse: true
+
+      Safety Monitor signals system readiness to UI Module; UI illuminates
+      the Ready LED.
+
+.. needsequence:: Startup Sequence
+   :start: COMP_UI_MODULE
+   :link_types: startup_calls
+
+Safety Shutdown Sequence
+""""""""""""""""""""""""
+
+If the Safety Monitor detects an over-temperature condition it issues
+an ``EMERGENCY_STOP`` command on ``INTF_SAFETY_CMD`` to all controlled
+subsystems. All modules must respond within 100 ms.
+
+The sequence message needs (``SEQSHTDWN_01``–``SEQSHTDWN_06``) are
+defined below.  ``COMP_HAL`` is the starting participant (it is the
+source of the over-temperature sensor reading).
+
+.. dropdown:: Safety Shutdown Sequence Messages
+
+   .. seq_msg:: temp=102°C (INTF_SENSOR_DATA — over-temp)
+      :id: SEQSHTDWN_01
+      :shutdown_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      HAL reports temperature exceeding 100 °C threshold to Safety Monitor
+      via ``INTF_SENSOR_DATA`` (polled every 100 ms).
+
+   .. seq_msg:: EMERGENCY_STOP → Temp Controller
+      :id: SEQSHTDWN_02
+      :shutdown_calls: COMP_TEMP_CTRL
+      :collapse: true
+
+      Safety Monitor broadcasts ``EMERGENCY_STOP`` on ``INTF_SAFETY_CMD`` to
+      Temperature Controller; response required within 100 ms.
+
+   .. seq_msg:: fault_flags=OVERTEMP (INTF_TEMP_CTRL_STATUS)
+      :id: SEQSHTDWN_03
+      :shutdown_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      Temperature Controller confirms shutdown and reports ``FAULT_OVERTEMP``
+      flag via ``INTF_TEMP_CTRL_STATUS``.
+
+   .. seq_msg:: EMERGENCY_STOP → Brew Controller
+      :id: SEQSHTDWN_04
+      :shutdown_calls: COMP_BREW_CTRL
+      :collapse: true
+
+      Safety Monitor broadcasts ``EMERGENCY_STOP`` on ``INTF_SAFETY_CMD`` to
+      Brew Controller; brew cycle aborted, pump stopped.
+
+   .. seq_msg:: fault_flags=ABORT (INTF_BREW_CTRL_STATUS)
+      :id: SEQSHTDWN_05
+      :shutdown_calls: COMP_SAFETY_MON
+      :collapse: true
+
+      Brew Controller confirms abort and reports ``FAULT_ABORT`` flag via ``INTF_BREW_CTRL_STATUS``.
+
+   .. seq_msg:: fault_event(OVERTEMP)
+      :id: SEQSHTDWN_06
+      :shutdown_calls: COMP_UI_MODULE
+      :collapse: true
+
+      Safety Monitor notifies UI Module of over-temperature fault; UI
+      illuminates the Error LED and displays the fault message.
+
+.. needsequence:: Safety Shutdown Sequence
+   :start: COMP_HAL
+   :link_types: shutdown_calls
 
 Implementation
 --------------
@@ -372,12 +574,14 @@ Rust Interface Implementations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following interface implementations are extracted from the Rust
-source code in ``crates/cofee-machine/src/interfaces.rs``. Each
+source code in ``crates/coffee-machine/src/interfaces.rs``. Each
 implementation is automatically traced to its corresponding interface
 and component specifications through codelinks annotations.
 
-.. src-trace:: 
-   :project: coffee_machine
+.. dropdown:: Rust Artifacts
+
+   .. src-trace:: 
+      :project: coffee_machine
 
 Test Cases
 ----------
@@ -525,3 +729,4 @@ coffee machine example:
    :filter: docname is not None and "coffee-machine" in docname
    :show_link_names:
    :show_filters:
+   :config: toptobottom

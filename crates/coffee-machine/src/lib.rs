@@ -20,10 +20,11 @@
 //! All interfaces in this crate correspond to specifications from
 //! `docs/coffee-machine/index.rst`:
 //!
-//! - `INTF_TEMP_STATUS` → [`TemperatureStatus`](interfaces::TemperatureStatus)
-//! - `INTF_SAFETY_CMD` → [`SafetyCommand`](interfaces::SafetyCommand)
-//! - `INTF_SAFETY_STATUS` → [`SafetyStatus`](interfaces::SafetyStatus)
-//! - `INTF_USER_CMD` → [`UserCommand`](interfaces::UserCommand)
-//! - `INTF_SENSOR_DATA` → [`SensorData`](interfaces::SensorData)
+//! - `INTF_TEMP_STATUS`      → [`TemperatureStatus`](interfaces::TemperatureStatus)
+//! - `INTF_SAFETY_CMD`       → [`SafetyCommand`](interfaces::SafetyCommand)
+//! - `INTF_TEMP_CTRL_STATUS` → [`TempCtrlStatus`](interfaces::TempCtrlStatus)
+//! - `INTF_BREW_CTRL_STATUS` → [`BrewCtrlStatus`](interfaces::BrewCtrlStatus)
+//! - `INTF_USER_CMD`         → [`UserCommand`](interfaces::UserCommand)
+//! - `INTF_SENSOR_DATA`      → [`SensorData`](interfaces::SensorData)
 
 pub mod interfaces;
