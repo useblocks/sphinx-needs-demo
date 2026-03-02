@@ -102,9 +102,11 @@ pub trait TemperatureStatusConsumer {
     fn update_temperature_status(&mut self, status: TemperatureStatus);
 }
 
-/// Safety Status Interface (INTF_SAFETY_STATUS)
+/// Safety Status Interfaces (INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS)
 ///
-/// **Providers**: Temperature Controller, Brew Controller
+/// **Provider (INTF_TEMP_CTRL_STATUS)**: Temperature Controller
+///
+/// **Provider (INTF_BREW_CTRL_STATUS)**: Brew Controller
 ///
 /// **Consumer**: Safety Monitor Module
 ///
@@ -112,7 +114,7 @@ pub trait TemperatureStatusConsumer {
 /// safety monitor for fault detection.
 ///
 /// **Protocol**: Polled by safety monitor at 10Hz
-// @ SafetyStatus struct, IMPL_SAFETY_STATUS, impl, [INTF_SAFETY_STATUS]
+// @ SafetyStatus struct, IMPL_SAFETY_STATUS, impl, [INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SafetyStatus {
     /// Module identifier
@@ -156,7 +158,7 @@ impl SafetyStatus {
     }
 }
 
-// @ SafetyStatusProvider trait, IMPL_SAFETY_STATUS_PROVIDER, impl, [INTF_SAFETY_STATUS, COMP_TEMP_CTRL, COMP_BREW_CTRL]
+// @ SafetyStatusProvider trait, IMPL_SAFETY_STATUS_PROVIDER, impl, [INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS, COMP_TEMP_CTRL, COMP_BREW_CTRL]
 /// Trait for components that provide safety status
 ///
 /// Implements: Temperature Controller (COMP_TEMP_CTRL), Brew Controller (COMP_BREW_CTRL)
@@ -165,7 +167,7 @@ pub trait SafetyStatusProvider {
     fn get_safety_status(&self) -> SafetyStatus;
 }
 
-// @ SafetyStatusConsumer trait, IMPL_SAFETY_STATUS_CONSUMER, impl, [INTF_SAFETY_STATUS, COMP_SAFETY_MON]
+// @ SafetyStatusConsumer trait, IMPL_SAFETY_STATUS_CONSUMER, impl, [INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS, COMP_SAFETY_MON]
 /// Trait for components that consume safety status
 ///
 /// Implements: Safety Monitor Module (COMP_SAFETY_MON)

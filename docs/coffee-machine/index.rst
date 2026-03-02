@@ -153,17 +153,12 @@ other subsystems. Module dependencies are carefully managed to prevent
 circular references and ensure deterministic behavior. The following
 diagram shows the architectural modules and their relationships:
 
-.. needflow::
-   :types: component, interface
-   :filter: docname is not None and "coffee-machine" in docname
-
 .. component:: Temperature Controller Module
    :id: COMP_TEMP_CTRL
    :status: open
    :tags: module, control
    :implements: SWREQ_TEMP_REGULATION
-   :provides: INTF_TEMP_STATUS, INTF_SAFETY_STATUS
-   :consumes: INTF_SAFETY_CMD, INTF_SENSOR_DATA
+   :uses: INTF_SAFETY_CMD, INTF_SENSOR_DATA
    :collapse: true
 
    Module responsible for PID-based temperature control. Interfaces:
@@ -178,8 +173,7 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, control
    :implements: SWREQ_BREW_STRENGTH
-   :provides: INTF_SAFETY_STATUS
-   :consumes: INTF_TEMP_STATUS, INTF_SAFETY_CMD, INTF_USER_CMD
+   :uses: INTF_TEMP_STATUS, INTF_SAFETY_CMD, INTF_USER_CMD
    :collapse: true
 
    Module managing the brewing process state machine. States: IDLE,
@@ -192,7 +186,6 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, ui
    :implements: SWREQ_BUTTON_INPUT
-   :provides: INTF_USER_CMD
    :collapse: true
 
    Module handling all user interactions including button debouncing, LED
@@ -204,8 +197,7 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, safety
    :implements: SWREQ_WATER_LEVEL, SWREQ_OVERTEMP_SHUTDOWN
-   :provides: INTF_SAFETY_CMD
-   :consumes: INTF_SAFETY_STATUS, INTF_SENSOR_DATA
+   :uses: INTF_TEMP_CTRL_STATUS, INTF_BREW_CTRL_STATUS, INTF_SENSOR_DATA
    :collapse: true
 
    Module performing continuous safety checks on temperature and water
@@ -215,7 +207,6 @@ diagram shows the architectural modules and their relationships:
    :id: COMP_HAL
    :status: open
    :tags: module, hardware, driver
-   :provides: INTF_SENSOR_DATA
    :collapse: true
 
    Module providing abstraction over hardware sensors and actuators.
@@ -242,6 +233,7 @@ safe inter-component communication.
    :id: INTF_TEMP_STATUS
    :status: open
    :tags: interface, control
+   :provided_by: COMP_TEMP_CTRL
    :collapse: true
 
    **Provider**: Temperature Controller Module
@@ -264,6 +256,7 @@ safe inter-component communication.
    :id: INTF_SAFETY_CMD
    :status: open
    :tags: interface, safety
+   :provided_by: COMP_SAFETY_MON
    :collapse: true
 
    **Provider**: Safety Monitor Module
@@ -281,25 +274,48 @@ safe inter-component communication.
    **Protocol**: Interrupt-driven with hardware watchdog backup, highest
    priority
 
-.. interface:: Safety Status Interface
-   :id: INTF_SAFETY_STATUS
+.. interface:: Temperature Controller Safety Status Interface
+   :id: INTF_TEMP_CTRL_STATUS
    :status: open
    :tags: interface, safety
+   :provided_by: COMP_TEMP_CTRL
    :collapse: true
 
-   **Providers**: Temperature Controller, Brew Controller
+   **Provider**: Temperature Controller Module
 
    **Consumer**: Safety Monitor Module
 
-   **Description**: Continuous status reporting from all modules to the
-   safety monitor for fault detection.
+   **Description**: Heartbeat and fault status reported by the
+   Temperature Controller to the Safety Monitor for fault detection.
 
    **Data Elements**:
 
    - module_id: uint8
    - heartbeat_counter: uint32 (incremented each cycle)
    - fault_flags: uint16 (bitfield of detected faults)
-   - temperature_value: int16 (from temp controller)
+   - temperature_value: int16 (current measured temperature)
+
+   **Protocol**: Polled by safety monitor at 10Hz
+
+.. interface:: Brew Controller Safety Status Interface
+   :id: INTF_BREW_CTRL_STATUS
+   :status: open
+   :tags: interface, safety
+   :provided_by: COMP_BREW_CTRL
+   :collapse: true
+
+   **Provider**: Brew Controller Module
+
+   **Consumer**: Safety Monitor Module
+
+   **Description**: Heartbeat and fault status reported by the Brew
+   Controller to the Safety Monitor for fault detection.
+
+   **Data Elements**:
+
+   - module_id: uint8
+   - heartbeat_counter: uint32 (incremented each cycle)
+   - fault_flags: uint16 (bitfield of detected faults)
    - water_level: uint8 (0-100%)
 
    **Protocol**: Polled by safety monitor at 10Hz
@@ -308,6 +324,7 @@ safe inter-component communication.
    :id: INTF_USER_CMD
    :status: open
    :tags: interface, ui
+   :provided_by: COMP_UI_MODULE
    :collapse: true
 
    **Provider**: User Interface Module
@@ -330,6 +347,7 @@ safe inter-component communication.
    :id: INTF_SENSOR_DATA
    :status: open
    :tags: interface, hardware
+   :provided_by: COMP_HAL
    :collapse: true
 
    **Provider**: Hardware sensors (temperature, water level)
@@ -345,6 +363,21 @@ safe inter-component communication.
    - sensor_timestamp: uint32 (milliseconds)
 
    **Protocol**: ADC DMA with double buffering, 100Hz sampling rate
+
+Static View
+^^^^^^^^^^^
+
+.. needflow::
+   :types: component, interface
+   :filter: docname is not None and "coffee-machine" in docname
+   :link_types: uses, provided_by
+   :show_link_names:
+   :config: toptobottom
+
+Dynamic View
+^^^^^^^^^^^^
+
+TODO
 
 Implementation
 --------------
@@ -525,3 +558,4 @@ coffee machine example:
    :filter: docname is not None and "coffee-machine" in docname
    :show_link_names:
    :show_filters:
+   :config: toptobottom

@@ -511,6 +511,28 @@ style = "dashed"
 style_start = "-"
 style_end = "-("
 
+[[needs.extra_links]]
+# component -> interface: component uses (consumes) an interface
+# Arrow direction: component -> interface (consumer is higher-level, drawn above)
+option = "uses"
+incoming = "used by"
+outgoing = "uses"
+color = "#3498db"
+style = "dashed"
+style_start = "-"
+style_end = "-("
+
+[[needs.extra_links]]
+# interface -> component: interface is provided by a component
+# Arrow direction: interface -> component (interface is drawn above providing component)
+option = "provided_by"
+incoming = "provides"
+outgoing = "provided by"
+color = "#16a085"
+style = "bold"
+style_start = "-"
+style_end = "-"
+
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
 [needs.layouts.adas]
 grid = "simple_footer"
