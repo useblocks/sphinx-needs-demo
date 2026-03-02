@@ -574,7 +574,7 @@ Rust Interface Implementations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following interface implementations are extracted from the Rust
-source code in ``crates/cofee-machine/src/interfaces.rs``. Each
+source code in ``crates/coffee-machine/src/interfaces.rs``. Each
 implementation is automatically traced to its corresponding interface
 and component specifications through codelinks annotations.
 
