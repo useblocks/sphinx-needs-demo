@@ -35,7 +35,7 @@ extensions = [
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx_preview",
+    "sphinx_preview","sphinx_design"
 ]
 
 # During a PDF build with Sphinx-SimplePDF, a special theme is used.

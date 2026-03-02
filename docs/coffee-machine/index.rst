@@ -405,77 +405,79 @@ before signalling readiness to the user.
 The sequence message needs (``SEQSTART_01``–``SEQSTART_10``) are
 defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
-.. seq_msg:: init()
-   :id: SEQSTART_01
-   :startup_calls: COMP_HAL
-   :collapse: true
+.. dropdown:: Startup Sequence Messages
 
-   HAL hardware initialisation call from UI Module.
+   .. seq_msg:: init()
+      :id: SEQSTART_01
+      :startup_calls: COMP_HAL
+      :collapse: true
 
-.. seq_msg:: init_ok
-   :id: SEQSTART_02
-   :startup_calls: COMP_UI_MODULE
-   :collapse: true
+      HAL hardware initialisation call from UI Module.
 
-   HAL confirms successful ADC calibration to UI Module.
+   .. seq_msg:: init_ok
+      :id: SEQSTART_02
+      :startup_calls: COMP_UI_MODULE
+      :collapse: true
 
-.. seq_msg:: start() — Safety Monitor
-   :id: SEQSTART_03
-   :startup_calls: COMP_SAFETY_MON
-   :collapse: true
+      HAL confirms successful ADC calibration to UI Module.
 
-   UI Module requests Safety Monitor to start and run pre-checks.
+   .. seq_msg:: start() — Safety Monitor
+      :id: SEQSTART_03
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: read_sensors()
-   :id: SEQSTART_04
-   :startup_calls: COMP_HAL
-   :collapse: true
+      UI Module requests Safety Monitor to start and run pre-checks.
 
-   Safety Monitor polls HAL for initial sensor readings.
+   .. seq_msg:: read_sensors()
+      :id: SEQSTART_04
+      :startup_calls: COMP_HAL
+      :collapse: true
 
-.. seq_msg:: temp=22°C, water_level=85%
-   :id: SEQSTART_05
-   :startup_calls: COMP_SAFETY_MON
-   :collapse: true
+      Safety Monitor polls HAL for initial sensor readings.
 
-   HAL returns ``INTF_SENSOR_DATA`` values; Safety Monitor asserts
-   pre-conditions (temp < 100 °C, water > threshold).
+   .. seq_msg:: temp=22°C, water_level=85%
+      :id: SEQSTART_05
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: start() — Temp Controller
-   :id: SEQSTART_06
-   :startup_calls: COMP_TEMP_CTRL
-   :collapse: true
+      HAL returns ``INTF_SENSOR_DATA`` values; Safety Monitor asserts
+      pre-conditions (temp < 100 °C, water > threshold).
 
-   Safety Monitor starts Temperature Controller Module.
+   .. seq_msg:: start() — Temp Controller
+      :id: SEQSTART_06
+      :startup_calls: COMP_TEMP_CTRL
+      :collapse: true
 
-.. seq_msg:: started (INTF_TEMP_CTRL_STATUS heartbeat)
-   :id: SEQSTART_07
-   :startup_calls: COMP_SAFETY_MON
-   :collapse: true
+      Safety Monitor starts Temperature Controller Module.
 
-   Temperature Controller confirms startup via heartbeat on ``INTF_TEMP_CTRL_STATUS``.
+   .. seq_msg:: started (INTF_TEMP_CTRL_STATUS heartbeat)
+      :id: SEQSTART_07
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: start() — Brew Controller
-   :id: SEQSTART_08
-   :startup_calls: COMP_BREW_CTRL
-   :collapse: true
+      Temperature Controller confirms startup via heartbeat on ``INTF_TEMP_CTRL_STATUS``.
 
-   Safety Monitor starts Brew Controller Module.
+   .. seq_msg:: start() — Brew Controller
+      :id: SEQSTART_08
+      :startup_calls: COMP_BREW_CTRL
+      :collapse: true
 
-.. seq_msg:: started (INTF_BREW_CTRL_STATUS heartbeat)
-   :id: SEQSTART_09
-   :startup_calls: COMP_SAFETY_MON
-   :collapse: true
+      Safety Monitor starts Brew Controller Module.
 
-   Brew Controller confirms startup via heartbeat on ``INTF_BREW_CTRL_STATUS``.
+   .. seq_msg:: started (INTF_BREW_CTRL_STATUS heartbeat)
+      :id: SEQSTART_09
+      :startup_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: system_ready
-   :id: SEQSTART_10
-   :startup_calls: COMP_UI_MODULE
-   :collapse: true
+      Brew Controller confirms startup via heartbeat on ``INTF_BREW_CTRL_STATUS``.
 
-   Safety Monitor signals system readiness to UI Module; UI illuminates
-   the Ready LED.
+   .. seq_msg:: system_ready
+      :id: SEQSTART_10
+      :startup_calls: COMP_UI_MODULE
+      :collapse: true
+
+      Safety Monitor signals system readiness to UI Module; UI illuminates
+      the Ready LED.
 
 .. needsequence:: Startup Sequence
    :start: COMP_UI_MODULE
@@ -492,52 +494,54 @@ The sequence message needs (``SEQSHTDWN_01``–``SEQSHTDWN_06``) are
 defined below.  ``COMP_HAL`` is the starting participant (it is the
 source of the over-temperature sensor reading).
 
-.. seq_msg:: temp=102°C (INTF_SENSOR_DATA — over-temp)
-   :id: SEQSHTDWN_01
-   :shutdown_calls: COMP_SAFETY_MON
-   :collapse: true
+.. dropdown:: Safety Shutdown Sequence Messages
 
-   HAL reports temperature exceeding 100 °C threshold to Safety Monitor
-   via ``INTF_SENSOR_DATA`` (polled every 100 ms).
+   .. seq_msg:: temp=102°C (INTF_SENSOR_DATA — over-temp)
+      :id: SEQSHTDWN_01
+      :shutdown_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: EMERGENCY_STOP → Temp Controller
-   :id: SEQSHTDWN_02
-   :shutdown_calls: COMP_TEMP_CTRL
-   :collapse: true
+      HAL reports temperature exceeding 100 °C threshold to Safety Monitor
+      via ``INTF_SENSOR_DATA`` (polled every 100 ms).
 
-   Safety Monitor broadcasts ``EMERGENCY_STOP`` on ``INTF_SAFETY_CMD`` to
-   Temperature Controller; response required within 100 ms.
+   .. seq_msg:: EMERGENCY_STOP → Temp Controller
+      :id: SEQSHTDWN_02
+      :shutdown_calls: COMP_TEMP_CTRL
+      :collapse: true
 
-.. seq_msg:: fault_flags=OVERTEMP (INTF_TEMP_CTRL_STATUS)
-   :id: SEQSHTDWN_03
-   :shutdown_calls: COMP_SAFETY_MON
-   :collapse: true
+      Safety Monitor broadcasts ``EMERGENCY_STOP`` on ``INTF_SAFETY_CMD`` to
+      Temperature Controller; response required within 100 ms.
 
-   Temperature Controller confirms shutdown and reports ``FAULT_OVERTEMP``
-   flag via ``INTF_TEMP_CTRL_STATUS``.
+   .. seq_msg:: fault_flags=OVERTEMP (INTF_TEMP_CTRL_STATUS)
+      :id: SEQSHTDWN_03
+      :shutdown_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: EMERGENCY_STOP → Brew Controller
-   :id: SEQSHTDWN_04
-   :shutdown_calls: COMP_BREW_CTRL
-   :collapse: true
+      Temperature Controller confirms shutdown and reports ``FAULT_OVERTEMP``
+      flag via ``INTF_TEMP_CTRL_STATUS``.
 
-   Safety Monitor broadcasts ``EMERGENCY_STOP`` on ``INTF_SAFETY_CMD`` to
-   Brew Controller; brew cycle aborted, pump stopped.
+   .. seq_msg:: EMERGENCY_STOP → Brew Controller
+      :id: SEQSHTDWN_04
+      :shutdown_calls: COMP_BREW_CTRL
+      :collapse: true
 
-.. seq_msg:: fault_flags=ABORT (INTF_BREW_CTRL_STATUS)
-   :id: SEQSHTDWN_05
-   :shutdown_calls: COMP_SAFETY_MON
-   :collapse: true
+      Safety Monitor broadcasts ``EMERGENCY_STOP`` on ``INTF_SAFETY_CMD`` to
+      Brew Controller; brew cycle aborted, pump stopped.
 
-   Brew Controller confirms abort and reports ``FAULT_ABORT`` flag via ``INTF_BREW_CTRL_STATUS``.
+   .. seq_msg:: fault_flags=ABORT (INTF_BREW_CTRL_STATUS)
+      :id: SEQSHTDWN_05
+      :shutdown_calls: COMP_SAFETY_MON
+      :collapse: true
 
-.. seq_msg:: fault_event(OVERTEMP)
-   :id: SEQSHTDWN_06
-   :shutdown_calls: COMP_UI_MODULE
-   :collapse: true
+      Brew Controller confirms abort and reports ``FAULT_ABORT`` flag via ``INTF_BREW_CTRL_STATUS``.
 
-   Safety Monitor notifies UI Module of over-temperature fault; UI
-   illuminates the Error LED and displays the fault message.
+   .. seq_msg:: fault_event(OVERTEMP)
+      :id: SEQSHTDWN_06
+      :shutdown_calls: COMP_UI_MODULE
+      :collapse: true
+
+      Safety Monitor notifies UI Module of over-temperature fault; UI
+      illuminates the Error LED and displays the fault message.
 
 .. needsequence:: Safety Shutdown Sequence
    :start: COMP_HAL
@@ -573,8 +577,10 @@ source code in ``crates/cofee-machine/src/interfaces.rs``. Each
 implementation is automatically traced to its corresponding interface
 and component specifications through codelinks annotations.
 
-.. src-trace:: 
-   :project: coffee_machine
+.. dropdown:: Rust Artifacts
+
+   .. src-trace:: 
+      :project: coffee_machine
 
 Test Cases
 ----------
