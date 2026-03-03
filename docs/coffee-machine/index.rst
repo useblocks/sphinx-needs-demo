@@ -163,6 +163,7 @@ diagram shows the architectural modules and their relationships:
    :startup_calls: SEQSTART_07
    :shutdown_calls: SEQSHTDWN_03
    :collapse: true
+   :template: component_arch
 
    Module responsible for PID-based temperature control. Interfaces:
 
@@ -180,6 +181,7 @@ diagram shows the architectural modules and their relationships:
    :startup_calls: SEQSTART_09
    :shutdown_calls: SEQSHTDWN_05
    :collapse: true
+   :template: component_arch
 
    Module managing the brewing process state machine. States: IDLE,
    HEATING, BREWING, COMPLETE, ERROR. Controls pump and valve timing
@@ -193,6 +195,7 @@ diagram shows the architectural modules and their relationships:
    :implements: SWREQ_BUTTON_INPUT
    :startup_calls: SEQSTART_01, SEQSTART_03
    :collapse: true
+   :template: component_arch
 
    Module handling all user interactions including button debouncing, LED
    status indicators, and display updates. Interfaces with the Brew
@@ -207,6 +210,7 @@ diagram shows the architectural modules and their relationships:
    :startup_calls: SEQSTART_04, SEQSTART_06, SEQSTART_08, SEQSTART_10
    :shutdown_calls: SEQSHTDWN_02, SEQSHTDWN_04, SEQSHTDWN_06
    :collapse: true
+   :template: component_arch
 
    Module performing continuous safety checks on temperature and water
    level. Implements fail-safe shutdown procedures.
@@ -218,6 +222,7 @@ diagram shows the architectural modules and their relationships:
    :startup_calls: SEQSTART_02, SEQSTART_05
    :shutdown_calls: SEQSHTDWN_01
    :collapse: true
+   :template: component_arch
 
    Module providing abstraction over hardware sensors and actuators.
    Handles low-level sensor reading via ADC, signal conditioning, and
