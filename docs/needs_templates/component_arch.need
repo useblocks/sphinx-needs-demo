@@ -1,0 +1,22 @@
+{{ content }}
+
+.. needarch::
+   :scale: 75
+   :align: center
+
+   {% raw %}
+      {{flow(need().id)}}
+      {{import("implements", "uses", "provided_by_back")}}
+
+      {% for req in need().implements %}
+         {{req}} <-- {{need().id}}
+      {% endfor %}
+
+      {% for intf in need().uses %}
+         {{need().id}} --( {{intf}}
+      {% endfor %}
+
+      {% for intf in need().provided_by_back %}
+         {{need().id}} -- {{intf}}
+      {% endfor %}
+   {% endraw %}
