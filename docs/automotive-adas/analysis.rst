@@ -1,5 +1,5 @@
-{% set page="analysis.rst" %}
-{% include "demo_page_header.rst" with context %}
+{% set page="analysis.rst" %} {% include "demo_page_header.rst" with
+context %}
 
 📊 Analysis
 ===========
@@ -12,7 +12,6 @@ Overview
    :columns: id, title, type, status, author
 
 .. tip::
-   :title: Big picture
    :collapsible:
 
    .. needflow::

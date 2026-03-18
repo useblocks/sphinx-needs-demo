@@ -52,7 +52,6 @@ Features and technical details are described inside dropdowns like
 this one:
 
 .. tip:: Really, this is just an example. Nothing more.
-   :title: Demo feature hint: Just an example
    :collapsible:
 
 Demo Content

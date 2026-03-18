@@ -35,8 +35,14 @@ extensions = [
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx_preview","sphinx_design"
+    "sphinx_preview",
+    "sphinx_design",
+    "ubt_sphinx"
 ]
+
+ubtrace_organization = "useblocks"
+ubtrace_project = "sphinx-needs-demo"
+ubtrace_version = "main"
 
 # During a PDF build with Sphinx-SimplePDF, a special theme is used.
 # But adding "sphinx_immaterial" to the extension list, the "immaterial" already
@@ -48,8 +54,6 @@ extensions = [
 #
 # To build HTML, just call ``make html
 # To build PDF, call ``env PDF=1 make simplepdf"
-if os.environ.get("PDF", "0") != "1":
-    extensions.append("sphinx_immaterial")
 
 ###############################################################################
 # SPHINX-NEEDS Config START
@@ -143,12 +147,6 @@ plantuml_output_format = "svg_img"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
-html_theme = "alabaster"  # Sphinx Defaul Theme
-
-# Set ``html_theme`` to ``sphinx_immaterial`` only, if we do NOT perform a PDF build.
-if os.environ.get("PDF", 0) != 1:
-    html_theme = "sphinx_immaterial"
 
 html_static_path = ["_static"]
 

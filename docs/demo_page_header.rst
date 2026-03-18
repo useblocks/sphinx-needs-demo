@@ -1,7 +1,6 @@
 .. if-builder:: html
 
    .. tip::
-      :title: Demo page details
       :collapsible:
 
       **Page source code: {{page}}**
