@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "sphinx[test]>=8.2.3",
-    "sphinx-needs[plotting]==6.1.0",  # pin as RTD consumes this file, not uv.lock
+    "sphinx-needs[plotting]>=7.0.0,<8",  # pin as RTD consumes this file, not uv.lock
     "sphinxcontrib-plantuml>=0.30",
     "sphinx-design>=0.6.1",
     "sphinx-simplepdf>=1.6.0",
