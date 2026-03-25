@@ -896,6 +896,25 @@ wheels = [
 ]
 
 [[package]]
+name = "minijinja"
+version = "2.18.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1c/7d/63b300beed4dc8e51b3726b3a194f730a68b02d2d8a37022fd05f4fb5f55/minijinja-2.18.0.tar.gz", hash = "sha256:d77e7bce8fe2ddd3dfa13f142b2e8d858c3a1ea77c927337a2c9eade0da227bc", size = 290605, upload-time = "2026-03-15T23:21:28.333Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/17/42/9141d4276f91b53549f9502010aa3ec033605776c7721ab988bab22bf8cf/minijinja-2.18.0-cp38-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:f2116a9b0f1211d42d6b148bb6abd34695b0351f5c8cfa8533a21e7cf109d090", size = 2094154, upload-time = "2026-03-15T23:21:14.189Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/d6/f268a63bd2403960b2d3e9f5e592262ab582d5813616b963956671d0d3ec/minijinja-2.18.0-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2fb4e8a94e9f8337f894842084570e290a1cc39fb306cab457d405a129cf1fc7", size = 1093497, upload-time = "2026-03-15T23:21:15.667Z" },
+    { url = "https://files.pythonhosted.org/packages/d8/80/c674e83fdf36e9bde6ff42d7493a01882d17513438832bebecbba20d0888/minijinja-2.18.0-cp38-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:01cd85bdae15c8ce44afd0cadb07808a0b0f55363f3ee3f9459c4e1663707095", size = 1073493, upload-time = "2026-03-15T23:21:17.253Z" },
+    { url = "https://files.pythonhosted.org/packages/0a/1e/a4d4c84e87410292f5cf33e7db98447e5e2476cd1d0aed029795419f6ed8/minijinja-2.18.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8b252458a3a51dc09bef48422f68595684984785e40300b426e318c5916c2704", size = 1126283, upload-time = "2026-03-15T23:21:18.508Z" },
+    { url = "https://files.pythonhosted.org/packages/a4/60/83380b3f9b553d2ce7e661dc656ea6527f59fac6f3aec47bbff2339d27f2/minijinja-2.18.0-cp38-abi3-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:168de945c4fe2a12f17e9190b80780646b68e487c341fcde8cba32680f7869a8", size = 1261668, upload-time = "2026-03-15T23:21:19.914Z" },
+    { url = "https://files.pythonhosted.org/packages/64/ae/982aa58cee9fda6d366bbe56258d9ba7cd1433a609151d9b6463d86129c7/minijinja-2.18.0-cp38-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:1928d1522fb53adf50bf5a781068e8ad1b925f0f03579b48b1e98e7ae7526feb", size = 1270593, upload-time = "2026-03-15T23:21:21.257Z" },
+    { url = "https://files.pythonhosted.org/packages/50/4d/1b0d7e8fe504de906a003fcce428d9ae9086dcbcde30e1eec87bbae4199f/minijinja-2.18.0-cp38-abi3-musllinux_1_2_armv7l.whl", hash = "sha256:42daaf7310956b491f50ea356b751ed12d9ebb23e82e7136871afd19f87aab80", size = 1348350, upload-time = "2026-03-15T23:21:22.534Z" },
+    { url = "https://files.pythonhosted.org/packages/9d/5d/a024fd7fae148cec9905787a461e82cd4dc7356113e65d539be1b8fab168/minijinja-2.18.0-cp38-abi3-musllinux_1_2_i686.whl", hash = "sha256:0b32f66d7138e6eefeabca39583a9d98e3bf8c8c7ebe0e287250dff436f4234f", size = 1425652, upload-time = "2026-03-15T23:21:23.683Z" },
+    { url = "https://files.pythonhosted.org/packages/10/61/de9c4994dc34ff044d1a9e756a9390c81bef0085e30e9bb97ebbeb9e5e76/minijinja-2.18.0-cp38-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:c3ccdc1d48939068c08962e6051541fd9a3af67d20ceb08262a540ea9364dcf7", size = 1348080, upload-time = "2026-03-15T23:21:24.824Z" },
+    { url = "https://files.pythonhosted.org/packages/9f/9a/d3bacbe436cbd759282c29534c91547b598b29cf2c31f697b6150a8f9e5c/minijinja-2.18.0-cp38-abi3-win32.whl", hash = "sha256:1bb6a6be7851961a9192b158d436ad6c7b8b6d58e620c5da9d638a7e2f4a6b6d", size = 1030004, upload-time = "2026-03-15T23:21:26.032Z" },
+    { url = "https://files.pythonhosted.org/packages/cf/ae/7559ff00f780b03b0dd35669004c8478677a84a6b81d0965a347ede15390/minijinja-2.18.0-cp38-abi3-win_amd64.whl", hash = "sha256:f6e9ac8256fc5453e2c5ab91a44201447ea4975c341535a7aa623447b88b7c4e", size = 1081123, upload-time = "2026-03-15T23:21:27.186Z" },
+]
+
+[[package]]
 name = "numpy"
 version = "2.3.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1538,10 +1557,11 @@ wheels = [
 
 [[package]]
 name = "sphinx-needs"
-version = "6.3.0"
+version = "7.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema-rs" },
+    { name = "minijinja" },
     { name = "requests" },
     { name = "requests-file" },
     { name = "sphinx" },
@@ -1549,9 +1569,9 @@ dependencies = [
     { name = "sphinxcontrib-jquery" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/39/e6/f518eac2340b798111f5dab7337339d5e42a52a5be8ecf6c3a25ac5e4800/sphinx_needs-6.3.0.tar.gz", hash = "sha256:a8a1cccc1525b94551e7a2f9525bf36eaae88654abceb5047b5470d57472b346", size = 27590098, upload-time = "2025-12-15T15:06:39.633Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7e/37/8363df3f63f456866a6201be065e0d43e9a51753dfd1049c9f3be2a601d8/sphinx_needs-7.0.0.tar.gz", hash = "sha256:3fa665181c323d0b76f6de0d8565f925f36933e8af4c253d34127755eff07371", size = 27619675, upload-time = "2026-02-24T16:52:17.92Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3d/a7/8ee6a99d548d270e731333a8b4a2b067182fac1a6bbcdd1f692121ccbb9d/sphinx_needs-6.3.0-py3-none-any.whl", hash = "sha256:761901765844c69f6181580065b099b31016895a86962a25e7860a9f5bea54a2", size = 2685357, upload-time = "2025-12-15T15:06:37.427Z" },
+    { url = "https://files.pythonhosted.org/packages/0d/81/d9265e25fb0024cdb659603681ea58dc54fc878733ffe659a21ac15db243/sphinx_needs-7.0.0-py3-none-any.whl", hash = "sha256:7ea120a1127cc532ea4610e814c26824b05d296ce8c2f6d046d5f6ed64d85d0f", size = 2695791, upload-time = "2026-02-24T16:52:15.669Z" },
 ]
 
 [package.optional-dependencies]
@@ -1583,7 +1603,7 @@ requires-dist = [
     { name = "sphinx-codelinks", specifier = ">=1.2.0" },
     { name = "sphinx-design", specifier = ">=0.6.1" },
     { name = "sphinx-immaterial", specifier = ">=0.13.6" },
-    { name = "sphinx-needs", extras = ["plotting"], specifier = "==6.3.0" },
+    { name = "sphinx-needs", extras = ["plotting"], specifier = ">=7.0.0,<8" },
     { name = "sphinx-preview", specifier = ">=0.1.2" },
     { name = "sphinx-simplepdf", specifier = ">=1.6.0" },
     { name = "sphinx-test-reports", specifier = ">=1.3.2" },
