@@ -302,6 +302,27 @@ color = "#2d86c1"
 style = "node"
 
 [[needs.types]]
+directive = "component"
+title = "Component"
+prefix = "COMP_"
+color = "#3498db"
+style = "component"
+
+[[needs.types]]
+directive = "interface"
+title = "Interface"
+prefix = "INTF_"
+color = "#16a085"
+style = "interface"
+
+[[needs.types]]
+directive = "seq_msg"
+title = "Sequence Message"
+prefix = "SEQMSG_"
+color = "#e8e8e8"
+style = "artifact"
+
+[[needs.types]]
 directive = "swreq"
 title = "SW_Requirement"
 prefix = "SWREQ_"
@@ -319,28 +340,28 @@ style = "node"
 directive = "hazard"
 title = "Hazard"
 prefix = "HAZ_"
-color = "#DC143C"  # Crimson red - high visibility for safety-critical hazards
+color = "#DC143C"    # Crimson red - high visibility for safety-critical hazards
 style = "node"
 
 [[needs.types]]
 directive = "safety_goal"
 title = "Safety Goal"
 prefix = "SG_"
-color = "#FF8C00"  # Dark orange - warning/safety indicator
+color = "#FF8C00"         # Dark orange - warning/safety indicator
 style = "node"
 
 [[needs.types]]
 directive = "fsr"
 title = "Functional Safety Requirement"
 prefix = "FSR_"
-color = "#FFD700"  # Gold - important derived safety requirement
+color = "#FFD700"                       # Gold - important derived safety requirement
 style = "node"
 
 [[needs.types]]
 directive = "sysreq"
 title = "System Requirement"
 prefix = "SYSREQ_"
-color = "#9B59B6"  # Purple - system-level requirements
+color = "#9B59B6"            # Purple - system-level requirements
 style = "node"
 
 # Link types for connecting needs to each other.
@@ -383,10 +404,21 @@ outgoing = "based on"
 incoming = "specified by"
 outgoing = "specifies"
 
-# impl -> spec
+# impl -> spec, component, interface
 [needs.links.implements]
 incoming = "implemented by"
 outgoing = "implements"
+
+# arch -> arch
+[needs.links.depends_on]
+incoming = "depended by"
+outgoing = "depends_on"
+
+# arch -> arch
+[needs.links.realizes]
+incoming = "realized by"
+outgoing = "realizes"
+
 
 # test_case -> spec
 [needs.links.spec]
@@ -417,6 +449,58 @@ color = "#DC143C"
 incoming = "decomposed to"
 outgoing = "derives from"
 color = "#FF8C00"
+
+# component -> interface (lollipop provider side)
+[needs.links.provides]
+incoming = "provided by"
+outgoing = "provides"
+color = "#16a085"
+style = "bold"
+style_start = "-"
+style_end = "-"
+
+# component -> interface (socket consumer side)
+[needs.links.consumes]
+incoming = "consumed by"
+outgoing = "consumes"
+color = "#3498db"
+style = "dashed"
+style_start = "-"
+style_end = "-("
+
+# component -> interface: component uses (consumes) an interface
+# Arrow direction: component -> interface (consumer is higher-level, drawn above)
+[needs.links.uses]
+incoming = "used by"
+outgoing = "uses"
+color = "#3498db"
+style = "dashed"
+style_start = "-"
+style_end = "-("
+
+# interface -> component: interface is provided by a component
+# Arrow direction: interface -> component (interface is drawn above providing component)
+[needs.links.provided_by]
+incoming = "provides"
+outgoing = "provided by"
+color = "#16a085"
+style = "bold"
+style_start = "-"
+style_end = "-"
+
+# component -> seq_msg -> component: used for needsequence startup sequence
+[needs.links.startup_calls]
+outgoing = "sends"
+incoming = "sent by"
+copy = false
+color = "#27ae60"
+
+# component -> seq_msg -> component: used for needsequence safety shutdown sequence
+[needs.links.shutdown_calls]
+outgoing = "sends"
+incoming = "sent by"
+copy = false
+color = "#c0392b"
 
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
 [needs.layouts.adas]
@@ -563,6 +647,45 @@ src = "."
 sphinx = "sphinx-build -b html . _build/html"
 
 [parse]
-ignore_directives = [ 
-  "test-file"
- ]
+ignore_directives = [
+  "test-file",
+  "src-trace"
+]
+
+###############################################################################
+# SPHINX-CODELINKS Configuration
+###############################################################################
+# Configuration for linking source code to sphinx-needs artifacts
+# see https://codelinks.useblocks.com/
+
+[codelinks]
+# Configuration for source tracing
+set_local_url = true            # Enable local code html and URL generation
+local_url_field = "local-url"   # Need's field name for local URL
+set_remote_url = true           # Enable remote url generation
+remote_url_field = "remote-url" # Need's field name for remote URL
+
+# Configuration for the coffee-machine Rust project
+[codelinks.projects.coffee_machine]
+remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commit}/{path}#L{line}"
+
+[codelinks.projects.coffee_machine.source_discover]
+src_dir = "../crates"  # Relative path to Rust source
+gitignore = true
+comment_type = "rust"
+
+[codelinks.projects.coffee_machine.analyse]
+get_need_id_refs = false      # Don't extract need ID references (just for simple linking)
+get_oneline_needs = true      # Extract oneline need definitions from code
+comment_type = "rust"          # Rust uses C++-style comments
+
+[codelinks.projects.coffee_machine.analyse.oneline_comment_style]
+start_sequence = "@ "         # Start sequence: "// @ "
+field_split_char = ","        # Separator between fields
+# Define the fields in the oneline comments
+needs_fields = [
+  { "name" = "title", "type" = "str" },
+  { "name" = "id", "type" = "str" },
+  { "name" = "type", "type" = "str", "default" = "impl" },
+  { "name" = "implements", "type" = "list[str]", "default" = [] },
+]

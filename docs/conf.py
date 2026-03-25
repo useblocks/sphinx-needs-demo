@@ -28,13 +28,14 @@ version = "1.0"
 # List of Sphinx extension to use.
 extensions = [
     "sphinx_needs",
+    "sphinx_codelinks",  # Enable code-to-documentation traceability
     "sphinx_design",
     "sphinxcontrib.plantuml",
     "sphinxcontrib.test_reports",
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx_preview",
+    "sphinx_preview","sphinx_design"
 ]
 
 # During a PDF build with Sphinx-SimplePDF, a special theme is used.
@@ -66,6 +67,20 @@ needs_from_toml = "ubproject.toml"
 
 
 ###############################################################################
+# SPHINX-CODELINKS Config START
+###############################################################################
+
+# Read the codelinks configuration from the same TOML file.
+# This enables traceability between source code and documentation.
+# Docs: https://codelinks.useblocks.com/
+src_trace_config_from_toml = "ubproject.toml"
+
+###############################################################################
+# SPHINX-CODELINKS Config END
+###############################################################################
+
+
+###############################################################################
 # SPHINX-TEST-REPORTS Config START
 ###############################################################################
 
@@ -73,6 +88,10 @@ needs_from_toml = "ubproject.toml"
 # ``test_run`` instead.
 # Docs: https://sphinx-test-reports.readthedocs.io/en/latest/configuration.html#tr-case
 tr_case = ["test-run", "testrun", "Test-Run", "TR_", "#999999", "node"]
+
+# Use a different field name for test report files to avoid conflict with codelinks
+# Default is "file" but sphinx-codelinks also uses "file" for source code paths
+tr_file_option = "test_file"
 
 ###############################################################################
 # SPHINX-TEST-REPORTS Config END
