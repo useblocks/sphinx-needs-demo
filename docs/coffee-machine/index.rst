@@ -193,7 +193,6 @@ diagram shows the architectural modules and their relationships:
    :status: open
    :tags: module, ui
    :implements: SWREQ_BUTTON_INPUT
-   :uses: INTF_HAL_CTRL, INTF_SYS_STATUS
    :startup_calls: SEQSTART_01, SEQSTART_03
    :collapse: true
    :template: component_arch
@@ -380,50 +379,6 @@ safe inter-component communication.
 
    **Protocol**: ADC DMA with double buffering, 100Hz sampling rate
 
-.. interface:: HAL Control Interface
-   :id: INTF_HAL_CTRL
-   :status: open
-   :tags: interface, hardware
-   :provided_by: COMP_HAL
-   :collapse: true
-
-   **Provider**: Hardware Abstraction Layer
-
-   **Consumer**: User Interface Module
-
-   **Description**: Lifecycle control interface used by the UI Module to
-   initialise the HAL on startup and receive confirmation.
-
-   **Commands**:
-
-   - init(): Trigger HAL hardware initialisation and ADC calibration
-   - init_ok: Acknowledgement returned by HAL on successful initialisation
-
-   **Protocol**: Direct function call during startup sequence
-
-.. interface:: System Status Interface
-   :id: INTF_SYS_STATUS
-   :status: open
-   :tags: interface, safety
-   :provided_by: COMP_SAFETY_MON
-   :collapse: true
-
-   **Provider**: Safety Monitor Module
-
-   **Consumer**: User Interface Module
-
-   **Description**: Lifecycle and notification interface between the UI
-   Module and the Safety Monitor. Used to start the Safety Monitor and
-   receive system-ready and fault notifications.
-
-   **Commands / Events**:
-
-   - start(): UI requests Safety Monitor to begin pre-checks
-   - system_ready: Safety Monitor signals all subsystems are operational
-   - fault_event(code): Safety Monitor notifies UI of a detected fault
-
-   **Protocol**: Event-driven, highest priority after INTF_SAFETY_CMD
-
 Static View
 ^^^^^^^^^^^
 
@@ -460,7 +415,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: init()
       :id: SEQSTART_01
-      :via_interface: INTF_HAL_CTRL
       :startup_calls: COMP_HAL
       :collapse: true
 
@@ -468,7 +422,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: init_ok
       :id: SEQSTART_02
-      :via_interface: INTF_HAL_CTRL
       :startup_calls: COMP_UI_MODULE
       :collapse: true
 
@@ -476,7 +429,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: start() — Safety Monitor
       :id: SEQSTART_03
-      :via_interface: INTF_SYS_STATUS
       :startup_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -484,7 +436,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: read_sensors()
       :id: SEQSTART_04
-      :via_interface: INTF_SENSOR_DATA
       :startup_calls: COMP_HAL
       :collapse: true
 
@@ -492,7 +443,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: temp=22°C, water_level=85%
       :id: SEQSTART_05
-      :via_interface: INTF_SENSOR_DATA
       :startup_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -501,7 +451,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: start() — Temp Controller
       :id: SEQSTART_06
-      :via_interface: INTF_SAFETY_CMD
       :startup_calls: COMP_TEMP_CTRL
       :collapse: true
 
@@ -509,7 +458,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: started (INTF_TEMP_CTRL_STATUS heartbeat)
       :id: SEQSTART_07
-      :via_interface: INTF_TEMP_CTRL_STATUS
       :startup_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -517,7 +465,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: start() — Brew Controller
       :id: SEQSTART_08
-      :via_interface: INTF_SAFETY_CMD
       :startup_calls: COMP_BREW_CTRL
       :collapse: true
 
@@ -525,7 +472,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: started (INTF_BREW_CTRL_STATUS heartbeat)
       :id: SEQSTART_09
-      :via_interface: INTF_BREW_CTRL_STATUS
       :startup_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -533,7 +479,6 @@ defined below.  ``COMP_UI_MODULE`` is the starting participant.
 
    .. seq_msg:: system_ready
       :id: SEQSTART_10
-      :via_interface: INTF_SYS_STATUS
       :startup_calls: COMP_UI_MODULE
       :collapse: true
 
@@ -559,7 +504,6 @@ source of the over-temperature sensor reading).
 
    .. seq_msg:: temp=102°C (INTF_SENSOR_DATA — over-temp)
       :id: SEQSHTDWN_01
-      :via_interface: INTF_SENSOR_DATA
       :shutdown_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -568,7 +512,6 @@ source of the over-temperature sensor reading).
 
    .. seq_msg:: EMERGENCY_STOP → Temp Controller
       :id: SEQSHTDWN_02
-      :via_interface: INTF_SAFETY_CMD
       :shutdown_calls: COMP_TEMP_CTRL
       :collapse: true
 
@@ -577,7 +520,6 @@ source of the over-temperature sensor reading).
 
    .. seq_msg:: fault_flags=OVERTEMP (INTF_TEMP_CTRL_STATUS)
       :id: SEQSHTDWN_03
-      :via_interface: INTF_TEMP_CTRL_STATUS
       :shutdown_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -586,7 +528,6 @@ source of the over-temperature sensor reading).
 
    .. seq_msg:: EMERGENCY_STOP → Brew Controller
       :id: SEQSHTDWN_04
-      :via_interface: INTF_SAFETY_CMD
       :shutdown_calls: COMP_BREW_CTRL
       :collapse: true
 
@@ -595,7 +536,6 @@ source of the over-temperature sensor reading).
 
    .. seq_msg:: fault_flags=ABORT (INTF_BREW_CTRL_STATUS)
       :id: SEQSHTDWN_05
-      :via_interface: INTF_BREW_CTRL_STATUS
       :shutdown_calls: COMP_SAFETY_MON
       :collapse: true
 
@@ -603,7 +543,6 @@ source of the over-temperature sensor reading).
 
    .. seq_msg:: fault_event(OVERTEMP)
       :id: SEQSHTDWN_06
-      :via_interface: INTF_SYS_STATUS
       :shutdown_calls: COMP_UI_MODULE
       :collapse: true
 
