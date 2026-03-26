@@ -541,14 +541,6 @@ style_start = "-"
 style_end = "-"
 
 [[needs.extra_links]]
-# seq_msg -> interface: the interface this sequence message travels over
-option = "via_interface"
-outgoing = "carries"
-incoming = "carried by"
-copy = false
-color = "#8e44ad"
-
-[[needs.extra_links]]
 # component -> seq_msg -> component: used for needsequence startup sequence
 option = "startup_calls"
 outgoing = "sends"

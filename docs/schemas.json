@@ -136,13 +136,6 @@
         }
       }
     },
-    "type-seq_msg": {
-      "properties": {
-        "type": {
-          "const": "seq_msg"
-        }
-      }
-    },
     "safety-example": {
       "properties": {
         "docname": {
@@ -647,113 +640,6 @@
             "items": {
               "local": {
                 "$ref": "#/$defs/type-fsr"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "id": "seq-msg-via-interface-mandatory",
-      "severity": "warning",
-      "message": "Sequence messages must declare exactly one via_interface, which must be an interface",
-      "select": {
-        "$ref": "#/$defs/type-seq_msg"
-      },
-      "validate": {
-        "local": {
-          "required": [
-            "via_interface"
-          ],
-          "properties": {
-            "via_interface": {
-              "type": "array",
-              "minItems": 1,
-              "maxItems": 1
-            }
-          }
-        },
-        "network": {
-          "via_interface": {
-            "items": {
-              "local": {
-                "$ref": "#/$defs/type-interface"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "id": "seq-msg-receiver-is-component",
-      "severity": "warning",
-      "message": "Sequence message startup_calls and shutdown_calls must point to components",
-      "select": {
-        "$ref": "#/$defs/type-seq_msg"
-      },
-      "validate": {
-        "network": {
-          "startup_calls": {
-            "items": {
-              "local": {
-                "$ref": "#/$defs/type-component"
-              }
-            }
-          },
-          "shutdown_calls": {
-            "items": {
-              "local": {
-                "$ref": "#/$defs/type-component"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "id": "component-uses-interface",
-      "severity": "warning",
-      "message": "Component 'uses' links must point to interfaces",
-      "select": {
-        "$ref": "#/$defs/type-component"
-      },
-      "validate": {
-        "network": {
-          "uses": {
-            "items": {
-              "local": {
-                "$ref": "#/$defs/type-interface"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "id": "interface-provided-by-component",
-      "severity": "warning",
-      "message": "Interface 'provided_by' links must point to exactly one component",
-      "select": {
-        "$ref": "#/$defs/type-interface"
-      },
-      "validate": {
-        "local": {
-          "properties": {
-            "provided_by": {
-              "type": "array",
-              "minItems": 1,
-              "maxItems": 1
-            }
-          },
-          "required": [
-            "provided_by"
-          ]
-        },
-        "network": {
-          "provided_by": {
-            "items": {
-              "local": {
-                "$ref": "#/$defs/type-component"
               }
             }
           }
