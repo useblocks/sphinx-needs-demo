@@ -151,6 +151,7 @@ plantuml_output_format = "svg_img"
 html_static_path = ["_static"]
 
 html_logo = "_images/sphinx-needs-logo.png"
+html_favicon = "_images/sphinx-needs-logo.svg"
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on
