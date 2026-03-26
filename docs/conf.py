@@ -36,6 +36,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx_preview",
+    "sphinx_design",
     "ubt_sphinx"
 ]
 
@@ -149,65 +150,7 @@ plantuml_output_format = "svg_img"
 
 html_static_path = ["_static"]
 
-sphinx_immaterial_override_generic_admonitions = True
-
 html_logo = "_images/sphinx-needs-logo.png"
-html_theme_options = {
-    "font": False,
-    "icon": {
-        "repo": "fontawesome/brands/github",
-        "edit": "material/file-edit-outline",
-    },
-    "site_url": "https://jbms.github.io/sphinx-immaterial/",
-    "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
-    "repo_name": "Sphinx-Needs Demo",
-    "edit_uri": "blob/main/docs",
-    "globaltoc_collapse": False,
-    "features": [
-        "navigation.expand",
-        # "navigation.tabs",
-        # "toc.integrate",
-        "navigation.sections",
-        # "navigation.instant",
-        # "header.autohide",
-        "navigation.top",
-        # "navigation.tracking",
-        "search.highlight",
-        "search.share",
-        "toc.follow",
-        "toc.sticky",
-        "content.tabs.link",
-        "announce.dismiss",
-    ],
-    "palette": [
-        {
-            "media": "(prefers-color-scheme: light)",
-            "scheme": "default",
-            "primary": "blue",
-            "accent": "light-cyan",
-            # "toggle": {
-            #     "icon": "material/lightbulb-outline",
-            #     "name": "Switch to dark mode",
-            # },
-        },
-        # {
-        #     "media": "(prefers-color-scheme: dark)",
-        #     "scheme": "slate",
-        #     "primary": "blue",
-        #     "accent": "light-cyan",
-        #     "toggle": {
-        #         "icon": "material/lightbulb",
-        #         "name": "Switch to light mode",
-        #     },
-        # },
-    ],
-    "toc_title_is_page_title": True,
-}
-
-html_css_files = [
-    "custom.css",
-]
-
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on
