@@ -36,7 +36,6 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
     "sphinx_preview",
-    "sphinx_design",
     "ubt_sphinx"
 ]
 
