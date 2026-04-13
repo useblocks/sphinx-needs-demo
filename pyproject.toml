@@ -16,7 +16,7 @@ dependencies = [
     "furo>=2024.8.6",
     "sphinx-preview>=0.1.2",
     "sphinx-immaterial>=0.13.6",
-    "ubt-sphinx>=0.4.0"
+    "ubt-sphinx>=0.6.0"
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
@@ -33,3 +33,5 @@ packages = ["src/eac"]
 
 [tool.uv]
 managed = true
+index-url = "https://pypi.useblocks.com/"
+extra-index-url = ["https://pypi.org/simple/"]
