@@ -44,16 +44,31 @@ ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"
 ubtrace_version = "main"
 
-# During a PDF build with Sphinx-SimplePDF, a special theme is used.
-# But adding "sphinx_immaterial" to the extension list, the "immaterial" already
-# does a lot of sphinx voodoo, which is not needed and does not work during a PDF build.
-# Therefore we add it only, if a special ENV-Var is not set.
-#
-# As we can't ask Sphinx already in the config file, which Builder will be used, we need
-# to set this information by hand, or in this case via an ENV var.
-#
-# To build HTML, just call ``make html
-# To build PDF, call ``env PDF=1 make simplepdf"
+# Detect which Sphinx builder is being invoked by inspecting the command-line arguments.
+# conf.py is evaluated before Sphinx initialises its builder object, so sys.argv is the
+# only reliable source at this point.
+# Examples:
+#   make html          -> builder = "html"
+#   make simplepdf     -> env PDF=1 make simplepdf  (guarded by PDF env var)
+#   sphinx-build -b ubtrace . _build/ubtrace  -> builder = "ubtrace"
+try:
+    _b_idx = sys.argv.index("-b")
+    _builder_name = sys.argv[_b_idx + 1]
+except (ValueError, IndexError):
+    _builder_name = "html"  # default
+
+_is_pdf_build = os.environ.get("PDF", "0") == "1"
+_is_ubtrace_build = _builder_name == "ubtrace"
+_use_immaterial_theme = not _is_pdf_build and not _is_ubtrace_build
+
+# sphinx_immaterial does a lot of Sphinx voodoo that is neither needed nor compatible
+# with the PDF and ubtrace builders, so we load it only for plain HTML builds.
+if _use_immaterial_theme:
+    extensions.append("sphinx_immaterial")
+
+# To build HTML:     make html
+# To build PDF:      env PDF=1 make simplepdf
+# To build ubtrace:  sphinx-build -b ubtrace . _build/ubtrace
 
 ###############################################################################
 # SPHINX-NEEDS Config START
@@ -148,10 +163,71 @@ plantuml_output_format = "svg_img"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
+html_theme = "alabaster"  # Sphinx default theme (used for PDF / ubtrace builds)
+if _use_immaterial_theme:
+    html_theme = "sphinx_immaterial"
+
 html_static_path = ["_static"]
 
 html_logo = "_images/sphinx-needs-logo.png"
 html_favicon = "_images/sphinx-needs-logo.svg"
+
+if _use_immaterial_theme:
+    sphinx_immaterial_override_generic_admonitions = True
+    html_theme_options = {
+        "font": False,
+        "icon": {
+            "repo": "fontawesome/brands/github",
+            "edit": "material/file-edit-outline",
+        },
+        "site_url": "https://jbms.github.io/sphinx-immaterial/",
+        "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
+        "repo_name": "Sphinx-Needs Demo",
+        "edit_uri": "blob/main/docs",
+        "globaltoc_collapse": False,
+        "features": [
+            "navigation.expand",
+            # "navigation.tabs",
+            # "toc.integrate",
+            "navigation.sections",
+            # "navigation.instant",
+            # "header.autohide",
+            "navigation.top",
+            # "navigation.tracking",
+            "search.highlight",
+            "search.share",
+            "toc.follow",
+            "toc.sticky",
+            "content.tabs.link",
+            "announce.dismiss",
+        ],
+        "palette": [
+            {
+                "media": "(prefers-color-scheme: light)",
+                "scheme": "default",
+                "primary": "blue",
+                "accent": "light-cyan",
+                # "toggle": {
+                #     "icon": "material/lightbulb-outline",
+                #     "name": "Switch to dark mode",
+                # },
+            },
+            # {
+            #     "media": "(prefers-color-scheme: dark)",
+            #     "scheme": "slate",
+            #     "primary": "blue",
+            #     "accent": "light-cyan",
+            #     "toggle": {
+            #         "icon": "material/lightbulb",
+            #         "name": "Switch to light mode",
+            #     },
+            # },
+        ],
+        "toc_title_is_page_title": True,
+    }
+    html_css_files = [
+        "custom.css",
+    ]
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on
