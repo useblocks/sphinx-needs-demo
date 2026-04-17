@@ -22,9 +22,9 @@ PRs
    :+links: SWREQ_001
 
 
-.. tip::
-   :title: Show used documentation code.
-   :collapsible:
+.. dropdown:: Show used documentation code.
+   :icon: light-bulb
+   :color: success
 
    .. code-block:: rst
 
@@ -48,9 +48,9 @@ Issues
 .. needextend:: "Lane Deviation" in title
    :+links:  SWREQ_002
 
-.. tip::
-   :title: Show used documentation code.
-   :collapsible:
+.. dropdown:: Show used documentation code.
+   :icon: light-bulb
+   :color: success
 
    .. code-block:: rst
 
