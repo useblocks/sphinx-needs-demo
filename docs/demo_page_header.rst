@@ -1,8 +1,8 @@
 .. if-builder:: html
 
-   .. tip::
-      :title: Demo page details
-      :collapsible:
+   .. dropdown:: Demo page details
+      :icon: light-bulb
+      :color: success
 
       **Page source code: {{page}}**
 

@@ -21,7 +21,7 @@ Extensions
 :`Sphinx-Design <https://sphinx-design.readthedocs.io>`__:
     Provides features to layout the content or to use dropdown, buttons or tabs.
 
-:`Sphinx-Immaterial <https://jbms.github.io/sphinx-immaterial/>`__:
+:`Furo <https://pradyunsg.me/furo/>`__:
     The Sphinx theme for this documentation.
 
 :`Sphinxcontrib-PlantUML <https://github.com/sphinx-contrib/plantuml>`__:
