@@ -15,7 +15,7 @@ dependencies = [
     "sphinx-test-reports>=1.3.2",  # pin as RTD consumes this file, not uv.lock
     "furo>=2024.8.6",
     "sphinx-preview>=0.1.2",
-    "ubt-sphinx>=0.6.1"
+    "ubt-sphinx==0.6.1"
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
