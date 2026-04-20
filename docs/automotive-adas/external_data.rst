@@ -22,8 +22,9 @@ PRs
 .. needextend:: GH_PR_3
    :+links: SWREQ_001
 
-.. tip::
-   :collapsible:
+.. dropdown:: Show used documentation code.
+   :icon: light-bulb
+   :color: success
 
    .. code-block:: rst
 
@@ -47,8 +48,9 @@ Issues
 .. needextend:: "Lane Deviation" in title
    :+links: SWREQ_002
 
-.. tip::
-   :collapsible:
+.. dropdown:: Show used documentation code.
+   :icon: light-bulb
+   :color: success
 
    .. code-block:: rst
 
@@ -57,10 +59,10 @@ Issues
          :id_prefix: GH_ISSUE_
 
       .. needextend:: "Lane Marking" in title
-         :+links:  SWREQ_001
+         :+links: SWREQ_001
 
       .. needextend:: "Lane Deviation" in title
-         :+links:  SWREQ_002
+         :+links: SWREQ_002
 
 Jira
 ----
