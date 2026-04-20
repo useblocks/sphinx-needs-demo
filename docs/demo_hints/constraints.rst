@@ -1,6 +1,3 @@
-.. tip::
-   :collapsible:
-
 .. dropdown:: Demo feature hint: Constraints
    :icon: light-bulb
    :color: success
