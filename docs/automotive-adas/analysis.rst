@@ -1,5 +1,5 @@
-{% set page="analysis.rst" %}
-{% include "demo_page_header.rst" with context %}
+{% set page="analysis.rst" %} {% include "demo_page_header.rst" with
+context %}
 
 📊 Analysis
 ===========

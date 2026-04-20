@@ -35,9 +35,14 @@ extensions = [
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx_preview","sphinx_design"
+    "sphinx_preview",
+    "sphinx_design",
+    "ubt_sphinx",
 ]
 
+ubtrace_organization = "useblocks"
+ubtrace_project = "sphinx-needs-demo"
+ubtrace_version = "main"
 
 ###############################################################################
 # SPHINX-NEEDS Config START
@@ -136,6 +141,8 @@ html_theme = "furo"
 html_static_path = ["_static"]
 
 html_logo = "_images/sphinx-needs-logo.png"
+html_favicon = "_images/sphinx-needs-logo.svg"
+
 html_theme_options = {
     "sidebar_hide_name": True,
     "top_of_page_buttons": ["view", "edit"],
@@ -160,7 +167,6 @@ html_css_files = [
     "furo.css",
     "custom.css",
 ]
-
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on
