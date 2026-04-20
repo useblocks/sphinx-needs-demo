@@ -44,10 +44,6 @@ ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"
 ubtrace_version = "main"
 
-# To build HTML:     make html
-# To build PDF:      env PDF=1 make simplepdf
-# To build ubtrace:  sphinx-build -b ubtrace . _build/ubtrace
-
 ###############################################################################
 # SPHINX-NEEDS Config START
 ###############################################################################
