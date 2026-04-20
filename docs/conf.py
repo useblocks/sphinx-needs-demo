@@ -35,8 +35,14 @@ extensions = [
     "sphinx_simplepdf",
     "sphinx.ext.autodoc",
     "sphinx.ext.viewcode",
-    "sphinx_preview","sphinx_design"
+    "sphinx_preview","sphinx_design",
+    "ubt_sphinx"
 ]
+
+ubtrace_organization = "useblocks"
+ubtrace_project = "sphinx-needs-demo"
+ubtrace_version = "1.0"
+
 
 
 ###############################################################################
