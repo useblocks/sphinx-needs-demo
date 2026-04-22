@@ -91,6 +91,46 @@
             }
         },
         {
+            "id": "req-must-satisfy",
+            "severity": "violation",
+            "message": "A 'req' must have at least one 'satisfies' link to a system requirement.",
+            "select": {
+                "$ref": "#/$defs/type-req"
+            },
+            "validate": {
+                "local": {
+                    "properties": {
+                        "satisfies": {
+                            "type": "array",
+                            "minItems": 1
+                        }
+                    },
+                    "required": [
+                        "satisfies"
+                    ]
+                }
+            }
+        },
+        {
+            "id": "req-satisfies-must-not-target-test",
+            "severity": "violation",
+            "message": "A 'req' must not satisfy a test case. The 'satisfies' link must only target system requirements ('sys').",
+            "select": {
+                "$ref": "#/$defs/type-req"
+            },
+            "validate": {
+                "network": {
+                    "satisfies": {
+                        "items": {
+                            "local": {
+                                "$ref": "#/$defs/type-sys"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
             "id": "spec-allowed-links",
             "severity": "violation",
             "message": "A specification may only link via 'implements' and 'tests'.",
