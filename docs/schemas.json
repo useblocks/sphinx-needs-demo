@@ -119,7 +119,7 @@
         {
             "id": "test-allowed-links",
             "severity": "violation",
-            "message": "A test case may only link via 'covers'.",
+            "message": "A test case may only link via 'verifies'.",
             "select": {
                 "$ref": "#/$defs/type-test"
             },
@@ -130,15 +130,15 @@
                             "type": "array",
                             "maxItems": 0
                         },
-                        "verifies": {
-                            "type": "array",
-                            "maxItems": 0
-                        },
                         "implements": {
                             "type": "array",
                             "maxItems": 0
                         },
                         "tests": {
+                            "type": "array",
+                            "maxItems": 0
+                        },
+                        "covers": {
                             "type": "array",
                             "maxItems": 0
                         }

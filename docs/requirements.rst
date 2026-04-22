@@ -19,7 +19,6 @@ Software Requirement
    :status: accepted
    :safety_level: ASIL-D
    :satisfies: SYS-012
-   :verifies: TC-017
 
    The braking control module shall engage emergency braking
    within 150 ms of obstacle detection.
