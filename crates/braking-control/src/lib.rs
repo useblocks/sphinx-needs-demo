@@ -5,6 +5,7 @@ pub struct BrakeEvent {
     pub response_time_ms: u128,
 }
 
+// @ Braking control implementation, I_BRAKE_CTRL, impl, [SPEC-042]
 pub fn detect_and_brake() -> BrakeEvent {
     let start = Instant::now();
 
@@ -23,8 +24,7 @@ pub fn detect_and_brake() -> BrakeEvent {
 mod tests {
     use super::*;
 
-    // TC-017: Emergency Braking Timing and Log Integrity
-    // Verifies: BRAKE-001
+    // @ Braking timing and log integrity test, I_TEST_TIMING, impl, [TC-017]
     #[test]
     fn test_braking_within_150ms_with_valid_timestamp() {
         let event = detect_and_brake();

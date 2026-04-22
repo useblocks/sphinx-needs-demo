@@ -28,7 +28,7 @@ version = "1.0"
 # List of Sphinx extension to use.
 extensions = [
     "sphinx_needs",
-    # "sphinx_codelinks",  # Enable code-to-documentation traceability
+    "sphinx_codelinks",  # Enable code-to-documentation traceability
     "sphinx_design",
     "sphinxcontrib.plantuml",
     "sphinxcontrib.test_reports",
