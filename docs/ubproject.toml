@@ -74,3 +74,6 @@ copy = false
 incoming = "is covered by"
 outgoing = "covers"
 copy = false
+
+[server]
+index_on_save = true
