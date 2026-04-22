@@ -1,675 +1,76 @@
 "$schema" = "https://ubcode.useblocks.com/ubproject.schema.json"
 
-# This is the Sphinx-Needs configuration file in TOML format.
-# It is announced to Sphinx-Needs by putting
-#   needs_from_toml = "ubproject.toml"
-# into conf.py.
-# This is required to make the project work with ubCode.
-# For details see https://ubcode.useblocks.com
-# Also a declarative configuration format is generally a good idea.
-
-[server]
-index_on_save = true
-
 [project]
-name = "Sphinx-Needs Demo"
-description = "Showcases for working with Sphinx-Needs"
-srcdir = "."
+name = "Emergency Braking Demo"
+version = "1.0.0"
+description = "Episode 1 demo — X-as-Code Foundations"
 
-[format_rst]
-fail_on_warning = []
-validate = true
-blockquote_indent = 2
-definition_list_indent = 2
-directive_indent = 3
-enum_list_auto = "preserve"
-enum_list_style = "preserve"
-field_list_align_body = false
-field_list_body_on_new_line = 20
-field_list_indent = 2
-literal_indent = 2
-paragraph_line_length = 70
-paragraph_semantic_wrap = false
-simple_table_space = 2
-substitution_indent = 3
-transition_char = "-"
-transition_length = 10
-
-
-# all needs configuration goes to then needs table;
-# the varibles do not have the needs_ prefix in the name
 [needs]
-build_json = true
-
-# Schema validation configuration
-# see https://sphinx-needs.readthedocs.io/en/latest/schema/index.html
-schema_definitions_from_json = "schemas.json"
-schema_severity = "warning"
-schema_debug_active = false
-
-# Force the author to set an ID by hand.
-# Otherwise Sphinx-Needs would create one based on the Need title.
-# So a title change will change the ID and all set links will get invalid.
-# Therefore setting a stable ID by hand is always a good idea.
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-required
 id_required = true
+id_regex = "^[A-Z][A-Z0-9_-]{3,}$"
 
-# The format of a need gets defined here.
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-id-regex
-id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
+# Point to the schema validation rules
+schema_definitions_from_json = "schemas.json"
 
-# allowed values for need status core field
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-statuses
-# [[needs.statuses]]
-# name = "open"
-# description = "Open"
+# Need types
+[[needs.types]]
+directive = "sys"
+title = "System Requirement"
+prefix = "SYS_"
+color = "#cc6600"
+style = "node"
 
-# [[needs.statuses]]
-# name = "closed"
-# description = "Closed"
-
-# [[needs.statuses]]
-# name = "passed"
-# description = "Passed"
-
-
-# Custom fields available for all need types.
-# Replaces deprecated needs_extra_options and needs_global_options (v7 migration).
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-fields
-[needs.fields.role]
-nullable = true
-
-[needs.fields.contact]
-nullable = true
-
-[needs.fields.image]
-nullable = true
-
-[needs.fields.date]
-nullable = true
-
-[needs.fields.customer]
-nullable = true
-
-[needs.fields.github]
-nullable = true
-
-[needs.fields.jira]
-nullable = true
-parse_variants = true
-
-[needs.fields.config]
-nullable = true
-
-[needs.fields.number]
-nullable = true
-
-[needs.fields.effort]
-description = "Story points (Fibonacci sequence)"
-
-[needs.fields.effort.schema]
-type = "integer"
-enum = [1, 2, 3, 5, 8, 13, 21, 34]
-
-[needs.fields.approved]
-description = "Approval status of the requirement"
-
-[needs.fields.approved.schema]
-type = "boolean"
-
-[needs.fields.asil]
-description = "Automotive Safety Integrity Level (ISO 26262)"
-
-[needs.fields.asil.schema]
-type = "string"
-enum = ["QM", "A", "B", "C", "D"]
-
-[needs.fields.severity]
-description = "Severity rating (S0-S3) for HARA"
-nullable = true
-
-[needs.fields.exposure]
-description = "Exposure rating (E0-E4) for HARA"
-nullable = true
-
-[needs.fields.controllability]
-description = "Controllability rating (C0-C3) for HARA"
-nullable = true
-
-[needs.fields.scenario]
-description = "Operational scenario for hazard occurrence"
-nullable = true
-
-[needs.fields.safe_state]
-description = "Target safe state for safety goal"
-nullable = true
-
-# Core field overrides for variant handling and global predicates
-[needs.fields.status]
-parse_variants = true
-
-[needs.fields.constraints]
-predicates = [
-  [
-    "type in ['req'] and docname is not None and 'automotive-adas' in docname",
-    "status_set",
-  ],
-  [
-    "type in ['req'] and docname is not None and 'automotive-adas' in docname",
-    "release_set",
-  ],
-]
-
-[needs.fields.layout]
-predicates = [
-  [
-    "type in ['req']",
-    "req_constraint",
-  ],
-  [
-    "type in ['hazard', 'safety_goal', 'fsr', 'sysreq']",
-    "safety",
-  ],
-  [
-    "type not in ['req', 'hazard', 'safety_goal', 'fsr', 'sysreq']",
-    "adas",
-  ],
-]
-
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraints
-[needs.constraints.release_set]
-check_0 = "len(release)>0"
-error_message = "Requirement is not planned for any release!"
-severity = "CRITICAL"
-
-[needs.constraints.status_set]
-check_0 = "status is not None and status in ['open', 'in progress', 'closed']"
-error_message = "Status is invalid or not set!"
-severity = "LOW"
-
-[needs.constraints.hazard_asil_required]
-check_0 = "asil is not None and asil in ['QM', 'A', 'B', 'C', 'D']"
-error_message = "Hazard must have a valid ASIL assignment!"
-severity = "CRITICAL"
-
-[needs.constraints.safety_goal_asil_required]
-check_0 = "asil is not None and asil in ['A', 'B', 'C', 'D']"
-check_1 = "len(mitigates) > 0"
-error_message = "Safety Goal must have ASIL (A-D) and link to at least one hazard!"
-severity = "CRITICAL"
-
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraint-failed-options
-[needs.constraint_failed_options.CRITICAL]
-force_style = false
-on_fail = ["warn"]
-style = ["red_bar"]
-
-[needs.constraint_failed_options.HIGH]
-force_style = false
-on_fail = ["warn"]
-style = ["orange_bar"]
-
-[needs.constraint_failed_options.LOW]
-force_style = false
-on_fail = []
-style = ["blue_bar"]
-
-[needs.constraint_failed_options.MEDIUM]
-force_style = false
-on_fail = ["warn"]
-style = ["yellow_bar"]
-
-# needs_variants allows to set specific option values based on the currently active variant.
-# A use case is a different ``status``, depending on if the implementation needs to be done for
-# customer A or customer B.
-# In the rst-code, the variant-values can then be set like this:
-# ``:status: customer_a:open, customer_b:closed``
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variants
-[needs.variants]
-customer_a = "customer == 'A' or customer not in ['A', 'B']"
-customer_b = "customer == 'B'"
-
-# List of need type used in the documentation.
-# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
 [[needs.types]]
 directive = "req"
 title = "Requirement"
 prefix = "R_"
-color = "#FFB300"
+color = "#5599dd"
 style = "node"
 
 [[needs.types]]
 directive = "spec"
 title = "Specification"
 prefix = "S_"
-color = "#ec6dd7"
-style = "node"
-
-[[needs.types]]
-directive = "impl"
-title = "Implementation"
-prefix = "I_"
-color = "#fa8638"
+color = "#E4FF3D"
 style = "node"
 
 [[needs.types]]
 directive = "test"
 title = "Test Case"
 prefix = "T_"
-color = "#A6BDD7"
+color = "#4caf50"
 style = "node"
 
-[[needs.types]]
-directive = "person"
-title = "Person"
-prefix = "P_"
-color = "#C10020"
-style = "actor"
+# Custom field: safety integrity level (enum-validated via schemas.json)
+[needs.fields.safety_level]
+description = "ASIL safety integrity level (ISO 26262)"
 
-[[needs.types]]
-directive = "team"
-title = "Team"
-prefix = "T_"
-color = "#CEA262"
-style = "node"
+[needs.fields.safety_level.schema]
+type = "string"
+enum = ["QM", "ASIL-A", "ASIL-B", "ASIL-C", "ASIL-D"]
 
-[[needs.types]]
-directive = "release"
-title = "Release"
-prefix = "R_"
-color = "#817066"
-style = "node"
-
-[[needs.types]]
-directive = "arch"
-title = "Architecture"
-prefix = "_"
-color = "#4aac73"
-style = "node"
-
-[[needs.types]]
-directive = "need"
-title = "Need"
-prefix = "_"
-color = "#F6768E"
-style = "node"
-
-[[needs.types]]
-directive = "swarch"
-title = "SW_Architecture"
-prefix = "SWARCH_"
-color = "#2d86c1"
-style = "node"
-
-[[needs.types]]
-directive = "component"
-title = "Component"
-prefix = "COMP_"
-color = "#3498db"
-style = "component"
-
-[[needs.types]]
-directive = "interface"
-title = "Interface"
-prefix = "INTF_"
-color = "#16a085"
-style = "interface"
-
-[[needs.types]]
-directive = "seq_msg"
-title = "Sequence Message"
-prefix = "SEQMSG_"
-color = "#e8e8e8"
-style = "artifact"
-
-[[needs.types]]
-directive = "swreq"
-title = "SW_Requirement"
-prefix = "SWREQ_"
-color = "#a8f578"
-style = "node"
-
-[[needs.types]]
-directive = "sys-arch"
-title = "System Architecture"
-prefix = "SYSARCH_"
-color = "#f39c12"
-style = "node"
-
-[[needs.types]]
-directive = "hazard"
-title = "Hazard"
-prefix = "HAZ_"
-color = "#DC143C"    # Crimson red - high visibility for safety-critical hazards
-style = "node"
-
-[[needs.types]]
-directive = "safety_goal"
-title = "Safety Goal"
-prefix = "SG_"
-color = "#FF8C00"         # Dark orange - warning/safety indicator
-style = "node"
-
-[[needs.types]]
-directive = "fsr"
-title = "Functional Safety Requirement"
-prefix = "FSR_"
-color = "#FFD700"                       # Gold - important derived safety requirement
-style = "node"
-
-[[needs.types]]
-directive = "sysreq"
-title = "System Requirement"
-prefix = "SYSREQ_"
-color = "#9B59B6"            # Purple - system-level requirements
-style = "node"
-
-# Link types for connecting needs to each other.
-# Replaces deprecated needs_extra_links (v7 migration).
-# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-links
-[needs.links.links]
-outgoing = "links outgoing"
-incoming = "links incoming"
+# Custom link types
+[needs.links.satisfies]
+incoming = "is satisfied by"
+outgoing = "satisfies"
 copy = false
-color = "#000000"
 
-[needs.links.parent_needs]
-outgoing = "parent needs"
-incoming = "child needs"
-copy = false
-color = "#333333"
-
-# team -> person
-[needs.links.persons]
-incoming = "is working for"
-outgoing = "persons"
-
-# req -> release
-[needs.links.release]
-incoming = "contains"
-outgoing = "release"
-
-# req -> author
-[needs.links.author]
-incoming = "ownes"
-outgoing = "author"
-
-# req -> req, release -> release
-[needs.links.based_on]
-incoming = "supports"
-outgoing = "based on"
-
-# spec -> req
-[needs.links.reqs]
-incoming = "specified by"
-outgoing = "specifies"
-
-# impl -> spec, component, interface
 [needs.links.implements]
-incoming = "implemented by"
+incoming = "is implemented by"
 outgoing = "implements"
-
-# arch -> arch
-[needs.links.depends_on]
-incoming = "depended by"
-outgoing = "depends_on"
-
-# arch -> arch
-[needs.links.realizes]
-incoming = "realized by"
-outgoing = "realizes"
-
-
-# test_case -> spec
-[needs.links.spec]
-incoming = "test_cases"
-outgoing = "specs"
-
-# test_case -> test_run
-# Automatically link test-runs with test-cases via tr_link dynamic function.
-# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/functions.html#tr-link
-[needs.links.runs]
-incoming = "test_cases"
-outgoing = "runs"
-predicates = [["type=='test'", "[[tr_link('id', 'case_name')]]"]]
-
-# test_case -> spec
-[needs.links.specs]
-incoming = "test_cases"
-outgoing = "specs"
-
-# safety_goal -> hazard
-[needs.links.mitigates]
-incoming = "mitigated by"
-outgoing = "mitigates"
-color = "#DC143C"
-
-# fsr -> safety_goal
-[needs.links.derives_from]
-incoming = "decomposed to"
-outgoing = "derives from"
-color = "#FF8C00"
-
-# component -> interface (lollipop provider side)
-[needs.links.provides]
-incoming = "provided by"
-outgoing = "provides"
-color = "#16a085"
-style = "bold"
-style_start = "-"
-style_end = "-"
-
-# component -> interface (socket consumer side)
-[needs.links.consumes]
-incoming = "consumed by"
-outgoing = "consumes"
-color = "#3498db"
-style = "dashed"
-style_start = "-"
-style_end = "-("
-
-# component -> interface: component uses (consumes) an interface
-# Arrow direction: component -> interface (consumer is higher-level, drawn above)
-[needs.links.uses]
-incoming = "used by"
-outgoing = "uses"
-color = "#3498db"
-style = "dashed"
-style_start = "-"
-style_end = "-("
-
-# interface -> component: interface is provided by a component
-# Arrow direction: interface -> component (interface is drawn above providing component)
-[needs.links.provided_by]
-incoming = "provides"
-outgoing = "provided by"
-color = "#16a085"
-style = "bold"
-style_start = "-"
-style_end = "-"
-
-# component -> seq_msg -> component: used for needsequence startup sequence
-[needs.links.startup_calls]
-outgoing = "sends"
-incoming = "sent by"
 copy = false
-color = "#27ae60"
 
-# component -> seq_msg -> component: used for needsequence safety shutdown sequence
-[needs.links.shutdown_calls]
-outgoing = "sends"
-incoming = "sent by"
+[needs.links.verifies]
+incoming = "verifies"
+outgoing = "verified by"
 copy = false
-color = "#c0392b"
 
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
-[needs.layouts.adas]
-grid = "simple_footer"
+[needs.links.tests]
+incoming = "is tested by"
+outgoing = "tests"
+copy = false
 
-[needs.layouts.adas.layout]
-head = [
-  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
-]
-meta = [
-  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
-  "<<meta_links_all()>>",
-]
-footer = ["**Status**: <<meta('status')>>"]
-
-[needs.layouts.req_constraint]
-grid = "simple_footer"
-
-[needs.layouts.req_constraint.layout]
-head = [
-  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
-]
-meta = [
-  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
-  "<<meta_links_all()>>",
-]
-footer = ["**Process feedback**: <<meta('constraints_error')>>"]
-
-[needs.layouts.test]
-grid = "simple"
-
-[needs.layouts.test.layout]
-head = [
-  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
-]
-meta = ["<<meta_all(no_links=True)>>", "<<meta_links_all()>>"]
-
-[needs.layouts.safety]
-grid = "simple_footer"
-
-[needs.layouts.safety.layout]
-head = [
-  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
-]
-meta = [
-  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
-  "<<meta_links_all()>>",
-]
-footer = ["**ASIL**: <<meta('asil')>>"]
-
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links
-[needs.string_links.config_link]
-# Adds link to the Sphinx-Needs configuration page
-link_name = "Sphinx-Needs docs for {{value | replace(\"_\", \"-\") }}"
-link_url = "https://sphinx-needs.readthedocs.io/en/latest/configuration.html#{{value | replace(\"_\", \"-\")}}"
-options = ["config"]
-regex = "^(?P<value>\\w+)$"
-
-[needs.string_links.github_link]
-# Links to the related github issue
-link_name = "SN Demo #{{value}}"
-link_url = "https://github.com/useblocks/sphinx-needs-demo/issues/{{value}}"
-options = ["github"]
-regex = "^(?P<value>\\w+)$"
-
-[needs.string_links.jira_link]
-# Links to the related jira issue
-link_name = "JIRA ADAS #{{value}}"
-link_url = "https://useblocks.atlassian.net/browse/ADAS-{{value}}"
-options = ["jira"]
-regex = "^(?P<value>\\w+)$"
-
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-services
-[needs.services.github-issues]
-id_prefix = "GH_ISSUE_"
-max_amount = 2
-max_content_lines = 20
-need_type = "swreq"
-url = "https://api.github.com/"
-
-[needs.services.github-prs]
-id_prefix = "GH_PR_"
-max_amount = 2
-max_content_lines = 20
-need_type = "impl"
-url = "https://api.github.com/"
-
-# ubCode setting: add custom extensions
-[parse.extend_directives.uml]
-# see https://github.com/sphinx-contrib/plantuml
-description = "Render UML diagrams"
-argument = true
-content_required = false
-parse_content = false
-content = true
-options = true
-
-[parse.extend_directives.if-builder]
-# see https://sphinx-simplepdf.readthedocs.io/en/latest/directives.html#if-builder
-description = "Sphinx-SimplePDF builder specific content"
-argument = true
-argument_required = true
-content = true
-content_required = true
-options = false
-
-[parse.extend_directives.button-link]
-# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
-# not yet part of ubCode internal directives
-description = "Sphinx-Design button with link"
-argument = true
-argument_required = true
-content = true
-content_required = true
-options = true
-
-# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-import-keys
-[needs.import_keys]
-imported_project = "/needs_import.json"
-
-# ubCode setting: display a needs.json file in the extension view
-[needs_json]
-path = "./_build/html/needs.json"
-src = "."
-
-# ubCode setting: run a script command
-[scripts]
-sphinx = "sphinx-build -b html . _build/html"
-
-[parse]
-ignore_directives = [
-  "test-file",
-  "src-trace"
-]
-
-###############################################################################
-# SPHINX-CODELINKS Configuration
-###############################################################################
-# Configuration for linking source code to sphinx-needs artifacts
-# see https://codelinks.useblocks.com/
-
-[codelinks]
-# Configuration for source tracing
-set_local_url = true            # Enable local code html and URL generation
-local_url_field = "local-url"   # Need's field name for local URL
-set_remote_url = true           # Enable remote url generation
-remote_url_field = "remote-url" # Need's field name for remote URL
-
-# Configuration for the coffee-machine Rust project
-[codelinks.projects.coffee_machine]
-remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commit}/{path}#L{line}"
-
-[codelinks.projects.coffee_machine.source_discover]
-src_dir = "../crates"  # Relative path to Rust source
-gitignore = true
-comment_type = "rust"
-
-[codelinks.projects.coffee_machine.analyse]
-get_need_id_refs = false      # Don't extract need ID references (just for simple linking)
-get_oneline_needs = true      # Extract oneline need definitions from code
-comment_type = "rust"          # Rust uses C++-style comments
-
-[codelinks.projects.coffee_machine.analyse.oneline_comment_style]
-start_sequence = "@ "         # Start sequence: "// @ "
-field_split_char = ","        # Separator between fields
-# Define the fields in the oneline comments
-needs_fields = [
-  { "name" = "title", "type" = "str" },
-  { "name" = "id", "type" = "str" },
-  { "name" = "type", "type" = "str", "default" = "impl" },
-  { "name" = "implements", "type" = "list[str]", "default" = [] },
-]
+[needs.links.covers]
+incoming = "is covered by"
+outgoing = "covers"
+copy = false
