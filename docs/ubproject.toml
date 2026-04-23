@@ -48,6 +48,12 @@ prefix = "I_"
 color = "#9c27b0"
 style = "node"
 
+[needs.fields.efforts]
+description = "The Effort"
+
+[needs.fields.efforts.schema]
+type = "integer"
+
 # Custom field: safety integrity level (enum-validated via schemas.json)
 [needs.fields.safety_level]
 description = "ASIL safety integrity level (ISO 26262)"

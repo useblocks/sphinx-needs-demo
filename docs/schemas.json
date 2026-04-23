@@ -31,6 +31,40 @@
     },
     "schemas": [
         {
+            "id": "high-effort-requires-asil",
+            "severity": "violation",
+            "message": "High-effort needs must have a valid ASIL",
+            "select": {
+                "properties": {
+                    "efforts": {
+                        "type": "integer",
+                        "minimum": 15
+                    }
+                },
+                "required": [
+                    "efforts"
+                ]
+            },
+            "validate": {
+                "local": {
+                    "required": [
+                        "safety_level"
+                    ],
+                    "properties": {
+                        "safety_level": {
+                            "type": "string",
+                            "enum": [
+                                "ASIL-A",
+                                "ASIL-B",
+                                "ASIL-C",
+                                "ASIL-D"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
             "id": "sys-allowed-links",
             "severity": "violation",
             "message": "A system requirement may not use outgoing custom links.",

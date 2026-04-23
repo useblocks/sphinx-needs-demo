@@ -26,6 +26,7 @@ Software Requirement
 .. req:: Emergency Braking Response Time
    :id: BRAKE-001
    :status: accepted
+   :efforts: 120
    :safety_level: ASIL-D
    :satisfies: SYS-012
 
