@@ -677,7 +677,6 @@ comment_type = "rust"
 [codelinks.projects.coffee_machine.analyse]
 get_need_id_refs = false      # Don't extract need ID references (just for simple linking)
 get_oneline_needs = true      # Extract oneline need definitions from code
-comment_type = "rust"          # Rust uses C++-style comments
 
 [codelinks.projects.coffee_machine.analyse.oneline_comment_style]
 start_sequence = "@ "         # Start sequence: "// @ "
