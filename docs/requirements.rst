@@ -14,6 +14,15 @@ System Requirement (context only)
 Software Requirement
 --------------------
 
+.. req:: Obstacle Detection Sensitivity
+   :id: OBS-001
+   :status: open
+   :safety_level: ASIL-D
+   :satisfies: SYS-012
+
+   The obstacle detection module shall identify objects within a minimum range
+   of 150 m and classify them within 50 ms of first detection.
+
 .. req:: Emergency Braking Response Time
    :id: BRAKE-001
    :status: accepted

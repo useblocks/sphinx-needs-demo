@@ -11,6 +11,5 @@ Specifications
 Rust Implementation Artifacts
 -----------------------------
 
-..
-   .. src-trace::
-      :project: braking_control
+.. src-trace:: 
+   :project: braking_control
