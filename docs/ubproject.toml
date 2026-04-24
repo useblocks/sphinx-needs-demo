@@ -88,6 +88,16 @@ incoming = "is covered by"
 outgoing = "covers"
 copy = false
 
+[needs.links.details]
+incoming = "is detailed by"
+outgoing = "details"
+copy = false
+
+[needs.links.depends_on]
+incoming = "is depended on by"
+outgoing = "depends on"
+copy = false
+
 [server]
 index_on_save = true
 

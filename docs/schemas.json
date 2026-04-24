@@ -221,6 +221,41 @@
             }
         },
         {
+            "id": "spec-must-have-one-link",
+            "severity": "violation",
+            "message": "A 'spec' must have at least one of: 'implements' (→ req), 'details' (→ spec/SWE2), or 'depends_on' (→ spec/SWE3).",
+            "select": {
+                "allOf": [
+                    {
+                        "$ref": "#/$defs/type-spec"
+                    },
+                    {
+                        "properties": {
+                            "implements": {
+                                "type": "array",
+                                "maxItems": 0
+                            },
+                            "details": {
+                                "type": "array",
+                                "maxItems": 0
+                            },
+                            "depends_on": {
+                                "type": "array",
+                                "maxItems": 0
+                            }
+                        }
+                    }
+                ]
+            },
+            "validate": {
+                "local": {
+                    "required": [
+                        "implements"
+                    ]
+                }
+            }
+        },
+        {
             "id": "safety-level-enum",
             "severity": "violation",
             "message": "safety_level must be one of: QM, ASIL-A, ASIL-B, ASIL-C, ASIL-D.",
