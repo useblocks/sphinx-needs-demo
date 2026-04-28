@@ -1,0 +1,45 @@
+name: ubTrace publish
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v[0-9]*'
+      - '[0-9]*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+
+      - name: Compute UBTRACE_VERSION
+        id: vars
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            version="$GITHUB_REF_NAME"
+          else
+            version="main"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Build ubTrace artifact
+        working-directory: docs
+        run: |
+          uv run sphinx-build -W -b ubtrace \
+            -D ubtrace_version=${{ steps.vars.outputs.version }} \
+            . _build/ubtrace
+
+      - name: Upload to ubTrace
+        env:
+          UBTRACE_INGEST_TOKEN: ${{ secrets.UBTRACE_INGEST_TOKEN }}
+          UBTRACE_VERSION: ${{ steps.vars.outputs.version }}
+        run: bash upload.sh
