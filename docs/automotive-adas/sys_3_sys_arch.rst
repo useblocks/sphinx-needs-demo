@@ -9,11 +9,11 @@ SYS.3 Architecture Design
 
 .. arch:: Lane Detection Module
    :id: ARCH_001
-   :status: open
-   :links: REQ_001, REQ_002
+   :status: in progress
+   :links: REQ_001, REQ_002, REQ_010, REQ_011
    :author: ALFRED
 
-   Design the architecture for the Lane Detection Module, including components for camera input processing, lane identification, and integration with steering control.
+   Architectural framework for lane keeping functionality including lane detection, steering control, error handling, and operational limit monitoring.
 
    .. uml::
 

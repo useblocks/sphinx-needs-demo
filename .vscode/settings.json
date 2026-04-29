@@ -23,5 +23,18 @@
 
     "[json]": {
         "editor.tabSize": 4,
+    },
+    "chat.tools.terminal.autoApprove": {
+        "cp": true
+    },
+    "chat.promptFilesRecommendations": {
+        "syspilot.change": true,
+        "syspilot.implement": true,
+        "syspilot.verify": true,
+        "syspilot.mece": true,
+        "syspilot.trace": true,
+        "syspilot.memory": true,
+        "syspilot.setup": true,
+        "syspilot.release": true
     }
 }

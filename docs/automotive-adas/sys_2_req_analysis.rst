@@ -19,13 +19,13 @@ SYS.2 Requirement Analysis
 
 .. req:: Steering Control Logic
    :id: REQ_002
-   :status: <<[approved == True]: in progress, open>>
-   :links: NEED_001
+   :status: in progress
+   :links: NEED_001, REQ_001
    :release: REL_ADAS_2025_6
    :author: PETER
    :jira: 4
    :effort: 2
-   :approved: False
+   :approved: True
 
    Implement a control logic module to provide smooth and precise steering corrections based on detected lane positions.
 
@@ -91,3 +91,52 @@ SYS.2 Requirement Analysis
    :author: ROBERT
 
    Develop functionality to initiate emergency braking when a pedestrian is in the collision path.
+
+.. req:: Lane Detection Error Handling
+   :id: REQ_010
+   :status: closed
+   :links: NEED_001, REQ_001
+   :release: REL_ADAS_2025_6
+   :author: PETER
+
+   **Description:**
+   The lane keeping system SHALL handle situations where lane markings cannot be reliably detected.
+
+   **Acceptance Criteria:**
+
+   * AC-1: When lane confidence drops below threshold for >2 seconds, issue visual warning to driver
+   * AC-2: When lane confidence drops below threshold for >5 seconds, issue audible alert
+   * AC-3: System SHALL NOT provide steering corrections when lane confidence is below threshold
+   * AC-4: System SHALL log all degraded mode events with timestamp and duration
+   * AC-5: System SHALL automatically re-engage when lane confidence exceeds threshold for >1 second
+
+   **Error Conditions:**
+
+   - Faded or missing lane markings
+   - Construction zones with temporary markings
+   - Heavy rain/snow obscuring camera view
+   - Strong shadows or glare
+   - Dirt/debris on camera lens
+
+.. req:: Lane Keeping Operational Limits
+   :id: REQ_011
+   :status: closed
+   :links: NEED_001, REQ_001, REQ_002
+   :release: REL_ADAS_2025_6
+   :author: PETER
+
+   **Description:**
+   The lane keeping system SHALL operate only within defined operational constraints.
+
+   **Acceptance Criteria:**
+
+   * AC-1: System SHALL activate only when vehicle speed is between 60 km/h and 180 km/h
+   * AC-2: System SHALL disengage when road curvature radius is less than 250 meters
+   * AC-3: System SHALL require lane marking width between 10cm and 30cm
+   * AC-4: System SHALL disengage if steering angle exceeds ±15 degrees
+   * AC-5: System SHALL notify driver 3 seconds before automatic disengagement
+   * AC-6: System SHALL remain disengaged until driver explicitly re-enables (no automatic re-engagement after limit violation)
+
+   **Rationale:**
+
+   Operating outside these limits may result in unsafe steering corrections or unreliable lane detection.
