@@ -62,6 +62,33 @@ class AdaptiveCruiseControl:
         pass
 
 
+class TrafficSignRecognition:
+   """
+   .. impl:: Speed Limit Sign Detection
+      :id: IMPL_014
+      :status: closed
+      :links: SWREQ_021, SWARCH_007
+
+      Detects posted speed limit signs from front camera input.
+   """
+
+   def detect_speed_limit(self, camera_feed):
+      """
+      .. impl:: Speed Limit Publication
+         :id: IMPL_015
+         :status: closed
+         :links: SWREQ_021, SWARCH_007
+
+         Extracts and returns the recognized speed limit for downstream consumers.
+      """
+      if isinstance(camera_feed, dict):
+         speed_limit = camera_feed.get("speed_limit")
+         return speed_limit if speed_limit is not None else 0
+      if isinstance(camera_feed, int):
+         return camera_feed
+      return 30 if camera_feed else 0
+
+
 class CollisionAvoidance:
     """
     .. impl:: Collision Risk Estimation

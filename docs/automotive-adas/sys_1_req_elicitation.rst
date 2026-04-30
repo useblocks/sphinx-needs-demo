@@ -37,3 +37,11 @@ SYS.1 Requirement Elicitation
 
    The system shall identify pedestrians in the vehicle's path and issue warnings or
    initiate braking to prevent collisions.
+
+.. need:: Traffic Sign Recognition
+   :id: NEED_005
+   :status: closed
+   :author: ROBERT
+
+   The system shall recognize traffic signs, with a focus on posted speed limits,
+   so that downstream driving assistance functions can react appropriately.

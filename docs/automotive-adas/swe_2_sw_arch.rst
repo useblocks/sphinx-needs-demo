@@ -161,3 +161,32 @@ SWE.2 Software Architecture
       EmergencyBraking --> RiskAnalyzer
       EmergencyBraking --> BrakeController
       @enduml
+
+.. swarch:: Traffic Sign Processing Subsystem
+   :id: SWARCH_007
+   :status: closed
+   :links: SWREQ_021
+   :author: SARAH
+
+   Define the software architecture for speed limit sign processing, covering frame analysis,
+   sign classification, and publishing recognized limits for downstream consumers.
+
+   .. uml::
+
+      @startuml
+      class TrafficSignProcessor {
+          + detectSpeedLimit()
+      }
+      class FrameAnalyzer {
+          + extractCandidates()
+      }
+      class SignClassifier {
+          + classifyLimit()
+      }
+      class LimitPublisher {
+          + publishLimit()
+      }
+      TrafficSignProcessor --> FrameAnalyzer
+      TrafficSignProcessor --> SignClassifier
+      TrafficSignProcessor --> LimitPublisher
+      @enduml

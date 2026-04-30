@@ -91,3 +91,13 @@ SYS.2 Requirement Analysis
    :author: ROBERT
 
    Develop functionality to initiate emergency braking when a pedestrian is in the collision path.
+
+.. req:: Speed Limit Sign Recognition
+   :id: REQ_010
+   :status: closed
+   :links: NEED_005
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Develop functionality to detect posted speed limit signs from camera input and
+   provide the extracted limit to driver assistance functions.

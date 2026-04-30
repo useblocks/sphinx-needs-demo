@@ -44,3 +44,10 @@ SYS.3 function as intended.
    :links: ARCH_006
 
    Validate the emergency braking architecture to confirm efficient response times and optimized braking force for pedestrian safety.
+
+.. test:: Traffic Sign Recognition Validation
+   :id: TEST_SYS_INT_007
+   :status: passed
+   :links: ARCH_007
+
+   Validate the traffic sign recognition architecture by checking camera frame processing, sign classification, and publication of detected speed limits.

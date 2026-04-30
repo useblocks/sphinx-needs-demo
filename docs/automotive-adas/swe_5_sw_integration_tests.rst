@@ -49,3 +49,11 @@ This document provides integration test cases for the software architecture, ens
    :author: THOMAS
 
    Test the interaction between lane detection, adaptive cruise control, and collision avoidance systems for cohesive behavior.
+
+.. test:: Traffic Sign Recognition and Speed Control Integration
+   :id: TEST_INT_007
+   :status: passed
+   :links: SWARCH_007, SWARCH_002
+   :author: THOMAS
+
+   Validate that recognized speed limits are propagated correctly from traffic sign processing to the adaptive cruise control subsystem.

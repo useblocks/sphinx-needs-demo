@@ -197,3 +197,35 @@ SYS.3 Architecture Design
       ForceCalculator --> BrakeActuator
       EmergencyBrakingSystem --> ResponseTimer
       @enduml
+
+.. arch:: Traffic Sign Recognition System
+   :id: ARCH_007
+   :status: closed
+   :links: REQ_010
+   :author: ALFRED
+
+   Design the system architecture for traffic sign recognition, including camera
+   capture, sign classification, and distribution of detected speed limits to vehicle control functions.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component TrafficSignRecognition {
+              agent captureRoadScene
+              agent classifySpeedLimitSign
+          }
+          component FrontCamera {
+              agent streamFrames
+          }
+          component SignInterpreter {
+              agent extractSpeedLimit
+          }
+          component VehicleControl {
+              agent consumeSpeedLimit
+          }
+      }
+      FrontCamera --> TrafficSignRecognition
+      TrafficSignRecognition --> SignInterpreter
+      SignInterpreter --> VehicleControl
+      @enduml

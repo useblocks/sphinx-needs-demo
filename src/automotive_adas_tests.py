@@ -4,6 +4,7 @@ from automotive_adas import (
     AdaptiveCruiseControl,
     CollisionAvoidance,
     PedestrianDetection,
+   TrafficSignRecognition,
 )
 
 
@@ -138,6 +139,29 @@ class TestPedestrianDetection(unittest.TestCase):
         """
         pd = PedestrianDetection()
         self.assertTrue(pd.initiate_emergency_brake())
+
+
+class TestTrafficSignRecognition(unittest.TestCase):
+    """
+    .. test:: Traffic Sign Recognition Tests
+       :id: TEST_014
+       :status: passed
+       :links: SWREQ_021, SWARCH_007
+       :author: THOMAS
+
+       Unit tests for traffic sign recognition functionalities.
+    """
+
+    def test_detect_speed_limit(self):
+        """
+        .. test:: Speed Limit Sign Detection Test
+           :id: TEST_015
+           :status: passed
+           :links: SWREQ_021, SWARCH_007
+           :author: THOMAS
+        """
+        tsr = TrafficSignRecognition()
+        self.assertEqual(tsr.detect_speed_limit(camera_feed={"speed_limit": 50}), 50)
 
 
 if __name__ == "__main__":
