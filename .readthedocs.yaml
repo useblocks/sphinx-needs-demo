@@ -24,7 +24,7 @@ build:
     post_create_environment:
       # ubt-sphinx is only available on the private pypi.useblocks.com index, not on PyPI.
       # RTD's pip install uses PyPI by default, so we pre-install it here before the main install runs.
-      - pip install --extra-index-url https://pypi.useblocks.com/ "ubt-sphinx==0.6.1"
+      - pip install --extra-index-url https://pypi.useblocks.com/ "ubt-sphinx==0.7.1"
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
   configuration: docs/conf.py
