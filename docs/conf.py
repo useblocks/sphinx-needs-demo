@@ -3,6 +3,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
+import shutil
 import sys
 
 import jinja2
@@ -122,6 +123,16 @@ exclude_patterns = [
     "demo_page_header.rst",
     "demo_hints",
 ]
+
+# PlantUML renders node/graph diagrams via Graphviz. If `dot` is missing,
+# PlantUML embeds the error inside the generated SVG instead of failing the
+# build, which sphinx-build -W cannot catch. Fail fast at config load time.
+if shutil.which("dot") is None:
+    raise RuntimeError(
+        "Graphviz 'dot' executable not found on PATH. "
+        "PlantUML requires it to render diagrams. Install graphviz "
+        "(e.g. 'apt-get install graphviz') and retry."
+    )
 
 # We bring our own plantuml jar file.
 # These options tell Sphinxcontrib-PlantUML we it can find this file.
