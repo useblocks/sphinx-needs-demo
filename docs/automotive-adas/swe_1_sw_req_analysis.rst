@@ -167,3 +167,11 @@ SWE.1 Software Requirements
    :author: SARAH
 
    Create functionality to identify crosswalks and prioritize pedestrian safety in such zones.
+
+.. swreq:: Speed Limit Sign Detection
+   :id: SWREQ_021
+   :status: closed
+   :links: ARCH_007, REQ_010
+   :author: SARAH
+
+   Implement software to detect speed limit signs in camera frames and publish the recognized limit.

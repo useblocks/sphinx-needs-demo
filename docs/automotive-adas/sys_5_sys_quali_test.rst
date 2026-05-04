@@ -38,6 +38,13 @@ This document provides verification test cases to ensure the requirements define
 
    Verify the integration and functionality of lane detection, adaptive cruise control, and collision avoidance subsystems.
 
+.. test:: Traffic Sign Recognition Verification
+   :id: TEST_SYS_QUAL_006
+   :status: passed
+   :links: REQ_010
+
+   Verify the system fulfills the speed limit sign recognition requirement by detecting posted limits and making them available to driver assistance functions.
+
 
 SYS.5 Qualification Test Results
 --------------------------------

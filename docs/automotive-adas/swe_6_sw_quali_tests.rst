@@ -37,3 +37,10 @@ This document provides qualification test cases to validate the fulfillment of s
    :links: SWREQ_001, SWREQ_004, SWREQ_006, SWREQ_008
 
    Qualify the integration of lane detection, adaptive cruise control, collision avoidance, and pedestrian detection for seamless functionality and safety compliance.
+
+.. test:: Traffic Sign Recognition Qualification
+   :id: TEST_QUAL_006
+   :status: passed
+   :links: SWREQ_021
+
+   Qualify the speed limit sign detection software by verifying correct recognition of posted limits in representative traffic scenes.
