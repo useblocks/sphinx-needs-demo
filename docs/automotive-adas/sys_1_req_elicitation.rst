@@ -6,7 +6,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Lane Keeping Assistance
    :id: NEED_001
-   :status: open
+   :status: in progress
    :author: ROBERT
    :jira: 1
 
@@ -15,7 +15,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Adaptive Cruise Control
    :id: NEED_002
-   :status: open
+   :status: closed
    :author: ROBERT
    :jira: 2
 
@@ -24,7 +24,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Emergency Braking System
    :id: NEED_003
-   :status: open
+   :status: in progress
    :author: ROBERT
 
    The system shall detect potential collisions and apply the brakes autonomously to
@@ -32,7 +32,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Pedestrian Detection
    :id: NEED_004
-   :status: open
+   :status: in progress
    :author: ROBERT
 
    The system shall identify pedestrians in the vehicle's path and issue warnings or

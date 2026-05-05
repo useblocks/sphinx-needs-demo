@@ -9,7 +9,7 @@ SYS.3 Architecture Design
 
 .. arch:: Lane Detection Module
    :id: ARCH_001
-   :status: open
+   :status: in progress
    :links: REQ_001, REQ_002
    :author: ALFRED
 
@@ -36,7 +36,7 @@ SYS.3 Architecture Design
 
 .. arch:: Adaptive Cruise Control System
    :id: ARCH_002
-   :status: open
+   :status: closed
    :links: REQ_003, REQ_004
    :author: ALFRED
 

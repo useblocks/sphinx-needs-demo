@@ -9,7 +9,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Lane Detection Algorithm
    :id: REQ_001
-   :status: open
+   :status: in progress
    :links: NEED_001
    :release: REL_ADAS_2025_6
    :author: PETER
@@ -31,7 +31,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Distance Measurement System
    :id: REQ_003
-   :status: open
+   :status: closed
    :links: NEED_002
    :release: REL_ADAS_2025_12
    :author: PETER
@@ -40,7 +40,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Speed Adjustment Algorithm
    :id: REQ_004
-   :status: open
+   :status: closed
    :links: NEED_002
    :release: REL_ADAS_2025_12
    :author: ROBERT
@@ -49,7 +49,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Collision Detection Module
    :id: REQ_005
-   :status: open
+   :status: in progress
    :links: NEED_003
    :release: REL_ADAS_2025_12
    :author: ROBERT
@@ -67,7 +67,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Pedestrian Recognition System
    :id: REQ_007
-   :status: open
+   :status: in progress
    :links: NEED_004
    :release: REL_ADAS_2025_12
    :author: ROBERT
