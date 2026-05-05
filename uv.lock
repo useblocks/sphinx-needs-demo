@@ -1859,7 +1859,6 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "furo" },
-    { name = "gaphor" },
     { name = "sphinx", extra = ["test"] },
     { name = "sphinx-codelinks" },
     { name = "sphinx-design" },
@@ -1871,10 +1870,15 @@ dependencies = [
     { name = "ubt-sphinx" },
 ]
 
+[package.optional-dependencies]
+render = [
+    { name = "gaphor" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "furo", specifier = ">=2024.8.6" },
-    { name = "gaphor", specifier = ">=3.3.2" },
+    { name = "gaphor", marker = "extra == 'render'", specifier = ">=3.3.2" },
     { name = "sphinx", extras = ["test"], specifier = ">=8.2.3" },
     { name = "sphinx-codelinks", specifier = ">=1.2.0" },
     { name = "sphinx-design", specifier = ">=0.6.1" },
@@ -1885,6 +1889,7 @@ requires-dist = [
     { name = "sphinxcontrib-plantuml", specifier = ">=0.30" },
     { name = "ubt-sphinx", specifier = "==0.7.1" },
 ]
+provides-extras = ["render"]
 
 [[package]]
 name = "sphinx-preview"

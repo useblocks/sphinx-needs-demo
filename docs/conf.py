@@ -6,10 +6,11 @@ import os
 import shutil
 import sys
 
-# Force a headless matplotlib backend before sphinx-needs (or any other
-# extension) imports matplotlib. With Gaphor installed, PyGObject makes
-# matplotlib auto-pick "gtk4agg", which then hangs the build trying to open
-# a GDK surface in headless / RTD environments.
+# Defensive: if a developer also has Gaphor (or any other PyGObject-using
+# package) installed in the same venv, matplotlib auto-picks the
+# "gtk4agg" backend and the build hangs at "writing output... [4%]"
+# trying to open a GDK surface on a headless host. Force the headless
+# Agg backend before any Sphinx extension imports matplotlib.
 import matplotlib
 
 matplotlib.use("Agg")
@@ -47,18 +48,11 @@ extensions = [
     "sphinx_preview",
     "sphinx_design",
     "ubt_sphinx",
-    "gaphor.extensions.sphinx",  # SysML / UML diagrams from .gaphor model files
 ]
 
-# Map a logical model name to a .gaphor file path (relative to docs/).
-# The ``.. diagram::`` directive looks up models by name from this dict;
-# ``:model: <name>`` selects which file to load. The ``default`` entry is
-# used when ``:model:`` is omitted.
-gaphor_models = {
-    "default": "automotive-adas/sysml/adas-tsr-bdd.gaphor",
-    "tsr": "automotive-adas/sysml/adas-tsr-bdd.gaphor",
-    "car": "automotive-adas/sysml/sysml-car.gaphor",
-}
+# SysML / Gaphor diagrams are pre-rendered to SVG and embedded with
+# plain ``.. figure::`` — see docs/automotive-adas/sysml/index.rst. The
+# doc build therefore needs no Gaphor / PyGObject / Cairo runtime.
 
 ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"

@@ -1,16 +1,17 @@
 """Programmatically author the ADAS Traffic Sign Recognition BDD.
 
 This script regenerates ``adas-tsr-bdd.gaphor`` from scratch using Gaphor's
-Python API, so the model can be tracked as code rather than a binary-ish
-diagram blob. Run it whenever you change the structure:
+Python API. The model can then be opened and tweaked in the Gaphor GUI, and
+re-exported to SVG via :mod:`render_sysml`. Re-run after structural changes:
 
 .. code:: console
 
    uv run python docs/automotive-adas/sysml/author_adas_bdd.py
+   uv run python docs/automotive-adas/sysml/render_sysml.py
 
-The generated file is committed alongside this script and consumed by
-Sphinx via the ``gaphor.extensions.sphinx`` extension and the
-``gaphor_models`` mapping in ``docs/conf.py``.
+The generated file is committed alongside the rendered SVG; the doc build
+itself does **not** depend on Gaphor or Cairo (it just embeds the SVG via
+``.. figure::``).
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from pathlib import Path
 from gaphor.core.modeling import ElementFactory
 from gaphor.storage import storage
 from gaphor.SysML import sysml
-from gaphor.SysML.blocks import BlockItem, PropertyItem
+from gaphor.SysML.blocks import BlockItem
 from gaphor.UML import uml
 
 OUTPUT = Path(__file__).with_name("adas-tsr-bdd.gaphor")
@@ -42,6 +43,15 @@ def _make_part(ef: ElementFactory, parent, name: str, type_block):
     return prop
 
 
+def _place_block(diag, block, x: float, y: float, width: float = 180, height: float = 80, *, show_parts: bool = False):
+    item = diag.create(BlockItem, subject=block)
+    item.matrix.translate(x, y)
+    item.width = width
+    item.height = height
+    item.show_parts = 1 if show_parts else 0
+    return item
+
+
 def build() -> ElementFactory:
     ef = ElementFactory()
 
@@ -53,33 +63,28 @@ def build() -> ElementFactory:
     interpreter = _make_block(ef, pkg, "SignInterpreter")
     veh_ctl = _make_block(ef, pkg, "VehicleControl")
 
-    p_cam = _make_part(ef, tsr, "camera", cam)
-    p_int = _make_part(ef, tsr, "interpreter", interpreter)
-    p_veh = _make_part(ef, tsr, "control", veh_ctl)
+    # Parts on the parent block (rendered automatically by Gaphor inside a
+    # "parts" compartment when ``show_parts`` is on).
+    _make_part(ef, tsr, "camera", cam)
+    _make_part(ef, tsr, "interpreter", interpreter)
+    _make_part(ef, tsr, "control", veh_ctl)
 
     diag = ef.create(sysml.BlockDefinitionDiagram)
     diag.name = "TSR Block Definition"
     diag.element = pkg
 
-    # Parent block with parts compartment
-    tsr_item = diag.create(BlockItem, subject=tsr)
-    tsr_item.matrix.translate(80, 60)
-    tsr_item.width = 480
-    tsr_item.height = 220
+    # Parent block at top centre, parts compartment turned on so the named
+    # parts render inside the block instead of as separate items that would
+    # otherwise overlap the parent label.
+    _place_block(diag, tsr, x=200, y=40, width=240, height=160, show_parts=True)
 
-    for i, prop in enumerate((p_cam, p_int, p_veh)):
-        item = diag.create(PropertyItem, subject=prop)
-        col_x = 100 + i * 150
-        item.matrix.translate(col_x, 160)
-        item.width = 130
-        item.height = 60
-
-    # Sub-block definitions below (typical BDD layout)
+    # Sub-block definitions in a row below.
+    spacing = 40
+    sub_w, sub_h = 160, 70
+    row_y = 280
+    start_x = 200 + (240 - (3 * sub_w + 2 * spacing)) / 2
     for i, sub in enumerate((cam, interpreter, veh_ctl)):
-        sub_item = diag.create(BlockItem, subject=sub)
-        sub_item.matrix.translate(80 + i * 200, 380)
-        sub_item.width = 160
-        sub_item.height = 70
+        _place_block(diag, sub, x=start_x + i * (sub_w + spacing), y=row_y, width=sub_w, height=sub_h)
 
     return ef
 

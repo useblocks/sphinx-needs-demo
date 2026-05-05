@@ -16,10 +16,24 @@ dependencies = [
     "furo>=2024.8.6",
     "sphinx-preview>=0.1.2",
     "ubt-sphinx==0.7.1",
-    "gaphor>=3.3.2",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
+
+# Optional extra used only when re-rendering the SysML / Gaphor diagrams to
+# SVG. Gaphor pulls in PyGObject + pycairo, which need the Cairo / GTK
+# girepository system libraries to build, so we keep them out of the doc
+# build path. Run:
+#
+#   uv sync --extra render
+#   uv run python docs/automotive-adas/sysml/render_sysml.py
+#
+# on a developer machine that has those libraries installed, then commit
+# the regenerated SVGs.
+[project.optional-dependencies]
+render = [
+    "gaphor>=3.3.2",
+]
 
 [build-system]
 requires = ["hatchling"]

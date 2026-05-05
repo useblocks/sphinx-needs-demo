@@ -208,9 +208,9 @@ SYS.3 Architecture Design
    capture, sign classification, and distribution of detected speed limits to vehicle control functions.
 
    The component view (PlantUML) and the SysML Block Definition Diagram below
-   describe the same architecture from two notations — the Gaphor-rendered BDD
-   is sourced from a ``.gaphor`` model file and can be opened in the Gaphor
-   GUI for further editing.
+   describe the same architecture from two notations. The BDD is a static
+   SVG pre-rendered from a ``.gaphor`` model — see :ref:`SysML_Demo` for
+   the workflow.
 
    .. uml::
 
@@ -235,8 +235,7 @@ SYS.3 Architecture Design
       SignInterpreter --> VehicleControl
       @enduml
 
-   .. diagram:: TSR Block Definition
-      :model: tsr
+   .. figure:: sysml/adas-tsr-bdd__tsr-block-definition.svg
       :align: center
       :alt: SysML Block Definition Diagram for the Traffic Sign Recognition system
 

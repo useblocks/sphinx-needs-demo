@@ -11,13 +11,6 @@ build:
   apt_packages:
     - default-jdk
     - graphviz
-    # Required by Gaphor (PyGObject + Cairo) for the .. diagram:: directive.
-    # See https://docs.gaphor.org/en/latest/sphinx.html#read-the-docs
-    - libgirepository-2.0-dev
-    - libcairo2-dev
-    - pkg-config
-    - python3-dev
-    - gir1.2-pango-1.0
   tools:
     python: "3.12"
     # You can also specify other tool versions:

@@ -3,118 +3,103 @@
 
 .. _SysML_Demo:
 
-🧩 SysML diagrams via Gaphor
-=============================
+🧩 SysML diagrams alongside sphinx-needs items
+===============================================
 
-This page demonstrates how `Gaphor <https://gaphor.org/>`__ models can be
-embedded inside Sphinx-Needs alongside the existing ``.. uml::`` PlantUML
-directives. Gaphor implements a large part of the OMG **SysML 1.6**
-specification (a minor revision of SysML 1.5 that retains the same core
-constructs — Block, Property, Port, Connector, Requirement). For a customer
-showcase that says "SysML 1.5", Gaphor is the same modeling family.
+This page demonstrates how SysML diagrams can be embedded inside
+Sphinx-Needs items the same way PlantUML diagrams already are. The doc
+build itself stays free of any modeling-tool / Cairo / GTK
+dependencies — diagrams are **pre-rendered to SVG** and committed into
+the repo, then included via plain ``.. figure::`` directives.
 
-How it works
-------------
+The example model
+-----------------
 
-Three pieces are needed:
+The Block Definition Diagram below is rendered from
+``adas-tsr-bdd.gaphor`` and shows the same Traffic Sign Recognition
+architecture that appears in :need:`ARCH_007` as a PlantUML component
+view. It is committed as ``adas-tsr-bdd__tsr-block-definition.svg``.
 
-1. **A** ``.gaphor`` **model file** — an XML document that holds blocks,
-   properties, ports, diagrams and their layout. It can be authored in the
-   Gaphor desktop GUI or programmatically through the Gaphor Python API
-   (see :file:`author_adas_bdd.py` for an example).
-2. **The** ``gaphor.extensions.sphinx`` **extension** — registers a
-   ``.. diagram::`` directive and renders the chosen diagram to SVG/PDF
-   on every Sphinx build.
-3. **A** ``gaphor_models`` **mapping in** :file:`conf.py` — maps logical
-   model names (``"tsr"``, ``"car"``, ...) to ``.gaphor`` files relative
-   to ``docs/``.
-
-Example: under :need:`ARCH_007` the BDD lives next to a PlantUML view of the
-same architecture and is rendered from the model file by:
-
-.. code:: rst
-
-   .. diagram:: TSR Block Definition
-      :model: tsr
-      :align: center
-
-The directive accepts the standard ``image``/``figure`` options
-(``:align:``, ``:figwidth:``, ``:alt:``, plus a caption block).
-
-Using a stock Gaphor SysML example
-----------------------------------
-
-The ``car`` model below is the un-modified ``sysml-car.gaphor`` example
-from the Gaphor distribution, demonstrating that an existing ``.gaphor``
-file can be dropped into the docs tree and referenced verbatim.
-
-.. diagram:: main
-   :model: car
+.. figure:: adas-tsr-bdd__tsr-block-definition.svg
    :align: center
-   :alt: SysML Block Definition Diagram of a Car
+   :alt: SysML BDD: TrafficSignRecognition with FrontCamera, SignInterpreter, VehicleControl
 
-   ``Car`` block from Gaphor's ``examples/sysml-car.gaphor``, decomposed
-   into ``rear: Wheel[2]``, ``: Engine`` and two ``axle`` proxy ports.
+   ``TrafficSignRecognition`` (top, with parts compartment) decomposed
+   into ``FrontCamera``, ``SignInterpreter`` and ``VehicleControl``
+   (bottom row) — pre-rendered SVG, no build-time tooling.
 
-Programmatic authoring
-----------------------
+A second example uses Gaphor's stock SysML car BDD, dropped into the
+docs tree unchanged:
 
-For repeatable, code-reviewable models we generate ``adas-tsr-bdd.gaphor``
-from a small Python script using Gaphor's API:
+.. figure:: sysml-car__main.svg
+   :align: center
+   :alt: SysML BDD of a Car with Wheel and Engine parts and axle ports
 
-.. code:: console
+   ``Car`` block with ``rear: Wheel[2]``, ``: Engine`` parts and two
+   ``axle`` proxy ports — Gaphor's ``examples/sysml-car.gaphor``
+   committed as-is.
 
-   uv run python docs/automotive-adas/sysml/author_adas_bdd.py
+Workflow
+--------
 
-The script creates a ``Package``, four ``Block`` elements, three
-composite ``Property`` parts and a ``BlockDefinitionDiagram`` with the
-items laid out, then ``storage.save()`` writes the XML. Re-running the
-script regenerates the file deterministically.
+The recommended workflow has two stages — **author once / re-render**
+(needs Gaphor + Cairo) and **build docs** (no extra deps):
 
-Converting existing SysML 1.5 XMI
----------------------------------
+1. **Edit the model.** Author / tweak the diagram in the Gaphor desktop
+   GUI (https://gaphor.org/), or programmatically via Gaphor's Python
+   API. The script :file:`author_adas_bdd.py` in this directory shows
+   the API path for the TSR BDD.
 
-A common customer ask is *"we already have SysML 1.5 XMI files from
-Cameo/Papyrus/MagicDraw — can we just drop them in?"*. Today the
-honest answer is **no, not directly**:
+2. **Re-render to SVG** on a developer machine that has the Cairo /
+   GTK system libraries installed:
 
-- Gaphor's own XMI export was removed in `Gaphor 3.1.0
-  <https://github.com/gaphor/gaphor/pull/3444>`__ after the maintainers
-  declared it under-tested and unmaintained.
-- The ``.gaphor`` format is **not** XMI. It is a Gaphor-native XML schema
-  (root ``<gaphor>`` namespaced under
-  ``https://gaphor.org/model``) that mixes semantic elements
-  (``<UML:Package>``, ``<SysML:Block>``, ``<UML:Property>``, ...) with
-  per-diagram presentation items (``<SysML:BlockItem>`` carrying a
-  transformation matrix, width and height).
-- Conversion therefore requires a custom XMI → ``.gaphor`` translator
-  that walks the source tree, generates UUIDs, maps element types and
-  rebuilds layout. There is no off-the-shelf tool today.
+   .. code:: console
 
-The pragmatic options for a project that needs SysML 1.5 content in the
-docs are:
+      uv sync --extra render
+      uv run python docs/automotive-adas/sysml/render_sysml.py
 
-1. **Re-author** the diagrams in Gaphor (GUI) or via the Python API
-   shown above — fastest for a small, curated set of system views that
-   matter for the documentation.
-2. **Write a converter** — feasible for a constrained SysML 1.5
-   subset (Blocks, Properties, BDDs, simple Connectors). The ``.gaphor``
-   file format is documented at
-   https://docs.gaphor.org/en/latest/storage.html and only ~10 element
-   types are needed for a typical BDD.
-3. **Keep the original tool** for full-fidelity authoring and only
-   import a curated subset into Gaphor for publication.
+   Every ``.gaphor`` file under this directory gets rendered into one
+   SVG per diagram, named ``<gaphor stem>__<slug>.svg``.
 
-Limitations to be aware of
---------------------------
+3. **Commit** the regenerated SVG (and the ``.gaphor`` source).
 
-- The Gaphor Sphinx extension renders SVG **and** PDF for each diagram.
-  Rendering uses Cairo via PyGObject, so the build host needs the GTK
-  girepository / Cairo system packages. See ``.readthedocs.yaml`` for
-  the apt list.
-- With Gaphor installed, matplotlib auto-selects the ``gtk4agg``
-  backend, which hangs the build on a headless host. ``conf.py`` pins
-  ``matplotlib.use("Agg")`` before any extension imports it.
-- ``gaphor`` is a heavy dependency (it pulls in ``pycairo`` and
-  ``PyGObject``). If only a few pages need it, consider extracting the
-  SysML pages into an opt-in toctree.
+4. **Build docs** with the normal toolchain — no Gaphor, no Cairo, no
+   GTK on Read-the-Docs or in CI.
+
+Using existing SysML 1.5 XMI
+-----------------------------
+
+A common ask is *"we already have SysML 1.5 XMI files from
+Cameo / Papyrus / MagicDraw / Rhapsody — can we drop them in?"* The
+practical answer is: **render them once in your existing tool, commit
+the resulting SVG, and skip the conversion entirely**.
+
+- All major SysML authoring tools (Cameo Systems Modeler, Eclipse
+  Papyrus, IBM Rhapsody, Sparx Enterprise Architect, MagicDraw) export
+  individual diagrams as SVG or PNG out of the box.
+- The ``.gaphor`` format is **not** XMI — it is a Gaphor-native XML
+  schema with embedded layout. Converting XMI → ``.gaphor`` requires a
+  custom translator (Gaphor's own XMI export was removed in 3.1.0,
+  `gaphor/gaphor#3444 <https://github.com/gaphor/gaphor/pull/3444>`__).
+- Treating the SysML diagram as **just an image asset** sidesteps the
+  format-translation problem and works for every SysML tool the
+  customer might already own.
+
+If a project still wants the ``.gaphor``-as-code path (text diff, easy
+PR review, `author_adas_bdd.py` style), Gaphor's GUI also imports a
+limited subset of UML XMI 2.5 — see the Gaphor docs for the current
+state.
+
+Trade-offs to be aware of
+-------------------------
+
+- The pre-render step is **manual**: edit a model → run the render
+  script → commit. Mitigations: a ``make render`` target, a CI job
+  that regenerates SVGs when ``.gaphor`` files change and pushes back,
+  or a pre-commit hook.
+- The diagram is now **a binary-ish asset in the repo** (SVG is text,
+  but auto-laid-out XML diffs poorly). The ``.gaphor`` source is the
+  reviewable artifact; the SVG is the build output.
+- For a customer with hundreds of SysML 1.5 XMI diagrams, scripting a
+  bulk export (e.g., a Cameo macro or a Papyrus headless build) is the
+  next step beyond this prototype.
