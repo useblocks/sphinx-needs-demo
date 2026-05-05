@@ -53,6 +53,14 @@ This document provides verification test cases to ensure the requirements define
    Verify the system fulfills blind spot zone detection and lane change hazard
    warning requirements across representative urban and highway scenarios.
 
+.. test:: Driver Drowsiness Detection Verification
+   :id: TEST_SYS_QUAL_008
+   :status: open
+   :links: REQ_013, REQ_014
+
+   Verify the system fulfills the driver eye state estimation and drowsiness alert
+   requirements across daytime, low-light, and sunglasses-wearing driver scenarios.
+
 
 SYS.5 Qualification Test Results
 --------------------------------

@@ -193,3 +193,22 @@ SWE.1 Software Requirements
 
    Implement arbitration logic that activates the blind spot warning only when the turn
    signal points toward an occupied zone, suppressing nuisance alerts otherwise.
+
+.. swreq:: Eye Aspect Ratio Estimation
+   :id: SWREQ_024
+   :status: open
+   :links: ARCH_009, REQ_013
+   :author: STEVEN
+
+   Implement software to estimate per-frame eye-aspect ratio and gaze direction from
+   cabin camera input under varying lighting conditions.
+
+.. swreq:: Drowsiness Score Aggregation
+   :id: SWREQ_025
+   :status: open
+   :links: ARCH_009, REQ_014
+   :author: STEVEN
+
+   Aggregate per-frame eye-state observations into a smoothed drowsiness score and
+   emit progressive alerts when the score exceeds calibrated thresholds for the
+   required dwell time.
