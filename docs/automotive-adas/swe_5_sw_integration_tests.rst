@@ -77,3 +77,13 @@ This document provides integration test cases for the software architecture, ens
    Exercise the drowsiness detection subsystem end to end: feed cabin frame sequences
    spanning alert, fatigued, and severely drowsy driver states, and verify progressive
    alerts are raised once the smoothed drowsiness score exceeds the calibrated dwell time.
+
+.. test:: Automated Parking Pipeline Integration
+   :id: TEST_INT_010
+   :status: open
+   :links: SWARCH_010
+   :author: THOMAS
+
+   Exercise the automated parking subsystem end to end: feed synthesized ultrasonic
+   ranges and surround-camera frames for parallel and perpendicular slots, plan the
+   trajectory, and verify actuator commands stay within clearance and rate limits.

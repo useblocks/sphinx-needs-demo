@@ -61,6 +61,15 @@ This document provides verification test cases to ensure the requirements define
    Verify the system fulfills the driver eye state estimation and drowsiness alert
    requirements across daytime, low-light, and sunglasses-wearing driver scenarios.
 
+.. test:: Automated Parking Verification
+   :id: TEST_SYS_QUAL_009
+   :status: open
+   :links: REQ_015, REQ_016
+
+   Verify the system fulfills slot detection and park trajectory execution
+   requirements across parallel and perpendicular slot scenarios with mixed
+   surrounding obstacles.
+
 
 SYS.5 Qualification Test Results
 --------------------------------

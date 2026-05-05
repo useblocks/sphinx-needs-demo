@@ -63,3 +63,12 @@ SYS.1 Requirement Elicitation
    The system shall observe driver state via the cabin camera and warn the driver,
    and optionally suggest a break, when sustained signs of drowsiness or inattention
    are detected.
+
+.. need:: Automated Parking Assist
+   :id: NEED_008
+   :status: open
+   :author: ROBERT
+
+   The system shall identify suitable parallel and perpendicular parking slots and
+   semi-autonomously steer, accelerate, and brake the vehicle into the selected slot
+   under driver supervision.

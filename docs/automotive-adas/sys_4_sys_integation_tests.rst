@@ -69,3 +69,12 @@ SYS.3 function as intended.
    Validate the drowsiness detection architecture by exercising cabin camera capture,
    eye-state estimation, scoring, and alert routing across representative driver
    states from alert through severely drowsy.
+
+.. test:: Automated Parking Validation
+   :id: TEST_SYS_INT_010
+   :status: open
+   :links: ARCH_010
+
+   Validate the automated parking architecture by exercising slot detection from
+   ultrasonic and camera input, trajectory planning, and actuator command sequencing
+   across parallel and perpendicular slot scenarios.
