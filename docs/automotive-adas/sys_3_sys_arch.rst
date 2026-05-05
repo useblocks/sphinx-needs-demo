@@ -229,3 +229,40 @@ SYS.3 Architecture Design
       TrafficSignRecognition --> SignInterpreter
       SignInterpreter --> VehicleControl
       @enduml
+
+.. arch:: Blind Spot Monitoring System
+   :id: ARCH_008
+   :status: open
+   :links: REQ_011, REQ_012
+   :author: ALFRED
+
+   Define the system architecture for blind spot monitoring, combining rear-corner
+   radar coverage with side-view camera input, and routing occupancy state to the
+   driver alert system whenever the turn signal indicates an imminent lane change.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component BlindSpotMonitor {
+              agent fuseSensorInputs
+              agent classifyZoneOccupancy
+          }
+          component RearCornerRadar {
+              agent detectApproachingObjects
+          }
+          component SideCamera {
+              agent captureBlindSpotImage
+          }
+          component TurnSignalSensor {
+              agent reportIntent
+          }
+          component DriverAlertSystem {
+              agent issueLaneChangeWarning
+          }
+      }
+      RearCornerRadar --> BlindSpotMonitor
+      SideCamera --> BlindSpotMonitor
+      TurnSignalSensor --> BlindSpotMonitor
+      BlindSpotMonitor --> DriverAlertSystem
+      @enduml

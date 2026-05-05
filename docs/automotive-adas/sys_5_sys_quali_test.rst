@@ -45,6 +45,14 @@ This document provides verification test cases to ensure the requirements define
 
    Verify the system fulfills the speed limit sign recognition requirement by detecting posted limits and making them available to driver assistance functions.
 
+.. test:: Blind Spot Monitoring Verification
+   :id: TEST_SYS_QUAL_007
+   :status: open
+   :links: REQ_011, REQ_012
+
+   Verify the system fulfills blind spot zone detection and lane change hazard
+   warning requirements across representative urban and highway scenarios.
+
 
 SYS.5 Qualification Test Results
 --------------------------------

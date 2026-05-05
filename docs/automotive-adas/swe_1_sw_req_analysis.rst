@@ -175,3 +175,21 @@ SWE.1 Software Requirements
    :author: SARAH
 
    Implement software to detect speed limit signs in camera frames and publish the recognized limit.
+
+.. swreq:: Blind Spot Sensor Fusion
+   :id: SWREQ_022
+   :status: open
+   :links: ARCH_008, REQ_011
+   :author: SARAH
+
+   Implement sensor fusion software that combines rear-corner radar tracks and side-view
+   camera detections into a single per-zone occupancy state with confidence scoring.
+
+.. swreq:: Lane Change Intent Arbitration
+   :id: SWREQ_023
+   :status: open
+   :links: ARCH_008, REQ_012
+   :author: SARAH
+
+   Implement arbitration logic that activates the blind spot warning only when the turn
+   signal points toward an occupied zone, suppressing nuisance alerts otherwise.
