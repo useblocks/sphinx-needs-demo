@@ -202,18 +202,151 @@ violations, undeclared types injected by ``sphinx-test-reports``) are
 pre-existing properties of the corpus and are surfaced for review,
 not introduced by Pharaoh.
 
+🛠️ Walkthrough: AI-assisted V-model authoring
+---------------------------------------------
+
+Once setup is complete, the typical Pharaoh workflow on this demo
+takes four prompts. Each prompt is self-contained, so they can be run
+top-to-bottom or in isolation. The example below uses the GitHub
+Copilot Chat syntax (``@pharaoh.<name>``); in Claude Code the
+equivalent slash form is ``/pharaoh:pharaoh-<name>``.
+
+The shared scenario across the four prompts is the existing
+``REQ_001 — Lane Detection Algorithm`` and the ``LaneDetection`` class
+in ``src/automotive_adas.py``. The walkthrough fills a focused
+API-encapsulation requirement, writes the test that verifies it, and
+then asks what changes if ``REQ_001`` itself is revised.
+
+Step 1: gap analysis
+^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+   @pharaoh.mece
+
+   Analyse this sphinx-needs project for traceability gaps and
+   consistency issues. Use the corpus at docs/_build/html/needs.json.
+   Report required-link-chain violations, orphans, status mismatches,
+   ID-pattern violations against the project's id_regex, and any need
+   type observed in the corpus that is not declared in
+   [[needs.types]]. Quote concrete need IDs in every finding.
+
+Expected: the four declared traceability chains hit 100 percent
+coverage, but the report surfaces parent-closed/child-open status
+mismatches (for example ``EX_SPEC_001 (closed) -> EX_REQ_001 (open)``),
+a handful of needs of types injected by ``sphinx-test-reports`` that
+are not declared in ``[[needs.types]]``, and a number of existing
+need IDs that fail the project's own ``id_regex``.
+
+Step 2: reverse-engineer a focused requirement from code
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+   @pharaoh.req-from-code
+
+   Read src/automotive_adas.py. The LaneDetection class is already
+   linked to SWREQ_001/002/003 and REQ_001 via three IMPL directives
+   in its docstrings, so the broad behaviour is captured. What is
+   not captured is a focused requirement for the API encapsulation
+   contract of the class — what the caller can rely on without
+   inspecting raw image data. Emit a single sphinx-needs `req`
+   directive that captures that contract as a child of REQ_001.
+
+   Constraints: ID prefix at most 10 chars (e.g. REQ_LANE_01);
+   :status: open; :links: REQ_001; only use fields and link options
+   declared in docs/ubproject.toml.
+
+Expected: a ``.. req:: REQ_LANE_01`` block (or similar short ID),
+``:links: REQ_001``, and a single shall-clause grounded in the
+``LaneDetection`` class's public methods, ready to paste under
+``docs/automotive-adas/``.
+
+Step 3: write the missing test
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+   @pharaoh.vplan-draft
+
+   Pick requirement REQ_001 (Lane Detection Algorithm) from the
+   corpus and generate a single test case that verifies its
+   observable behaviour.
+
+   Constraints: directive name `test` (NOT `tc`); ID prefix at most
+   10 chars (e.g. T_LANE_DET_001); :status: open; link to the parent
+   via the project's generic option (`:links: REQ_001`), not
+   `:verifies:`; body must contain explicit Inputs, Steps, and
+   Expected sections with at least one measurable threshold.
+
+Expected: a ``.. test:: T_LANE_DET_001`` block with three RST
+paragraphs (Inputs / Steps / Expected) and a measurable acceptance
+criterion (for example a lateral-deviation threshold across lighting
+scenarios).
+
+Step 4: change-impact analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+   @pharaoh.change
+
+   The existing requirement REQ_001 (Lane Detection Algorithm) is
+   being revised: tighten the lateral-deviation tolerance and require
+   the algorithm to run on a constrained embedded ECU instead of the
+   development host.
+
+   Walk the traceability graph in docs/_build/html/needs.json
+   starting from REQ_001, following outgoing and incoming :links:
+   edges only. Skip person, team, and release nodes. Report:
+
+   * every architecture element linked to REQ_001 (must update)
+   * every software requirement linked to REQ_001 (must update)
+   * every test case that exercises REQ_001 or the affected swreqs
+     (must re-run)
+   * the release REQ_001 is scheduled into; flag whether the change
+     fits the release window
+   * any newly authored child needs from Steps 2 and 3 of this
+     walkthrough that depend on REQ_001
+
+   End with a one-paragraph summary suitable for a change-board
+   ticket.
+
+Expected: a tight blast radius of 6 to 8 needs in the lane-detection
+domain — one architecture element, three software requirements, two
+system tests, the release window, and the two new needs authored in
+Steps 2 and 3.
+
+Sanity-check the artefacts
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The two RST blocks emitted by Steps 2 and 3 paste directly under
+``docs/automotive-adas/``. Re-run the build and the ubc check to
+confirm both still pass:
+
+.. code-block:: bash
+
+   uv run sphinx-build -W -b html docs docs/_build/html
+   ubc check docs
+
+Both commands should report success with the new needs included.
+
 Tailoring layer
 ---------------
 
-The YAML files under ``.pharaoh/project/`` are intentionally
-human-readable so that they can be hand-tuned. Key entry points:
+The files under ``.pharaoh/project/`` are intentionally human-readable
+so that they can be hand-tuned. Key entry points:
 
-* ``workflows.yaml``: change the allowed states or add a
+* ``workflows.yaml``: change the allowed lifecycle states or add a
   ``deprecated`` terminal state.
 * ``artefact-catalog.yaml``: promote a field from optional to
-  required, or restrict ``child_of`` to a smaller set of parent types.
+  required, or add a project-specific link option (for example
+  ``mitigates`` for safety goals) to a type's ``required_fields``.
 * ``checklists/<type>.md``: edit the review questions consumed by
-  ``pharaoh:<type>-review``.
+  the per-type review skills.
+* ``id-conventions.yaml``: tighten or relax the ID regex once the
+  ID-policy collisions in the project's own ``[[needs.types]]`` are
+  resolved.
 
-Re-run ``pharaoh:tailor-detect`` once the catalogue grows past a few
-dozen needs to refresh the inferred conventions.
+Re-run ``@pharaoh.tailor-detect`` once the catalogue grows past a
+few dozen new needs to refresh the inferred conventions.
