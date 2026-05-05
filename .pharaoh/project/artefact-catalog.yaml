@@ -1,3 +1,10 @@
+# child_of values are intentionally conservative: only listed where the
+# corpus shows >=90% coverage AND the link semantics are child-to-parent
+# (decomposition / refinement). Owner-style links (:author:, :persons:),
+# planning links (:release:), and parent-to-child links (:provides:,
+# :startup_calls:, :shutdown_calls:) are excluded even when their corpus
+# coverage is high. Types with no qualifying parent get child_of: [].
+
 req:
   required_fields:
     - id
@@ -6,8 +13,8 @@ req:
     - source_doc
     - reviewer
     - approved_by
-    - release
-    - author
+    - customer
+    - approved
   child_of: []
   lifecycle_ref: workflows.yaml#req
 
@@ -18,7 +25,6 @@ spec:
   optional_fields:
     - reviewer
     - approved_by
-    - reqs
   child_of:
     - req
   lifecycle_ref: workflows.yaml#spec
@@ -30,11 +36,11 @@ impl:
   optional_fields:
     - reviewer
     - approved_by
-    - implements
-  child_of:
-    - spec
-    - component
-    - interface
+    - jira
+    - github
+    - effort
+    - approved
+  child_of: []
   lifecycle_ref: workflows.yaml#impl
 
 test:
@@ -44,9 +50,7 @@ test:
   optional_fields:
     - reviewer
     - approved_by
-    - specs
-  child_of:
-    - spec
+  child_of: []
   lifecycle_ref: workflows.yaml#test
 
 person:
@@ -54,6 +58,9 @@ person:
     - id
     - status
   optional_fields:
+    - role
+    - contact
+    - image
     - reviewer
     - approved_by
   child_of: []
@@ -66,7 +73,6 @@ team:
   optional_fields:
     - reviewer
     - approved_by
-    - persons
   child_of: []
   lifecycle_ref: workflows.yaml#team
 
@@ -75,9 +81,9 @@ release:
     - id
     - status
   optional_fields:
+    - date
     - reviewer
     - approved_by
-    - based_on
   child_of: []
   lifecycle_ref: workflows.yaml#release
 
@@ -89,9 +95,8 @@ arch:
     - source_doc
     - reviewer
     - approved_by
-    - depends_on
-    - realizes
-  child_of: []
+  child_of:
+    - req
   lifecycle_ref: workflows.yaml#arch
 
 need:
@@ -112,7 +117,8 @@ swarch:
     - source_doc
     - reviewer
     - approved_by
-  child_of: []
+  child_of:
+    - swreq
   lifecycle_ref: workflows.yaml#swarch
 
 component:
@@ -122,12 +128,7 @@ component:
   optional_fields:
     - reviewer
     - approved_by
-    - provides
-    - consumes
-    - uses
-  child_of:
-    - swarch
-    - sys-arch
+  child_of: []
   lifecycle_ref: workflows.yaml#component
 
 interface:
@@ -137,8 +138,8 @@ interface:
   optional_fields:
     - reviewer
     - approved_by
-    - provided_by
-  child_of: []
+  child_of:
+    - component
   lifecycle_ref: workflows.yaml#interface
 
 seq_msg:
@@ -159,8 +160,10 @@ swreq:
     - source_doc
     - reviewer
     - approved_by
+    - jira
+    - github
   child_of:
-    - sysreq
+    - req
   lifecycle_ref: workflows.yaml#swreq
 
 sys-arch:
@@ -207,7 +210,6 @@ fsr:
   required_fields:
     - id
     - status
-    - derives_from
   optional_fields:
     - asil
     - reviewer
