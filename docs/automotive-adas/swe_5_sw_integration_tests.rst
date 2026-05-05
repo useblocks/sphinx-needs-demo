@@ -52,7 +52,7 @@ This document provides integration test cases for the software architecture, ens
 
 .. test:: Traffic Sign Recognition and Speed Control Integration
    :id: TEST_INT_007
-   :status: passed
+   :status: failed
    :links: SWARCH_007, SWARCH_002
    :author: THOMAS
 

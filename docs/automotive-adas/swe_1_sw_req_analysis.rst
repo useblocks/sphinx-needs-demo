@@ -8,7 +8,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Lane Marking Detection Algorithm
    :id: SWREQ_001
-   :status: open
+   :status: in progress
    :links: ARCH_001, REQ_001
    :author: PETER
    :github: 4
@@ -34,7 +34,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Radar-Based Distance Measurement
    :id: SWREQ_004
-   :status: open
+   :status: closed
    :links: ARCH_002, REQ_003
    :author: ROBERT
 
@@ -42,7 +42,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Speed Control Integration
    :id: SWREQ_005
-   :status: open
+   :status: closed
    :links: ARCH_002, REQ_004
    :author: PETER
 
