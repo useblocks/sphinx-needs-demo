@@ -238,14 +238,17 @@ Step 2: reverse-engineer a focused requirement from code
    @pharaoh.req-from-code
 
    src/automotive_adas.py — focused API contract for the LaneDetection
-   class as a child of REQ_001. Emit a single `req` directive using
-   only declared fields and link options.
+   class as a child of REQ_001. Emit a single `req` directive. Use only
+   fields declared in ubproject.toml; do not emit :source_doc: or
+   :verification: unless the project's catalogue declares them.
 
 Expected: a ``.. req::`` block with a short domain-shaped ID, status
 ``open``, ``:links: REQ_001``, and a single shall-clause grounded in
 the ``LaneDetection`` class's public methods. The skill follows the
-project's id-conventions and uses ``:links:`` rather than the
-Pharaoh-internal ``:verification:`` field.
+project's id-conventions and uses only declared fields. If the
+emitted RST still carries Pharaoh-internal placeholders, strip them
+before pasting under ``docs/automotive-adas/`` or add the fields to
+``ubproject.toml``.
 
 Step 3: write the missing test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -271,26 +274,37 @@ Step 4: change-impact analysis
    @pharaoh.change
 
    REQ_001 is being revised: tighter lateral tolerance, ECU port.
-   Scope to the lane-detection domain.
+   Scope to the lane-detection domain. Emit the full change-impact
+   report directly; do not stop at an acknowledgement prompt.
 
 Expected: a tight blast radius of about 6 to 8 needs — one
 architecture element, three software requirements, two system tests,
 the release window, and any newly authored child needs from Steps 2
-and 3.
+and 3. The ``emit directly`` nudge bypasses the acknowledgement
+workflow gate added in Pharaoh v1.2.
 
 Why so short
 ^^^^^^^^^^^^
 
 The agent reads the project's tailoring (``.pharaoh/project/``) and
 ``ubproject.toml`` itself, so the user does not have to repeat the
-declared types, link options, ID regex, or status enum. The two short
-nudges in Steps 2 and 3 (``single req directive``, ``emit only the
-RST``) keep specific Pharaoh atomic skills from drifting into adjacent
-behaviour: the canonical ``pharaoh-req-from-code`` skill is happy to
-emit several SW-level requirements when one feature-level requirement
-was asked for, and ``pharaoh-vplan-draft`` is happy to follow itself
-with a self-review. Both behaviours are tracked as upstream Pharaoh
-issues.
+declared types, link options, ID regex, or status enum. The short
+nudges in Steps 2, 3, and 4 keep specific Pharaoh atomic skills from
+drifting into adjacent behaviour:
+
+* ``pharaoh-req-from-code`` happily emits several SW-level
+  requirements when one feature-level requirement was asked for, and
+  emits Pharaoh-internal placeholder fields (``:source_doc:``,
+  ``:verification:``) regardless of whether the project declares
+  them.
+* ``pharaoh-vplan-draft`` happily follows its draft with a
+  self-review pass and returns the review instead of the test.
+* ``pharaoh-change`` (since Pharaoh v1.2) writes a session-state
+  acknowledgement gate and waits for the user to approve before
+  emitting the full impact report.
+
+All three behaviours are tracked as upstream Pharaoh issues. The
+nudges are workshop-grade workarounds, not project-specific tailoring.
 
 Sanity-check the artefacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
