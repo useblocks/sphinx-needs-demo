@@ -45,3 +45,12 @@ SYS.1 Requirement Elicitation
 
    The system shall recognize traffic signs, with a focus on posted speed limits,
    so that downstream driving assistance functions can react appropriately.
+
+.. need:: Blind Spot Monitoring
+   :id: NEED_006
+   :status: open
+   :author: ROBERT
+
+   The system shall monitor zones to the rear and sides of the vehicle that are not
+   directly visible to the driver, and warn the driver when another road user enters
+   those zones while a lane change is intended.

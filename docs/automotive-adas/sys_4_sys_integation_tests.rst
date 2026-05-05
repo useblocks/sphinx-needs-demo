@@ -51,3 +51,12 @@ SYS.3 function as intended.
    :links: ARCH_007
 
    Validate the traffic sign recognition architecture by checking camera frame processing, sign classification, and publication of detected speed limits.
+
+.. test:: Blind Spot Monitoring Validation
+   :id: TEST_SYS_INT_008
+   :status: open
+   :links: ARCH_008
+
+   Validate the blind spot monitoring architecture by exercising radar/camera sensor
+   fusion against turn signal intent and confirming alerts are routed to the driver
+   alert system within the required latency budget.

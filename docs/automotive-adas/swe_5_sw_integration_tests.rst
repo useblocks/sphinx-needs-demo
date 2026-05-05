@@ -57,3 +57,13 @@ This document provides integration test cases for the software architecture, ens
    :author: THOMAS
 
    Validate that recognized speed limits are propagated correctly from traffic sign processing to the adaptive cruise control subsystem.
+
+.. test:: Blind Spot Sensor Fusion Integration
+   :id: TEST_INT_008
+   :status: open
+   :links: SWARCH_008
+   :author: THOMAS
+
+   Exercise the blind spot monitoring subsystem end to end: feed synthesized radar and
+   side-camera streams plus turn-signal events, and verify the warning emitter fires
+   only when an occupied zone aligns with the indicated lane change.

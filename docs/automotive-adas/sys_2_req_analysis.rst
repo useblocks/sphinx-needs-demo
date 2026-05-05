@@ -101,3 +101,23 @@ SYS.2 Requirement Analysis
 
    Develop functionality to detect posted speed limit signs from camera input and
    provide the extracted limit to driver assistance functions.
+
+.. req:: Blind Spot Zone Detection
+   :id: REQ_011
+   :status: open
+   :links: NEED_006
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Develop functionality to detect vehicles, motorcycles, and bicycles entering the
+   blind spot zones using rear-corner radar sensors and side-view cameras.
+
+.. req:: Lane Change Hazard Warning
+   :id: REQ_012
+   :status: open
+   :links: NEED_006
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Issue a driver warning when the turn signal is engaged toward a blind spot zone
+   that is currently occupied by another road user.

@@ -190,3 +190,38 @@ SWE.2 Software Architecture
       TrafficSignProcessor --> SignClassifier
       TrafficSignProcessor --> LimitPublisher
       @enduml
+
+.. swarch:: Blind Spot Monitoring Subsystem
+   :id: SWARCH_008
+   :status: open
+   :links: SWREQ_022, SWREQ_023
+   :author: ALFRED
+
+   Define the software architecture for the blind spot monitoring subsystem, covering
+   radar/camera fusion, zone occupancy tracking, and arbitration with turn signal intent
+   before raising a driver alert.
+
+   .. uml::
+
+      @startuml
+      class BlindSpotMonitor {
+          + updateZoneOccupancy()
+          + evaluateLaneChange()
+      }
+      class RadarTracker {
+          + trackApproachingVehicles()
+      }
+      class SideCameraDetector {
+          + detectAdjacentRoadUsers()
+      }
+      class TurnSignalArbiter {
+          + isLaneChangeIntent()
+      }
+      class WarningEmitter {
+          + raiseBlindSpotAlert()
+      }
+      BlindSpotMonitor --> RadarTracker
+      BlindSpotMonitor --> SideCameraDetector
+      BlindSpotMonitor --> TurnSignalArbiter
+      BlindSpotMonitor --> WarningEmitter
+      @enduml

@@ -44,3 +44,11 @@ This document provides qualification test cases to validate the fulfillment of s
    :links: SWREQ_021
 
    Qualify the speed limit sign detection software by verifying correct recognition of posted limits in representative traffic scenes.
+
+.. test:: Blind Spot Monitoring Qualification
+   :id: TEST_QUAL_007
+   :status: open
+   :links: SWREQ_022, SWREQ_023
+
+   Qualify the blind spot monitoring software by verifying zone occupancy detection and
+   lane change warning behavior across mixed traffic, weather, and lighting scenarios.

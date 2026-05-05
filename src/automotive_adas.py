@@ -162,3 +162,47 @@ class PedestrianDetection:
         """
         # Implementation here
         pass
+
+
+class BlindSpotMonitor:
+    """
+    .. impl:: Blind Spot Sensor Fusion
+       :id: IMPL_016
+       :status: open
+       :links: SWREQ_022, SWARCH_008
+
+       Fuses rear-corner radar and side-camera detections into a per-zone occupancy state.
+    """
+
+    def update_zone_occupancy(self, radar_tracks, camera_detections):
+        """
+        .. impl:: Blind Spot Zone Update
+           :id: IMPL_017
+           :status: open
+           :links: SWREQ_022, SWARCH_008
+
+           Returns the occupancy state for the left and right blind spot zones.
+        """
+        zones = {"left": False, "right": False}
+        for track in radar_tracks or []:
+            side = track.get("side") if isinstance(track, dict) else None
+            if side in zones:
+                zones[side] = True
+        for detection in camera_detections or []:
+            side = detection.get("side") if isinstance(detection, dict) else None
+            if side in zones:
+                zones[side] = True
+        return zones
+
+    def evaluate_lane_change(self, zones, turn_signal):
+        """
+        .. impl:: Lane Change Intent Arbitration
+           :id: IMPL_018
+           :status: open
+           :links: SWREQ_023, SWARCH_008
+
+           Returns True when the turn signal points at an occupied blind spot zone.
+        """
+        if turn_signal not in ("left", "right"):
+            return False
+        return bool(zones.get(turn_signal))

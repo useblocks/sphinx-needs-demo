@@ -5,6 +5,7 @@ from automotive_adas import (
     CollisionAvoidance,
     PedestrianDetection,
    TrafficSignRecognition,
+    BlindSpotMonitor,
 )
 
 
@@ -162,6 +163,47 @@ class TestTrafficSignRecognition(unittest.TestCase):
         """
         tsr = TrafficSignRecognition()
         self.assertEqual(tsr.detect_speed_limit(camera_feed={"speed_limit": 50}), 50)
+
+
+class TestBlindSpotMonitor(unittest.TestCase):
+    """
+    .. test:: Blind Spot Monitor Tests
+       :id: TEST_016
+       :status: open
+       :links: SWREQ_022, SWREQ_023, SWARCH_008
+       :author: THOMAS
+
+       Unit tests for blind spot monitor functionalities.
+    """
+
+    def test_zone_occupancy_from_radar(self):
+        """
+        .. test:: Blind Spot Radar Occupancy Test
+           :id: TEST_017
+           :status: open
+           :links: SWREQ_022, SWARCH_008
+           :author: THOMAS
+        """
+        bsm = BlindSpotMonitor()
+        zones = bsm.update_zone_occupancy(
+            radar_tracks=[{"side": "left"}], camera_detections=[]
+        )
+        self.assertTrue(zones["left"])
+        self.assertFalse(zones["right"])
+
+    def test_lane_change_warning_triggers_only_when_occupied(self):
+        """
+        .. test:: Blind Spot Lane Change Arbitration Test
+           :id: TEST_018
+           :status: open
+           :links: SWREQ_023, SWARCH_008
+           :author: THOMAS
+        """
+        bsm = BlindSpotMonitor()
+        zones = {"left": True, "right": False}
+        self.assertTrue(bsm.evaluate_lane_change(zones, turn_signal="left"))
+        self.assertFalse(bsm.evaluate_lane_change(zones, turn_signal="right"))
+        self.assertFalse(bsm.evaluate_lane_change(zones, turn_signal=None))
 
 
 if __name__ == "__main__":
