@@ -19,8 +19,10 @@ prefixes:
   fsr: FSR_
   sysreq: SYSREQ_
 
-# Project id_regex from docs/ubproject.toml [needs] id_regex (preserved verbatim).
-# Note: the strict OR-of-prefixes form would collide for R_ (req/release), T_ (test/team)
-# and the bare _ (arch/need); the project intentionally uses a permissive regex instead.
+# Anchored, ASCII-digit normalised form of the id_regex declared in
+# docs/ubproject.toml [needs] (which uses the equivalent [\d] character class
+# without anchors). The strict OR-of-prefixes form would collide for R_
+# (req/release), T_ (test/team) and the bare _ (arch/need). The project
+# intentionally uses this permissive regex instead.
 id_regex: "^[A-Z_]{3,10}(_[0-9]{1,3})*$"
 separator: "_"

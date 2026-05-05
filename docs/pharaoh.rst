@@ -71,9 +71,9 @@ the files described below.
 Setup
 -----
 
-The setup is performed by the ``pharaoh:pharaoh-setup`` skill. It is
-idempotent: re-running it on an already-configured project shows a
-diff and asks before overwriting any file.
+The setup is performed by the Pharaoh setup agent. It is idempotent:
+re-running it on an already-configured project shows a diff and asks
+before overwriting any file.
 
 Prerequisites
 ^^^^^^^^^^^^^
@@ -92,13 +92,20 @@ Optional but recommended:
 Running the setup
 ^^^^^^^^^^^^^^^^^
 
-In Claude Code or Copilot CLI:
+After the agents in this PR are committed, GitHub Copilot Chat
+exposes ``@pharaoh.setup`` as the entry point:
+
+.. code-block:: text
+
+   @pharaoh.setup
+
+In Claude Code, invoke the same skill via its plugin name:
 
 .. code-block:: text
 
    /pharaoh:pharaoh-setup
 
-The skill walks through five steps:
+Either form runs the same five steps:
 
 1. **Detect project structure.** Reads ``ubproject.toml``, lists
    declared types and link options, samples existing IDs, and detects
@@ -142,7 +149,7 @@ A few decisions worth calling out:
 Verifying the setup
 -------------------
 
-Build the documentation and run ``pharaoh:mece`` to confirm the
+Build the documentation and run the MECE check to confirm the
 traceability rules match the corpus:
 
 .. code-block:: bash
@@ -150,12 +157,15 @@ traceability rules match the corpus:
    uv sync
    uv run sphinx-build -b html docs docs/_build/html -W
 
-After the build emits ``docs/_build/html/needs.json``, invoke the
-MECE skill from your agent:
+After the build emits ``docs/_build/html/needs.json``, invoke MECE
+from your agent. In Copilot Chat:
 
 .. code-block:: text
 
-   /pharaoh:pharaoh-mece
+   @pharaoh.mece
+
+The same prompt is available as ``/pharaoh.mece`` and, in Claude
+Code, as ``/pharaoh:pharaoh-mece``.
 
 For the demo's current state the report shows zero gaps against the
 configured chains. Other findings (status mismatches, ID-regex
