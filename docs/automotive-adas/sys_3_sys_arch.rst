@@ -207,6 +207,11 @@ SYS.3 Architecture Design
    Design the system architecture for traffic sign recognition, including camera
    capture, sign classification, and distribution of detected speed limits to vehicle control functions.
 
+   The component view (PlantUML) and the SysML Block Definition Diagram below
+   describe the same architecture from two notations. The BDD is a static
+   SVG pre-rendered from a ``.gaphor`` model — see :ref:`SysML_Demo` for
+   the workflow.
+
    .. uml::
 
       @startuml
@@ -229,3 +234,10 @@ SYS.3 Architecture Design
       TrafficSignRecognition --> SignInterpreter
       SignInterpreter --> VehicleControl
       @enduml
+
+   .. figure:: sysml/adas-tsr-bdd__tsr-block-definition.svg
+      :align: center
+      :alt: SysML Block Definition Diagram for the Traffic Sign Recognition system
+
+      SysML BDD: ``TrafficSignRecognition`` decomposed into ``FrontCamera``,
+      ``SignInterpreter`` and ``VehicleControl`` parts.

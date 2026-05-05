@@ -6,6 +6,15 @@ import os
 import shutil
 import sys
 
+# Defensive: if a developer also has Gaphor (or any other PyGObject-using
+# package) installed in the same venv, matplotlib auto-picks the
+# "gtk4agg" backend and the build hangs at "writing output... [4%]"
+# trying to open a GDK surface on a headless host. Force the headless
+# Agg backend before any Sphinx extension imports matplotlib.
+import matplotlib
+
+matplotlib.use("Agg")
+
 import jinja2
 
 # We need to make Python aware of our project source code, which is stored outside `/docs`,
@@ -40,6 +49,10 @@ extensions = [
     "sphinx_design",
     "ubt_sphinx",
 ]
+
+# SysML / Gaphor diagrams are pre-rendered to SVG and embedded with
+# plain ``.. figure::`` — see docs/automotive-adas/sysml/index.rst. The
+# doc build therefore needs no Gaphor / PyGObject / Cairo runtime.
 
 ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"
