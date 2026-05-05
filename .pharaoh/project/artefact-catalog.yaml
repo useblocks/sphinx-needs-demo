@@ -1,0 +1,228 @@
+req:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - source_doc
+    - reviewer
+    - approved_by
+    - release
+    - author
+  child_of: []
+  lifecycle_ref: workflows.yaml#req
+
+spec:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - reqs
+  child_of:
+    - req
+  lifecycle_ref: workflows.yaml#spec
+
+impl:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - implements
+  child_of:
+    - spec
+    - component
+    - interface
+  lifecycle_ref: workflows.yaml#impl
+
+test:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - specs
+  child_of:
+    - spec
+  lifecycle_ref: workflows.yaml#test
+
+person:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#person
+
+team:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - persons
+  child_of: []
+  lifecycle_ref: workflows.yaml#team
+
+release:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - based_on
+  child_of: []
+  lifecycle_ref: workflows.yaml#release
+
+arch:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - source_doc
+    - reviewer
+    - approved_by
+    - depends_on
+    - realizes
+  child_of: []
+  lifecycle_ref: workflows.yaml#arch
+
+need:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#need
+
+swarch:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - source_doc
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#swarch
+
+component:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - provides
+    - consumes
+    - uses
+  child_of:
+    - swarch
+    - sys-arch
+  lifecycle_ref: workflows.yaml#component
+
+interface:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+    - provided_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#interface
+
+seq_msg:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#seq_msg
+
+swreq:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - source_doc
+    - reviewer
+    - approved_by
+  child_of:
+    - sysreq
+  lifecycle_ref: workflows.yaml#swreq
+
+sys-arch:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - source_doc
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#sys-arch
+
+hazard:
+  required_fields:
+    - id
+    - status
+    - asil
+  optional_fields:
+    - severity
+    - exposure
+    - controllability
+    - scenario
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#hazard
+
+safety_goal:
+  required_fields:
+    - id
+    - status
+    - asil
+    - mitigates
+  optional_fields:
+    - safe_state
+    - reviewer
+    - approved_by
+  child_of:
+    - hazard
+  lifecycle_ref: workflows.yaml#safety_goal
+
+fsr:
+  required_fields:
+    - id
+    - status
+    - derives_from
+  optional_fields:
+    - asil
+    - reviewer
+    - approved_by
+  child_of:
+    - safety_goal
+  lifecycle_ref: workflows.yaml#fsr
+
+sysreq:
+  required_fields:
+    - id
+    - status
+  optional_fields:
+    - source_doc
+    - reviewer
+    - approved_by
+  child_of: []
+  lifecycle_ref: workflows.yaml#sysreq

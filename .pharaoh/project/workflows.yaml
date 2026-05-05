@@ -1,0 +1,227 @@
+req:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+spec:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+impl:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+test:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+person:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+team:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+release:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+arch:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+need:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+swarch:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+component:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+interface:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+seq_msg:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+swreq:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+sys-arch:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+hazard:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+safety_goal:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+fsr:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
+
+sysreq:
+  states:
+    - draft
+    - reviewed
+    - approved
+  transitions:
+    - {from: draft, to: reviewed, gate: "reviewer_present"}
+    - {from: reviewed, to: approved, gate: "approver_present"}
+    - {from: reviewed, to: draft, gate: "reviewer_rejected"}
+  initial: draft
+  final: approved
