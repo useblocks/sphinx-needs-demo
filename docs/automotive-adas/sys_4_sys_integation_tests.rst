@@ -60,3 +60,12 @@ SYS.3 function as intended.
    Validate the blind spot monitoring architecture by exercising radar/camera sensor
    fusion against turn signal intent and confirming alerts are routed to the driver
    alert system within the required latency budget.
+
+.. test:: Driver Drowsiness Detection Validation
+   :id: TEST_SYS_INT_009
+   :status: open
+   :links: ARCH_009
+
+   Validate the drowsiness detection architecture by exercising cabin camera capture,
+   eye-state estimation, scoring, and alert routing across representative driver
+   states from alert through severely drowsy.

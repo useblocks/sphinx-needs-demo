@@ -206,3 +206,48 @@ class BlindSpotMonitor:
         if turn_signal not in ("left", "right"):
             return False
         return bool(zones.get(turn_signal))
+
+
+class DrowsinessMonitor:
+    """
+    .. impl:: Driver Drowsiness Monitor
+       :id: IMPL_019
+       :status: open
+       :links: SWREQ_024, SWARCH_009
+
+       Aggregates eye-state observations from the cabin camera into a drowsiness score.
+    """
+
+    DROWSY_THRESHOLD = 0.6
+
+    def __init__(self):
+        self._score = 0.0
+
+    def estimate_eye_state(self, frame):
+        """
+        .. impl:: Eye Aspect Ratio Estimation
+           :id: IMPL_020
+           :status: open
+           :links: SWREQ_024, SWARCH_009
+
+           Returns an eye-closed indicator derived from the input frame.
+        """
+        if isinstance(frame, dict):
+            ratio = frame.get("eye_aspect_ratio")
+            if ratio is None:
+                return 0.0
+            return 1.0 if ratio < 0.2 else 0.0
+        return 0.0
+
+    def update(self, frame):
+        """
+        .. impl:: Drowsiness Score Aggregation
+           :id: IMPL_021
+           :status: open
+           :links: SWREQ_025, SWARCH_009
+
+           Updates the smoothed drowsiness score and reports whether an alert should fire.
+        """
+        observation = self.estimate_eye_state(frame)
+        self._score = 0.7 * self._score + 0.3 * observation
+        return self._score >= self.DROWSY_THRESHOLD

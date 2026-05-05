@@ -121,3 +121,23 @@ SYS.2 Requirement Analysis
 
    Issue a driver warning when the turn signal is engaged toward a blind spot zone
    that is currently occupied by another road user.
+
+.. req:: Driver Eye State Estimation
+   :id: REQ_013
+   :status: open
+   :links: NEED_007
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Develop functionality to estimate driver eye-aspect ratio and gaze direction from
+   the cabin camera at the cadence required for drowsiness scoring.
+
+.. req:: Drowsiness Alert and Break Suggestion
+   :id: REQ_014
+   :status: open
+   :links: NEED_007
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Issue progressive driver alerts and propose a break when the drowsiness score
+   exceeds the configured threshold for longer than the calibrated dwell time.

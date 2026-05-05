@@ -6,6 +6,7 @@ from automotive_adas import (
     PedestrianDetection,
    TrafficSignRecognition,
     BlindSpotMonitor,
+    DrowsinessMonitor,
 )
 
 
@@ -204,6 +205,46 @@ class TestBlindSpotMonitor(unittest.TestCase):
         self.assertTrue(bsm.evaluate_lane_change(zones, turn_signal="left"))
         self.assertFalse(bsm.evaluate_lane_change(zones, turn_signal="right"))
         self.assertFalse(bsm.evaluate_lane_change(zones, turn_signal=None))
+
+
+class TestDrowsinessMonitor(unittest.TestCase):
+    """
+    .. test:: Drowsiness Monitor Tests
+       :id: TEST_019
+       :status: open
+       :links: SWREQ_024, SWREQ_025, SWARCH_009
+       :author: THOMAS
+
+       Unit tests for driver drowsiness monitor functionalities.
+    """
+
+    def test_alert_fires_when_eyes_closed_for_long_enough(self):
+        """
+        .. test:: Drowsiness Alert Trigger Test
+           :id: TEST_020
+           :status: open
+           :links: SWREQ_025, SWARCH_009
+           :author: THOMAS
+        """
+        dm = DrowsinessMonitor()
+        alert = False
+        for _ in range(20):
+            alert = dm.update({"eye_aspect_ratio": 0.1})
+            if alert:
+                break
+        self.assertTrue(alert)
+
+    def test_alert_quiet_for_alert_driver(self):
+        """
+        .. test:: Drowsiness No Alert Test
+           :id: TEST_021
+           :status: open
+           :links: SWREQ_025, SWARCH_009
+           :author: THOMAS
+        """
+        dm = DrowsinessMonitor()
+        for _ in range(20):
+            self.assertFalse(dm.update({"eye_aspect_ratio": 0.35}))
 
 
 if __name__ == "__main__":
