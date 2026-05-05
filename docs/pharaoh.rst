@@ -167,7 +167,7 @@ A few decisions worth calling out:
 * **Strictness** is ``advisory``. Pharaoh skills suggest the
   recommended workflow but never block authoring.
 * **Required link chains** reflect the 100%-coverage policy that the
-  existing 268 needs already satisfy: ``spec → req``, ``arch → req``,
+  existing needs already satisfy: ``spec → req``, ``arch → req``,
   ``safety_goal → hazard``, ``fsr → safety_goal``. Chains for
   ``impl`` and ``test`` were intentionally left out because the
   corpus shows mixed parent types below 90% coverage.
@@ -224,17 +224,9 @@ Step 1: gap analysis
 
    @pharaoh.mece
 
-   Analyse this sphinx-needs project for traceability gaps and
-   consistency issues. Use the corpus at docs/_build/html/needs.json.
-   Report required-link-chain violations, orphans, status mismatches,
-   ID-pattern violations against the project's id_regex, and any need
-   type observed in the corpus that is not declared in
-   [[needs.types]]. Quote concrete need IDs in every finding.
-
 Expected: the four declared traceability chains hit 100 percent
 coverage, but the report surfaces parent-closed/child-open status
-mismatches (for example ``EX_SPEC_001 (closed) -> EX_REQ_001 (open)``),
-a handful of needs of types injected by ``sphinx-test-reports`` that
+mismatches, needs of types injected by ``sphinx-test-reports`` that
 are not declared in ``[[needs.types]]``, and a number of existing
 need IDs that fail the project's own ``id_regex``.
 
@@ -245,22 +237,14 @@ Step 2: reverse-engineer a focused requirement from code
 
    @pharaoh.req-from-code
 
-   Read src/automotive_adas.py. The LaneDetection class is already
-   linked to SWREQ_001/002/003 and REQ_001 via three IMPL directives
-   in its docstrings, so the broad behaviour is captured. What is
-   not captured is a focused requirement for the API encapsulation
-   contract of the class — what the caller can rely on without
-   inspecting raw image data. Emit a single sphinx-needs `req`
-   directive that captures that contract as a child of REQ_001.
+   src/automotive_adas.py — focused API contract for the LaneDetection
+   class as a child of REQ_001.
 
-   Constraints: ID prefix at most 10 chars (e.g. REQ_LANE_01);
-   :status: open; :links: REQ_001; only use fields and link options
-   declared in docs/ubproject.toml.
-
-Expected: a ``.. req:: REQ_LANE_01`` block (or similar short ID),
-``:links: REQ_001``, and a single shall-clause grounded in the
-``LaneDetection`` class's public methods, ready to paste under
-``docs/automotive-adas/``.
+Expected: a ``.. req::`` block with a short domain-shaped ID, status
+``open``, ``:links: REQ_001``, and a single shall-clause grounded in
+the ``LaneDetection`` class's public methods. The skill reads
+``id-conventions.yaml`` and ``ubproject.toml`` to pick a regex-valid
+ID and use only declared fields and link options.
 
 Step 3: write the missing test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -269,20 +253,13 @@ Step 3: write the missing test
 
    @pharaoh.vplan-draft
 
-   Pick requirement REQ_001 (Lane Detection Algorithm) from the
-   corpus and generate a single test case that verifies its
-   observable behaviour.
+   System test for REQ_001 with measurable lighting-condition
+   thresholds.
 
-   Constraints: directive name `test` (NOT `tc`); ID prefix at most
-   10 chars (e.g. T_LANE_DET_001); :status: open; link to the parent
-   via the project's generic option (`:links: REQ_001`), not
-   `:verifies:`; body must contain explicit Inputs, Steps, and
-   Expected sections with at least one measurable threshold.
-
-Expected: a ``.. test:: T_LANE_DET_001`` block with three RST
-paragraphs (Inputs / Steps / Expected) and a measurable acceptance
-criterion (for example a lateral-deviation threshold across lighting
-scenarios).
+Expected: a ``.. test::`` block with a short domain-shaped ID, three
+body sections (Inputs, Steps, Expected), and a measurable acceptance
+criterion such as a lateral-deviation threshold across lighting
+scenarios.
 
 Step 4: change-impact analysis
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -291,31 +268,23 @@ Step 4: change-impact analysis
 
    @pharaoh.change
 
-   The existing requirement REQ_001 (Lane Detection Algorithm) is
-   being revised: tighten the lateral-deviation tolerance and require
-   the algorithm to run on a constrained embedded ECU instead of the
-   development host.
+   REQ_001 is being revised: tighter lateral tolerance, ECU port.
+   Scope to the lane-detection domain.
 
-   Walk the traceability graph in docs/_build/html/needs.json
-   starting from REQ_001, following outgoing and incoming :links:
-   edges only. Skip person, team, and release nodes. Report:
+Expected: a tight blast radius of about 6 to 8 needs — one
+architecture element, three software requirements, two system tests,
+the release window, and any newly authored child needs from Steps 2
+and 3.
 
-   * every architecture element linked to REQ_001 (must update)
-   * every software requirement linked to REQ_001 (must update)
-   * every test case that exercises REQ_001 or the affected swreqs
-     (must re-run)
-   * the release REQ_001 is scheduled into; flag whether the change
-     fits the release window
-   * any newly authored child needs from Steps 2 and 3 of this
-     walkthrough that depend on REQ_001
+Why so short
+^^^^^^^^^^^^
 
-   End with a one-paragraph summary suitable for a change-board
-   ticket.
-
-Expected: a tight blast radius of 6 to 8 needs in the lane-detection
-domain — one architecture element, three software requirements, two
-system tests, the release window, and the two new needs authored in
-Steps 2 and 3.
+The whole point is that the agent reads the project's tailoring
+(``.pharaoh/project/``) and ``ubproject.toml`` itself. The user
+should never have to remind it of the ID regex, the available link
+options, or the canonical status set. If a skill needs hand-fed
+constraints to produce build-clean output, that is a Pharaoh-skill
+gap (tracked upstream), not a property of this walkthrough.
 
 Sanity-check the artefacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
