@@ -17,7 +17,7 @@ req:
   lifecycle: [draft, reviewed, approved]
 
 spec:
-  required_fields: [id, status]
+  required_fields: [id, status, reqs]
   optional_fields: [reviewer, approved_by]
   lifecycle: [draft, reviewed, approved]
 
@@ -92,7 +92,7 @@ safety_goal:
   lifecycle: [draft, reviewed, approved]
 
 fsr:
-  required_fields: [id, status]
+  required_fields: [id, status, derives_from]
   optional_fields: [asil, reviewer, approved_by]
   lifecycle: [draft, reviewed, approved]
 
