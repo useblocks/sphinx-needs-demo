@@ -6,6 +6,14 @@ import os
 import shutil
 import sys
 
+# Force a headless matplotlib backend before sphinx-needs (or any other
+# extension) imports matplotlib. With Gaphor installed, PyGObject makes
+# matplotlib auto-pick "gtk4agg", which then hangs the build trying to open
+# a GDK surface in headless / RTD environments.
+import matplotlib
+
+matplotlib.use("Agg")
+
 import jinja2
 
 # We need to make Python aware of our project source code, which is stored outside `/docs`,
@@ -39,7 +47,18 @@ extensions = [
     "sphinx_preview",
     "sphinx_design",
     "ubt_sphinx",
+    "gaphor.extensions.sphinx",  # SysML / UML diagrams from .gaphor model files
 ]
+
+# Map a logical model name to a .gaphor file path (relative to docs/).
+# The ``.. diagram::`` directive looks up models by name from this dict;
+# ``:model: <name>`` selects which file to load. The ``default`` entry is
+# used when ``:model:`` is omitted.
+gaphor_models = {
+    "default": "automotive-adas/sysml/adas-tsr-bdd.gaphor",
+    "tsr": "automotive-adas/sysml/adas-tsr-bdd.gaphor",
+    "car": "automotive-adas/sysml/sysml-car.gaphor",
+}
 
 ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"

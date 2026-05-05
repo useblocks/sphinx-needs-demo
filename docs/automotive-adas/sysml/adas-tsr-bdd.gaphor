@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gaphor xmlns="https://gaphor.org/model" xmlns:SysML="https://gaphor.org/modelinglanguage/SysML" xmlns:UML="https://gaphor.org/modelinglanguage/UML" version="4" gaphor-version="3.3.2">
+<model>
+<UML:Package id="c0293e40-4861-11f1-ab4c-3b8692358179">
+<name>
+<val>ADAS</val>
+</name>
+<ownedDiagram>
+<reflist>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</ownedDiagram>
+<ownedType>
+<reflist>
+<ref refid="c02940de-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0294b7e-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0294dfe-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0294fd4-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</ownedType>
+<packagedElement>
+<reflist>
+<ref refid="c02940de-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0294b7e-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0294dfe-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0294fd4-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</packagedElement>
+</UML:Package>
+<SysML:Block id="c02940de-4861-11f1-ab4c-3b8692358179">
+<name>
+<val>TrafficSignRecognition</val>
+</name>
+<ownedAttribute>
+<reflist>
+<ref refid="c0295182-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0296370-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c0296af0-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</ownedAttribute>
+<owningPackage>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</owningPackage>
+<package>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="c02973b0-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+</SysML:Block>
+<SysML:Block id="c0294b7e-4861-11f1-ab4c-3b8692358179">
+<name>
+<val>FrontCamera</val>
+</name>
+<owningPackage>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</owningPackage>
+<package>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="c02f0712-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+</SysML:Block>
+<SysML:Block id="c0294dfe-4861-11f1-ab4c-3b8692358179">
+<name>
+<val>SignInterpreter</val>
+</name>
+<owningPackage>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</owningPackage>
+<package>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="c030214c-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+</SysML:Block>
+<SysML:Block id="c0294fd4-4861-11f1-ab4c-3b8692358179">
+<name>
+<val>VehicleControl</val>
+</name>
+<owningPackage>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</owningPackage>
+<package>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="c031373a-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+</SysML:Block>
+<UML:Property id="c0295182-4861-11f1-ab4c-3b8692358179">
+<aggregation>
+<val>composite</val>
+</aggregation>
+<name>
+<val>camera</val>
+</name>
+<presentation>
+<reflist>
+<ref refid="c02c4162-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+<structuredClassifier>
+<ref refid="c02940de-4861-11f1-ab4c-3b8692358179"/>
+</structuredClassifier>
+<type>
+<ref refid="c0294b7e-4861-11f1-ab4c-3b8692358179"/>
+</type>
+</UML:Property>
+<UML:Property id="c0296370-4861-11f1-ab4c-3b8692358179">
+<aggregation>
+<val>composite</val>
+</aggregation>
+<name>
+<val>interpreter</val>
+</name>
+<presentation>
+<reflist>
+<ref refid="c02d3aea-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+<structuredClassifier>
+<ref refid="c02940de-4861-11f1-ab4c-3b8692358179"/>
+</structuredClassifier>
+<type>
+<ref refid="c0294dfe-4861-11f1-ab4c-3b8692358179"/>
+</type>
+</UML:Property>
+<UML:Property id="c0296af0-4861-11f1-ab4c-3b8692358179">
+<aggregation>
+<val>composite</val>
+</aggregation>
+<name>
+<val>control</val>
+</name>
+<presentation>
+<reflist>
+<ref refid="c02e2702-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</presentation>
+<structuredClassifier>
+<ref refid="c02940de-4861-11f1-ab4c-3b8692358179"/>
+</structuredClassifier>
+<type>
+<ref refid="c0294fd4-4861-11f1-ab4c-3b8692358179"/>
+</type>
+</UML:Property>
+<SysML:BlockDefinitionDiagram id="c0296f8c-4861-11f1-ab4c-3b8692358179">
+<element>
+<ref refid="c0293e40-4861-11f1-ab4c-3b8692358179"/>
+</element>
+<name>
+<val>TSR Block Definition</val>
+</name>
+<ownedPresentation>
+<reflist>
+<ref refid="c02973b0-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c02c4162-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c02d3aea-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c02e2702-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c02f0712-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c030214c-4861-11f1-ab4c-3b8692358179"/>
+<ref refid="c031373a-4861-11f1-ab4c-3b8692358179"/>
+</reflist>
+</ownedPresentation>
+</SysML:BlockDefinitionDiagram>
+<SysML:BlockItem id="c02973b0-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 80.0, 60.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>480.0</val>
+</width>
+<height>
+<val>220.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c02940de-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:BlockItem>
+<SysML:PropertyItem id="c02c4162-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 100.0, 160.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>130.0</val>
+</width>
+<height>
+<val>60.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c0295182-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:PropertyItem>
+<SysML:PropertyItem id="c02d3aea-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 250.0, 160.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>130.0</val>
+</width>
+<height>
+<val>60.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c0296370-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:PropertyItem>
+<SysML:PropertyItem id="c02e2702-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 400.0, 160.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>130.0</val>
+</width>
+<height>
+<val>60.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c0296af0-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:PropertyItem>
+<SysML:BlockItem id="c02f0712-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 80.0, 380.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>160.0</val>
+</width>
+<height>
+<val>70.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c0294b7e-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:BlockItem>
+<SysML:BlockItem id="c030214c-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 280.0, 380.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>160.0</val>
+</width>
+<height>
+<val>70.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c0294dfe-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:BlockItem>
+<SysML:BlockItem id="c031373a-4861-11f1-ab4c-3b8692358179">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 480.0, 380.0)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>160.0</val>
+</width>
+<height>
+<val>70.0</val>
+</height>
+<diagram>
+<ref refid="c0296f8c-4861-11f1-ab4c-3b8692358179"/>
+</diagram>
+<subject>
+<ref refid="c0294fd4-4861-11f1-ab4c-3b8692358179"/>
+</subject>
+</SysML:BlockItem>
+</model>
+</gaphor>
