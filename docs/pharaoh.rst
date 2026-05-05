@@ -81,25 +81,54 @@ Prerequisites
 * a Sphinx project with Sphinx-Needs already configured
   (``ubproject.toml`` or ``conf.py`` declaring at least one
   ``[[needs.types]]`` entry).
-* the Pharaoh plugin installed in your Claude Code or Copilot CLI
-  workspace.
+* the Pharaoh plugin installed in your AI assistant of choice
+  (see below).
 
 Optional but recommended:
 
 * the ``ubc`` CLI on ``PATH`` (faster, deterministic data access).
 * the ubCode VS Code extension (live indexing and MCP integration).
 
+Installing the Pharaoh plugin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Claude Code.** Add the marketplace, install the plugin, and reload
+plugins:
+
+.. code-block:: text
+
+   /plugin marketplace add useblocks/pharaoh
+   /plugin install pharaoh@pharaoh-dev
+   /reload-plugins
+
+To pin a specific Pharaoh release instead of tracking ``pharaoh-dev``,
+add the marketplace at a tag:
+
+.. code-block:: text
+
+   /plugin marketplace add useblocks/pharaoh#v1.0.0
+
+**GitHub Copilot CLI.** Same flow with the ``copilot`` command:
+
+.. code-block:: bash
+
+   copilot plugin marketplace add useblocks/pharaoh
+   copilot plugin install pharaoh@pharaoh-dev
+
+Once the plugin is installed, the agents and skills described below
+become available in the assistant.
+
 Running the setup
 ^^^^^^^^^^^^^^^^^
 
-After the agents in this PR are committed, GitHub Copilot Chat
-exposes ``@pharaoh.setup`` as the entry point:
+After the plugin is installed and the agents in this PR are committed,
+GitHub Copilot Chat exposes ``@pharaoh.setup`` as the entry point:
 
 .. code-block:: text
 
    @pharaoh.setup
 
-In Claude Code, invoke the same skill via its plugin name:
+In Claude Code, invoke the same skill via its plugin slash form:
 
 .. code-block:: text
 
