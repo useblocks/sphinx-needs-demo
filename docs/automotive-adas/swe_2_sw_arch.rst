@@ -225,3 +225,39 @@ SWE.2 Software Architecture
       BlindSpotMonitor --> TurnSignalArbiter
       BlindSpotMonitor --> WarningEmitter
       @enduml
+
+.. swarch:: Driver Drowsiness Subsystem
+   :id: SWARCH_009
+   :status: open
+   :links: SWREQ_024, SWREQ_025
+   :author: STEVEN
+
+   Define the software architecture for the driver drowsiness subsystem, covering
+   cabin camera capture, per-frame eye-state estimation, drowsiness score aggregation,
+   and emission of progressive driver alerts.
+
+   .. uml::
+
+      @startuml
+      class DrowsinessMonitor {
+          + estimateEyeState()
+          + updateDrowsinessScore()
+          + emitAlert()
+      }
+      class CabinFrameSource {
+          + readFrame()
+      }
+      class EyeStateClassifier {
+          + classifyEyeAspectRatio()
+      }
+      class ScoreAggregator {
+          + aggregateScore()
+      }
+      class AlertEmitter {
+          + raiseDrowsinessAlert()
+      }
+      DrowsinessMonitor --> CabinFrameSource
+      DrowsinessMonitor --> EyeStateClassifier
+      DrowsinessMonitor --> ScoreAggregator
+      DrowsinessMonitor --> AlertEmitter
+      @enduml

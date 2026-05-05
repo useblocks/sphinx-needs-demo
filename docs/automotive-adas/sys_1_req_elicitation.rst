@@ -54,3 +54,12 @@ SYS.1 Requirement Elicitation
    The system shall monitor zones to the rear and sides of the vehicle that are not
    directly visible to the driver, and warn the driver when another road user enters
    those zones while a lane change is intended.
+
+.. need:: Driver Drowsiness Detection
+   :id: NEED_007
+   :status: open
+   :author: ROBERT
+
+   The system shall observe driver state via the cabin camera and warn the driver,
+   and optionally suggest a break, when sustained signs of drowsiness or inattention
+   are detected.

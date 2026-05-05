@@ -266,3 +266,37 @@ SYS.3 Architecture Design
       TurnSignalSensor --> BlindSpotMonitor
       BlindSpotMonitor --> DriverAlertSystem
       @enduml
+
+.. arch:: Driver Drowsiness Detection System
+   :id: ARCH_009
+   :status: open
+   :links: REQ_013, REQ_014
+   :author: ALFRED
+
+   Define the system architecture for driver drowsiness detection, combining cabin
+   camera capture with an eye-state estimator and a drowsiness scorer that emits
+   progressive alerts via the existing driver alert system.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component DrowsinessMonitor {
+              agent estimateEyeState
+              agent scoreDrowsiness
+          }
+          component CabinCamera {
+              agent captureDriverFace
+          }
+          component DrowsinessScorer {
+              agent updateScore
+          }
+          component DriverAlertSystem {
+              agent issueDrowsinessAlert
+              agent suggestBreak
+          }
+      }
+      CabinCamera --> DrowsinessMonitor
+      DrowsinessMonitor --> DrowsinessScorer
+      DrowsinessScorer --> DriverAlertSystem
+      @enduml
