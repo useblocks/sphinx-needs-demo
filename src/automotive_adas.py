@@ -251,3 +251,52 @@ class DrowsinessMonitor:
         observation = self.estimate_eye_state(frame)
         self._score = 0.7 * self._score + 0.3 * observation
         return self._score >= self.DROWSY_THRESHOLD
+
+
+class ParkingAssist:
+    """
+    .. impl:: Automated Parking Assist
+       :id: IMPL_022
+       :status: open
+       :links: SWREQ_026, SWARCH_010
+
+       Detects available parking slots and plans a park trajectory.
+    """
+
+    MIN_PARALLEL_LENGTH = 5.0
+    MIN_PERPENDICULAR_WIDTH = 2.4
+
+    def detect_slot(self, ultrasonic_readings, slot_kind):
+        """
+        .. impl:: Parking Slot Recognition
+           :id: IMPL_023
+           :status: open
+           :links: SWREQ_026, SWARCH_010
+
+           Returns the first slot whose dimensions clear the configured minimum.
+        """
+        threshold = (
+            self.MIN_PARALLEL_LENGTH
+            if slot_kind == "parallel"
+            else self.MIN_PERPENDICULAR_WIDTH
+        )
+        for index, reading in enumerate(ultrasonic_readings or []):
+            if reading >= threshold:
+                return {"index": index, "kind": slot_kind, "size": reading}
+        return None
+
+    def plan_trajectory(self, slot):
+        """
+        .. impl:: Park Trajectory Planning
+           :id: IMPL_024
+           :status: open
+           :links: SWREQ_027, SWARCH_010
+
+           Returns a list of waypoints leading into the chosen slot.
+        """
+        if slot is None:
+            return []
+        kind = slot.get("kind", "perpendicular")
+        if kind == "parallel":
+            return ["align", "reverse_into_slot", "straighten"]
+        return ["align", "forward_into_slot"]

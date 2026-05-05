@@ -141,3 +141,23 @@ SYS.2 Requirement Analysis
 
    Issue progressive driver alerts and propose a break when the drowsiness score
    exceeds the configured threshold for longer than the calibrated dwell time.
+
+.. req:: Parking Slot Detection
+   :id: REQ_015
+   :status: open
+   :links: NEED_008
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Develop functionality to detect parallel and perpendicular parking slots from
+   ultrasonic distance sensors fused with the surround-view camera system.
+
+.. req:: Park Trajectory Execution
+   :id: REQ_016
+   :status: open
+   :links: NEED_008
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Plan a feasible park trajectory into the chosen slot and command steering, throttle,
+   and braking actuators to follow it within configured speed and clearance bounds.

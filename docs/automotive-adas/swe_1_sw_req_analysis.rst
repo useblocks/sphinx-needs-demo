@@ -212,3 +212,22 @@ SWE.1 Software Requirements
    Aggregate per-frame eye-state observations into a smoothed drowsiness score and
    emit progressive alerts when the score exceeds calibrated thresholds for the
    required dwell time.
+
+.. swreq:: Parking Slot Recognition
+   :id: SWREQ_026
+   :status: open
+   :links: ARCH_010, REQ_015
+   :author: SARAH
+
+   Implement software to recognize parallel and perpendicular parking slots from
+   fused ultrasonic ranging and surround-view camera input, and rank them by feasibility.
+
+.. swreq:: Park Trajectory Planning
+   :id: SWREQ_027
+   :status: open
+   :links: ARCH_010, REQ_016
+   :author: SARAH
+
+   Plan and follow a smooth park trajectory into the selected slot, respecting
+   clearance margins, maximum speed, and steering rate limits, with abort behavior
+   on detected obstacles.

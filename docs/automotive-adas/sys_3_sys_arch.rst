@@ -300,3 +300,41 @@ SYS.3 Architecture Design
       DrowsinessMonitor --> DrowsinessScorer
       DrowsinessScorer --> DriverAlertSystem
       @enduml
+
+.. arch:: Automated Parking System
+   :id: ARCH_010
+   :status: open
+   :links: REQ_015, REQ_016
+   :author: ALFRED
+
+   Define the system architecture for automated parking, combining ultrasonic ranging
+   and surround-view camera input for slot detection, a trajectory planner, and the
+   actuator interface that commands steering, throttle, and brake during the park maneuver.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component ParkingAssist {
+              agent detectParkingSlot
+              agent planParkTrajectory
+              agent executeParkManeuver
+          }
+          component UltrasonicArray {
+              agent measureClearances
+          }
+          component SurroundCamera {
+              agent captureSlotImagery
+          }
+          component TrajectoryPlanner {
+              agent computeWaypoints
+          }
+          component VehicleActuators {
+              agent applySteeringThrottleBrake
+          }
+      }
+      UltrasonicArray --> ParkingAssist
+      SurroundCamera --> ParkingAssist
+      ParkingAssist --> TrajectoryPlanner
+      TrajectoryPlanner --> VehicleActuators
+      @enduml
