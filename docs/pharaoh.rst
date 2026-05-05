@@ -238,13 +238,14 @@ Step 2: reverse-engineer a focused requirement from code
    @pharaoh.req-from-code
 
    src/automotive_adas.py — focused API contract for the LaneDetection
-   class as a child of REQ_001.
+   class as a child of REQ_001. Emit a single `req` directive using
+   only declared fields and link options.
 
 Expected: a ``.. req::`` block with a short domain-shaped ID, status
 ``open``, ``:links: REQ_001``, and a single shall-clause grounded in
-the ``LaneDetection`` class's public methods. The skill reads
-``id-conventions.yaml`` and ``ubproject.toml`` to pick a regex-valid
-ID and use only declared fields and link options.
+the ``LaneDetection`` class's public methods. The skill follows the
+project's id-conventions and uses ``:links:`` rather than the
+Pharaoh-internal ``:verification:`` field.
 
 Step 3: write the missing test
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -254,12 +255,13 @@ Step 3: write the missing test
    @pharaoh.vplan-draft
 
    System test for REQ_001 with measurable lighting-condition
-   thresholds.
+   thresholds. Emit only the RST `.. test::` directive ready to paste,
+   no review and no self-evaluation.
 
 Expected: a ``.. test::`` block with a short domain-shaped ID, three
 body sections (Inputs, Steps, Expected), and a measurable acceptance
-criterion such as a lateral-deviation threshold across lighting
-scenarios.
+criterion such as a lateral-deviation or IoU threshold across
+lighting scenarios.
 
 Step 4: change-impact analysis
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -279,12 +281,16 @@ and 3.
 Why so short
 ^^^^^^^^^^^^
 
-The whole point is that the agent reads the project's tailoring
-(``.pharaoh/project/``) and ``ubproject.toml`` itself. The user
-should never have to remind it of the ID regex, the available link
-options, or the canonical status set. If a skill needs hand-fed
-constraints to produce build-clean output, that is a Pharaoh-skill
-gap (tracked upstream), not a property of this walkthrough.
+The agent reads the project's tailoring (``.pharaoh/project/``) and
+``ubproject.toml`` itself, so the user does not have to repeat the
+declared types, link options, ID regex, or status enum. The two short
+nudges in Steps 2 and 3 (``single req directive``, ``emit only the
+RST``) keep specific Pharaoh atomic skills from drifting into adjacent
+behaviour: the canonical ``pharaoh-req-from-code`` skill is happy to
+emit several SW-level requirements when one feature-level requirement
+was asked for, and ``pharaoh-vplan-draft`` is happy to follow itself
+with a self-review. Both behaviours are tracked as upstream Pharaoh
+issues.
 
 Sanity-check the artefacts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
