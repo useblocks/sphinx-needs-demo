@@ -13,7 +13,7 @@
 
 req:
   required_fields: [id, status]
-  optional_fields: [reviewer, approved_by, customer, approved]
+  optional_fields: [source_doc, reviewer, approved_by, customer, approved]
   lifecycle: [draft, reviewed, approved]
 
 spec:
@@ -98,5 +98,5 @@ fsr:
 
 sysreq:
   required_fields: [id, status]
-  optional_fields: [reviewer, approved_by]
+  optional_fields: [source_doc, reviewer, approved_by]
   lifecycle: [draft, reviewed, approved]
