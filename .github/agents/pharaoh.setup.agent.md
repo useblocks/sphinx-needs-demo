@@ -67,7 +67,20 @@ Data access:
 
 ### Step 3: Configure .gitignore
 
-Add `.pharaoh/` to `.gitignore` if not already present. Create `.gitignore` if needed.
+Add narrow entries for the ephemeral `.pharaoh/` subpaths only. The
+project tailoring under `.pharaoh/project/` is shared across the team
+and must stay tracked. Create `.gitignore` if needed.
+
+```
+.pharaoh/runs/
+.pharaoh/plans/
+.pharaoh/session.json
+.pharaoh/cache/
+```
+
+Do not add a wholesale `.pharaoh/` rule, that would hide the tailoring
+files (`workflows.yaml`, `id-conventions.yaml`, `artefact-catalog.yaml`,
+`checklists/`).
 
 ### Step 4: Recommend Tooling
 
