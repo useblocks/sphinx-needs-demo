@@ -24,13 +24,3 @@ This directory holds JUnit XML reports consumed by `sphinx-test-reports`.
 cd crates/coffee-machine
 cargo test 2>&1 | python ../../scripts/cargo_test_to_junit.py > ../../docs/testsuites/coffee_machine_junit.xml
 ```
-
-### Automatic regeneration
-
-The top-level `Makefile` runs this step automatically before every docs
-build:
-
-```bash
-make html        # runs cargo test → JUnit XML → Sphinx build
-make test-report # just regenerate the XML without building docs
-```

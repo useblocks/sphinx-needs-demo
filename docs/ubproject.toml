@@ -652,7 +652,6 @@ src = "."
 # ubCode setting: run a script command
 [scripts]
 sphinx = "sphinx-build -b html . _build/html"
-cargo_test = { cmd = "cd ../crates/coffee-machine && cargo test 2>&1 | {{ confdir }}/../.venv/bin/python ../scripts/cargo_test_to_junit.py > {{ confdir }}/testsuites/coffee_machine_junit.xml", jinja = true }
 
 [parse]
 ignore_directives = [
