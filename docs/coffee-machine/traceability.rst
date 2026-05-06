@@ -110,5 +110,5 @@ A comprehensive table of all needs in the coffee machine project:
 .. needtable:: All Coffee Machine Needs
    :filter: docname is not None and "coffee-machine" in docname and type in ["req", "swreq", "component", "interface", "impl", "test"]
    :columns: id, type, title, status, tags
-   :sort: type, id
+   :sort: type
    :style: datatables
