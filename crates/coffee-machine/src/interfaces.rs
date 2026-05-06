@@ -314,10 +314,10 @@ impl SensorData {
     }
 }
 
-// @ SensorDataProvider trait, IMPL_SENSOR_DATA_PROVIDER, impl, [INTF_SENSOR_DATA, COMP_HAL]
+// @ SensorDataProvider trait, IMPL_SENSOR_DATA_PROVIDER, impl, [INTF_SENSOR_DATA, COMP_ADC_DRV]
 /// Trait for components that provide sensor data
 ///
-/// Implements: Hardware Abstraction Layer (COMP_HAL)
+/// Implements: ADC Driver (COMP_ADC_DRV)
 pub trait SensorDataProvider {
     /// Get the latest sensor readings
     fn get_sensor_data(&self) -> SensorData;

@@ -316,6 +316,13 @@ color = "#16a085"
 style = "interface"
 
 [[needs.types]]
+directive = "layer"
+title = "Architectural Layer"
+prefix = "LAYER_"
+color = "#8e44ad"
+style = "package"
+
+[[needs.types]]
 directive = "seq_msg"
 title = "Sequence Message"
 prefix = "SEQMSG_"
