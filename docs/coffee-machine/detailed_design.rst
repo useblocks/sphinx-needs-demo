@@ -16,8 +16,8 @@ safety-critical modules.
 
 Each detailed design artifact maps directly to an architectural
 module, ensuring traceability from design to code. The code is
-organized as a Cargo workspace located in ``../../brewmaster-controller/``
-relative to this documentation, with clear module boundaries matching
+organized as a Cargo workspace located in ``crates/coffee-machine/``
+relative to the repository root, with clear module boundaries matching
 the architectural decomposition.
 
 Rust Interface Designs
