@@ -4,8 +4,10 @@ This directory holds JUnit XML reports consumed by `sphinx-test-reports`.
 
 ## `coffee_machine_junit.xml`
 
-**Do not check this file in** — it is generated automatically before each
-Sphinx build and is listed in `.gitignore`.
+> **Note:** This file is checked in on purpose so that the documentation
+> can be built for this demo without requiring a working Rust toolchain
+> or running the test suite. In a real project this file would be
+> `.gitignore`d and regenerated on every build.
 
 ### How it is generated
 
