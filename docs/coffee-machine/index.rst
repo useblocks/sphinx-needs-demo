@@ -27,4 +27,5 @@ detailed design.
    architecture
    detailed_design
    testing
+   safety_view
    traceability
