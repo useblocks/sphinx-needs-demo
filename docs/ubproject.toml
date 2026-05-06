@@ -657,7 +657,8 @@ cargo_test = { cmd = "cd ../crates/coffee-machine && cargo test 2>&1 | {{ confdi
 [parse]
 ignore_directives = [
   "test-file",
-  "src-trace"
+  "src-trace",
+  "test-report"
 ]
 
 ###############################################################################

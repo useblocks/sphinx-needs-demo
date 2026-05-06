@@ -23,6 +23,13 @@ the architectural decomposition.
 Rust Interface Designs
 ----------------------
 
+.. warning::
+
+   In this section, we could provide the full documentation of C/C++/Rust
+   elements directly — including class diagrams, struct/enum
+   documentation, and API references extracted from source code. This
+   capability will be supported in an upcoming codelinks release.
+
 The following interface designs are extracted from the Rust source
 code in ``crates/coffee-machine/src/interfaces.rs``. Each design is
 automatically traced to its corresponding interface and component
