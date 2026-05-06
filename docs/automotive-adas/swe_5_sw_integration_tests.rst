@@ -52,7 +52,7 @@ This document provides integration test cases for the software architecture, ens
 
 .. test:: Traffic Sign Recognition and Speed Control Integration
    :id: TEST_INT_007
-   :status: passed
+   :status: failed
    :links: SWARCH_007, SWARCH_002
    :author: THOMAS
 
@@ -67,3 +67,23 @@ This document provides integration test cases for the software architecture, ens
    Exercise the blind spot monitoring subsystem end to end: feed synthesized radar and
    side-camera streams plus turn-signal events, and verify the warning emitter fires
    only when an occupied zone aligns with the indicated lane change.
+
+.. test:: Drowsiness Detection Pipeline Integration
+   :id: TEST_INT_009
+   :status: open
+   :links: SWARCH_009
+   :author: THOMAS
+
+   Exercise the drowsiness detection subsystem end to end: feed cabin frame sequences
+   spanning alert, fatigued, and severely drowsy driver states, and verify progressive
+   alerts are raised once the smoothed drowsiness score exceeds the calibrated dwell time.
+
+.. test:: Automated Parking Pipeline Integration
+   :id: TEST_INT_010
+   :status: open
+   :links: SWARCH_010
+   :author: THOMAS
+
+   Exercise the automated parking subsystem end to end: feed synthesized ultrasonic
+   ranges and surround-camera frames for parallel and perpendicular slots, plan the
+   trajectory, and verify actuator commands stay within clearance and rate limits.

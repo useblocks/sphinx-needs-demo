@@ -52,3 +52,20 @@ This document provides qualification test cases to validate the fulfillment of s
 
    Qualify the blind spot monitoring software by verifying zone occupancy detection and
    lane change warning behavior across mixed traffic, weather, and lighting scenarios.
+
+.. test:: Driver Drowsiness Qualification
+   :id: TEST_QUAL_008
+   :status: open
+   :links: SWREQ_024, SWREQ_025
+
+   Qualify the drowsiness detection software by verifying eye-state estimation and
+   alert behavior across daytime, low-light, and partially-occluded driver scenarios.
+
+.. test:: Automated Parking Qualification
+   :id: TEST_QUAL_009
+   :status: open
+   :links: SWREQ_026, SWREQ_027
+
+   Qualify the automated parking software by verifying slot recognition and park
+   trajectory execution across parallel and perpendicular slots, mixed obstacle
+   density, and varied surface markings.

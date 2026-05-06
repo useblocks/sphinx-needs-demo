@@ -225,3 +225,79 @@ SWE.2 Software Architecture
       BlindSpotMonitor --> TurnSignalArbiter
       BlindSpotMonitor --> WarningEmitter
       @enduml
+
+.. swarch:: Driver Drowsiness Subsystem
+   :id: SWARCH_009
+   :status: open
+   :links: SWREQ_024, SWREQ_025
+   :author: STEVEN
+
+   Define the software architecture for the driver drowsiness subsystem, covering
+   cabin camera capture, per-frame eye-state estimation, drowsiness score aggregation,
+   and emission of progressive driver alerts.
+
+   .. uml::
+
+      @startuml
+      class DrowsinessMonitor {
+          + estimateEyeState()
+          + updateDrowsinessScore()
+          + emitAlert()
+      }
+      class CabinFrameSource {
+          + readFrame()
+      }
+      class EyeStateClassifier {
+          + classifyEyeAspectRatio()
+      }
+      class ScoreAggregator {
+          + aggregateScore()
+      }
+      class AlertEmitter {
+          + raiseDrowsinessAlert()
+      }
+      DrowsinessMonitor --> CabinFrameSource
+      DrowsinessMonitor --> EyeStateClassifier
+      DrowsinessMonitor --> ScoreAggregator
+      DrowsinessMonitor --> AlertEmitter
+      @enduml
+
+.. swarch:: Automated Parking Subsystem
+   :id: SWARCH_010
+   :status: open
+   :links: SWREQ_026, SWREQ_027
+   :author: SARAH
+
+   Define the software architecture for the automated parking subsystem, covering slot
+   recognition from fused ultrasonic and camera input, trajectory planning, and
+   actuator command sequencing during the park maneuver.
+
+   .. uml::
+
+      @startuml
+      class ParkingAssist {
+          + detectSlot()
+          + planTrajectory()
+          + executeManeuver()
+      }
+      class UltrasonicSensor {
+          + readClearances()
+      }
+      class SurroundCameraSource {
+          + readSlotImagery()
+      }
+      class SlotDetector {
+          + rankCandidateSlots()
+      }
+      class TrajectoryPlanner {
+          + computeWaypoints()
+      }
+      class ActuatorBridge {
+          + commandSteeringThrottleBrake()
+      }
+      ParkingAssist --> UltrasonicSensor
+      ParkingAssist --> SurroundCameraSource
+      ParkingAssist --> SlotDetector
+      ParkingAssist --> TrajectoryPlanner
+      ParkingAssist --> ActuatorBridge
+      @enduml

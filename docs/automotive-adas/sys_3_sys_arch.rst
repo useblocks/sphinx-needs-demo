@@ -9,7 +9,7 @@ SYS.3 Architecture Design
 
 .. arch:: Lane Detection Module
    :id: ARCH_001
-   :status: open
+   :status: in progress
    :links: REQ_001, REQ_002
    :author: ALFRED
 
@@ -36,7 +36,7 @@ SYS.3 Architecture Design
 
 .. arch:: Adaptive Cruise Control System
    :id: ARCH_002
-   :status: open
+   :status: closed
    :links: REQ_003, REQ_004
    :author: ALFRED
 
@@ -265,4 +265,76 @@ SYS.3 Architecture Design
       SideCamera --> BlindSpotMonitor
       TurnSignalSensor --> BlindSpotMonitor
       BlindSpotMonitor --> DriverAlertSystem
+      @enduml
+
+.. arch:: Driver Drowsiness Detection System
+   :id: ARCH_009
+   :status: open
+   :links: REQ_013, REQ_014
+   :author: ALFRED
+
+   Define the system architecture for driver drowsiness detection, combining cabin
+   camera capture with an eye-state estimator and a drowsiness scorer that emits
+   progressive alerts via the existing driver alert system.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component DrowsinessMonitor {
+              agent estimateEyeState
+              agent scoreDrowsiness
+          }
+          component CabinCamera {
+              agent captureDriverFace
+          }
+          component DrowsinessScorer {
+              agent updateScore
+          }
+          component DriverAlertSystem {
+              agent issueDrowsinessAlert
+              agent suggestBreak
+          }
+      }
+      CabinCamera --> DrowsinessMonitor
+      DrowsinessMonitor --> DrowsinessScorer
+      DrowsinessScorer --> DriverAlertSystem
+      @enduml
+
+.. arch:: Automated Parking System
+   :id: ARCH_010
+   :status: open
+   :links: REQ_015, REQ_016
+   :author: ALFRED
+
+   Define the system architecture for automated parking, combining ultrasonic ranging
+   and surround-view camera input for slot detection, a trajectory planner, and the
+   actuator interface that commands steering, throttle, and brake during the park maneuver.
+
+   .. uml::
+
+      @startuml
+      node "Vehicle" {
+          component ParkingAssist {
+              agent detectParkingSlot
+              agent planParkTrajectory
+              agent executeParkManeuver
+          }
+          component UltrasonicArray {
+              agent measureClearances
+          }
+          component SurroundCamera {
+              agent captureSlotImagery
+          }
+          component TrajectoryPlanner {
+              agent computeWaypoints
+          }
+          component VehicleActuators {
+              agent applySteeringThrottleBrake
+          }
+      }
+      UltrasonicArray --> ParkingAssist
+      SurroundCamera --> ParkingAssist
+      ParkingAssist --> TrajectoryPlanner
+      TrajectoryPlanner --> VehicleActuators
       @enduml
