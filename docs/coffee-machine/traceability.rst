@@ -5,7 +5,7 @@ Complete traceability is a cornerstone of the BrewMaster Pro 3000
 development process. Every line of code can be traced back through
 architectural designs and requirements to the original customer need
 or safety regulation. Conversely, every requirement can be traced
-forward to its implementation and verification test cases. This
+forward to its detailed design and verification test cases. This
 bidirectional traceability ensures nothing is missed and enables rapid
 impact analysis when requirements change.
 
