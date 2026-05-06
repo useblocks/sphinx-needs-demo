@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites>
+  <testsuite name="coffee_machine" tests="6" failures="0" errors="0">
+    <testcase classname="interfaces::tests::test_brew_ctrl_status_fault_detection" name="TEST_SAFETY_SHUTDOWN" time="0.001" />
+    <testcase classname="interfaces::tests::test_brew_strength_enum" name="TEST_BREW_STRENGTH" time="0.001" />
+    <testcase classname="interfaces::tests::test_sensor_data_creation" name="TEST_TEMP_CONTROL" time="0.001" />
+    <testcase classname="interfaces::tests::test_temp_ctrl_status_fault_detection" name="TEST_SAFETY_SHUTDOWN" time="0.001" />
+    <testcase classname="interfaces::tests::test_temperature_status_conversions" name="TEST_TEMP_CONTROL" time="0.001" />
+    <testcase classname="interfaces::tests::test_user_command_variants" name="TEST_BUTTON_DEBOUNCE" time="0.001" />
+  </testsuite>
+</testsuites>

@@ -314,10 +314,10 @@ impl SensorData {
     }
 }
 
-// @ SensorDataProvider trait, IMPL_SENSOR_DATA_PROVIDER, impl, [INTF_SENSOR_DATA, COMP_HAL]
+// @ SensorDataProvider trait, IMPL_SENSOR_DATA_PROVIDER, impl, [INTF_SENSOR_DATA, COMP_ADC_DRV]
 /// Trait for components that provide sensor data
 ///
-/// Implements: Hardware Abstraction Layer (COMP_HAL)
+/// Implements: ADC Driver (COMP_ADC_DRV)
 pub trait SensorDataProvider {
     /// Get the latest sensor readings
     fn get_sensor_data(&self) -> SensorData;
@@ -332,10 +332,116 @@ pub trait SensorDataConsumer {
     fn process_sensor_data(&mut self, data: SensorData);
 }
 
+/// PWM Control Interface (INTF_PWM_CTRL)
+///
+/// **Provider**: PWM Driver (COMP_PWM_DRV)
+///
+/// **Consumer**: Temperature Controller Module (COMP_TEMP_CTRL)
+///
+/// **Description**: Controls PWM output channels for heating element regulation.
+///
+/// **Protocol**: Direct register-mapped API, immediate effect
+
+// @ PwmChannel enum, IMPL_PWM_CHANNEL, impl, [INTF_PWM_CTRL]
+/// PWM output channel identifier
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PwmChannel {
+    /// Heating element control channel
+    Heater,
+}
+
+// @ PwmControl trait, IMPL_PWM_CTRL, impl, [INTF_PWM_CTRL, COMP_PWM_DRV]
+/// Trait for PWM output control
+///
+/// Implements: PWM Driver (COMP_PWM_DRV)
+pub trait PwmControl {
+    /// Set duty cycle for a channel (0–10000 for 0.01% resolution)
+    fn set_duty_cycle(&mut self, channel: PwmChannel, duty: u16);
+    /// Enable a PWM channel
+    fn enable(&mut self, channel: PwmChannel);
+    /// Disable a PWM channel
+    fn disable(&mut self, channel: PwmChannel);
+}
+
+/// GPIO Interface (INTF_GPIO)
+///
+/// **Provider**: GPIO Driver (COMP_GPIO_DRV)
+///
+/// **Consumers**: User Interface Module (COMP_UI_MODULE), Brew Controller Module (COMP_BREW_CTRL)
+///
+/// **Description**: Digital I/O abstraction for discrete signals —
+/// pump motor, brew valve, buttons, and LED indicators.
+///
+/// **Protocol**: Direct register-mapped API with interrupt support
+
+// @ GpioPin enum, IMPL_GPIO_PIN, impl, [INTF_GPIO]
+/// GPIO pin identifiers for the BrewMaster Pro 3000
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum GpioPin {
+    /// Pump motor control (output)
+    PumpMotor,
+    /// Brew valve solenoid (output)
+    BrewValve,
+    /// Start button (input)
+    ButtonStart,
+    /// Strength select button (input)
+    ButtonStrength,
+    /// Ready LED (output)
+    LedReady,
+    /// Error LED (output)
+    LedError,
+}
+
+// @ Edge enum, IMPL_GPIO_EDGE, impl, [INTF_GPIO]
+/// GPIO interrupt edge trigger type
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Edge {
+    /// Trigger on rising edge
+    Rising,
+    /// Trigger on falling edge
+    Falling,
+}
+
+// @ GpioControl trait, IMPL_GPIO_CTRL, impl, [INTF_GPIO, COMP_GPIO_DRV]
+/// Trait for GPIO pin control
+///
+/// Implements: GPIO Driver (COMP_GPIO_DRV)
+pub trait GpioControl {
+    /// Set a pin output state
+    fn set_pin(&mut self, pin: GpioPin, state: bool);
+    /// Read a pin input state
+    fn read_pin(&self, pin: GpioPin) -> bool;
+}
+
+/// SPI Bus Interface (INTF_SPI_BUS)
+///
+/// **Provider**: SPI Driver (COMP_SPI_DRV)
+///
+/// **Consumer**: User Interface Module (COMP_UI_MODULE)
+///
+/// **Description**: SPI bus access for communication with the
+/// front-panel OLED display controller.
+///
+/// **Protocol**: Full-duplex SPI Mode 0, 4 MHz clock, DMA-capable
+
+// @ SpiBus trait, IMPL_SPI_BUS, impl, [INTF_SPI_BUS, COMP_SPI_DRV]
+/// Trait for SPI bus communication
+///
+/// Implements: SPI Driver (COMP_SPI_DRV)
+pub trait SpiBus {
+    /// Full-duplex SPI transfer
+    fn transfer(&mut self, tx_buf: &[u8], rx_buf: &mut [u8]);
+    /// Non-blocking DMA write
+    fn write_dma(&mut self, buf: &[u8]);
+    /// Check if a DMA transfer is still in progress
+    fn busy(&self) -> bool;
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    // @ test_temperature_status_conversions, IMPL_TEST_TEMP_STATUS, impl, [TEST_TEMP_CONTROL]
     #[test]
     fn test_temperature_status_conversions() {
         let status = TemperatureStatus::new(900, 950, true, false);
@@ -345,6 +451,7 @@ mod tests {
         assert_eq!(status.heating_active, false);
     }
 
+    // @ test_temp_ctrl_status_fault_detection, IMPL_TEST_TEMP_FAULT, impl, [TEST_SAFETY_SHUTDOWN]
     #[test]
     fn test_temp_ctrl_status_fault_detection() {
         let status_no_fault = TempCtrlStatus::new(1, 100, 0, 900);
@@ -355,6 +462,7 @@ mod tests {
         assert_eq!(status_with_fault.has_faults(), true);
     }
 
+    // @ test_brew_ctrl_status_fault_detection, IMPL_TEST_BREW_FAULT, impl, [TEST_SAFETY_SHUTDOWN]
     #[test]
     fn test_brew_ctrl_status_fault_detection() {
         let status_no_fault = BrewCtrlStatus::new(2, 100, 0, 80);
@@ -365,6 +473,7 @@ mod tests {
         assert_eq!(status_with_fault.has_faults(), true);
     }
 
+    // @ test_brew_strength_enum, IMPL_TEST_BREW_STRENGTH, impl, [TEST_BREW_STRENGTH]
     #[test]
     fn test_brew_strength_enum() {
         let strength = BrewStrength::Medium;
@@ -372,6 +481,7 @@ mod tests {
         assert_ne!(strength, BrewStrength::Weak);
     }
 
+    // @ test_user_command_variants, IMPL_TEST_USER_CMD, impl, [TEST_BUTTON_DEBOUNCE]
     #[test]
     fn test_user_command_variants() {
         let cmd1 = UserCommand::StartBrew(BrewStrength::Strong);
@@ -394,6 +504,7 @@ mod tests {
         }
     }
 
+    // @ test_sensor_data_creation, IMPL_TEST_SENSOR_DATA, impl, [TEST_TEMP_CONTROL]
     #[test]
     fn test_sensor_data_creation() {
         let data = SensorData::new(2048, 3000, 12345);
