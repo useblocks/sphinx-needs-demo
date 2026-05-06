@@ -16,7 +16,7 @@ The following diagram shows all needs and their connections in this
 coffee machine example:
 
 .. needflow::
-   :types: req, swreq, component, interface, impl, test
+   :types: req, swreq, component, interface, impl, test, test-run
    :filter: docname is not None and "coffee-machine" in docname
    :show_link_names:
    :config: toptobottom
@@ -66,9 +66,29 @@ requirements they verify.
 
 .. needtable:: Test Case Summary
    :filter: type == "test" and docname is not None and "coffee-machine" in docname
-   :columns: id, title, status, tags, specs as "Verifies"
+   :columns: id, title, status, specs as "Verifies", runs as "Execution Runs"
    :style: table
    :sort: id
+
+Test Execution Results
+----------------------
+
+Results from the latest ``cargo test`` run, automatically linked to
+test specifications via ``tr_link``.
+
+.. needtable:: Test Execution Results
+   :filter: 'cargo_test' in tags and type == 'test-run'
+   :columns: id, title, result, runs_back as "Test Spec"
+   :style: table
+   :sort: id
+
+.. needpie:: Test Execution Results
+   :labels: Passed, Failed, Skipped
+   :legend:
+
+   'cargo_test' in tags and type == 'test-run' and result == 'passed'
+   'cargo_test' in tags and type == 'test-run' and result == 'failure'
+   'cargo_test' in tags and type == 'test-run' and result == 'skipped'
 
 Test Status Metrics
 -------------------
@@ -108,7 +128,7 @@ Complete Needs Index
 A comprehensive table of all needs in the coffee machine project:
 
 .. needtable:: All Coffee Machine Needs
-   :filter: docname is not None and "coffee-machine" in docname and type in ["req", "swreq", "component", "interface", "impl", "test"]
+   :filter: docname is not None and "coffee-machine" in docname and type in ["req", "swreq", "component", "interface", "impl", "test", "test-run"]
    :columns: id, type, title, status, tags
    :sort: type
    :style: datatables

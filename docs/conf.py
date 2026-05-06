@@ -112,6 +112,9 @@ preview_config = {
 
 templates_path = ["_templates"]
 
+# Use a custom test-report template that removes the broken self-referencing literalinclude
+tr_report_template = "_static/test_report_template.txt"
+
 # List of files/folder to ignore.
 # Sphinx builds all ``.rst`` files under ``/docs``, no matte if they are part
 # of a toctree or not. So as we have some rst-templates, we need to tell Sphinx to ignore
