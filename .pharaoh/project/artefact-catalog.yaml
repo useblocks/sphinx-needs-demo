@@ -1,0 +1,102 @@
+# Per-type catalogue. Shape conforms to the canonical schema in
+# pharaoh/examples/score/.pharaoh/project/schemas/artefact-catalog.schema.json
+# (additionalProperties: false). Allowed per-type keys: required_fields,
+# optional_fields, lifecycle, required_body_sections.
+#
+# lifecycle entries are a subset of workflows.lifecycle_states (cross-file
+# rule C2). lifecycle is omitted for meta types (person, team, release,
+# seq_msg, need) that are reference data, not review-eligible artefacts.
+#
+# Parent-of relations between types are not encoded here (canonical schema
+# has no slot for them). They are captured in pharaoh.toml [pharaoh.traceability]
+# required_links instead.
+
+req:
+  required_fields: [id, status]
+  optional_fields: [source_doc, reviewer, approved_by, customer, approved]
+  lifecycle: [draft, reviewed, approved]
+
+spec:
+  required_fields: [id, status, reqs]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+impl:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by, jira, github, effort, approved]
+  lifecycle: [draft, reviewed, approved]
+
+test:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+person:
+  required_fields: [id, status]
+  optional_fields: [role, contact, image, reviewer, approved_by]
+
+team:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+
+release:
+  required_fields: [id, status]
+  optional_fields: [date, reviewer, approved_by]
+
+arch:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+need:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+
+swarch:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+component:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+interface:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+seq_msg:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+
+swreq:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by, jira, github]
+  lifecycle: [draft, reviewed, approved]
+
+sys-arch:
+  required_fields: [id, status]
+  optional_fields: [reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+hazard:
+  required_fields: [id, status, asil]
+  optional_fields: [severity, exposure, controllability, scenario, reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+safety_goal:
+  required_fields: [id, status, asil, mitigates]
+  optional_fields: [safe_state, reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+fsr:
+  required_fields: [id, status, derives_from]
+  optional_fields: [asil, reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]
+
+sysreq:
+  required_fields: [id, status]
+  optional_fields: [source_doc, reviewer, approved_by]
+  lifecycle: [draft, reviewed, approved]

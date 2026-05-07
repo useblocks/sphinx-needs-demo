@@ -1,0 +1,28 @@
+prefixes:
+  req: R_
+  spec: S_
+  impl: I_
+  test: T_
+  person: P_
+  team: T_
+  release: R_
+  arch: _
+  need: _
+  swarch: SWARCH_
+  component: COMP_
+  interface: INTF_
+  seq_msg: SEQMSG_
+  swreq: SWREQ_
+  sys-arch: SYSARCH_
+  hazard: HAZ_
+  safety_goal: SG_
+  fsr: FSR_
+  sysreq: SYSREQ_
+
+# Anchored, ASCII-digit normalised form of the id_regex declared in
+# docs/ubproject.toml [needs] (which uses the equivalent [\d] character class
+# without anchors). The strict OR-of-prefixes form would collide for R_
+# (req/release), T_ (test/team) and the bare _ (arch/need). The project
+# intentionally uses this permissive regex instead.
+id_regex: "^[A-Z_]{3,10}(_[0-9]{1,3})*$"
+separator: "_"

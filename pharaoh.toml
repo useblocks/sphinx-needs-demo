@@ -1,0 +1,46 @@
+# Pharaoh configuration for sphinx-needs-demo.
+# Need types and link types are read from docs/ubproject.toml. They are not
+# re-defined here.
+
+[pharaoh]
+# "advisory" (default): suggests workflow but never blocks.
+# "enforcing": skills gate each other per workflow rules.
+strictness = "advisory"
+
+[pharaoh.id_scheme]
+# Available placeholders: {TYPE}, {MODULE}, {NUMBER}.
+# Existing project IDs use a domain prefix (e.g. BRAKE_CTRL_01, FSR_POWER_01).
+# The default below is a safe starting point for new IDs allocated by Pharaoh.
+pattern = "{TYPE}_{NUMBER}"
+auto_increment = true
+
+[pharaoh.workflow]
+# mode: reverse-eng. Pharaoh is being introduced over an existing catalogue.
+# Tighten as the catalogue stabilises (see skills/shared/gate-enablement.md).
+require_change_analysis = false
+require_verification = true
+require_mece_on_release = false
+
+[pharaoh.traceability]
+# Required link chains. pharaoh:mece reports violations.
+# Format: "source_type -> target_type". Every <source> must have at least one
+# outgoing link to a need of <target> type (across any link option).
+# Chains below reflect 100%-coverage policy observed in this repo's needs.json:
+#   spec  :reqs:        -> req
+#   arch  :links:       -> req
+#   safety_goal :mitigates: -> hazard
+#   fsr   :derives_from: -> safety_goal
+# Chains for impl/test/component were intentionally omitted: corpus shows mixed
+# parent types (swreq, swarch, interface, ...) below 90% coverage, so they are
+# not project-wide policy yet. Add them once the convention stabilises.
+required_links = [
+    "spec -> req",
+    "arch -> req",
+    "safety_goal -> hazard",
+    "fsr -> safety_goal",
+]
+
+[pharaoh.codelinks]
+# sphinx-codelinks detected in docs/ubproject.toml [codelinks]. Pharaoh's
+# change-impact analysis follows it.
+enabled = true

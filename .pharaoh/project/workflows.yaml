@@ -1,0 +1,17 @@
+# Pharaoh review-workflow lifecycle. Flat shape per the canonical schema
+# in pharaoh/examples/score/.pharaoh/project/schemas/workflows.schema.json.
+# Distinct from sphinx-needs :status: field, which carries the project's
+# authoring status (open / closed / passed / approved).
+
+lifecycle_states: [draft, reviewed, approved]
+
+transitions:
+  - from: draft
+    to: reviewed
+    requires: [reviewer_present]
+  - from: reviewed
+    to: approved
+    requires: [approver_present]
+  - from: reviewed
+    to: draft
+    requires: [reviewer_rejected]

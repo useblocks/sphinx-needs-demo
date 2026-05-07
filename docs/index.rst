@@ -106,6 +106,7 @@ Page Content
 
    demo_details
    online_editor
+   pharaoh
 
 .. toctree::
    :maxdepth: 2
