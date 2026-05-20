@@ -15,7 +15,7 @@ coverage of customer needs.
 .. swreq:: Temperature Regulation
    :id: SWREQ_TEMP_REGULATION
    :status: open
-   :tags: control, heating
+   :tags: control, heating, safety
    :reqs: REQ_HEAT_WATER
    :collapse: true
 
@@ -27,7 +27,7 @@ coverage of customer needs.
    :id: SWREQ_OVERTEMP_SHUTDOWN
    :status: open
    :tags: safety, critical
-   :reqs: REQ_SAFETY_SHUTDOWN
+   :reqs: REQ_SAFETY_SHUTDOWN, REQ_HEAT_WATER
    :collapse: true
 
    The software shall continuously monitor water temperature and trigger

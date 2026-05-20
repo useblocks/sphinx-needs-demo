@@ -22,7 +22,7 @@ each component.
 .. test:: Test Temperature Control
    :id: TEST_TEMP_CONTROL
    :status: open
-   :tags: unit, control
+   :tags: unit, control, safety
    :specs: SWREQ_TEMP_REGULATION
    :collapse: true
 

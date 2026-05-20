@@ -116,7 +116,7 @@ Layers
    .. component:: Temperature Controller Module
       :id: COMP_TEMP_CTRL
       :status: open
-      :tags: module, control
+      :tags: module, control, safety
       :implements: SWREQ_TEMP_REGULATION
       :uses: INTF_SAFETY_CMD, INTF_SENSOR_DATA, INTF_PWM_CTRL
       :startup_calls: SEQSTART_07
