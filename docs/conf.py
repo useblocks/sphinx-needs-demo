@@ -101,6 +101,19 @@ tr_case = ["test-run", "testrun", "Test-Run", "TR_", "#999999", "node"]
 # Default is "file" but sphinx-codelinks also uses "file" for source code paths
 tr_file_option = "test_file"
 
+# Make the "verifies" JUnit XML property available as a sphinx-needs field on
+# every imported test-run need so that requirement traceability is captured
+# directly from the test output.
+# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/configuration.html#tr-extra-options
+tr_extra_options = ["verifies"]
+
+# Map the "verifies" property to the sphinx-needs "links" link type so that
+# test-run needs automatically link back to the requirements they verify.
+# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/configuration.html#tr-property-link-types
+tr_property_link_types = {
+    "verifies": "links",
+}
+
 ###############################################################################
 # SPHINX-TEST-REPORTS Config END
 ###############################################################################
