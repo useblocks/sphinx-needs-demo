@@ -67,7 +67,7 @@ other subsystems through status interfaces and can override them via
 the Safety Command Interface.
 
 .. needflow::
-   :filter: docname is not None and ("coffee-machine" in docname) and ((type == "swreq" and "safety" in tags) or id in ["COMP_SAFETY_MON", "LAYER_SAFETY", "INTF_SAFETY_CMD", "INTF_TEMP_CTRL_STATUS", "INTF_BREW_CTRL_STATUS", "INTF_SENSOR_DATA"])
+   :filter: docname is not None and ("coffee-machine" in docname) and ((type == "swreq" and "safety" in tags) or id in ["COMP_SAFETY_MON", "COMP_TEMP_CTRL", "LAYER_SAFETY", "INTF_SAFETY_CMD", "INTF_TEMP_CTRL_STATUS", "INTF_BREW_CTRL_STATUS", "INTF_SENSOR_DATA"])
    :show_link_names:
    :config: toptobottom
 
@@ -110,7 +110,7 @@ requirement through to test verification, demonstrating complete
 bidirectional traceability of the safety feature:
 
 .. needflow::
-   :filter: docname is not None and ("coffee-machine" in docname) and ((type == "req" and "safety" in tags) or (type == "swreq" and "safety" in tags) or id in ["COMP_SAFETY_MON", "INTF_SAFETY_CMD"] or (type == "test" and "safety" in tags))
+   :filter: docname is not None and ("coffee-machine" in docname) and ((type == "req" and "safety" in tags) or (type == "swreq" and "safety" in tags) or id in ["COMP_SAFETY_MON", "COMP_TEMP_CTRL", "INTF_SAFETY_CMD"] or (type == "test" and "safety" in tags))
    :show_link_names:
    :config: toptobottom
 
