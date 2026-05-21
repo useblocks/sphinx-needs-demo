@@ -673,6 +673,36 @@ local_url_field = "local-url"   # Need's field name for local URL
 set_remote_url = true           # Enable remote url generation
 remote_url_field = "remote-url" # Need's field name for remote URL
 
+
+# ADAS
+
+# Configuration for the  ADAS c project
+[codelinks.projects.adas]
+remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commit}/{path}#L{line}"
+
+[codelinks.projects.adas.source_discover]
+src_dir = "../src/c"  # Relative path to Rust source
+gitignore = true
+comment_type ="cpp"
+
+[codelinks.projects.adas.analyse]
+get_need_id_refs = true
+get_oneline_needs = true      # Extract oneline need definitions from code
+
+[codelinks.projects.adas.analyse.oneline_comment_style]
+start_sequence = "@ "         # Start sequence: "// @ "
+field_split_char = ","        # Separator between fields
+# Define the fields in the oneline comments
+needs_fields = [
+  { "name" = "title", "type" = "str" },
+  { "name" = "id", "type" = "str" },
+  { "name" = "type", "type" = "str", "default" = "impl" },
+  { "name" = "implements", "type" = "list[str]", "default" = [] },
+]
+
+
+# COFFE MACHINE
+
 # Configuration for the coffee-machine Rust project
 [codelinks.projects.coffee_machine]
 remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commit}/{path}#L{line}"

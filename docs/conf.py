@@ -10,7 +10,7 @@ import jinja2
 
 # We need to make Python aware of our project source code, which is stored outside `/docs`,
 # under `src/`
-code_path = os.path.join(os.path.dirname(__file__), "../", "src/")
+code_path = os.path.join(os.path.dirname(__file__), "../", "src/python/")
 sys.path.append(code_path)
 print(f"CODE_PATH: {code_path}")
 
@@ -99,7 +99,7 @@ preview_config = {
     "selector": "article#furo-main-content a",
     # A list of selectors, where no preview icon shall be added, because it makes often no sense.
     # For instance the own ID of a need object, or the link on an image to open the image.
-    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.back-to-top, a.image-reference, em.sig-param a, a.paginate_button, a.sd-btn",
+    "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.back-to-top, a.image-reference, em.sig-param a, a.paginate_button, a.sd-btn, a[href*='#L'], div.highlight a",
     "set_icon": True,
     "icon_only": True,
     "icon_click": True,
