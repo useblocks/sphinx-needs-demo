@@ -680,11 +680,12 @@ remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commi
 [codelinks.projects.coffee_machine.source_discover]
 src_dir = "../crates"  # Relative path to Rust source
 gitignore = true
-comment_type = "rust"
+comment_type = "cpp"
 
 [codelinks.projects.coffee_machine.analyse]
 get_need_id_refs = false      # Don't extract need ID references (just for simple linking)
 get_oneline_needs = true      # Extract oneline need definitions from code
+get_rst = true
 
 [codelinks.projects.coffee_machine.analyse.oneline_comment_style]
 start_sequence = "@ "         # Start sequence: "// @ "
