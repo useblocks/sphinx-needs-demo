@@ -1694,9 +1694,8 @@ requires-dist = [
     { name = "sphinx-simplepdf", specifier = ">=1.6.0" },
     { name = "sphinx-test-reports", specifier = ">=1.3.2" },
     { name = "sphinxcontrib-plantuml", specifier = ">=0.30" },
-    { name = "ubt-sphinx", specifier = "==0.7.1" },
     { name = "ubt-runtime", specifier = "==0.6.0" },
-
+    { name = "ubt-sphinx", specifier = "==0.8.0" },
 ]
 
 [[package]]
@@ -1999,7 +1998,7 @@ wheels = [
 
 [[package]]
 name = "ubt-sphinx"
-version = "0.7.1"
+version = "0.8.0"
 source = { registry = "https://pypi.useblocks.com/" }
 dependencies = [
     { name = "beautifulsoup4" },
@@ -2015,7 +2014,7 @@ dependencies = [
     { name = "ubt-runtime" },
 ]
 wheels = [
-    { url = "https://pypi.useblocks.com/ubt-sphinx/ubt_sphinx-0.7.1-py3-none-any.whl", hash = "sha256:65fdba64383e0ea12ea4c3794a0a44af53beb8764dba09f134105b4a5f615b63" },
+    { url = "https://pypi.useblocks.com/ubt-sphinx/ubt_sphinx-0.8.0-py3-none-any.whl", hash = "sha256:9bee86ea955f615515a998352c5622cc9bb60a55fa21785c120ddbcc9dc6bcff" },
 ]
 
 [[package]]
