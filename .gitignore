@@ -159,3 +159,9 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 docs/github_images
+
+# Pharaoh ephemeral state (do not commit). Project tailoring at .pharaoh/project/ IS committed.
+.pharaoh/runs/
+.pharaoh/plans/
+.pharaoh/session.json
+.pharaoh/cache/

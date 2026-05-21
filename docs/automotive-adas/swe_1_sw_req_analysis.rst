@@ -8,7 +8,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Lane Marking Detection Algorithm
    :id: SWREQ_001
-   :status: open
+   :status: in progress
    :links: ARCH_001, REQ_001
    :author: PETER
    :github: 4
@@ -34,7 +34,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Radar-Based Distance Measurement
    :id: SWREQ_004
-   :status: open
+   :status: closed
    :links: ARCH_002, REQ_003
    :author: ROBERT
 
@@ -42,7 +42,7 @@ SWE.1 Software Requirements
 
 .. swreq:: Speed Control Integration
    :id: SWREQ_005
-   :status: open
+   :status: closed
    :links: ARCH_002, REQ_004
    :author: PETER
 
@@ -193,3 +193,41 @@ SWE.1 Software Requirements
 
    Implement arbitration logic that activates the blind spot warning only when the turn
    signal points toward an occupied zone, suppressing nuisance alerts otherwise.
+
+.. swreq:: Eye Aspect Ratio Estimation
+   :id: SWREQ_024
+   :status: open
+   :links: ARCH_009, REQ_013
+   :author: STEVEN
+
+   Implement software to estimate per-frame eye-aspect ratio and gaze direction from
+   cabin camera input under varying lighting conditions.
+
+.. swreq:: Drowsiness Score Aggregation
+   :id: SWREQ_025
+   :status: open
+   :links: ARCH_009, REQ_014
+   :author: STEVEN
+
+   Aggregate per-frame eye-state observations into a smoothed drowsiness score and
+   emit progressive alerts when the score exceeds calibrated thresholds for the
+   required dwell time.
+
+.. swreq:: Parking Slot Recognition
+   :id: SWREQ_026
+   :status: open
+   :links: ARCH_010, REQ_015
+   :author: SARAH
+
+   Implement software to recognize parallel and perpendicular parking slots from
+   fused ultrasonic ranging and surround-view camera input, and rank them by feasibility.
+
+.. swreq:: Park Trajectory Planning
+   :id: SWREQ_027
+   :status: open
+   :links: ARCH_010, REQ_016
+   :author: SARAH
+
+   Plan and follow a smooth park trajectory into the selected slot, respecting
+   clearance margins, maximum speed, and steering rate limits, with abort behavior
+   on detected obstacles.

@@ -9,7 +9,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Lane Detection Algorithm
    :id: REQ_001
-   :status: open
+   :status: in progress
    :links: NEED_001
    :release: REL_ADAS_2025_6
    :author: PETER
@@ -31,7 +31,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Distance Measurement System
    :id: REQ_003
-   :status: open
+   :status: closed
    :links: NEED_002
    :release: REL_ADAS_2025_12
    :author: PETER
@@ -40,7 +40,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Speed Adjustment Algorithm
    :id: REQ_004
-   :status: open
+   :status: closed
    :links: NEED_002
    :release: REL_ADAS_2025_12
    :author: ROBERT
@@ -49,7 +49,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Collision Detection Module
    :id: REQ_005
-   :status: open
+   :status: in progress
    :links: NEED_003
    :release: REL_ADAS_2025_12
    :author: ROBERT
@@ -67,7 +67,7 @@ SYS.2 Requirement Analysis
 
 .. req:: Pedestrian Recognition System
    :id: REQ_007
-   :status: open
+   :status: in progress
    :links: NEED_004
    :release: REL_ADAS_2025_12
    :author: ROBERT
@@ -121,3 +121,43 @@ SYS.2 Requirement Analysis
 
    Issue a driver warning when the turn signal is engaged toward a blind spot zone
    that is currently occupied by another road user.
+
+.. req:: Driver Eye State Estimation
+   :id: REQ_013
+   :status: open
+   :links: NEED_007
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Develop functionality to estimate driver eye-aspect ratio and gaze direction from
+   the cabin camera at the cadence required for drowsiness scoring.
+
+.. req:: Drowsiness Alert and Break Suggestion
+   :id: REQ_014
+   :status: open
+   :links: NEED_007
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Issue progressive driver alerts and propose a break when the drowsiness score
+   exceeds the configured threshold for longer than the calibrated dwell time.
+
+.. req:: Parking Slot Detection
+   :id: REQ_015
+   :status: open
+   :links: NEED_008
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Develop functionality to detect parallel and perpendicular parking slots from
+   ultrasonic distance sensors fused with the surround-view camera system.
+
+.. req:: Park Trajectory Execution
+   :id: REQ_016
+   :status: open
+   :links: NEED_008
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+
+   Plan a feasible park trajectory into the chosen slot and command steering, throttle,
+   and braking actuators to follow it within configured speed and clearance bounds.

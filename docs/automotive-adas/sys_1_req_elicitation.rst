@@ -6,7 +6,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Lane Keeping Assistance
    :id: NEED_001
-   :status: open
+   :status: in progress
    :author: ROBERT
    :jira: 1
 
@@ -15,7 +15,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Adaptive Cruise Control
    :id: NEED_002
-   :status: open
+   :status: closed
    :author: ROBERT
    :jira: 2
 
@@ -24,7 +24,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Emergency Braking System
    :id: NEED_003
-   :status: open
+   :status: in progress
    :author: ROBERT
 
    The system shall detect potential collisions and apply the brakes autonomously to
@@ -32,7 +32,7 @@ SYS.1 Requirement Elicitation
 
 .. need:: Pedestrian Detection
    :id: NEED_004
-   :status: open
+   :status: in progress
    :author: ROBERT
 
    The system shall identify pedestrians in the vehicle's path and issue warnings or
@@ -54,3 +54,21 @@ SYS.1 Requirement Elicitation
    The system shall monitor zones to the rear and sides of the vehicle that are not
    directly visible to the driver, and warn the driver when another road user enters
    those zones while a lane change is intended.
+
+.. need:: Driver Drowsiness Detection
+   :id: NEED_007
+   :status: open
+   :author: ROBERT
+
+   The system shall observe driver state via the cabin camera and warn the driver,
+   and optionally suggest a break, when sustained signs of drowsiness or inattention
+   are detected.
+
+.. need:: Automated Parking Assist
+   :id: NEED_008
+   :status: open
+   :author: ROBERT
+
+   The system shall identify suitable parallel and perpendicular parking slots and
+   semi-autonomously steer, accelerate, and brake the vehicle into the selected slot
+   under driver supervision.
