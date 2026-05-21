@@ -52,7 +52,7 @@ ubtrace_version = "main"
 ubtrace_theme_options = {
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
     "edit_uri": "edit/main/docs/",
-    "view_source_uri": "/blob/main/docs/",
+    "view_source_uri": "blob/main/docs/",
     "logo": {
       "desktop": "_images/sphinx-needs-logo.png",
       "mobile": "_images/sphinx-needs-logo.png"
