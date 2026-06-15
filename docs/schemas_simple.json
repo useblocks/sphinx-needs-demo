@@ -1,0 +1,30 @@
+{
+  "schemas": [
+    {
+      "id": "req-must-have-status-and-tags",
+      "severity": "info",
+      "message": "Requirements must have status and tags defined",
+      "select": {
+        "properties": {
+            "type": {
+            "const": "req"
+            }
+        }
+      },
+      "validate": {
+        "local": {
+          "required": [
+            "status"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}

@@ -43,7 +43,7 @@ build_json = true
 
 # Schema validation configuration
 # see https://sphinx-needs.readthedocs.io/en/latest/schema/index.html
-schema_definitions_from_json = "schemas.json"
+schema_definitions_from_json = "schemas_simple.json"
 schema_severity = "warning"
 schema_debug_active = false
 
