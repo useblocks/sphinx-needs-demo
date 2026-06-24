@@ -49,6 +49,22 @@ ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"
 ubtrace_version = "main"
 
+# Variants are modelled as an ubTrace *dimension* — a free-form key/value label
+# that is orthogonal to the org/project/version structure. This keeps both the
+# project and the version switchers free of variant noise; the `variant`
+# dimension classifies the build instead. The active variant is selected at
+# build time via a Sphinx build tag (e.g. `sphinx-build -t customer_b`).
+# Docs: https://ubtrace.useblocks.com/dev/usage/configuration.html#ubtrace-dimensions
+# This stays in conf.py (not ubproject.toml) because it is conditional logic on
+# the active build tags, which a declarative TOML config cannot express.
+# See the variant demo page: automotive-adas/variants.rst
+if tags.has("customer_b"):
+    ubtrace_dimensions = {"variant": "customer_b"}
+elif tags.has("customer_a"):
+    ubtrace_dimensions = {"variant": "customer_a"}
+else:
+    ubtrace_dimensions = {}
+
 ubtrace_theme_options = {
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
     "edit_uri": "edit/main/docs/",

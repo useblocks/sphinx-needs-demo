@@ -24,6 +24,7 @@
    persons
    analysis
    external_data
+   variants
    sys_1_req_elicitation
    sys_2_req_analysis
    sys_3_sys_arch

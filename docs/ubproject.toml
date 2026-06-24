@@ -90,6 +90,7 @@ nullable = true
 
 [needs.fields.customer]
 nullable = true
+parse_variants = true
 
 [needs.fields.github]
 nullable = true
@@ -220,14 +221,16 @@ on_fail = ["warn"]
 style = ["yellow_bar"]
 
 # needs_variants allows to set specific option values based on the currently active variant.
-# A use case is a different ``status``, depending on if the implementation needs to be done for
-# customer A or customer B.
+# A use case is a different ``status``, depending on which customer build is being generated.
+# The active customer is selected at build time via a Sphinx build tag, e.g.
+# ``sphinx-build -t customer_b ...``; ``build_tags`` is the set of active tags.
 # In the rst-code, the variant-values can then be set like this:
-# ``:status: customer_a:open, customer_b:closed``
+# ``:status: <<customer_a: open, customer_b: closed, open>>``
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variants
+# and the variant demo page: automotive-adas/variants.rst
 [needs.variants]
-customer_a = "customer == 'A' or customer not in ['A', 'B']"
-customer_b = "customer == 'B'"
+customer_a = "'customer_a' in build_tags"
+customer_b = "'customer_b' in build_tags"
 
 # List of need type used in the documentation.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
