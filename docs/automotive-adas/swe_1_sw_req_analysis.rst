@@ -25,10 +25,10 @@ SWE.1 Software Requirements
 
    Implement a feature to trigger warnings if the vehicle deviates from its lane without proper signaling.
 
-.. only:: not customer_a and not customer_b
+   .. only:: not customer_a and not customer_b
 
-   The lateral offset at which the warning fires is a customer calibration (``tuning`` field): Customer A
-   prefers an early 0.3 m warning, Customer B a later 0.5 m warning; other builds use the 0.4 m baseline.
+      The lateral offset at which the warning fires is a customer calibration (``tuning`` field): Customer A
+      prefers an early 0.3 m warning, Customer B a later 0.5 m warning; other builds use the 0.4 m baseline.
 
 .. swreq:: Steering Correction Algorithm
    :id: SWREQ_003
@@ -55,10 +55,10 @@ SWE.1 Software Requirements
 
    Implement a module to dynamically adjust the vehicle's speed based on distance measurements and desired following distance.
 
-.. only:: not customer_a and not customer_b
+   .. only:: not customer_a and not customer_b
 
-   The default following **time gap** is customer-tunable (``tuning`` field): Customer A ships a sportier 1.8 s gap,
-   Customer B a comfort-oriented 2.2 s gap; an untagged build uses the 2.0 s baseline.
+      The default following **time gap** is customer-tunable (``tuning`` field): Customer A ships a sportier 1.8 s gap,
+      Customer B a comfort-oriented 2.2 s gap; an untagged build uses the 2.0 s baseline.
 
 .. swreq:: Collision Risk Estimation
    :id: SWREQ_006
