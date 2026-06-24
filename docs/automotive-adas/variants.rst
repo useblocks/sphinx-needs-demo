@@ -106,13 +106,14 @@ Rebuild with ``-t customer_a`` or ``-t customer_b`` to see the values change.
 
    .. code-block:: python
 
-      # conf.py
       if tags.has("customer_b"):
-          ubtrace_dimensions = {"variant": "customer_b"}
+         _variant = "customer_b"
       elif tags.has("customer_a"):
-          ubtrace_dimensions = {"variant": "customer_a"}
+         _variant = "customer_a"
       else:
-          ubtrace_dimensions = {}
+         _variant = "base"
+
+      ubtrace_dimensions = {"variant": _variant}
 
    Each variant build is produced into its own output directory and carries its
    ``variant`` dimension:

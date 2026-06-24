@@ -149,6 +149,14 @@ nullable = true
 [needs.fields.status]
 parse_variants = true
 
+# Customer-tunable calibration value. Holds a `<<...>>` variant expression so a
+# single requirement carries the right value for whichever customer build is
+# active (see automotive-adas/variants.rst and SWREQ_002 / SWREQ_005).
+[needs.fields.tuning]
+description = "Customer-specific calibration value (resolved from the active variant build tag)"
+nullable = true
+parse_variants = true
+
 [needs.fields.constraints]
 predicates = [
   [

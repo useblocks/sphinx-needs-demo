@@ -21,8 +21,14 @@ SWE.1 Software Requirements
    :links: ARCH_001, REQ_002
    :author: ROBERT
    :github: 5
+   :tuning: <<customer_a: 0.3 m, customer_b: 0.5 m, 0.4 m>>
 
    Implement a feature to trigger warnings if the vehicle deviates from its lane without proper signaling.
+
+.. only:: not customer_a and not customer_b
+
+   The lateral offset at which the warning fires is a customer calibration (``tuning`` field): Customer A
+   prefers an early 0.3 m warning, Customer B a later 0.5 m warning; other builds use the 0.4 m baseline.
 
 .. swreq:: Steering Correction Algorithm
    :id: SWREQ_003
@@ -45,8 +51,14 @@ SWE.1 Software Requirements
    :status: closed
    :links: ARCH_002, REQ_004
    :author: PETER
+   :tuning: <<customer_a: 1.8 s, customer_b: 2.2 s, 2.0 s>>
 
    Implement a module to dynamically adjust the vehicle's speed based on distance measurements and desired following distance.
+
+.. only:: not customer_a and not customer_b
+
+   The default following **time gap** is customer-tunable (``tuning`` field): Customer A ships a sportier 1.8 s gap,
+   Customer B a comfort-oriented 2.2 s gap; an untagged build uses the 2.0 s baseline.
 
 .. swreq:: Collision Risk Estimation
    :id: SWREQ_006
