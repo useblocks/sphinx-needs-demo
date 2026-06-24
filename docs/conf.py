@@ -47,23 +47,36 @@ extensions = [
 ###############################################################################
 ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"
-ubtrace_version = "main"
 
-# Variants are modelled as an ubTrace *dimension* — a free-form key/value label
-# that is orthogonal to the org/project/version structure. This keeps both the
-# project and the version switchers free of variant noise; the `variant`
-# dimension classifies the build instead. The active variant is selected at
-# build time via a Sphinx build tag (e.g. `sphinx-build -t customer_b`).
-# Docs: https://ubtrace.useblocks.com/dev/usage/configuration.html#ubtrace-dimensions
-# This stays in conf.py (not ubproject.toml) because it is conditional logic on
-# the active build tags, which a declarative TOML config cannot express.
-# See the variant demo page: automotive-adas/variants.rst
+# Active variant, selected via a build tag (e.g. `sphinx-build -t customer_b`);
+# an untagged build is the `base` variant.
 if tags.has("customer_b"):
-    ubtrace_dimensions = {"variant": "customer_b"}
+    _variant = "customer_b"
 elif tags.has("customer_a"):
-    ubtrace_dimensions = {"variant": "customer_a"}
+    _variant = "customer_a"
 else:
-    ubtrace_dimensions = {}
+    _variant = "base"
+
+# --- Variant <-> version mapping for ubTrace -------------------------------- #
+# ubTrace keys every ingested dataset by (org, project, version) and stores at
+# most ONE dataset per version: a second ingest at the same version DELETEs and
+# replaces the first (worker NeedLoader.loadFromDir). So multiple variants
+# CANNOT share a single version -- they would overwrite each other. To keep all
+# variants available we fold the variant into the *version* id (distinct
+# versions coexist) AND publish it as a `variant` *dimension* so ubTrace's
+# "Filter versions by dimensions" menu acts as the variant selector.
+#   base       -> version "main"
+#   customer_a -> version "main-customer_a"
+# Docs: https://ubtrace.useblocks.com/dev/usage/configuration.html#ubtrace-dimensions
+# See the variant demo page: automotive-adas/variants.rst
+if _variant == "base":
+    ubtrace_version = "main"
+else:
+    ubtrace_version = f"main-{_variant}"
+
+# Every version is tagged on the same `variant` axis (base included) so the
+# dimension filter lists all variants uniformly.
+ubtrace_dimensions = {"variant": _variant}
 
 ubtrace_theme_options = {
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",

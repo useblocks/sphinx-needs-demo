@@ -22,15 +22,26 @@ help:
 #
 # html has no per-version nesting, so each variant gets its own output dir.
 #
-# ubtrace tags each build with a `variant` *dimension* (org -> project ->
-# version stays single; see conf.py). Because every variant shares the same
-# structural path <out>/useblocks/sphinx-needs-demo/main, the dimension — not
-# the directory — is what distinguishes them once ingested into ubTrace. Two
-# variant builds therefore CANNOT share one output dir on disk (they would
-# overwrite each other), so each variant builds into its own dir and is ingested
-# separately; ubTrace keeps them apart via the `variant` dimension.
+# ubTrace keys every dataset by (org -> project -> version) and keeps ONE dataset
+# per version (a re-ingest at the same version overwrites). So each variant is
+# given its OWN version id -- conf.py folds the variant into the version
+# (base -> "main", customer_a -> "main-customer_a", ...) -- and is ALSO tagged
+# with a `variant` dimension so ubTrace's "Filter versions by dimensions" menu
+# selects among them. Each variant builds into its own output dir; their internal
+# <out>/useblocks/sphinx-needs-demo/<version> paths already differ, so the import
+# just copies them in (see the bundle's import-demo-build.sh).
+#
+# Build EVERY variant at once with:  make ubtrace-all
 
-.PHONY: html-customer-a html-customer-b ubtrace-customer-a ubtrace-customer-b variant
+.PHONY: html-customer-a html-customer-b ubtrace-customer-a ubtrace-customer-b variant ubtrace-all
+
+# Build all current-version variants (base + customer_a + customer_b), each into
+# its own output dir. This is the single command to refresh the full variant set.
+ubtrace-all:
+	@$(SPHINXBUILD) -b ubtrace                "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace"            $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -b ubtrace -t customer_a  "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-customer_a" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -b ubtrace -t customer_b  "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-customer_b" $(SPHINXOPTS) $(O)
+	@echo "Built variants: base, customer_a, customer_b -> $(BUILDDIR)/ubtrace[-<variant>]"
 
 html-customer-a:
 	@$(SPHINXBUILD) -b html -t customer_a "$(SOURCEDIR)" "$(BUILDDIR)/html-customer_a" $(SPHINXOPTS) $(O)
