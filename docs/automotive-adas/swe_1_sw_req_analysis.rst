@@ -23,7 +23,8 @@ SWE.1 Software Requirements
    :github: 5
    :tuning: <<customer_a: 0.3 m, customer_b: 0.5 m, 0.4 m>>
 
-   Implement a feature to trigger warnings if the vehicle deviates from its lane without proper signaling.
+   Implement a feature to trigger warnings if the vehicle deviates from its lane by
+   more than :ndf:`copy("tuning")` without proper signaling.
 
    .. only:: not customer_a and not customer_b
 
@@ -53,7 +54,8 @@ SWE.1 Software Requirements
    :author: PETER
    :tuning: <<customer_a: 1.8 s, customer_b: 2.2 s, 2.0 s>>
 
-   Implement a module to dynamically adjust the vehicle's speed based on distance measurements and desired following distance.
+   Implement a module to dynamically adjust the vehicle's speed based on distance
+   measurements, maintaining a following time gap of :ndf:`copy("tuning")`.
 
    .. only:: not customer_a and not customer_b
 
