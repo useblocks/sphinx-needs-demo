@@ -93,6 +93,76 @@ Rebuild with ``-t customer_a`` or ``-t customer_b`` to see the values change.
    :columns: id, title, status
    :style: table
 
+From shared requirements to per-customer code
+---------------------------------------------
+
+Variants are not limited to field values on a single need — the same idea scales
+all the way down to the *implementation*. Two real requirements in the
+:doc:`Software Requirements <swe_1_sw_req_analysis>` chapter,
+:need:`SWREQ_002` (*Lane Deviation Warning*) and :need:`SWREQ_005`
+(*Speed Control Integration*), keep a single shared requirement text but resolve
+a customer-specific calibration through their ``tuning`` field, e.g.
+``<<customer_a: 0.3 m, customer_b: 0.5 m, 0.4 m>>``.
+
+When the difference is only a value, that ``tuning`` field is enough. When the
+difference reaches the *code*, each customer gets its own implementation file
+that links back to the shared requirement via sphinx-codelinks. Three
+calibration files exist side by side:
+
+.. code-block:: text
+
+   src/c/calibration_base.c        ->  IMPL_LKA_DEVIATION_CAL_BASE, IMPL_ACC_SPEED_CAL_BASE
+   src/c/calibration_customer_a.c  ->  IMPL_LKA_DEVIATION_CAL_A,    IMPL_ACC_SPEED_CAL_A
+   src/c/calibration_customer_b.c  ->  IMPL_LKA_DEVIATION_CAL_B,    IMPL_ACC_SPEED_CAL_B
+
+Each file declares an ``impl`` need with a one-line codelink comment that points
+*upward* to the requirement it realises — the conventional code-to-requirement
+direction:
+
+.. code-block:: c
+
+   // @ Lane deviation warning - Customer A calibration (0.3 m), IMPL_LKA_DEVIATION_CAL_A, impl, [SWREQ_002]
+
+Two settings make this variant-aware:
+
+#. The project-wide scan in ``ubproject.toml`` excludes the calibration files
+   (``exclude = ["calibration_*.c"]``), so they never all show up at once.
+#. The :doc:`SWE.3 detailed design <swe_3_sw_detailed_design>` page traces only
+   the active variant's file, selected at build time from the ``variant`` value
+   exposed to the page templating:
+
+   .. code-block:: rst
+
+      {% raw %}.. src-trace::
+         :project: adas
+         :file: calibration_{{ variant }}.c{% endraw %}
+
+As a result, a ``customer_a`` build shows **only** ``IMPL_LKA_DEVIATION_CAL_A``
+and ``IMPL_ACC_SPEED_CAL_A`` and links them to :need:`SWREQ_002` /
+:need:`SWREQ_005`; the base and Customer B calibrations are neither traced nor
+linked. Switching the build tag swaps the implementation that satisfies the
+shared requirement.
+
+When to use this pattern
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This layering suits a product line that wants to **reuse as much as possible**
+and only diverge where it must:
+
+- **Shared at the top.** High-level and system requirements stay common to every
+  customer — a single source of truth, with no copies to keep in sync.
+- **Fork late, stay mostly shared.** Where a customer genuinely differs, fork
+  into variant requirements that are *still mostly reused*: the same need, with
+  only the variant-specific field (``status``, ``tuning``, …) resolving
+  differently per build tag.
+- **Escalate to different code only when unavoidable.** When the divergence can
+  no longer be expressed as a value and the implementations truly differ, point
+  each customer at its own implementation — a separate file as shown here, or,
+  taken further, a different branch or even a different repository — while the
+  requirement above it stays shared. Traceability still resolves to exactly one
+  implementation per build, so every customer document remains complete and
+  self-consistent.
+
 .. note::
 
    **Showcasing variants in ubTrace.** ubTrace is a Sphinx builder, so the same

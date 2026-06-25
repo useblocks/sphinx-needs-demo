@@ -4,9 +4,9 @@
  * Build variant: customer_a (sphinx-build -t customer_a ...)
  *
  * Provides the Customer A threshold values consumed by the shared Lane Keeping
- * (SWREQ_002) and Adaptive Cruise Control (SWREQ_005) modules. SWREQ_002 and
- * SWREQ_005 link to the `impl` needs below only when the customer_a build tag
- * is active (variant-resolved `variant_impl` link).
+ * (SWREQ_002) and Adaptive Cruise Control (SWREQ_005) modules. Only this file is
+ * traced when the customer_a build tag is active; its `impl` needs link upward
+ * to SWREQ_002 and SWREQ_005 for that build.
  */
 
 #include "lane_keeping.h"

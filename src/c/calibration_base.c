@@ -4,8 +4,9 @@
  * Build variant: base (untagged build, no -t customer_* flag)
  *
  * Holds the baseline threshold values consumed by the shared Lane Keeping
- * (SWREQ_002) and Adaptive Cruise Control (SWREQ_005) modules. The customer
- * builds replace this file's `impl` need via the requirement's variant link.
+ * (SWREQ_002) and Adaptive Cruise Control (SWREQ_005) modules. Only this file is
+ * traced for an untagged (base) build; its `impl` needs link upward to SWREQ_002
+ * and SWREQ_005. Customer builds trace their own calibration file instead.
  */
 
 #include "lane_keeping.h"
