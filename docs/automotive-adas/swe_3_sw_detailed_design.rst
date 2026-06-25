@@ -15,6 +15,19 @@ Using **C** language.
 .. src-trace::
    :project: adas
 
+Customer calibration (variant-specific)
+---------------------------------------
+The lane-keeping and cruise-control thresholds are customer-specific. Each
+customer build traces a *single* calibration source file, so only the
+implementation relevant to the active variant (``{{ variant }}``) is shown
+below and linked upward to :need:`SWREQ_002` and :need:`SWREQ_005`. Rebuild with
+``-t customer_a`` / ``-t customer_b`` (or no tag for the baseline) to swap the
+traced file.
+
+.. src-trace::
+   :project: adas
+   :file: calibration_{{ variant }}.c
+
 Automodule example
 ------------------
 Using **Python** language.

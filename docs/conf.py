@@ -78,6 +78,11 @@ else:
 # dimension filter lists all variants uniformly.
 ubtrace_dimensions = {"variant": _variant}
 
+# Expose the active variant to the per-page Jinja rendering (see `rstjinja`
+# below). Pages use it to select variant-specific content, e.g. the calibration
+# source file traced in SWE.3 (``:file: calibration_{{ variant }}.c``).
+html_context = {"variant": _variant}
+
 ubtrace_theme_options = {
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",
     "edit_uri": "edit/main/docs/",

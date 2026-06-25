@@ -695,6 +695,10 @@ remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commi
 src_dir = "../src/c"  # Relative path to Rust source
 gitignore = true
 comment_type ="cpp"
+# The per-customer calibration files are traced individually per build variant
+# (see SWE.3 detailed design, `:file: calibration_<variant>.c`), so exclude them
+# from the project-wide scan to avoid showing every variant in one build.
+exclude = ["calibration_*.c"]
 
 [codelinks.projects.adas.analyse]
 get_need_id_refs = true
