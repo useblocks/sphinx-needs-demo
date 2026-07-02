@@ -681,6 +681,328 @@ src = "."
 [scripts]
 sphinx = "sphinx-build -b html . _build/html"
 
+[workflow]
+
+# Stages are ordered so the ELICITATION entry point — `need` (SYS.1 requirement
+# elicitation, authored under docs/<feature>/sys_1_req_elicitation.rst) — is the
+# FIRST stage. `ubc agent next` returns the first `ready` stage in declaration
+# order, so on a greenfield feature this makes elicitation start at `need` rather
+# than at the meta/reference roots (`team`, `release`) or the parallel safety-V
+# root (`hazard`). See useblocks/ubcode#2042 for the systemic entry-point fix.
+#
+# author_skill / review_skill are wired for the docs/automotive-adas chain
+# (need -> req -> arch -> swreq -> swarch -> impl -> test, plus the team / person /
+# release reference data). Every trace edge in this project uses the `links` field.
+# The remaining stages (spec, the hazard safety V, and the layer / interface /
+# component / seq_msg detail) are declared but not yet skilled — they are outside
+# the automotive-adas scope of this change.
+
+[[workflow.stages]]
+id = "need"
+produces = "need"
+author_skill = "draft-need"
+review_skill = "review-feat"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/sys_1_req_elicitation.rst"
+
+[[workflow.stages]]
+id = "req"
+produces = "req"
+depends_on = ["need", "person", "release"]
+author_skill = "draft-requirement"
+review_skill = "review-requirement"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/sys_2_req_analysis.rst"
+
+[[workflow.stages.trace]]
+up = "need"
+link = "links"
+direction = "both"
+
+[[workflow.stages.trace]]
+up = "person"
+link = "author"
+direction = "outgoing"
+
+[[workflow.stages.trace]]
+up = "release"
+link = "release"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "arch"
+produces = "arch"
+depends_on = ["req"]
+author_skill = "draft-arch"
+review_skill = "review-arch"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/sys_3_sys_arch.rst"
+
+[[workflow.stages.trace]]
+up = "req"
+link = "links"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "swreq"
+produces = "swreq"
+depends_on = ["req", "arch"]
+author_skill = "draft-swreq"
+review_skill = "review-requirement"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/swe_1_sw_req_analysis.rst"
+
+[[workflow.stages.trace]]
+up = "req"
+link = "links"
+direction = "outgoing"
+
+[[workflow.stages.trace]]
+up = "arch"
+link = "links"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "swarch"
+produces = "swarch"
+depends_on = ["swreq"]
+author_skill = "draft-swarch"
+review_skill = "review-arch"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/swe_2_sw_arch.rst"
+
+[[workflow.stages.trace]]
+up = "swreq"
+link = "links"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "impl"
+produces = "impl"
+depends_on = ["swarch", "swreq"]
+author_skill = "draft-impl"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/swe_3_sw_detailed_design.rst"
+
+[[workflow.stages.trace]]
+up = "swreq"
+link = "implements"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "test"
+produces = "test"
+depends_on = ["swreq", "swarch"]
+author_skill = "draft-test"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/swe_4_unit_tests.rst"
+
+[[workflow.stages.trace]]
+up = "swreq"
+link = "links"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "team"
+produces = "team"
+author_skill = "draft-team"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/index.rst"
+
+[[workflow.stages]]
+id = "person"
+produces = "person"
+depends_on = ["team"]
+author_skill = "draft-person"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/persons.rst"
+
+[[workflow.stages.trace]]
+up = "team"
+link = "persons"
+direction = "incoming"
+
+[[workflow.stages]]
+id = "release"
+produces = "release"
+author_skill = "draft-release"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "automotive-adas/releases.rst"
+
+[[workflow.stages]]
+id = "spec"
+produces = "spec"
+depends_on = ["req"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/spec.rst"
+
+[[workflow.stages.trace]]
+up = "req"
+link = "links"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "hazard"
+produces = "hazard"
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/hara.rst"
+
+[[workflow.stages]]
+id = "safety_goal"
+produces = "safety_goal"
+depends_on = ["hazard"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/safety_goals.rst"
+
+[[workflow.stages.trace]]
+up = "hazard"
+link = "mitigates"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "fsr"
+produces = "fsr"
+depends_on = ["safety_goal"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/fsr.rst"
+
+[[workflow.stages.trace]]
+up = "safety_goal"
+link = "derives_from"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "sysreq"
+produces = "sysreq"
+depends_on = ["fsr"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/system_requirements.rst"
+
+[[workflow.stages.trace]]
+up = "fsr"
+link = "implements"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "sys-arch"
+produces = "sys-arch"
+depends_on = ["sysreq"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/system_architecture.rst"
+
+[[workflow.stages]]
+id = "layer"
+produces = "layer"
+depends_on = ["swarch"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/architecture.rst"
+
+[[workflow.stages]]
+id = "interface"
+produces = "interface"
+depends_on = ["layer"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/architecture.rst"
+
+[[workflow.stages.trace]]
+up = "layer"
+link = "parent_needs"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "component"
+produces = "component"
+depends_on = ["swreq", "interface", "layer"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/architecture.rst"
+
+[[workflow.stages.trace]]
+up = "swreq"
+link = "implements"
+direction = "outgoing"
+
+[[workflow.stages.trace]]
+up = "interface"
+link = "uses"
+direction = "outgoing"
+
+[[workflow.stages.trace]]
+up = "layer"
+link = "parent_needs"
+direction = "outgoing"
+
+[[workflow.stages]]
+id = "seq_msg"
+produces = "seq_msg"
+depends_on = ["component"]
+
+[workflow.stages.route]
+scope = "feature"
+granularity = "per-root"
+path = "{feature}/architecture.rst"
+
+[[workflow.stages.trace]]
+up = "component"
+link = "startup_calls"
+direction = "outgoing"
+
 [parse]
 ignore_directives = [
   "test-file",
