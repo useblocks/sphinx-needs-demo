@@ -149,11 +149,11 @@ nullable = true
 [needs.fields.status]
 parse_variants = true
 
-# Customer-tunable calibration value. Holds a `<<...>>` variant expression so a
-# single requirement carries the right value for whichever customer build is
+# Market-tunable calibration value. Holds a `<<...>>` variant expression so a
+# single requirement carries the right value for whichever market build is
 # active (see automotive-adas/variants.rst and SWREQ_002 / SWREQ_005).
 [needs.fields.tuning]
-description = "Customer-specific calibration value (resolved from the active variant build tag)"
+description = "Market-specific calibration value (resolved from the active variant build tag)"
 nullable = true
 parse_variants = true
 
@@ -229,16 +229,36 @@ on_fail = ["warn"]
 style = ["yellow_bar"]
 
 # needs_variants allows to set specific option values based on the currently active variant.
-# A use case is a different ``status``, depending on which customer build is being generated.
-# The active customer is selected at build time via a Sphinx build tag, e.g.
-# ``sphinx-build -t customer_b ...``; ``build_tags`` is the set of active tags.
-# In the rst-code, the variant-values can then be set like this:
-# ``:status: <<customer_a: open, customer_b: closed, open>>``
+# Builds are classified along TWO orthogonal dimensions, each selected at build
+# time via a Sphinx build tag (``build_tags`` is the set of active tags):
+#   * location -- the target market:  eu (reference) | uk | asia
+#   * type     -- the vehicle body:   combi (default) | cabrio | motorcycle
+# Combine one tag from each axis, e.g. ``sphinx-build -t asia -t cabrio ...``.
+# An untagged build resolves to the reference point (location=eu, type=combi).
+#
+# Requirement values can key on a single dimension (e.g. ``<<uk: open, closed>>``)
+# or on the COMBINATION of both. The combination collapses 3x3 = 9 cells into 7
+# calibration profiles (EU/UK: combi+cabrio share a "car" profile, motorcycle is
+# its own; ASIA keeps all three) -- SWREQ_002 / SWREQ_005 use the profile keys.
 # see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variants
 # and the variant demo page: automotive-adas/variants.rst
 [needs.variants]
-customer_a = "'customer_a' in build_tags"
-customer_b = "'customer_b' in build_tags"
+# --- location dimension ---
+eu   = "'eu' in build_tags"
+uk   = "'uk' in build_tags"
+asia = "'asia' in build_tags"
+# --- vehicle type dimension ---
+combi      = "'combi' in build_tags"
+cabrio     = "'cabrio' in build_tags"
+motorcycle = "'motorcycle' in build_tags"
+# --- collapsed calibration profiles (location x type) ---
+eu_car          = "'eu' in build_tags and 'motorcycle' not in build_tags"
+eu_motorcycle   = "'eu' in build_tags and 'motorcycle' in build_tags"
+uk_car          = "'uk' in build_tags and 'motorcycle' not in build_tags"
+uk_motorcycle   = "'uk' in build_tags and 'motorcycle' in build_tags"
+asia_combi      = "'asia' in build_tags and 'cabrio' not in build_tags and 'motorcycle' not in build_tags"
+asia_cabrio     = "'asia' in build_tags and 'cabrio' in build_tags"
+asia_motorcycle = "'asia' in build_tags and 'motorcycle' in build_tags"
 
 # List of need type used in the documentation.
 # Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-types
@@ -695,7 +715,7 @@ remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commi
 src_dir = "../src/c"  # Relative path to Rust source
 gitignore = true
 comment_type ="cpp"
-# The per-customer calibration files are traced individually per build variant
+# The per-market calibration files are traced individually per build variant
 # (see SWE.3 detailed design, `:file: calibration_<variant>.c`), so exclude them
 # from the project-wide scan to avoid showing every variant in one build.
 exclude = ["calibration_*.c"]

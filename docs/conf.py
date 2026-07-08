@@ -48,40 +48,69 @@ extensions = [
 ubtrace_organization = "useblocks"
 ubtrace_project = "sphinx-needs-demo"
 
-# Active variant, selected via a build tag (e.g. `sphinx-build -t customer_b`);
-# an untagged build is the `base` variant.
-if tags.has("customer_b"):
-    _variant = "customer_b"
-elif tags.has("customer_a"):
-    _variant = "customer_a"
+# --- Two orthogonal variant dimensions -------------------------------------- #
+# A build is classified along TWO independent axes, each selected via a build
+# tag. Combine one tag from each, e.g. `sphinx-build -t asia -t cabrio`.
+#
+#   location : eu (default / reference) | uk | asia   -- the target market
+#   type     : combi (default) | cabrio | motorcycle  -- the vehicle body type
+#
+# An untagged build resolves to the reference point: location=eu, type=combi.
+if tags.has("uk"):
+    _location = "uk"
+elif tags.has("asia"):
+    _location = "asia"
 else:
-    _variant = "base"
+    _location = "eu"
+
+if tags.has("cabrio"):
+    _type = "cabrio"
+elif tags.has("motorcycle"):
+    _type = "motorcycle"
+else:
+    _type = "combi"
+
+# --- Collapsed calibration profile (location x type) ------------------------ #
+# The two dimensions give 3x3 = 9 combinations, but we do NOT need 9 distinct
+# outcomes. Requirement values and the calibration code collapse to 7 profiles:
+#   EU  & UK : combi and cabrio share one "car" profile; motorcycle is its own.
+#   ASIA     : all three vehicle types stay distinct.
+# The profile selects the traced calibration source file in SWE.3 and mirrors
+# the `<<...>>` variant keys used on SWREQ_002 / SWREQ_005 (see ubproject.toml).
+if _location == "asia":
+    _profile = f"asia_{_type}"          # asia_combi | asia_cabrio | asia_motorcycle
+elif _type == "motorcycle":
+    _profile = f"{_location}_motorcycle"  # eu_motorcycle | uk_motorcycle
+else:
+    _profile = f"{_location}_car"         # eu_car | uk_car
 
 # --- Variant <-> version mapping for ubTrace -------------------------------- #
 # ubTrace keys every ingested dataset by (org, project, version) and stores at
 # most ONE dataset per version: a second ingest at the same version DELETEs and
 # replaces the first (worker NeedLoader.loadFromDir). So multiple variants
 # CANNOT share a single version -- they would overwrite each other. To keep all
-# variants available we fold the variant into the *version* id (distinct
-# versions coexist) AND publish it as a `variant` *dimension* so ubTrace's
-# "Filter versions by dimensions" menu acts as the variant selector.
-#   base       -> version "main"
-#   customer_a -> version "main-customer_a"
+# variants available we fold the (location, type) combination into the *version*
+# id (distinct versions coexist) AND publish BOTH axes as ubTrace *dimensions*
+# so ubTrace's "Filter versions by dimensions" menu can slice by either axis.
+#   eu   / combi -> version "main"            (reference point)
+#   uk   / cabrio-> version "main-uk-cabrio"
+#   asia / moto  -> version "main-asia-motorcycle"
 # Docs: https://ubtrace.useblocks.com/dev/usage/configuration.html#ubtrace-dimensions
 # See the variant demo page: automotive-adas/variants.rst
-if _variant == "base":
+if _location == "eu" and _type == "combi":
     ubtrace_version = "main"
 else:
-    ubtrace_version = f"main-{_variant}"
+    ubtrace_version = f"main-{_location}-{_type}"
 
-# Every version is tagged on the same `variant` axis (base included) so the
-# dimension filter lists all variants uniformly.
-ubtrace_dimensions = {"variant": _variant}
+# Every version is tagged on BOTH dimension axes so the dimension filters list
+# all locations and all vehicle types uniformly.
+ubtrace_dimensions = {"location": _location, "type": _type}
 
-# Expose the active variant to the per-page Jinja rendering (see `rstjinja`
-# below). Pages use it to select variant-specific content, e.g. the calibration
-# source file traced in SWE.3 (``:file: calibration_{{ variant }}.c``).
-html_context = {"variant": _variant}
+# Expose the active dimensions and the collapsed profile to the per-page Jinja
+# rendering (see `rstjinja` below). Pages use them to select variant-specific
+# content, e.g. the calibration source file traced in SWE.3
+# (``:file: calibration_{{ profile }}.c``).
+html_context = {"location": _location, "type": _type, "profile": _profile}
 
 ubtrace_theme_options = {
     "repo_url": "https://github.com/useblocks/sphinx-needs-demo",

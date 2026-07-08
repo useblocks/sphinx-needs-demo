@@ -15,55 +15,56 @@ help:
 .PHONY: help Makefile
 
 # -- Variant builds (see automotive-adas/variants.rst) ------------------------
-# Build the docs for a specific customer variant. The variant name is passed to
-# Sphinx as a build tag (-t).
-# NOTE: `make html -t customer_a` does NOT work — make eats `-t` as its own
-# flag. Use these targets instead.
+# A build is classified along TWO dimensions, each passed to Sphinx as a build
+# tag (-t): a LOCATION (eu | uk | asia) and a vehicle TYPE (combi | cabrio |
+# motorcycle). Combine one of each, e.g. `-t asia -t cabrio`.
+# NOTE: `make html -t uk` does NOT work — make eats `-t` as its own flag. Use
+# the targets below instead.
 #
-# html has no per-version nesting, so each variant gets its own output dir.
+# html has no per-version nesting, so each combination gets its own output dir.
 #
 # ubTrace keys every dataset by (org -> project -> version) and keeps ONE dataset
-# per version (a re-ingest at the same version overwrites). So each variant is
-# given its OWN version id -- conf.py folds the variant into the version
-# (base -> "main", customer_a -> "main-customer_a", ...) -- and is ALSO tagged
-# with a `variant` dimension so ubTrace's "Filter versions by dimensions" menu
-# selects among them. Each variant builds into its own output dir; their internal
-# <out>/useblocks/sphinx-needs-demo/<version> paths already differ, so the import
-# just copies them in (see the bundle's import-demo-build.sh).
+# per version (a re-ingest at the same version overwrites). So each combination
+# is given its OWN version id -- conf.py folds (location, type) into the version
+# (eu/combi -> "main", uk/cabrio -> "main-uk-cabrio", ...) -- and is ALSO tagged
+# with `location` and `type` dimensions so ubTrace's "Filter versions by
+# dimensions" menu can slice by either axis. Each combination builds into its own
+# output dir; their internal <out>/useblocks/sphinx-needs-demo/<version> paths
+# already differ, so the import just copies them in (see import-demo-build.sh).
 #
-# Build EVERY variant at once with:  make ubtrace-all
+# Build EVERY location x type combination at once with:  make ubtrace-all
 
-.PHONY: html-customer-a html-customer-b ubtrace-customer-a ubtrace-customer-b variant ubtrace-all
+.PHONY: html-uk-cabrio html-asia-motorcycle ubtrace-all variant
 
-# Build all current-version variants (base + customer_a + customer_b), each into
-# its own output dir. This is the single command to refresh the full variant set.
+# Build all 9 location x type combinations, each into its own output dir. This
+# is the single command to refresh the full variant set for ubTrace; the two
+# dimension filters (location, type) are then fully populated.
 ubtrace-all:
-	@$(SPHINXBUILD) -b ubtrace                "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace"            $(SPHINXOPTS) $(O)
-	@$(SPHINXBUILD) -b ubtrace -t customer_a  "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-customer_a" $(SPHINXOPTS) $(O)
-	@$(SPHINXBUILD) -b ubtrace -t customer_b  "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-customer_b" $(SPHINXOPTS) $(O)
-	@echo "Built variants: base, customer_a, customer_b -> $(BUILDDIR)/ubtrace[-<variant>]"
+	@for loc in eu uk asia; do \
+	  for typ in combi cabrio motorcycle; do \
+	    echo ">> building $$loc / $$typ"; \
+	    $(SPHINXBUILD) -b ubtrace -t $$loc -t $$typ "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-$$loc-$$typ" $(SPHINXOPTS) $(O); \
+	  done; \
+	done
+	@echo "Built 9 combinations (eu/uk/asia x combi/cabrio/motorcycle) -> $(BUILDDIR)/ubtrace-<location>-<type>"
 
-html-customer-a:
-	@$(SPHINXBUILD) -b html -t customer_a "$(SOURCEDIR)" "$(BUILDDIR)/html-customer_a" $(SPHINXOPTS) $(O)
+# A couple of convenience html targets for spot-checking specific combinations.
+html-uk-cabrio:
+	@$(SPHINXBUILD) -b html -t uk -t cabrio "$(SOURCEDIR)" "$(BUILDDIR)/html-uk-cabrio" $(SPHINXOPTS) $(O)
 
-html-customer-b:
-	@$(SPHINXBUILD) -b html -t customer_b "$(SOURCEDIR)" "$(BUILDDIR)/html-customer_b" $(SPHINXOPTS) $(O)
+html-asia-motorcycle:
+	@$(SPHINXBUILD) -b html -t asia -t motorcycle "$(SOURCEDIR)" "$(BUILDDIR)/html-asia-motorcycle" $(SPHINXOPTS) $(O)
 
-ubtrace-customer-a:
-	@$(SPHINXBUILD) -b ubtrace -t customer_a "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-customer_a" $(SPHINXOPTS) $(O)
-
-ubtrace-customer-b:
-	@$(SPHINXBUILD) -b ubtrace -t customer_b "$(SOURCEDIR)" "$(BUILDDIR)/ubtrace-customer_b" $(SPHINXOPTS) $(O)
-
-# Generic variant build, parameterised by BUILDER and VARIANT, e.g.
-#   make variant BUILDER=html VARIANT=customer_a
-#   make variant BUILDER=ubtrace VARIANT=customer_b
-# Every variant builds into its own dir; for ubtrace the `variant` dimension
-# (set in conf.py from the build tag) classifies the build inside ubTrace.
+# Generic variant build, parameterised by BUILDER, LOCATION and TYPE, e.g.
+#   make variant BUILDER=html LOCATION=uk TYPE=cabrio
+#   make variant BUILDER=ubtrace LOCATION=asia TYPE=motorcycle
+# Each combination builds into its own dir; for ubtrace the `location`/`type`
+# dimensions (set in conf.py from the build tags) classify the build in ubTrace.
 BUILDER ?= html
-VARIANT ?= customer_a
+LOCATION ?= eu
+TYPE ?= combi
 variant:
-	@$(SPHINXBUILD) -b $(BUILDER) -t $(VARIANT) "$(SOURCEDIR)" "$(BUILDDIR)/$(BUILDER)-$(VARIANT)" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -b $(BUILDER) -t $(LOCATION) -t $(TYPE) "$(SOURCEDIR)" "$(BUILDDIR)/$(BUILDER)-$(LOCATION)-$(TYPE)" $(SPHINXOPTS) $(O)
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

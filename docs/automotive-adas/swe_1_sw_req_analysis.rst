@@ -21,15 +21,17 @@ SWE.1 Software Requirements
    :links: ARCH_001, REQ_002
    :author: ROBERT
    :github: 5
-   :tuning: <<customer_a: 0.3 m, customer_b: 0.5 m, 0.4 m>>
+   :tuning: <<uk_car: 0.3 m, uk_motorcycle: 0.2 m, eu_motorcycle: 0.25 m, asia_combi: 0.5 m, asia_cabrio: 0.55 m, asia_motorcycle: 0.35 m, 0.4 m>>
 
    Implement a feature to trigger warnings if the vehicle deviates from its lane by
    more than :ndf:`copy("tuning")` without proper signaling.
 
-   .. only:: not customer_a and not customer_b
+   .. only:: not uk and not asia and not eu
 
-      The lateral offset at which the warning fires is a customer calibration (``tuning`` field): Customer A
-      prefers an early 0.3 m warning, Customer B a later 0.5 m warning; other builds use the 0.4 m baseline.
+      The lateral offset at which the warning fires is resolved from the **combination** of the two variant
+      dimensions (``tuning`` field). Cars (combi/cabrio) share one value per market — 0.3 m in the UK, 0.5 m in
+      ASIA, 0.4 m in the EU reference — while motorcycles get an earlier warning everywhere (0.2 m UK, 0.25 m EU,
+      0.35 m ASIA), and the ASIA cabrio is tuned separately at 0.55 m. An untagged build shows the EU car value.
 
 .. swreq:: Steering Correction Algorithm
    :id: SWREQ_003
@@ -52,15 +54,17 @@ SWE.1 Software Requirements
    :status: closed
    :links: ARCH_002, REQ_004
    :author: PETER
-   :tuning: <<customer_a: 1.8 s, customer_b: 2.2 s, 2.0 s>>
+   :tuning: <<uk_car: 1.8 s, uk_motorcycle: 2.2 s, eu_motorcycle: 2.4 s, asia_combi: 2.2 s, asia_cabrio: 2.1 s, asia_motorcycle: 2.6 s, 2.0 s>>
 
    Implement a module to dynamically adjust the vehicle's speed based on distance
    measurements, maintaining a following time gap of :ndf:`copy("tuning")`.
 
-   .. only:: not customer_a and not customer_b
+   .. only:: not uk and not asia and not eu
 
-      The default following **time gap** is customer-tunable (``tuning`` field): Customer A ships a sportier 1.8 s gap,
-      Customer B a comfort-oriented 2.2 s gap; an untagged build uses the 2.0 s baseline.
+      The following **time gap** is resolved from the **combination** of both variant dimensions (``tuning`` field).
+      Cars keep the market gap (1.8 s UK, 2.2 s ASIA combi, 2.1 s ASIA cabrio, 2.0 s EU reference), while
+      motorcycles keep a larger gap everywhere (2.2 s UK, 2.4 s EU, 2.6 s ASIA). An untagged build shows the EU
+      car value.
 
 .. swreq:: Collision Risk Estimation
    :id: SWREQ_006
