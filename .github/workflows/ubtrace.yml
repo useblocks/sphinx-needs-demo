@@ -34,15 +34,25 @@ jobs:
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Build ubTrace artifact
-        working-directory: docs
-        run: |
-          uv run sphinx-build -W -b ubtrace \
-            -D ubtrace_version=${{ steps.vars.outputs.version }} \
-            . _build/ubtrace
-
-      - name: Upload to ubTrace
+      - name: Build and upload all variants to ubTrace
         env:
           UBTRACE_INGEST_TOKEN: ${{ secrets.UBTRACE_INGEST_TOKEN }}
           UBTRACE_VERSION: ${{ steps.vars.outputs.version }}
-        run: bash upload.sh
+        run: |
+          set -euo pipefail
+          # Build each ADAS variant and upload it individually. All variants build
+          # into the same output directory, so each build must be uploaded before
+          # the next one overwrites it. The variant dimensions (area/steering) are
+          # written into ubtrace_project.toml and keep the uploads distinct on the
+          # ubTrace server.
+          for variant in eu_left eu_right america; do
+            echo "::group::Build variant ${variant}"
+            uv run sphinx-build -W -b ubtrace \
+              -D ubtrace_version=${{ steps.vars.outputs.version }} \
+              -D needs_variant_data_file=variants/${variant}.json \
+              docs docs/_build/ubtrace
+            echo "::endgroup::"
+            echo "::group::Upload variant ${variant}"
+            bash upload.sh
+            echo "::endgroup::"
+          done

@@ -59,6 +59,30 @@ ubtrace_theme_options = {
     }
 }
 
+# Sphinx-Needs Variant Data Configuration
+# Default configuration for eu_left
+# Can be overridden with: sphinx-build -D needs_variant_data_file=variants/eu_right.json
+needs_variant_data_file = "variants/eu_left.json"
+
+# A -D override is applied by Sphinx *after* conf.py runs. Sphinx-Needs reads the
+# final value on its own, but ubtrace_dimensions is computed here, so we honor a
+# -D value from argv to keep it in sync with the selected variant.
+for _arg in sys.argv:
+    if _arg.startswith("needs_variant_data_file="):
+        needs_variant_data_file = _arg.split("=", 1)[1]
+
+# Read the selected variant file to feed ubtrace_dimensions.
+import json
+
+with open(os.path.join(os.path.dirname(__file__), needs_variant_data_file)) as f:
+    _variant_data = json.load(f)
+
+ubtrace_dimensions = {
+    "area": _variant_data["region"]["area"],
+    "steering": _variant_data["vehicle"]["steering_side"]
+}
+
+
 ###############################################################################
 # SPHINX-NEEDS Config START
 ###############################################################################

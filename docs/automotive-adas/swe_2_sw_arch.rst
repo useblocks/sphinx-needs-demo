@@ -301,3 +301,37 @@ SWE.2 Software Architecture
       ParkingAssist --> TrajectoryPlanner
       ParkingAssist --> ActuatorBridge
       @enduml
+
+.. swarch:: Camera Positioning Subsystem
+   :id: SWARCH_011
+   :status: open
+   :links: SWREQ_001
+   :author: ALFRED
+   :camera_position: <{ var.vehicle.driver_position }>
+
+   Design the camera positioning architecture for the lane detection system,
+   with primary camera orientation optimized for :variant:`vehicle.driver_position`-side
+   driving in :variant:`region.area` markets.
+
+   **Configuration:**
+
+   - Driver position: :variant:`vehicle.driver_position`
+   - Region: :variant:`region.area`
+   - Speed display unit: :variant:`region.speed_unit`
+
+   .. uml::
+
+      @startuml
+      class CameraPositioning {
+          + calibrateOrientation()
+          + adjustFocalPoint()
+      }
+      class DriverMonitor {
+          + getDriverPosition()
+      }
+      class CameraHardware {
+          + setCameraAngle()
+      }
+      CameraPositioning --> DriverMonitor
+      CameraPositioning --> CameraHardware
+      @enduml

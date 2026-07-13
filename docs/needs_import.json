@@ -38,14 +38,12 @@
           "max_content_lines": "",
           "modifications": 0,
           "number": "1",
-          "params": "",
           "parent_need": "",
           "parent_needs": [],
           "parent_needs_back": [],
           "parts": {},
           "post_template": null,
           "pre_template": null,
-          "prefix": "",
           "query": "",
           "section_name": "Needs",
           "sections": ["Needs", "Test Data", "Page 1"],
@@ -61,7 +59,6 @@
           "type_name": "Requirement",
           "updated_at": "",
           "url": "",
-          "url_postfix": "",
           "user": ""
         },
         "REQ_1_2_imp": {
@@ -97,14 +94,12 @@
           "max_content_lines": "",
           "modifications": 0,
           "number": "2",
-          "params": "",
           "parent_need": "",
           "parent_needs": [],
           "parent_needs_back": [],
           "parts": {},
           "post_template": null,
           "pre_template": null,
-          "prefix": "",
           "query": "",
           "section_name": "Needs",
           "sections": ["Needs", "Test Data", "Page 1"],
@@ -120,7 +115,6 @@
           "type_name": "Requirement",
           "updated_at": "",
           "url": "",
-          "url_postfix": "",
           "user": ""
         },
         "SPEC_1_1_imp": {
@@ -156,14 +150,12 @@
           "max_content_lines": "",
           "modifications": 0,
           "number": "1",
-          "params": "",
           "parent_need": "",
           "parent_needs": [],
           "parent_needs_back": [],
           "parts": {},
           "post_template": null,
           "pre_template": null,
-          "prefix": "",
           "query": "",
           "section_name": "Needs",
           "sections": ["Needs", "Test Data", "Page 1"],
@@ -179,7 +171,6 @@
           "type_name": "Specification",
           "updated_at": "",
           "url": "",
-          "url_postfix": "",
           "user": ""
         },
         "SPEC_1_2_imp": {
@@ -215,14 +206,12 @@
           "max_content_lines": "",
           "modifications": 0,
           "number": "2",
-          "params": "",
           "parent_need": "",
           "parent_needs": [],
           "parent_needs_back": [],
           "parts": {},
           "post_template": null,
           "pre_template": null,
-          "prefix": "",
           "query": "",
           "section_name": "Needs",
           "sections": ["Needs", "Test Data", "Page 1"],
@@ -238,7 +227,6 @@
           "type_name": "Specification",
           "updated_at": "",
           "url": "",
-          "url_postfix": "",
           "user": ""
         }
       },
@@ -448,12 +436,6 @@
             "field_type": "extra",
             "type": "string"
           },
-          "params": {
-            "default": "",
-            "description": "Added by service open-needs",
-            "field_type": "extra",
-            "type": "string"
-          },
           "parent_need": {
             "default": "",
             "description": "Simply the first parent id.",
@@ -504,12 +486,6 @@
             "description": "Pre-template of the need.",
             "field_type": "core",
             "type": ["string", "null"]
-          },
-          "prefix": {
-            "default": "",
-            "description": "Added by service open-needs",
-            "field_type": "extra",
-            "type": "string"
           },
           "query": {
             "default": "",
@@ -599,12 +575,6 @@
           "url": {
             "default": "",
             "description": "Added by service github-issues",
-            "field_type": "extra",
-            "type": "string"
-          },
-          "url_postfix": {
-            "default": "",
-            "description": "Added by service open-needs",
             "field_type": "extra",
             "type": "string"
           },

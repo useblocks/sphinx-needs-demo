@@ -1,0 +1,11 @@
+{
+    "region": {
+        "area": "eu",
+        "speed_unit": "km/h",
+        "speed_limit_highway": 130
+    },
+    "vehicle": {
+        "steering_side": "right",
+        "driver_position": "right"
+    }
+}

@@ -161,3 +161,28 @@ SYS.2 Requirement Analysis
 
    Plan a feasible park trajectory into the chosen slot and command steering, throttle,
    and braking actuators to follow it within configured speed and clearance bounds.
+
+.. req:: Maximum Speed Limit for Adaptive Cruise Control
+   :id: REQ_017
+   :status: open
+   :links: NEED_002
+   :release: REL_ADAS_2026_6
+   :author: PETER
+   :max_speed: <{ var.region.speed_limit_highway }>
+   :speed_unit: <{ var.region.speed_unit }>
+
+   The adaptive cruise control shall not exceed the configured maximum speed
+   of <{ var.region.speed_limit_highway }> :variant:`region.speed_unit`
+   on highways.
+
+.. req:: Lane Change Warning Direction
+   :id: REQ_018
+   :status: open
+   :links: NEED_001
+   :release: REL_ADAS_2026_6
+   :author: ROBERT
+   :driver_side: <{ var.vehicle.driver_position }>
+
+   The lane keeping assistant shall prioritize warnings for blind spots on
+   the :variant:`vehicle.driver_position` side, as this is the driver's
+   position in :variant:`region.area` market vehicles.

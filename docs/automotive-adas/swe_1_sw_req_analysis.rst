@@ -231,3 +231,25 @@ SWE.1 Software Requirements
    Plan and follow a smooth park trajectory into the selected slot, respecting
    clearance margins, maximum speed, and steering rate limits, with abort behavior
    on detected obstacles.
+
+.. if:: var.vehicle.steering_side == "left"
+
+   .. swreq:: Left-Hand Drive Turn Signal Priority
+      :id: SWREQ_028
+      :status: open
+      :links: ARCH_001, REQ_018
+      :author: STEVEN
+
+      Implement turn signal logic optimized for left-hand drive vehicles,
+      prioritizing right-side mirror checks for overtaking maneuvers.
+
+.. if:: var.vehicle.steering_side == "right"
+
+   .. swreq:: Right-Hand Drive Turn Signal Priority
+      :id: SWREQ_029
+      :status: open
+      :links: ARCH_001, REQ_018
+      :author: STEVEN
+
+      Implement turn signal logic optimized for right-hand drive vehicles,
+      prioritizing left-side mirror checks for overtaking maneuvers.

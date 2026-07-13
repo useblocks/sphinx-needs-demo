@@ -185,3 +185,49 @@ Demo Object and Meta Model
    release -[#999]-> person: <color:#999>author
 
    @enduml
+
+
+Variant Handling
+----------------
+
+This project is built once but reused for several product variants. The variant
+parameters are described with `Sphinx-Needs variant data
+<https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-variant-data>`__
+and split along two dimensions:
+
+* ``area`` -- the target market (``eu`` or ``america``)
+* ``steering`` -- the steering side (``left`` or ``right``)
+
+Each variant is stored as a small JSON file under ``docs/variants/`` and loaded
+via ``needs_variant_data_file``. The default (``eu_left``) is set in ``conf.py``,
+and any other variant is selected on the command line with the ``-D`` override:
+
+.. code-block:: bash
+
+   # Default build (eu_left)
+   sphinx-build -b html docs docs/_build/html
+
+   # EU, right-hand drive
+   sphinx-build -b html -D needs_variant_data_file=variants/eu_right.json docs docs/_build/html
+
+   # America, left-hand drive
+   sphinx-build -b html -D needs_variant_data_file=variants/america.json docs docs/_build/html
+
+Depending on the selected variant, some need fields, prose values and even whole
+needs (via the ``if`` directive) change. The three variant definitions are shown
+below.
+
+.. dropdown:: variants/eu_left.json (default)
+
+   .. literalinclude:: /variants/eu_left.json
+      :language: json
+
+.. dropdown:: variants/eu_right.json
+
+   .. literalinclude:: /variants/eu_right.json
+      :language: json
+
+.. dropdown:: variants/america.json
+
+   .. literalinclude:: /variants/america.json
+      :language: json
