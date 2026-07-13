@@ -24,6 +24,9 @@ jobs:
   ubc:
     name: ubc
     runs-on: ubuntu-latest
+    # Non-blocking: ubc does not yet support the `if` directive (variant blocks)
+    # and reports false positives. Keep the job for visibility without failing CI.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: useblocks/ubc-action@0.1
