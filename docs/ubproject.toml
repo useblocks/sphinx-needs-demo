@@ -144,6 +144,34 @@ nullable = true
 description = "Target safe state for safety goal"
 nullable = true
 
+# Variant-aware fields (ADAS variant demo: eu_left / eu_right / america)
+[needs.fields.max_speed]
+description = "Maximum speed limit, resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.max_speed.schema]
+type = "integer"
+
+[needs.fields.speed_unit]
+description = "Speed unit (km/h or mph), resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.driver_side]
+description = "Driver position side, resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.camera_position]
+description = "Primary camera orientation side, resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.test_type]
+description = "Type of test (e.g. unit, integration)"
+nullable = true
+
 # Core field overrides for variant handling and global predicates
 [needs.fields.status]
 parse_variants = true

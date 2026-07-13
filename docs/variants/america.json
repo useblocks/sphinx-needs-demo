@@ -1,0 +1,11 @@
+{
+    "region": {
+        "area": "america",
+        "speed_unit": "mph",
+        "speed_limit_highway": 75
+    },
+    "vehicle": {
+        "steering_side": "left",
+        "driver_position": "left"
+    }
+}
