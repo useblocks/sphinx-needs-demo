@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Needs Overview</title>
+  <style>
+    /* Colors are defined once as custom properties, each trying a
+       `--vscode-*` theme variable first: inside the VS Code report
+       preview those are defined by the editor, so the report follows
+       the active theme. Everywhere else (browser, email, print) they
+       are undefined and the fallback applies — the document stays
+       fully self-contained, with dark-mode fallbacks for browsers. */
+    :root {
+      color-scheme: light dark;
+      --report-font: var(--vscode-font-family, sans-serif);
+      --report-fg: var(--vscode-foreground, #1f2328);
+      --report-border: var(--vscode-panel-border, #d1d9e0);
+      --report-soft-bg: var(--vscode-editor-inactiveSelectionBackground, #f6f8fa);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --report-fg: var(--vscode-foreground, #e6edf3);
+        --report-border: var(--vscode-panel-border, #3d444d);
+        --report-soft-bg: var(--vscode-editor-inactiveSelectionBackground, #262c36);
+      }
+    }
+    body { font-family: var(--report-font); max-width: 900px; margin: 2em auto; padding: 0 1em; color: var(--report-fg); }
+    h1, h2 { border-bottom: 1px solid var(--report-border); padding-bottom: 4px; }
+    .muted { opacity: 0.6; font-size: 0.85em; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid var(--report-border); padding: 4px 8px; text-align: left; }
+    th { background: var(--report-soft-bg); }
+    code { background: var(--report-soft-bg); padding: 1px 4px; border-radius: 3px; }
+    svg text { fill: var(--report-fg); }
+  </style>
+</head>
+<body>
+
+  <h1>Needs Overview</h1>
+  <p class="muted">
+    {{ needs|length }} needs ·
+    {{ needs_list|groupby('type')|length }} types ·
+    {{ needs_list|groupby('status')|length }} statuses
+  </p>
+
+  {% if needs|length == 0 %}
+  <p><em>No needs found. Index the project and re-run this report.</em></p>
+  {% else %}
+
+  {# Bar colors follow the editor's chart palette inside the VS Code
+     preview and fall back to fixed colors everywhere else. SVG
+     presentation attributes cannot resolve var(), so fills are set via
+     the style attribute. #}
+  {% set palette = [
+    'var(--vscode-charts-blue, #3b82f6)',
+    'var(--vscode-charts-green, #10b981)',
+    'var(--vscode-charts-yellow, #f59e0b)',
+    'var(--vscode-charts-red, #ef4444)',
+    'var(--vscode-charts-purple, #8b5cf6)',
+    'var(--vscode-charts-orange, #f97316)',
+    '#06b6d4', '#ec4899'
+  ] %}
+  {% set groups = needs_list|groupby('type') %}
+
+  <h2>Needs per type</h2>
+  {# A pure inline-SVG bar chart: no JavaScript, renders identically in
+     any browser, email client, or print/PDF output. Bar lengths are
+     scaled to the largest group so the chart fills its width. #}
+  {% set max_count = groups|map('last')|map('length')|max %}
+  <svg viewBox="0 0 640 {{ groups|length * 32 + 4 }}" role="img" aria-label="Needs per type">
+    {% for type, group in groups %}
+    <g transform="translate(0, {{ loop.index0 * 32 }})">
+      <text x="0" y="19" font-size="13">{{ type }}</text>
+      <rect x="110" y="4" height="22" width="{{ (group|length / max_count * 480)|round(1) }}"
+            style="fill: {{ palette[loop.index0 % (palette|length)] }}" rx="3"></rect>
+      <text x="{{ 116 + (group|length / max_count * 480)|round(1) }}" y="19" font-size="13">{{ group|length }}</text>
+    </g>
+    {% endfor %}
+  </svg>
+
+  <h2>Needs per status</h2>
+  <table>
+    <thead><tr><th>Status</th><th>Count</th></tr></thead>
+    <tbody>
+      {% for status, group in needs_list|groupby('status') %}
+      <tr><td>{{ status or "(none)" }}</td><td>{{ group|length }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>All needs</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Type</th><th>Title</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for n in needs_list %}
+      <tr>
+        <td><code>{{ n.id }}</code></td>
+        <td>{{ n.type }}</td>
+        <td>{{ n.title }}</td>
+        <td>{{ n.status or "" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% endif %}
+</body>
+</html>

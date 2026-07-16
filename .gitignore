@@ -165,3 +165,6 @@ docs/github_images
 .pharaoh/plans/
 .pharaoh/session.json
 .pharaoh/cache/
+
+
+docs/reports/_build

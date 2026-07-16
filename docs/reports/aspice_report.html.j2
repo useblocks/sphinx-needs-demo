@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ADAS ASPICE Report</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --report-font: var(--vscode-font-family, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif);
+      --report-fg: var(--vscode-foreground, #1f2328);
+      --report-bg: var(--vscode-editor-background, #ffffff);
+      --report-border: var(--vscode-panel-border, #d1d9e0);
+      --report-soft-bg: var(--vscode-editor-inactiveSelectionBackground, #f6f8fa);
+      --report-header-bg: var(--vscode-titleBar-activeBackground, #3b82f6);
+      --report-success: #10b981;
+      --report-warning: #f59e0b;
+      --report-error: #ef4444;
+      --report-info: #3b82f6;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --report-fg: var(--vscode-foreground, #e6edf3);
+        --report-bg: var(--vscode-editor-background, #0d1117);
+        --report-border: var(--vscode-panel-border, #3d444d);
+        --report-soft-bg: var(--vscode-editor-inactiveSelectionBackground, #262c36);
+      }
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      font-family: var(--report-font);
+      margin: 0;
+      padding: 0;
+      color: var(--report-fg);
+      background: var(--report-bg);
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    
+    .header .subtitle {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .metric-card {
+      background: var(--report-soft-bg);
+      border: 1px solid var(--report-border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .metric-label {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .section {
+      background: var(--report-soft-bg);
+      border: 1px solid var(--report-border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .section h2 {
+      margin: 0 0 1.5rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--report-border);
+      font-size: 1.5rem;
+      color: var(--report-fg);
+    }
+    
+    .section h3 {
+      margin: 1.5rem 0 1rem 0;
+      font-size: 1.2rem;
+      color: var(--report-fg);
+    }
+    
+    .section h4 {
+      margin: 1rem 0 0.5rem 0;
+      font-size: 1rem;
+      color: var(--report-fg);
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      border: 1px solid var(--report-border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    th {
+      background: var(--report-header-bg);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+    
+    tr:nth-child(even) {
+      background: var(--report-soft-bg);
+    }
+    
+    tr:hover {
+      background: var(--report-border);
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .badge-open { background: var(--report-warning); color: white; }
+    .badge-closed { background: var(--report-success); color: white; }
+    .badge-in-progress { background: var(--report-info); color: white; }
+    .badge-failed { background: var(--report-error); color: white; }
+    .badge-passed { background: var(--report-success); color: white; }
+    .badge-none { background: #6b7280; color: white; }
+    
+    .aspice-level {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--report-info);
+      background: var(--report-bg);
+      border-radius: 4px;
+    }
+    
+    .aspice-level h4 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      color: var(--report-fg);
+    }
+    
+    .aspice-level-stats {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      font-size: 0.9rem;
+    }
+    
+    .stat-label {
+      opacity: 0.7;
+    }
+    
+    .stat-value {
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
+    
+    code {
+      background: var(--report-soft-bg);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--report-border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.3s ease;
+    }
+    
+    .muted {
+      opacity: 0.6;
+      font-size: 0.9em;
+    }
+    
+    svg text { fill: var(--report-fg); }
+    
+    @media print {
+      .header { page-break-after: always; }
+      .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🚗 ADAS Project ASPICE Report</h1>
+    <p class="subtitle">Automotive SPICE Compliance & V-Model Traceability Analysis</p>
+    <p class="muted" style="margin-top: 1rem;">
+      Total Needs: {{ needs|length }}
+    </p>
+  </div>
+
+  <div class="container">
+
+    {# Overall Project Metrics #}
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Total Needs</div>
+        <div class="metric-value">{{ needs|length }}</div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-label">Need Types</div>
+        <div class="metric-value">{{ needs_list|groupby('type')|length }}</div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-label">Completion Rate</div>
+        {% set closed_count = needs_list|selectattr('status', 'equalto', 'closed')|list|length %}
+        {% set total_with_status = needs_list|selectattr('status', 'ne', None)|list|length %}
+        {% set completion_rate = (closed_count / total_with_status * 100)|round(1) if total_with_status > 0 else 0 %}
+        <div class="metric-value">{{ completion_rate }}%</div>
+      </div>
+      
+      <div class="metric-card">
+        <div class="metric-label">Open Items</div>
+        {% set open_count = needs_list|selectattr('status', 'equalto', 'open')|list|length %}
+        <div class="metric-value">{{ open_count }}</div>
+      </div>
+    </div>
+
+    {# ASPICE V-Model Overview #}
+    <div class="section">
+      <h2>📊 ASPICE V-Model Overview</h2>
+      
+      <h3>Safety Layer (ISO 26262)</h3>
+      {% set safety_goals = needs_list|selectattr('type', 'equalto', 'safety_goal')|list %}
+      {% set fsr_needs = needs_list|selectattr('type', 'equalto', 'fsr')|list %}
+      
+      <div class="aspice-level">
+        <h4>🛡️ Safety Goals & FSR (Functional Safety Requirements)</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">Safety Goals:</span>
+            <span class="stat-value">{{ safety_goals|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">FSR:</span>
+            <span class="stat-value">{{ fsr_needs|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Closed:</span>
+            <span class="stat-value">{{ (safety_goals + fsr_needs)|selectattr('status', 'equalto', 'closed')|list|length }}</span>
+          </div>
+        </div>
+        {% set safety_total = (safety_goals + fsr_needs)|length %}
+        {% set safety_closed = (safety_goals + fsr_needs)|selectattr('status', 'equalto', 'closed')|list|length %}
+        {% set safety_progress = (safety_closed / safety_total * 100)|round(1) if safety_total > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ safety_progress }}%"></div>
+        </div>
+      </div>
+
+      <h3>System Level (SYS.1 - SYS.5)</h3>
+      {% set sysreqs = needs_list|selectattr('type', 'equalto', 'sysreq')|list %}
+      {% set reqs = needs_list|selectattr('type', 'equalto', 'req')|list %}
+      {% set arch = needs_list|selectattr('type', 'equalto', 'arch')|list %}
+      {% set all_tests = needs_list|selectattr('type', 'equalto', 'test')|list %}
+      
+      <div class="aspice-level">
+        <h4>SYS.1/2 Requirements Elicitation & Analysis</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">System Requirements:</span>
+            <span class="stat-value">{{ sysreqs|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Requirements:</span>
+            <span class="stat-value">{{ reqs|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Closed:</span>
+            <span class="stat-value">{{ (sysreqs + reqs)|selectattr('status', 'equalto', 'closed')|list|length }}</span>
+          </div>
+        </div>
+        {% set sys_req_total = (sysreqs + reqs)|length %}
+        {% set sys_req_closed = (sysreqs + reqs)|selectattr('status', 'equalto', 'closed')|list|length %}
+        {% set sys_req_progress = (sys_req_closed / sys_req_total * 100)|round(1) if sys_req_total > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ sys_req_progress }}%"></div>
+        </div>
+      </div>
+      
+      <div class="aspice-level">
+        <h4>SYS.3 System Architecture Design</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">Architecture Elements:</span>
+            <span class="stat-value">{{ arch|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Closed:</span>
+            <span class="stat-value">{{ arch|selectattr('status', 'equalto', 'closed')|list|length }}</span>
+          </div>
+        </div>
+        {% set arch_progress = (arch|selectattr('status', 'equalto', 'closed')|list|length / arch|length * 100)|round(1) if arch|length > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ arch_progress }}%"></div>
+        </div>
+      </div>
+      
+      <div class="aspice-level">
+        <h4>SYS.4/5 System Integration & Qualification Tests</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">System Tests:</span>
+            <span class="stat-value">
+              {% set sys_test_count = namespace(value=0) %}
+              {% for test in all_tests %}
+                {% if test.id and 'TEST_SYS' in test.id %}
+                  {% set sys_test_count.value = sys_test_count.value + 1 %}
+                {% endif %}
+              {% endfor %}
+              {{ sys_test_count.value }}
+            </span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Passed:</span>
+            <span class="stat-value">
+              {% set sys_test_passed = namespace(value=0) %}
+              {% for test in all_tests %}
+                {% if test.id and 'TEST_SYS' in test.id and test.status == 'passed' %}
+                  {% set sys_test_passed.value = sys_test_passed.value + 1 %}
+                {% endif %}
+              {% endfor %}
+              {{ sys_test_passed.value }}
+            </span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Failed:</span>
+            <span class="stat-value">
+              {% set sys_test_failed = namespace(value=0) %}
+              {% for test in all_tests %}
+                {% if test.id and 'TEST_SYS' in test.id and test.status == 'failed' %}
+                  {% set sys_test_failed.value = sys_test_failed.value + 1 %}
+                {% endif %}
+              {% endfor %}
+              {{ sys_test_failed.value }}
+            </span>
+          </div>
+        </div>
+        {% set progress = (sys_test_passed.value / sys_test_count.value * 100)|round(1) if sys_test_count.value > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ progress }}%"></div>
+        </div>
+      </div>
+
+      <h3>Software Level (SWE.1 - SWE.6)</h3>
+      {% set swreqs = needs_list|selectattr('type', 'equalto', 'swreq')|list %}
+      {% set swarch = needs_list|selectattr('type', 'equalto', 'swarch')|list %}
+      {% set impl = needs_list|selectattr('type', 'equalto', 'impl')|list %}
+      
+      <div class="aspice-level">
+        <h4>SWE.1 Software Requirements Analysis</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">SW Requirements:</span>
+            <span class="stat-value">{{ swreqs|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Closed:</span>
+            <span class="stat-value">{{ swreqs|selectattr('status', 'equalto', 'closed')|list|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Open:</span>
+            <span class="stat-value">{{ swreqs|selectattr('status', 'equalto', 'open')|list|length }}</span>
+          </div>
+        </div>
+        {% set swreq_progress = (swreqs|selectattr('status', 'equalto', 'closed')|list|length / swreqs|length * 100)|round(1) if swreqs|length > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ swreq_progress }}%"></div>
+        </div>
+      </div>
+      
+      <div class="aspice-level">
+        <h4>SWE.2 Software Architecture Design</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">SW Architecture:</span>
+            <span class="stat-value">{{ swarch|length }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Closed:</span>
+            <span class="stat-value">{{ swarch|selectattr('status', 'equalto', 'closed')|list|length }}</span>
+          </div>
+        </div>
+        {% set swarch_progress = (swarch|selectattr('status', 'equalto', 'closed')|list|length / swarch|length * 100)|round(1) if swarch|length > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ swarch_progress }}%"></div>
+        </div>
+      </div>
+      
+      <div class="aspice-level">
+        <h4>SWE.3 Software Detailed Design & Implementation</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">Implementations:</span>
+            <span class="stat-value">{{ impl|length }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="aspice-level">
+        <h4>SWE.4/5/6 Software Unit, Integration & Qualification Tests</h4>
+        <div class="aspice-level-stats">
+          <div class="stat-item">
+            <span class="stat-label">SW Tests:</span>
+            <span class="stat-value">
+              {% set sw_test_count = namespace(value=0) %}
+              {% for test in all_tests %}
+                {% if not test.id or 'TEST_SYS' not in test.id %}
+                  {% set sw_test_count.value = sw_test_count.value + 1 %}
+                {% endif %}
+              {% endfor %}
+              {{ sw_test_count.value }}
+            </span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Passed:</span>
+            <span class="stat-value">
+              {% set sw_test_passed = namespace(value=0) %}
+              {% for test in all_tests %}
+                {% if (not test.id or 'TEST_SYS' not in test.id) and test.status == 'passed' %}
+                  {% set sw_test_passed.value = sw_test_passed.value + 1 %}
+                {% endif %}
+              {% endfor %}
+              {{ sw_test_passed.value }}
+            </span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Failed:</span>
+            <span class="stat-value">
+              {% set sw_test_failed = namespace(value=0) %}
+              {% for test in all_tests %}
+                {% if (not test.id or 'TEST_SYS' not in test.id) and test.status == 'failed' %}
+                  {% set sw_test_failed.value = sw_test_failed.value + 1 %}
+                {% endif %}
+              {% endfor %}
+              {{ sw_test_failed.value }}
+            </span>
+          </div>
+        </div>
+        {% set progress = (sw_test_passed.value / sw_test_count.value * 100)|round(1) if sw_test_count.value > 0 else 0 %}
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: {{ progress }}%"></div>
+        </div>
+      </div>
+    </div>
+
+    {# Visual Charts - Pure SVG, no JavaScript #}
+    <div class="section">
+      <h2>📈 Visual Analytics</h2>
+      
+      <h3>Need Types Distribution</h3>
+      {% set type_groups = needs_list|groupby('type') %}
+      {% set max_type_count = type_groups|map('last')|map('length')|max %}
+      <svg viewBox="0 0 800 {{ type_groups|length * 32 + 4 }}" role="img" aria-label="Need types distribution">
+        {% for type, group in type_groups %}
+        <g transform="translate(0, {{ loop.index0 * 32 }})">
+          <text x="0" y="19" font-size="13">{{ type }}</text>
+          <rect x="180" y="4" height="22" width="{{ (group|length / max_type_count * 580)|round(1) }}"
+                fill="#667eea" rx="3"></rect>
+          <text x="{{ 190 + (group|length / max_type_count * 580)|round(1) }}" y="19" font-size="13">{{ group|length }}</text>
+        </g>
+        {% endfor %}
+      </svg>
+
+      <h3>Status Distribution</h3>
+      {% set status_groups = needs_list|selectattr('status', 'ne', None)|groupby('status') %}
+      {% set max_status_count = status_groups|map('last')|map('length')|max %}
+      <svg viewBox="0 0 800 {{ status_groups|length * 32 + 4 }}" role="img" aria-label="Status distribution">
+        {% for status, group in status_groups %}
+        <g transform="translate(0, {{ loop.index0 * 32 }})">
+          <text x="0" y="19" font-size="13">{{ status }}</text>
+          <rect x="180" y="4" height="22" width="{{ (group|length / max_status_count * 580)|round(1) }}"
+                fill="{% if status == 'closed' or status == 'passed' %}#10b981{% elif status == 'open' %}#f59e0b{% elif status == 'failed' %}#ef4444{% elif status == 'in progress' %}#3b82f6{% else %}#6b7280{% endif %}" 
+                rx="3"></rect>
+          <text x="{{ 190 + (group|length / max_status_count * 580)|round(1) }}" y="19" font-size="13">{{ group|length }}</text>
+        </g>
+        {% endfor %}
+      </svg>
+
+      <h3>Completion & Traceability Metrics</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+        <div style="text-align: center;">
+          <h4 style="margin-bottom: 1rem;">Overall Completion Rate</h4>
+          <div style="font-size: 3rem; font-weight: bold; color: #10b981; margin: 1rem 0;">
+            {{ completion_rate }}%
+          </div>
+          <div style="max-width: 300px; margin: 0 auto;">
+            <div class="progress-bar" style="height: 30px; border-radius: 15px;">
+              <div class="progress-fill" style="width: {{ completion_rate }}%; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                {% if completion_rate > 20 %}{{ closed_count }} / {{ total_with_status }}{% endif %}
+              </div>
+            </div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">
+              {{ closed_count }} of {{ total_with_status }} needs completed
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align: center;">
+          <h4 style="margin-bottom: 1rem;">Traceability Health</h4>
+          {% set total_needs_with_type = needs_list|selectattr('type', 'in', ['req', 'swreq', 'arch', 'swarch'])|list|length %}
+          {% set needs_with_links = needs_list|selectattr('type', 'in', ['req', 'swreq', 'arch', 'swarch'])|selectattr('links')|list|length %}
+          {% set traceability_rate = (needs_with_links / total_needs_with_type * 100)|round(1) if total_needs_with_type > 0 else 0 %}
+          <div style="font-size: 3rem; font-weight: bold; color: {% if traceability_rate >= 80 %}#10b981{% elif traceability_rate >= 50 %}#f59e0b{% else %}#ef4444{% endif %}; margin: 1rem 0;">
+            {{ traceability_rate }}%
+          </div>
+          <div style="max-width: 300px; margin: 0 auto;">
+            <div class="progress-bar" style="height: 30px; border-radius: 15px;">
+              <div style="width: {{ traceability_rate }}%; height: 100%; background: {% if traceability_rate >= 80 %}#10b981{% elif traceability_rate >= 50 %}#f59e0b{% else %}#ef4444{% endif %}; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                {% if traceability_rate > 20 %}{{ needs_with_links }} / {{ total_needs_with_type }}{% endif %}
+              </div>
+            </div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.7;">
+              {{ needs_with_links }} of {{ total_needs_with_type }} needs traced
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Visual Pie Charts</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+        <div>
+          <h4 style="text-align: center; margin-bottom: 0.5rem;">By Status</h4>
+          {% set status_groups = needs_list|selectattr('status', 'ne', None)|groupby('status') %}
+          <svg viewBox="0 0 200 200" style="width: 100%; max-width: 300px; margin: 0 auto; display: block;">
+            {% set total = needs_list|selectattr('status', 'ne', None)|list|length %}
+            {% set offset = 0 %}
+            {% for status, group in status_groups %}
+              {% set count = group|length %}
+              {% set percent = (count / total * 100)|round(1) %}
+              {% set slice_percent = count / total %}
+              <circle cx="100" cy="100" r="80" 
+                      fill="none"
+                      stroke="{% if status == 'closed' or status == 'passed' %}#10b981{% elif status == 'open' %}#f59e0b{% elif status == 'failed' %}#ef4444{% elif status == 'in progress' %}#3b82f6{% else %}#6b7280{% endif %}"
+                      stroke-width="60"
+                      stroke-dasharray="{{ slice_percent * 502.65 }} 502.65"
+                      stroke-dashoffset="{{ -offset * 502.65 }}"
+                      transform="rotate(-90 100 100)"
+                      />
+              {% set offset = offset + slice_percent %}
+            {% endfor %}
+            <text x="100" y="100" text-anchor="middle" font-size="14" font-weight="bold" dy=".3em">{{ status_groups|length }} Status</text>
+          </svg>
+          <div style="margin-top: 1rem; text-align: center; font-size: 0.85rem;">
+            {% for status, group in status_groups %}
+            <div style="margin: 0.25rem 0;">
+              <span style="display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: {% if status == 'closed' or status == 'passed' %}#10b981{% elif status == 'open' %}#f59e0b{% elif status == 'failed' %}#ef4444{% elif status == 'in progress' %}#3b82f6{% else %}#6b7280{% endif %}; margin-right: 0.5rem;"></span>
+              {{ status }}: {{ group|length }}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="text-align: center; margin-bottom: 0.5rem;">ASPICE Layers</h4>
+          {% set layer_safety = (safety_goals + fsr_needs)|length %}
+          {% set layer_system = (sysreqs + reqs + arch)|length %}
+          {% set layer_software = (swreqs + swarch + impl)|length %}
+          {% set layer_tests = all_tests|length %}
+          {% set layer_total = layer_safety + layer_system + layer_software + layer_tests %}
+          <svg viewBox="0 0 200 200" style="width: 100%; max-width: 300px; margin: 0 auto; display: block;">
+            {% set offset = 0 %}
+            {% if layer_safety > 0 %}
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#DC143C" stroke-width="60"
+                      stroke-dasharray="{{ layer_safety / layer_total * 502.65 }} 502.65"
+                      stroke-dashoffset="{{ -offset * 502.65 }}"
+                      transform="rotate(-90 100 100)" />
+              {% set offset = offset + (layer_safety / layer_total) %}
+            {% endif %}
+            {% if layer_system > 0 %}
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#9B59B6" stroke-width="60"
+                      stroke-dasharray="{{ layer_system / layer_total * 502.65 }} 502.65"
+                      stroke-dashoffset="{{ -offset * 502.65 }}"
+                      transform="rotate(-90 100 100)" />
+              {% set offset = offset + (layer_system / layer_total) %}
+            {% endif %}
+            {% if layer_software > 0 %}
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="60"
+                      stroke-dasharray="{{ layer_software / layer_total * 502.65 }} 502.65"
+                      stroke-dashoffset="{{ -offset * 502.65 }}"
+                      transform="rotate(-90 100 100)" />
+              {% set offset = offset + (layer_software / layer_total) %}
+            {% endif %}
+            {% if layer_tests > 0 %}
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#10b981" stroke-width="60"
+                      stroke-dasharray="{{ layer_tests / layer_total * 502.65 }} 502.65"
+                      stroke-dashoffset="{{ -offset * 502.65 }}"
+                      transform="rotate(-90 100 100)" />
+            {% endif %}
+            <text x="100" y="100" text-anchor="middle" font-size="14" font-weight="bold" dy=".3em">{{ layer_total }} Total</text>
+          </svg>
+          <div style="margin-top: 1rem; text-align: center; font-size: 0.85rem;">
+            <div style="margin: 0.25rem 0;"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: #DC143C; margin-right: 0.5rem;"></span>Safety: {{ layer_safety }}</div>
+            <div style="margin: 0.25rem 0;"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: #9B59B6; margin-right: 0.5rem;"></span>System: {{ layer_system }}</div>
+            <div style="margin: 0.25rem 0;"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: #3b82f6; margin-right: 0.5rem;"></span>Software: {{ layer_software }}</div>
+            <div style="margin: 0.25rem 0;"><span style="display: inline-block; width: 12px; height: 12px; border-radius: 2px; background: #10b981; margin-right: 0.5rem;"></span>Tests: {{ layer_tests }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# Detailed Tables #}
+    <div class="section">
+      <h2>📋 Detailed Breakdown by ASPICE Level</h2>
+      
+      <h3>System Requirements (SYS.1/2)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for need in (sysreqs + reqs)|sort(attribute='id') %}
+          <tr>
+            <td><code>{{ need.id }}</code></td>
+            <td>{{ need.title }}</td>
+            <td>{{ need.type }}</td>
+            <td>
+              {% if need.status %}
+              <span class="badge badge-{{ need.status|replace(' ', '-') }}">{{ need.status }}</span>
+              {% else %}
+              <span class="badge badge-none">-</span>
+              {% endif %}
+            </td>
+            <td>{{ need.author or '-' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <h3>Software Requirements (SWE.1)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Author</th>
+            <th>Links</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for need in swreqs|sort(attribute='id') %}
+          <tr>
+            <td><code>{{ need.id }}</code></td>
+            <td>{{ need.title }}</td>
+            <td>
+              {% if need.status %}
+              <span class="badge badge-{{ need.status|replace(' ', '-') }}">{{ need.status }}</span>
+              {% else %}
+              <span class="badge badge-none">-</span>
+              {% endif %}
+            </td>
+            <td>{{ need.author or '-' }}</td>
+            <td>{{ need.links|length if need.links else 0 }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <h3>Architecture Elements (SYS.3 / SWE.2)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for need in (arch + swarch)|sort(attribute='id') %}
+          <tr>
+            <td><code>{{ need.id }}</code></td>
+            <td>{{ need.title }}</td>
+            <td>{{ need.type }}</td>
+            <td>
+              {% if need.status %}
+              <span class="badge badge-{{ need.status|replace(' ', '-') }}">{{ need.status }}</span>
+              {% else %}
+              <span class="badge badge-none">-</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <h3>Test Cases (SWE.4/5/6 & SYS.4/5)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for need in all_tests|sort(attribute='id') %}
+          <tr>
+            <td><code>{{ need.id }}</code></td>
+            <td>{{ need.title }}</td>
+            <td>
+              {% if need.status %}
+              <span class="badge badge-{{ need.status|replace(' ', '-') }}">{{ need.status }}</span>
+              {% else %}
+              <span class="badge badge-none">-</span>
+              {% endif %}
+            </td>
+            <td>{% if need.id and 'TEST_SYS' in need.id %}System{% else %}Software{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {# Traceability Matrix #}
+    <div class="section">
+      <h2>🔗 Traceability Overview</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Need Type</th>
+            <th>Total Count</th>
+            <th>With Links</th>
+            <th>Orphaned</th>
+            <th>Coverage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for type_name, group in needs_list|groupby('type') %}
+          {% set with_links = group|selectattr('links')|list|length %}
+          {% set orphaned = group|length - with_links %}
+          {% set coverage = (with_links / group|length * 100)|round(1) if group|length > 0 else 0 %}
+          <tr>
+            <td><strong>{{ type_name }}</strong></td>
+            <td>{{ group|length }}</td>
+            <td>{{ with_links }}</td>
+            <td>{{ orphaned }}</td>
+            <td>
+              <span style="color: {{ 'var(--report-success)' if coverage >= 80 else ('var(--report-warning)' if coverage >= 50 else 'var(--report-error)') }}; font-weight: 600;">
+                {{ coverage }}%
+              </span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</body>
+</html>
