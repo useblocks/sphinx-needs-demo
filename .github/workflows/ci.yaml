@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: useblocks/ubc-action@0.1
         with:
-          version: "0.30.3"
+          version: "0.31.0b1"
           working-directory: docs
       - name: Run 'ubc check .'
         run: ubc check .
