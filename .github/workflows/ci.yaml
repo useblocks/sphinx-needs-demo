@@ -24,14 +24,11 @@ jobs:
   ubc:
     name: ubc
     runs-on: ubuntu-latest
-    # Non-blocking: ubc does not yet support the `if` directive (variant blocks)
-    # and reports false positives. Keep the job for visibility without failing CI.
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: useblocks/ubc-action@0.1
         with:
           version: "0.31.0b1"
           working-directory: docs
-      - name: Run 'ubc check .'
-        run: ubc check .
+      - name: Run 'ubc check docs/ with variant'
+        run: ubc check -c "needs.variant_data_file='docs/variants/eu_left.json'" docs/
