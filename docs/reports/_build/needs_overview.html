@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Needs Overview</title>
+  <style>
+    /* Colors are defined once as custom properties, each trying a
+       `--vscode-*` theme variable first: inside the VS Code report
+       preview those are defined by the editor, so the report follows
+       the active theme. Everywhere else (browser, email, print) they
+       are undefined and the fallback applies — the document stays
+       fully self-contained, with dark-mode fallbacks for browsers. */
+    :root {
+      color-scheme: light dark;
+      --report-font: var(--vscode-font-family, sans-serif);
+      --report-fg: var(--vscode-foreground, #1f2328);
+      --report-border: var(--vscode-panel-border, #d1d9e0);
+      --report-soft-bg: var(--vscode-editor-inactiveSelectionBackground, #f6f8fa);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --report-fg: var(--vscode-foreground, #e6edf3);
+        --report-border: var(--vscode-panel-border, #3d444d);
+        --report-soft-bg: var(--vscode-editor-inactiveSelectionBackground, #262c36);
+      }
+    }
+    body { font-family: var(--report-font); max-width: 900px; margin: 2em auto; padding: 0 1em; color: var(--report-fg); }
+    h1, h2 { border-bottom: 1px solid var(--report-border); padding-bottom: 4px; }
+    .muted { opacity: 0.6; font-size: 0.85em; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid var(--report-border); padding: 4px 8px; text-align: left; }
+    th { background: var(--report-soft-bg); }
+    code { background: var(--report-soft-bg); padding: 1px 4px; border-radius: 3px; }
+    svg text { fill: var(--report-fg); }
+  </style>
+</head>
+<body>
+
+  <h1>Needs Overview</h1>
+  <p class="muted">
+    292 needs ·
+    19 types ·
+    6 statuses
+  </p>
+
+
+
+  <h2>Needs per type</h2>
+  <svg viewBox="0 0 640 612" role="img" aria-label="Needs per type">
+    <g transform="translate(0, 0)">
+      <text x="0" y="19" font-size="13">arch</text>
+      <rect x="110" y="4" height="22" width="106.7"
+            style="fill: var(--vscode-charts-blue, #3b82f6)" rx="3"></rect>
+      <text x="222.7" y="19" font-size="13">10</text>
+    </g>
+    <g transform="translate(0, 32)">
+      <text x="0" y="19" font-size="13">component</text>
+      <rect x="110" y="4" height="22" width="85.3"
+            style="fill: var(--vscode-charts-green, #10b981)" rx="3"></rect>
+      <text x="201.3" y="19" font-size="13">8</text>
+    </g>
+    <g transform="translate(0, 64)">
+      <text x="0" y="19" font-size="13">fsr</text>
+      <rect x="110" y="4" height="22" width="384.0"
+            style="fill: var(--vscode-charts-yellow, #f59e0b)" rx="3"></rect>
+      <text x="500.0" y="19" font-size="13">36</text>
+    </g>
+    <g transform="translate(0, 96)">
+      <text x="0" y="19" font-size="13">hazard</text>
+      <rect x="110" y="4" height="22" width="10.7"
+            style="fill: var(--vscode-charts-red, #ef4444)" rx="3"></rect>
+      <text x="126.7" y="19" font-size="13">1</text>
+    </g>
+    <g transform="translate(0, 128)">
+      <text x="0" y="19" font-size="13">impl</text>
+      <rect x="110" y="4" height="22" width="416.0"
+            style="fill: var(--vscode-charts-purple, #8b5cf6)" rx="3"></rect>
+      <text x="532.0" y="19" font-size="13">39</text>
+    </g>
+    <g transform="translate(0, 160)">
+      <text x="0" y="19" font-size="13">interface</text>
+      <rect x="110" y="4" height="22" width="96.0"
+            style="fill: var(--vscode-charts-orange, #f97316)" rx="3"></rect>
+      <text x="212.0" y="19" font-size="13">9</text>
+    </g>
+    <g transform="translate(0, 192)">
+      <text x="0" y="19" font-size="13">layer</text>
+      <rect x="110" y="4" height="22" width="42.7"
+            style="fill: #06b6d4" rx="3"></rect>
+      <text x="158.7" y="19" font-size="13">4</text>
+    </g>
+    <g transform="translate(0, 224)">
+      <text x="0" y="19" font-size="13">need</text>
+      <rect x="110" y="4" height="22" width="85.3"
+            style="fill: #ec4899" rx="3"></rect>
+      <text x="201.3" y="19" font-size="13">8</text>
+    </g>
+    <g transform="translate(0, 256)">
+      <text x="0" y="19" font-size="13">person</text>
+      <rect x="110" y="4" height="22" width="64.0"
+            style="fill: var(--vscode-charts-blue, #3b82f6)" rx="3"></rect>
+      <text x="180.0" y="19" font-size="13">6</text>
+    </g>
+    <g transform="translate(0, 288)">
+      <text x="0" y="19" font-size="13">release</text>
+      <rect x="110" y="4" height="22" width="32.0"
+            style="fill: var(--vscode-charts-green, #10b981)" rx="3"></rect>
+      <text x="148.0" y="19" font-size="13">3</text>
+    </g>
+    <g transform="translate(0, 320)">
+      <text x="0" y="19" font-size="13">req</text>
+      <rect x="110" y="4" height="22" width="256.0"
+            style="fill: var(--vscode-charts-yellow, #f59e0b)" rx="3"></rect>
+      <text x="372.0" y="19" font-size="13">24</text>
+    </g>
+    <g transform="translate(0, 352)">
+      <text x="0" y="19" font-size="13">safety_goal</text>
+      <rect x="110" y="4" height="22" width="213.3"
+            style="fill: var(--vscode-charts-red, #ef4444)" rx="3"></rect>
+      <text x="329.3" y="19" font-size="13">20</text>
+    </g>
+    <g transform="translate(0, 384)">
+      <text x="0" y="19" font-size="13">seq_msg</text>
+      <rect x="110" y="4" height="22" width="170.7"
+            style="fill: var(--vscode-charts-purple, #8b5cf6)" rx="3"></rect>
+      <text x="286.7" y="19" font-size="13">16</text>
+    </g>
+    <g transform="translate(0, 416)">
+      <text x="0" y="19" font-size="13">spec</text>
+      <rect x="110" y="4" height="22" width="10.7"
+            style="fill: var(--vscode-charts-orange, #f97316)" rx="3"></rect>
+      <text x="126.7" y="19" font-size="13">1</text>
+    </g>
+    <g transform="translate(0, 448)">
+      <text x="0" y="19" font-size="13">swarch</text>
+      <rect x="110" y="4" height="22" width="117.3"
+            style="fill: #06b6d4" rx="3"></rect>
+      <text x="233.3" y="19" font-size="13">11</text>
+    </g>
+    <g transform="translate(0, 480)">
+      <text x="0" y="19" font-size="13">swreq</text>
+      <rect x="110" y="4" height="22" width="341.3"
+            style="fill: #ec4899" rx="3"></rect>
+      <text x="457.3" y="19" font-size="13">32</text>
+    </g>
+    <g transform="translate(0, 512)">
+      <text x="0" y="19" font-size="13">sysreq</text>
+      <rect x="110" y="4" height="22" width="192.0"
+            style="fill: var(--vscode-charts-blue, #3b82f6)" rx="3"></rect>
+      <text x="308.0" y="19" font-size="13">18</text>
+    </g>
+    <g transform="translate(0, 544)">
+      <text x="0" y="19" font-size="13">team</text>
+      <rect x="110" y="4" height="22" width="10.7"
+            style="fill: var(--vscode-charts-green, #10b981)" rx="3"></rect>
+      <text x="126.7" y="19" font-size="13">1</text>
+    </g>
+    <g transform="translate(0, 576)">
+      <text x="0" y="19" font-size="13">test</text>
+      <rect x="110" y="4" height="22" width="480.0"
+            style="fill: var(--vscode-charts-yellow, #f59e0b)" rx="3"></rect>
+      <text x="596.0" y="19" font-size="13">45</text>
+    </g>
+  </svg>
+
+  <h2>Needs per status</h2>
+  <table>
+    <thead><tr><th>Status</th><th>Count</th></tr></thead>
+    <tbody>
+      <tr><td>(none)</td><td>84</td></tr>
+      <tr><td>closed</td><td>18</td></tr>
+      <tr><td>failed</td><td>1</td></tr>
+      <tr><td>in progress</td><td>8</td></tr>
+      <tr><td>open</td><td>177</td></tr>
+      <tr><td>passed</td><td>4</td></tr>
+    </tbody>
+  </table>
+
+  <h2>All needs</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Type</th><th>Title</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>ADAS</code></td>
+        <td>team</td>
+        <td>Software Development Project for ADAS Components</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>ALFRED</code></td>
+        <td>person</td>
+        <td>Alfred Archer</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>ARCH_001</code></td>
+        <td>arch</td>
+        <td>Lane Detection Module</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_002</code></td>
+        <td>arch</td>
+        <td>Adaptive Cruise Control System</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_003</code></td>
+        <td>arch</td>
+        <td>Collision Avoidance System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_004</code></td>
+        <td>arch</td>
+        <td>Pedestrian Safety Framework</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_005</code></td>
+        <td>arch</td>
+        <td>Alert System Framework</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_006</code></td>
+        <td>arch</td>
+        <td>Emergency Braking System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_007</code></td>
+        <td>arch</td>
+        <td>Traffic Sign Recognition System</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_008</code></td>
+        <td>arch</td>
+        <td>Blind Spot Monitoring System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_009</code></td>
+        <td>arch</td>
+        <td>Driver Drowsiness Detection System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ARCH_010</code></td>
+        <td>arch</td>
+        <td>Automated Parking System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_ADC_DRV</code></td>
+        <td>component</td>
+        <td>ADC Driver</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_BREW_CTRL</code></td>
+        <td>component</td>
+        <td>Brew Controller Module</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_GPIO_DRV</code></td>
+        <td>component</td>
+        <td>GPIO Driver</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_PWM_DRV</code></td>
+        <td>component</td>
+        <td>PWM Driver</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_SAFETY_MON</code></td>
+        <td>component</td>
+        <td>Safety Monitor Module</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_SPI_DRV</code></td>
+        <td>component</td>
+        <td>SPI Driver</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_TEMP_CTRL</code></td>
+        <td>component</td>
+        <td>Temperature Controller Module</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>COMP_UI_MODULE</code></td>
+        <td>component</td>
+        <td>User Interface Module</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>EX_REQ_001</code></td>
+        <td>req</td>
+        <td>Example Requirement</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>EX_REQ_002</code></td>
+        <td>req</td>
+        <td>Example Requirement with debug view</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>EX_SPEC_001</code></td>
+        <td>spec</td>
+        <td>Example Specification</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>EX_TEST_001</code></td>
+        <td>test</td>
+        <td>Example Test case</td>
+        <td>passed</td>
+      </tr>
+      <tr>
+        <td><code>FSR_BRAKE_CTRL_01</code></td>
+        <td>fsr</td>
+        <td>Brake Controller Robust Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_BRAKE_CTRL_02</code></td>
+        <td>fsr</td>
+        <td>Brake Controller Fail-Operational Design</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_BRAKE_CTRL_03</code></td>
+        <td>fsr</td>
+        <td>Brake Controller Operational Monitoring</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_BRAKE_PROC_01</code></td>
+        <td>fsr</td>
+        <td>Brake System Design Limits</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_BRAKE_PROC_02</code></td>
+        <td>fsr</td>
+        <td>Brake Component Health Monitoring</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_DRIVE_CTRL_01</code></td>
+        <td>fsr</td>
+        <td>Drive Controller Robust Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_DRIVE_CTRL_02</code></td>
+        <td>fsr</td>
+        <td>Drive Controller Validated Model</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_DRIVE_CTRL_03</code></td>
+        <td>fsr</td>
+        <td>Drive Controller Fail-Operational Design</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_DRIVE_PROC_01</code></td>
+        <td>fsr</td>
+        <td>Drive Component Monitoring</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_DRIVE_PROC_02</code></td>
+        <td>fsr</td>
+        <td>Drive System Design Limits</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_POWER_01</code></td>
+        <td>fsr</td>
+        <td>Actuator Power Supply Continuity</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_POWER_02</code></td>
+        <td>fsr</td>
+        <td>Controller Power Supply Continuity</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_PROC_CONFLICT_01</code></td>
+        <td>fsr</td>
+        <td>Vehicle Dynamics Control Action Consistency</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_PROC_CONFLICT_02</code></td>
+        <td>fsr</td>
+        <td>Wheel Dynamics Brake-Drive Conflict Prevention</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_CTRL_01</code></td>
+        <td>fsr</td>
+        <td>Steering Controller Robust Control Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_CTRL_02</code></td>
+        <td>fsr</td>
+        <td>Steering Controller Validated Dynamics Model</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_CTRL_03</code></td>
+        <td>fsr</td>
+        <td>Steering Controller Fail-Operational Design</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_CTRL_04</code></td>
+        <td>fsr</td>
+        <td>Steering Controller Timing Requirements</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_PROC_01</code></td>
+        <td>fsr</td>
+        <td>Steering Mechanical Design</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_PROC_02</code></td>
+        <td>fsr</td>
+        <td>Steering Component Monitoring</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_SENS_01</code></td>
+        <td>fsr</td>
+        <td>Steering Sensor Feedback Compensation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_SENS_02</code></td>
+        <td>fsr</td>
+        <td>Steering Sensor Power Supply</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_STEER_SENS_03</code></td>
+        <td>fsr</td>
+        <td>Steering Sensor Measurement Accuracy</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VDC_CTRL_01</code></td>
+        <td>fsr</td>
+        <td>VDC Robust Control Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VDC_CTRL_02</code></td>
+        <td>fsr</td>
+        <td>VDC Validated Dynamics Model</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VDC_CTRL_03</code></td>
+        <td>fsr</td>
+        <td>VDC Fail-Operational Design</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VDC_CTRL_04</code></td>
+        <td>fsr</td>
+        <td>VDC Fault-Tolerant Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VEHICLE_SENS_01</code></td>
+        <td>fsr</td>
+        <td>Vehicle Motion Sensor Feedback</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VEHICLE_SENS_02</code></td>
+        <td>fsr</td>
+        <td>Vehicle Motion Sensor Accuracy</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_VEHICLE_SENS_03</code></td>
+        <td>fsr</td>
+        <td>Vehicle Motion Sensor Timing</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_WHEEL_SENS_01</code></td>
+        <td>fsr</td>
+        <td>Wheel Motion Sensor Compensation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_WHEEL_SENS_02</code></td>
+        <td>fsr</td>
+        <td>Wheel Motion Sensor Power</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_WRDC_CTRL_01</code></td>
+        <td>fsr</td>
+        <td>WRDC Fault-Tolerant Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_WRDC_CTRL_02</code></td>
+        <td>fsr</td>
+        <td>WRDC Fail-Operational Design</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_WRDC_CTRL_03</code></td>
+        <td>fsr</td>
+        <td>WRDC Precise Dynamics Model</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>FSR_WRDC_CTRL_04</code></td>
+        <td>fsr</td>
+        <td>WRDC Timing Requirements</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>HAZ_TRAJ_DEV</code></td>
+        <td>hazard</td>
+        <td>Vehicle Not Following Intended Trajectory</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>IMPL_ACC_DISTANCE</code></td>
+        <td>impl</td>
+        <td>measure_radar_distance</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_ACC_MODULE</code></td>
+        <td>impl</td>
+        <td>AdaptiveCruiseModule struct</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_ACC_RISK</code></td>
+        <td>impl</td>
+        <td>evaluate_collision_risk</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_ACC_SPEED</code></td>
+        <td>impl</td>
+        <td>adjust_speed</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_BREW_CTRL_STATUS</code></td>
+        <td>impl</td>
+        <td>BrewCtrlStatus struct</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_BREW_CTRL_STATUS_CONSUMER</code></td>
+        <td>impl</td>
+        <td>BrewCtrlStatusConsumer trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_BREW_CTRL_STATUS_PROVIDER</code></td>
+        <td>impl</td>
+        <td>BrewCtrlStatusProvider trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_BREW_STRENGTH</code></td>
+        <td>impl</td>
+        <td>BrewStrength enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_GPIO_CTRL</code></td>
+        <td>impl</td>
+        <td>GpioControl trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_GPIO_EDGE</code></td>
+        <td>impl</td>
+        <td>Edge enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_GPIO_PIN</code></td>
+        <td>impl</td>
+        <td>GpioPin enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_LKA_CORRECTION</code></td>
+        <td>impl</td>
+        <td>apply_steering_correction</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_LKA_DETECT</code></td>
+        <td>impl</td>
+        <td>detect_lane_markings</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_LKA_DEVIATION</code></td>
+        <td>impl</td>
+        <td>check_lane_deviation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_LKA_MODULE</code></td>
+        <td>impl</td>
+        <td>LaneKeepingModule struct</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_PWM_CHANNEL</code></td>
+        <td>impl</td>
+        <td>PwmChannel enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_PWM_CTRL</code></td>
+        <td>impl</td>
+        <td>PwmControl trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SAFETY_CMD_CONSUMER</code></td>
+        <td>impl</td>
+        <td>SafetyCommandConsumer trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SAFETY_CMD_ENUM</code></td>
+        <td>impl</td>
+        <td>SafetyCommand enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SAFETY_CMD_PROVIDER</code></td>
+        <td>impl</td>
+        <td>SafetyCommandProvider trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SENSOR_DATA</code></td>
+        <td>impl</td>
+        <td>SensorData struct</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SENSOR_DATA_CONSUMER</code></td>
+        <td>impl</td>
+        <td>SensorDataConsumer trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SENSOR_DATA_PROVIDER</code></td>
+        <td>impl</td>
+        <td>SensorDataProvider trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_SPI_BUS</code></td>
+        <td>impl</td>
+        <td>SpiBus trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEMP_CTRL_STATUS</code></td>
+        <td>impl</td>
+        <td>TempCtrlStatus struct</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEMP_CTRL_STATUS_CONSUMER</code></td>
+        <td>impl</td>
+        <td>TempCtrlStatusConsumer trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEMP_CTRL_STATUS_PROVIDER</code></td>
+        <td>impl</td>
+        <td>TempCtrlStatusProvider trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEMP_STATUS</code></td>
+        <td>impl</td>
+        <td>TemperatureStatus struct</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEMP_STATUS_CONSUMER</code></td>
+        <td>impl</td>
+        <td>TemperatureStatusConsumer trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEMP_STATUS_PROVIDER</code></td>
+        <td>impl</td>
+        <td>TemperatureStatusProvider trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEST_BREW_FAULT</code></td>
+        <td>impl</td>
+        <td>test_brew_ctrl_status_fault_detection</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEST_BREW_STRENGTH</code></td>
+        <td>impl</td>
+        <td>test_brew_strength_enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEST_SENSOR_DATA</code></td>
+        <td>impl</td>
+        <td>test_sensor_data_creation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEST_TEMP_FAULT</code></td>
+        <td>impl</td>
+        <td>test_temp_ctrl_status_fault_detection</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEST_TEMP_STATUS</code></td>
+        <td>impl</td>
+        <td>test_temperature_status_conversions</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_TEST_USER_CMD</code></td>
+        <td>impl</td>
+        <td>test_user_command_variants</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_USER_CMD_CONSUMER</code></td>
+        <td>impl</td>
+        <td>UserCommandConsumer trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_USER_CMD_ENUM</code></td>
+        <td>impl</td>
+        <td>UserCommand enum</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>IMPL_USER_CMD_PROVIDER</code></td>
+        <td>impl</td>
+        <td>UserCommandProvider trait</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>INTF_BREW_CTRL_STATUS</code></td>
+        <td>interface</td>
+        <td>Brew Controller Safety Status Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_GPIO</code></td>
+        <td>interface</td>
+        <td>GPIO Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_PWM_CTRL</code></td>
+        <td>interface</td>
+        <td>PWM Control Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_SAFETY_CMD</code></td>
+        <td>interface</td>
+        <td>Safety Command Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_SENSOR_DATA</code></td>
+        <td>interface</td>
+        <td>Sensor Data Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_SPI_BUS</code></td>
+        <td>interface</td>
+        <td>SPI Bus Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_TEMP_CTRL_STATUS</code></td>
+        <td>interface</td>
+        <td>Temperature Controller Safety Status Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_TEMP_STATUS</code></td>
+        <td>interface</td>
+        <td>Temperature Status Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>INTF_USER_CMD</code></td>
+        <td>interface</td>
+        <td>User Command Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>LAYER_APP</code></td>
+        <td>layer</td>
+        <td>Application Layer</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>LAYER_CTRL</code></td>
+        <td>layer</td>
+        <td>Control Layer</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>LAYER_HAL</code></td>
+        <td>layer</td>
+        <td>Hardware Abstraction Layer</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>LAYER_SAFETY</code></td>
+        <td>layer</td>
+        <td>Safety Layer</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>NEED_001</code></td>
+        <td>need</td>
+        <td>Lane Keeping Assistance</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>NEED_002</code></td>
+        <td>need</td>
+        <td>Adaptive Cruise Control</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>NEED_003</code></td>
+        <td>need</td>
+        <td>Emergency Braking System</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>NEED_004</code></td>
+        <td>need</td>
+        <td>Pedestrian Detection</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>NEED_005</code></td>
+        <td>need</td>
+        <td>Traffic Sign Recognition</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>NEED_006</code></td>
+        <td>need</td>
+        <td>Blind Spot Monitoring</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>NEED_007</code></td>
+        <td>need</td>
+        <td>Driver Drowsiness Detection</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>NEED_008</code></td>
+        <td>need</td>
+        <td>Automated Parking Assist</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>PETER</code></td>
+        <td>person</td>
+        <td>Peter Parker</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>REL_ADAS_2025_12</code></td>
+        <td>release</td>
+        <td>ADAS_2025_12</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REL_ADAS_2025_6</code></td>
+        <td>release</td>
+        <td>ADAS_2025_6</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REL_ADAS_2026_6</code></td>
+        <td>release</td>
+        <td>ADAS_2026_6</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_001</code></td>
+        <td>req</td>
+        <td>Lane Detection Algorithm</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>REQ_002</code></td>
+        <td>req</td>
+        <td>Steering Control Logic</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_003</code></td>
+        <td>req</td>
+        <td>Distance Measurement System</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>REQ_004</code></td>
+        <td>req</td>
+        <td>Speed Adjustment Algorithm</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>REQ_005</code></td>
+        <td>req</td>
+        <td>Collision Detection Module</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>REQ_006</code></td>
+        <td>req</td>
+        <td>Autonomous Braking Logic</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_007</code></td>
+        <td>req</td>
+        <td>Pedestrian Recognition System</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>REQ_008</code></td>
+        <td>req</td>
+        <td>Warning and Alert Mechanism</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_009</code></td>
+        <td>req</td>
+        <td>Emergency Braking for Pedestrians</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_010</code></td>
+        <td>req</td>
+        <td>Speed Limit Sign Recognition</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>REQ_011</code></td>
+        <td>req</td>
+        <td>Blind Spot Zone Detection</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_012</code></td>
+        <td>req</td>
+        <td>Lane Change Hazard Warning</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_013</code></td>
+        <td>req</td>
+        <td>Driver Eye State Estimation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_014</code></td>
+        <td>req</td>
+        <td>Drowsiness Alert and Break Suggestion</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_015</code></td>
+        <td>req</td>
+        <td>Parking Slot Detection</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_016</code></td>
+        <td>req</td>
+        <td>Park Trajectory Execution</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_017</code></td>
+        <td>req</td>
+        <td>Maximum Speed Limit for Adaptive Cruise Control</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_018</code></td>
+        <td>req</td>
+        <td>Lane Change Warning Direction</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_BREW_COFFEE</code></td>
+        <td>req</td>
+        <td>Brew Coffee</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_HEAT_WATER</code></td>
+        <td>req</td>
+        <td>Heat Water</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_SAFETY_SHUTDOWN</code></td>
+        <td>req</td>
+        <td>Safety Shutdown</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>REQ_USER_INTERFACE</code></td>
+        <td>req</td>
+        <td>User Interface</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>ROBERT</code></td>
+        <td>person</td>
+        <td>Robert Right</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SARAH</code></td>
+        <td>person</td>
+        <td>Sarah Smith</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSHTDWN_01</code></td>
+        <td>seq_msg</td>
+        <td>temp=102°C (INTF_SENSOR_DATA — over-temp)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSHTDWN_02</code></td>
+        <td>seq_msg</td>
+        <td>EMERGENCY_STOP → Temp Controller</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSHTDWN_03</code></td>
+        <td>seq_msg</td>
+        <td>fault_flags=OVERTEMP (INTF_TEMP_CTRL_STATUS)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSHTDWN_04</code></td>
+        <td>seq_msg</td>
+        <td>EMERGENCY_STOP → Brew Controller</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSHTDWN_05</code></td>
+        <td>seq_msg</td>
+        <td>fault_flags=ABORT (INTF_BREW_CTRL_STATUS)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSHTDWN_06</code></td>
+        <td>seq_msg</td>
+        <td>fault_event(OVERTEMP)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_01</code></td>
+        <td>seq_msg</td>
+        <td>init()</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_02</code></td>
+        <td>seq_msg</td>
+        <td>init_ok</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_03</code></td>
+        <td>seq_msg</td>
+        <td>start() — Safety Monitor</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_04</code></td>
+        <td>seq_msg</td>
+        <td>read_sensors()</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_05</code></td>
+        <td>seq_msg</td>
+        <td>temp=22°C, water_level=85%</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_06</code></td>
+        <td>seq_msg</td>
+        <td>start() — Temp Controller</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_07</code></td>
+        <td>seq_msg</td>
+        <td>started (INTF_TEMP_CTRL_STATUS heartbeat)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_08</code></td>
+        <td>seq_msg</td>
+        <td>start() — Brew Controller</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_09</code></td>
+        <td>seq_msg</td>
+        <td>started (INTF_BREW_CTRL_STATUS heartbeat)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SEQSTART_10</code></td>
+        <td>seq_msg</td>
+        <td>system_ready</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SG_01</code></td>
+        <td>safety_goal</td>
+        <td>VDC Must Set Target Wheel Torque When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_02</code></td>
+        <td>safety_goal</td>
+        <td>VDC Must Set Target Wheel Torque Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_03</code></td>
+        <td>safety_goal</td>
+        <td>VDC Must Set Target Steering Angle When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_04</code></td>
+        <td>safety_goal</td>
+        <td>VDC Must Set Target Steering Angle Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_05</code></td>
+        <td>safety_goal</td>
+        <td>WRDC Must Change Target Brake Torque When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_06</code></td>
+        <td>safety_goal</td>
+        <td>WRDC Must Change Target Brake Torque Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_07</code></td>
+        <td>safety_goal</td>
+        <td>WRDC Must Change Target Drive Torque When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_08</code></td>
+        <td>safety_goal</td>
+        <td>WRDC Must Change Target Drive Torque Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_09</code></td>
+        <td>safety_goal</td>
+        <td>Anti-lock Control Must Be Performed Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_10</code></td>
+        <td>safety_goal</td>
+        <td>Anti-lock Control Must Be Performed When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_11</code></td>
+        <td>safety_goal</td>
+        <td>Anti-spin Control Must Be Performed Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_12</code></td>
+        <td>safety_goal</td>
+        <td>Anti-spin Control Must Be Performed When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_13</code></td>
+        <td>safety_goal</td>
+        <td>Drive Controller Must Apply Drive Torque When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_14</code></td>
+        <td>safety_goal</td>
+        <td>Drive Controller Must Apply Drive Torque Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_15</code></td>
+        <td>safety_goal</td>
+        <td>Brake Controller Must Engage Brake When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_16</code></td>
+        <td>safety_goal</td>
+        <td>Brake Controller Must Engage Brake Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_17</code></td>
+        <td>safety_goal</td>
+        <td>SC Must Change Steering Angle When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_18</code></td>
+        <td>safety_goal</td>
+        <td>SC Must Change Steering Angle Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_19</code></td>
+        <td>safety_goal</td>
+        <td>SC Must Hold Steering Angle When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SG_20</code></td>
+        <td>safety_goal</td>
+        <td>SC Must Hold Steering Angle Only When Required</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>STEVEN</code></td>
+        <td>person</td>
+        <td>Steven South</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_001</code></td>
+        <td>swarch</td>
+        <td>Lane Detection Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_002</code></td>
+        <td>swarch</td>
+        <td>Adaptive Cruise Control Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_003</code></td>
+        <td>swarch</td>
+        <td>Collision Avoidance Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_004</code></td>
+        <td>swarch</td>
+        <td>Pedestrian Detection Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_005</code></td>
+        <td>swarch</td>
+        <td>Alert Mechanism Framework</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_006</code></td>
+        <td>swarch</td>
+        <td>Emergency Braking Subsystem</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_007</code></td>
+        <td>swarch</td>
+        <td>Traffic Sign Processing Subsystem</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_008</code></td>
+        <td>swarch</td>
+        <td>Blind Spot Monitoring Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_009</code></td>
+        <td>swarch</td>
+        <td>Driver Drowsiness Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_010</code></td>
+        <td>swarch</td>
+        <td>Automated Parking Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWARCH_011</code></td>
+        <td>swarch</td>
+        <td>Camera Positioning Subsystem</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_001</code></td>
+        <td>swreq</td>
+        <td>Lane Marking Detection Algorithm</td>
+        <td>in progress</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_002</code></td>
+        <td>swreq</td>
+        <td>Lane Deviation Warning</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_003</code></td>
+        <td>swreq</td>
+        <td>Steering Correction Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_004</code></td>
+        <td>swreq</td>
+        <td>Radar-Based Distance Measurement</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_005</code></td>
+        <td>swreq</td>
+        <td>Speed Control Integration</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_006</code></td>
+        <td>swreq</td>
+        <td>Collision Risk Estimation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_007</code></td>
+        <td>swreq</td>
+        <td>Emergency Brake Activation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_008</code></td>
+        <td>swreq</td>
+        <td>Pedestrian Detection Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_009</code></td>
+        <td>swreq</td>
+        <td>Pedestrian Alert System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_010</code></td>
+        <td>swreq</td>
+        <td>Emergency Braking for Pedestrians</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_011</code></td>
+        <td>swreq</td>
+        <td>Lane Marking Data Visualization</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_012</code></td>
+        <td>swreq</td>
+        <td>Environmental Adaptation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_013</code></td>
+        <td>swreq</td>
+        <td>Adaptive Speed Limits</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_014</code></td>
+        <td>swreq</td>
+        <td>Proximity Alert</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_015</code></td>
+        <td>swreq</td>
+        <td>Multi-Object Tracking</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_016</code></td>
+        <td>swreq</td>
+        <td>Braking Efficiency Optimization</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_017</code></td>
+        <td>swreq</td>
+        <td>Pedestrian Path Prediction</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_018</code></td>
+        <td>swreq</td>
+        <td>Integrated Alert System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_019</code></td>
+        <td>swreq</td>
+        <td>Predictive Emergency Braking</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_020</code></td>
+        <td>swreq</td>
+        <td>Crosswalk Detection</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_021</code></td>
+        <td>swreq</td>
+        <td>Speed Limit Sign Detection</td>
+        <td>closed</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_022</code></td>
+        <td>swreq</td>
+        <td>Blind Spot Sensor Fusion</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_023</code></td>
+        <td>swreq</td>
+        <td>Lane Change Intent Arbitration</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_024</code></td>
+        <td>swreq</td>
+        <td>Eye Aspect Ratio Estimation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_025</code></td>
+        <td>swreq</td>
+        <td>Drowsiness Score Aggregation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_026</code></td>
+        <td>swreq</td>
+        <td>Parking Slot Recognition</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_027</code></td>
+        <td>swreq</td>
+        <td>Park Trajectory Planning</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_BREW_STRENGTH</code></td>
+        <td>swreq</td>
+        <td>Brew Strength Selection</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_BUTTON_INPUT</code></td>
+        <td>swreq</td>
+        <td>Button Input Handler</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_OVERTEMP_SHUTDOWN</code></td>
+        <td>swreq</td>
+        <td>Over-Temperature Shutdown</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_TEMP_REGULATION</code></td>
+        <td>swreq</td>
+        <td>Temperature Regulation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SWREQ_WATER_LEVEL</code></td>
+        <td>swreq</td>
+        <td>Water Level Monitoring</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_BRAKE_01</code></td>
+        <td>sysreq</td>
+        <td>Brake Dual-Circuit Hydraulic Architecture</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_BRAKE_02</code></td>
+        <td>sysreq</td>
+        <td>Brake Surface Friction Adaptation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_BRAKE_03</code></td>
+        <td>sysreq</td>
+        <td>Brake Component Monitoring System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_DRIVE_01</code></td>
+        <td>sysreq</td>
+        <td>Drive Torque Control System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_DRIVE_02</code></td>
+        <td>sysreq</td>
+        <td>Drive Limp-Home Mode Architecture</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_DRIVE_03</code></td>
+        <td>sysreq</td>
+        <td>Drive Electrical and Thermal Protection</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_STEER_01</code></td>
+        <td>sysreq</td>
+        <td>Steering Robust Control Algorithm</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_STEER_02</code></td>
+        <td>sysreq</td>
+        <td>Steering Validated Dynamics Model</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_STEER_03</code></td>
+        <td>sysreq</td>
+        <td>Steering Redundant Execution Architecture</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_STEER_04</code></td>
+        <td>sysreq</td>
+        <td>Steering High-Resolution Feedback System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_VDC_01</code></td>
+        <td>sysreq</td>
+        <td>VDC Trajectory Tracking Accuracy</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_VDC_02</code></td>
+        <td>sysreq</td>
+        <td>VDC Dual-Redundant Processing Architecture</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_VDC_03</code></td>
+        <td>sysreq</td>
+        <td>VDC Multi-Sensor Fusion System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_VDC_04</code></td>
+        <td>sysreq</td>
+        <td>VDC Graceful Degradation Controller</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_WRDC_01</code></td>
+        <td>sysreq</td>
+        <td>WRDC Single Wheel Fault Tolerance</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_WRDC_02</code></td>
+        <td>sysreq</td>
+        <td>WRDC Tire Friction Estimation System</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_WRDC_03</code></td>
+        <td>sysreq</td>
+        <td>WRDC ABS&#x2f;ASR Coordination Logic</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>SYSREQ_WRDC_04</code></td>
+        <td>sysreq</td>
+        <td>WRDC High-Frequency Control Loop</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_BREW_STRENGTH</code></td>
+        <td>test</td>
+        <td>Test Brew Strength Settings</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_BUTTON_DEBOUNCE</code></td>
+        <td>test</td>
+        <td>Test Button Debouncing</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_E2E_BREWING</code></td>
+        <td>test</td>
+        <td>Test End-to-End Brewing</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_001</code></td>
+        <td>test</td>
+        <td>Lane Detection and Steering Integration</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_002</code></td>
+        <td>test</td>
+        <td>Adaptive Cruise Control and Distance Measurement</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_003</code></td>
+        <td>test</td>
+        <td>Collision Avoidance and Emergency Braking</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_004</code></td>
+        <td>test</td>
+        <td>Pedestrian Detection and Alert Mechanism</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_005</code></td>
+        <td>test</td>
+        <td>Pedestrian Detection and Emergency Braking</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_006</code></td>
+        <td>test</td>
+        <td>Multi-Subsystem Coordination</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_007</code></td>
+        <td>test</td>
+        <td>Traffic Sign Recognition and Speed Control Integration</td>
+        <td>failed</td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_008</code></td>
+        <td>test</td>
+        <td>Blind Spot Sensor Fusion Integration</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_009</code></td>
+        <td>test</td>
+        <td>Drowsiness Detection Pipeline Integration</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_INT_010</code></td>
+        <td>test</td>
+        <td>Automated Parking Pipeline Integration</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_001</code></td>
+        <td>test</td>
+        <td>Lane Detection Qualification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_002</code></td>
+        <td>test</td>
+        <td>Adaptive Cruise Control Qualification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_003</code></td>
+        <td>test</td>
+        <td>Collision Avoidance Qualification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_004</code></td>
+        <td>test</td>
+        <td>Pedestrian Safety Qualification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_005</code></td>
+        <td>test</td>
+        <td>Integrated Qualification Test</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_006</code></td>
+        <td>test</td>
+        <td>Traffic Sign Recognition Qualification</td>
+        <td>passed</td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_007</code></td>
+        <td>test</td>
+        <td>Blind Spot Monitoring Qualification</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_008</code></td>
+        <td>test</td>
+        <td>Driver Drowsiness Qualification</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_QUAL_009</code></td>
+        <td>test</td>
+        <td>Automated Parking Qualification</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SAFETY_SHUTDOWN</code></td>
+        <td>test</td>
+        <td>Test Safety Shutdown</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_001</code></td>
+        <td>test</td>
+        <td>Lane Detection Validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_002</code></td>
+        <td>test</td>
+        <td>Adaptive Cruise Control Validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_003</code></td>
+        <td>test</td>
+        <td>Collision Avoidance Validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_004</code></td>
+        <td>test</td>
+        <td>Pedestrian Detection Validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_005</code></td>
+        <td>test</td>
+        <td>Alert System Validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_006</code></td>
+        <td>test</td>
+        <td>Emergency Braking Validation</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_007</code></td>
+        <td>test</td>
+        <td>Traffic Sign Recognition Validation</td>
+        <td>passed</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_008</code></td>
+        <td>test</td>
+        <td>Blind Spot Monitoring Validation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_009</code></td>
+        <td>test</td>
+        <td>Driver Drowsiness Detection Validation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_INT_010</code></td>
+        <td>test</td>
+        <td>Automated Parking Validation</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_001</code></td>
+        <td>test</td>
+        <td>Lane Detection Verification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_002</code></td>
+        <td>test</td>
+        <td>Adaptive Cruise Control Verification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_003</code></td>
+        <td>test</td>
+        <td>Collision Avoidance Verification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_004</code></td>
+        <td>test</td>
+        <td>Pedestrian Detection Verification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_005</code></td>
+        <td>test</td>
+        <td>Multi-Subsystem Verification</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_006</code></td>
+        <td>test</td>
+        <td>Traffic Sign Recognition Verification</td>
+        <td>passed</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_007</code></td>
+        <td>test</td>
+        <td>Blind Spot Monitoring Verification</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_008</code></td>
+        <td>test</td>
+        <td>Driver Drowsiness Detection Verification</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_SYS_QUAL_009</code></td>
+        <td>test</td>
+        <td>Automated Parking Verification</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_TEMP_CONTROL</code></td>
+        <td>test</td>
+        <td>Test Temperature Control</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>TEST_VARIANT_001</code></td>
+        <td>test</td>
+        <td>Speed Limit Validation Test</td>
+        <td>open</td>
+      </tr>
+      <tr>
+        <td><code>THOMAS</code></td>
+        <td>person</td>
+        <td>Thomas Thatcher</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
