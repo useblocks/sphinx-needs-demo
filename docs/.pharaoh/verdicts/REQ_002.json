@@ -1,0 +1,37 @@
+{
+  "agent": "copilot",
+  "axes": {
+    "atomicity": {
+      "reason": "One obligation: a control-logic module producing steering corrections. 'Smooth' and 'precise' are qualities of the single output, not separate requirements.",
+      "score": 2
+    },
+    "comprehensibility": {
+      "reason": "Self-contained and intelligible on its own; 'detected lane positions' is understandable without external context.",
+      "score": 2
+    },
+    "feasibility": {
+      "reason": "Steering-correction control logic is implementable with known technology and contradicts nothing else stated.",
+      "score": 2
+    },
+    "parent_fit": {
+      "reason": "NEED_001 requires providing corrective steering; this requirement substantively addresses that half via a steering-correction control-logic module.",
+      "score": 2
+    },
+    "unambiguity": {
+      "reason": "Has a single valid reading: derive steering corrections from detected lane positions.",
+      "score": 2
+    },
+    "verifiability": {
+      "reason": "Directionally testable against detected lane positions, but 'smooth' and 'precise' are unmeasured quality adjectives with no defined thresholds.",
+      "score": 1,
+      "suggestion": "Quantify 'smooth' (e.g. max steering jerk/rate limit) and 'precise' (e.g. max lateral deviation from lane center)."
+    }
+  },
+  "criteria": "requirement",
+  "criteria_fingerprint": "941b3ec6f6e1c2e4311154b93f3652b2180f8965a70193734339da329202a428",
+  "model": "claude-opus-4.8",
+  "need": "REQ_002",
+  "reviewed_fingerprint": "2ee9d0d65144e5d111b874acbaee574e76d52174548b1e8e196cafd8a1d7f623",
+  "schema": 2,
+  "summary": "Substantively covers the steering-correction arm of NEED_001; a single control-logic obligation, but 'smooth and precise' are unquantified quality adjectives."
+}

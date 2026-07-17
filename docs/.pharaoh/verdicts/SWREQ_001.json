@@ -1,0 +1,37 @@
+{
+  "agent": "copilot",
+  "axes": {
+    "atomicity": {
+      "reason": "Single obligation: detect lane markings from camera input.",
+      "score": 2
+    },
+    "comprehensibility": {
+      "reason": "Self-contained and intelligible on its own.",
+      "score": 2
+    },
+    "feasibility": {
+      "reason": "Camera-based lane detection is implementable with known technology.",
+      "score": 2
+    },
+    "parent_fit": {
+      "reason": "Directly realises parent REQ_001 (Lane Detection Algorithm) by processing camera inputs to identify lane markings.",
+      "score": 2
+    },
+    "unambiguity": {
+      "reason": "'various environmental conditions' leaves the operating envelope open to interpretation.",
+      "score": 1,
+      "suggestion": "Define the specific lighting/weather conditions in scope."
+    },
+    "verifiability": {
+      "reason": "'accurately' and 'various environmental conditions' are unquantified, so no concrete pass/fail threshold.",
+      "score": 1,
+      "suggestion": "State a detection accuracy target (e.g. >=95% true-positive rate) and enumerate the environmental conditions to be tested."
+    }
+  },
+  "criteria": "requirement",
+  "criteria_fingerprint": "941b3ec6f6e1c2e4311154b93f3652b2180f8965a70193734339da329202a428",
+  "model": "claude-opus-4.8",
+  "need": "SWREQ_001",
+  "reviewed_fingerprint": "b595a6810936bcec7e9314a693addfec424106e462142e287b5b2b834c67463b",
+  "schema": 2
+}

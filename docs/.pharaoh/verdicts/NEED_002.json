@@ -1,0 +1,31 @@
+{
+  "axes": {
+    "naming_clarity": {
+      "reason": "'Adaptive Cruise Control' and the body use plain stakeholder vocabulary a non-implementer can confirm.",
+      "score": 2
+    },
+    "no_mechanism_leak": {
+      "reason": "Body names no classes, modules, tables, endpoints, or tech choices; it stays purely at the capability level.",
+      "score": 2
+    },
+    "parent_fit": {
+      "reason": "NEED_002 is the root of the V for this stream (no upstream stage/parent), so parent fit is met by default.",
+      "score": 2
+    },
+    "single_user_capability": {
+      "reason": "Describes exactly one user-facing capability: automatically maintaining a safe following distance by adjusting speed.",
+      "score": 2
+    },
+    "user_observable": {
+      "reason": "The vehicle adjusting its speed to keep a safe gap is directly observable by the driver without reading source or logs.",
+      "score": 2
+    }
+  },
+  "criteria": "feat",
+  "criteria_fingerprint": "bb61c1a1cf63adcf67ee69adf932c3812909a595fa4b3037b66f097932231afe",
+  "evaluator": "review-feat",
+  "need": "NEED_002",
+  "reviewed_fingerprint": "d4d65e7f3ef90c3d561ce835c15cb7dd3c798de1c114c86b0cfe45edcebd3403",
+  "schema": 2,
+  "summary": "Clean root user-facing feature: one clear, user-observable ACC capability in stakeholder language with no mechanism leak."
+}

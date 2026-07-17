@@ -681,6 +681,63 @@ src = "."
 [scripts]
 sphinx = "sphinx-build -b html . _build/html"
 
+###############################################################################
+# ubCode setting: Quality Analysis (AI scoring of needs)
+###############################################################################
+# The LLM SCORES each need against per-axis criteria (a score + reason +
+# suggestion per axis); the ENGINE JUDGES pass/fail from the `[quality.required]`
+# floors at read time; the editor EXPLAINS the result. Surfaced via the
+# "Run QA" CodeLens / right-click / command palette ("Run Quality Analysis",
+# ctrl+alt+q), a `QA x/y` lens, and a results webview. The same scored verdict
+# also drives the `[workflow]` review stages below (need/req/arch/swreq/swarch)
+# and the `ubc agent review-brief` / `ubc agent verdict-submit` CLI verbs.
+#
+# NOTE: requires a `ubc` built from the quality-analysis branch (PR #2246) — see
+# the setup notes. Against the *published* ubproject schema the keys below may
+# show as "unknown" in the editor; that is cosmetic (the branch `ubc` parses them).
+[quality]
+enabled = true
+
+# Per-type criteria packs (installed under `quality/` by `ubc agent install`,
+# alongside this ubproject.toml). Each is a scored, judgment-only rubric
+# (axes 0..2). The engine hands the matching pack's axes to the reviewer via the
+# review brief, so the `review-*` skills stay generic — the rubric lives here as
+# data, not in the skill prose. Types map to the review skill wired in [workflow]:
+#   need  -> review-feat        (quality/feat.toml)
+#   req   -> review-requirement (quality/requirement.toml)
+#   swreq -> review-requirement (quality/requirement.toml)
+#   arch  -> review-arch        (quality/arch.toml)
+#   swarch-> review-arch        (quality/arch.toml)
+[quality.type_configs.need]
+criteria_file = "quality/feat.toml"
+
+[quality.type_configs.req]
+criteria_file = "quality/requirement.toml"
+
+[quality.type_configs.swreq]
+criteria_file = "quality/requirement.toml"
+
+[quality.type_configs.arch]
+criteria_file = "quality/arch.toml"
+
+[quality.type_configs.swarch]
+criteria_file = "quality/arch.toml"
+
+# Per-axis PASS FLOOR, keyed by criterion id. `parent_fit` (does the need
+# substantively address its parent) is present in every reviewed type's pack, so
+# this one global floor gates them all; a need scoring 0 there fails. Tuning a
+# floor never re-runs the LLM — pass/fail is recomputed at read time.
+# (Optional `min_percent = <0-100>` adds a percent-of-total gate; off here.)
+[quality.required]
+parent_fit = 1
+
+# LLM hint for the in-editor "Run QA" (the two-phase vscode.lm bridge). `model`
+# is a NAME hint matched against your available VS Code language models; if it is
+# unset or unmatched you pick the concrete model on first run. `max_tokens` is
+# an optional per-axis response budget.
+[quality.llm]
+model = "gpt-4o"
+
 [workflow]
 
 # Stages are ordered so the ELICITATION entry point — `need` (SYS.1 requirement

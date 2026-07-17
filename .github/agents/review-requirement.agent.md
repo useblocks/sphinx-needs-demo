@@ -1,98 +1,89 @@
 ---
 name: review-requirement
-description: Review every requirement need against the V-model rubric (atomicity, verifiability, unambiguity, traceability, comprehensibility, feasibility) and write one verdict file per need.
+description: Review every need this stage produces by scoring it against the criteria in your briefing, and submit one verdict per need.
 ---
 
 # review-requirement
 
-Judge every `req` need (the type the `reqs` stage produces) on the V-model
-quality rubric and write one machine-readable verdict file per need to
-`.ubc/verdicts/<need>.json`. The verdicts are the substance gate consumed by
-`ubc agent verdict-check` and `ubc agent release-check --with-verdicts`.
+This is the review stage for **requirements**: judge every need in your
+briefing's `review_needs` set and submit one verdict per need to the
+substance gate consumed by `ubc agent verdict-check -p <project path>` and
+`ubc agent release-check --with-verdicts -p <project path>`.
 
-## Verdict schema (write this exactly)
+This skill carries no fixed rubric and no fixed verdict shape. Both are DATA
+your briefing resolves fresh every run — a per-type criteria pack for the
+rubric, a derived JSON Schema for the verdict — so either can change without
+ever editing this file.
 
-Write one file per reviewed need at `.ubc/verdicts/<need>.json`:
+Pass `-p <project path>` on every `ubc agent` command. `<project path>` is the
+directory that holds the target `ubproject.toml` (the project the need under
+review belongs to). A repository can contain several `ubproject.toml` files,
+so without `-p` the command runs against the current directory and can target
+the wrong project. Resolve `<project path>` once from the briefing you were
+handed and reuse it on every call.
 
-```json
-{
-  "need": "REQ_EXAMPLE",
-  "pass": true,
-  "axes": {
-    "atomicity": true,
-    "verifiability": true,
-    "unambiguity": true,
-    "traceability": true,
-    "comprehensibility": true,
-    "feasibility": true
-  },
-  "findings": [],
-  "reviewed_fingerprint": "<copy the `fingerprint` field from `ubc agent audit <ID>`>"
-}
-```
-
-Schema rules (enforced by the engine — a non-conformant file is counted
-**malformed** and does NOT clear the need from the `missing` set):
-
-- `need` — string, the reviewed need id.
-- `pass` — boolean.
-- `axes` — a non-empty object; every value must be `true` or `false`. A bare
-  `{"need": "X", "pass": true}` with no `axes` is malformed.
-- `pass: true` is allowed ONLY when every axis is `true`. `pass: true` with any
-  `false` axis is malformed.
-- `findings` — a list of strings; it MUST be non-empty when `pass` is `false` OR
-  any axis is `false`. A fail with empty `findings` is malformed.
-- Extra keys are tolerated; unknown keys never reject a verdict.
-- `reviewed_fingerprint` — OPTIONAL string: the `fingerprint` field from
-  `ubc agent audit <ID>` (or `ubc agent context <ID>`), copied verbatim. It
-  records the exact content you validated against — the need's own body plus its
-  up-link parents' bodies, folded into one hash. Do NOT compute it by hand; copy
-  the value the briefing already gives you. When you record it, the substance
-  gate later flags this verdict `outdated` (a BLOCKING category, like `failing`)
-  the moment the reviewed content changes, forcing a fresh review instead of
-  trusting a stale green. Omitting it is allowed and backward-compatible — a
-  verdict with no `reviewed_fingerprint` is freshness-unknown and never flagged —
-  but then a later content edit goes undetected, so always record it.
-
-Fail closed: when uncertain about an axis, set it `false` and record the reason in
-`findings`. Conflicting duplicates fail closed too — if ANY verdict file for a
-need records a failing judgment, the need is `failing` regardless of how many
-passing verdicts exist for it, so a later passing verdict can never bury a real
-failure. Write exactly one verdict per need at the `<need>.json` path.
+When these instructions say `ubc`, run the exact `ubc` binary whose path the
+harness gave you in the task (it is version-matched to the editor). Do not
+run a bare `ubc` from your PATH, and do not download or install your own
+`ubc`. If no explicit path was given, use the `ubc` already on your PATH.
 
 ## Execution steps
 
-1. Build the graph: `ubc build needs`. Read the resulting `needs.json` and select
-   every need whose `type` is `req` (confirm via `ubc agent status`).
-2. For each id, read the briefing with `ubc agent audit <ID>` and the linked
-   context with `ubc agent context <ID>`. `ubc agent audit` is the oracle — do
-   not grep `.rst` source.
-3. Judge each need on all six axes (below). Fail closed.
-4. Write `.ubc/verdicts/<ID>.json` per the schema, copying the `fingerprint`
-   from that need's `ubc agent audit <ID>` output into `reviewed_fingerprint` so
-   the verdict records the content you validated against. Overwrite any existing
-   file.
-5. Report: needs reviewed, passed, failed (list ids).
-
-## Axes
-
-- **atomicity** — exactly one obligation. FAIL if "and" conjoins two independent
-  obligations, or removing a clause leaves a still-complete separate requirement.
-- **verifiability** — a concrete test could confirm it without subjective reading.
-  FAIL on unmeasured vague adjectives (fast, scalable, robust, intuitive,
-  efficient, appropriate ...) or an undefined success condition.
-- **unambiguity** — exactly one valid reading. FAIL if a competent reader could
-  read it two ways, or conditional logic is vague ("where appropriate").
-- **traceability** — links upward to a parent (`traces_to` a `user_story`). FAIL
-  if `trace.outgoing` shows no upstream parent. A test linking in is downstream.
-- **comprehensibility** — self-contained and intelligible without adjacent
-  requirements. FAIL on undefined abbreviations or forward references.
-- **feasibility** — implementable with known technology. FAIL on physically
-  impossible properties or contradictions with other stated requirements.
+1. Read your briefing: `review_needs` (the exact set to review this pass —
+   already excludes any `failing` need, which is re-authored rather than
+   re-reviewed, and anything already freshly reviewed), `criteria` (the axes
+   to score, each with a `scoring_guide` and `max_score`, plus the pack's
+   overall `guidance`), `verdict_schema` (the exact JSON shape a verdict
+   must match), `verdicts_dir`, `submit_command`, and `fingerprints`. If your
+   briefing was not already injected, run
+   `ubc agent next --id <need_id> -p <project path>` (optionally
+   `--stage <STAGE_ID>`) or `ubc agent review-brief <TYPE> -p <project path>`
+   (or `--ids <ID,...>`) and read the same fields from the result.
+2. For each id in `review_needs`, read `ubc agent audit --id <ID> -p <project path>`
+   (the oracle, never grep `.rst` source) plus its linked context via
+   `ubc agent context --id <ID> -p <project path>`.
+3. Score EVERY axis your briefing's `criteria` lists, from 0 to that axis's
+   `max_score`, following its `scoring_guide` and the pack's `guidance`.
+   Give a one-line `reason` for every score, and a `suggestion` whenever the
+   score is below max.
+4. Assemble one verdict object per need matching your briefing's
+   `verdict_schema` — an `axes` map keyed by exactly the axis ids `criteria`
+   lists, each scored entry carrying at least `score` and `reason`. Also record who
+   produced the verdict: set top-level `agent` to your harness (e.g. `copilot`,
+   `claude-code`) and `model` to your model id / slug (e.g. `claude-opus-4.8`).
+   These are advisory score provenance (#2279) that never gate — include them by
+   default, omitting a field only when you genuinely cannot determine it (never
+   guess a slug). Submit it
+   by PIPING that JSON on stdin to your briefing's `submit_command` (a
+   `ubc agent verdict-submit <ID> --fingerprint <FINGERPRINT> --criteria-fingerprint <CRITERIA_FINGERPRINT> --file - -p <project path>`
+   call): substitute the need id, its `<FINGERPRINT>` (that need's entry in your
+   briefing's `fingerprints` map), and `<CRITERIA_FINGERPRINT>` (your briefing's
+   `criteria.fingerprint`), and feed the verdict JSON on stdin; do NOT write a
+   draft file. `--fingerprint` pins the exact content you reviewed and
+   `--criteria-fingerprint` the exact rubric: if the need changed after you scored
+   it the submit is REJECTED (`ContentChanged`), and if the criteria pack changed
+   it is REJECTED (`CriteriaChanged`) — re-review against the current
+   content/criteria and resubmit rather than recording a stale pass. If your host truly cannot pipe, write the
+   draft to a system temp path OUTSIDE the repository (e.g. `mktemp`), pass it to
+   `--file`, and delete it after — NEVER write a draft anywhere inside the
+   repository (the engine reads every `*.json` under `verdicts_dir` as a verdict,
+   and `verdict-submit` REFUSES an in-repo `--file` path). That command stamps
+   the schema version, the pack name, the criteria fingerprint, and the
+   reviewed-content fingerprint itself, then validates before writing the verdict
+   under `verdicts_dir` — do NOT hand-stamp any fingerprint yourself.
+5. Report: the needs reviewed, and for each, the scores you gave.
 
 ## Operating principles
 
-- Use `ubc agent audit` / `ubc agent context`, not file grepping.
-- Fail closed; ambiguous is FAIL.
-- One file per need, no bundling. Idempotent across runs.
-- If `audit` returns an empty body, fail all axes and note "body empty".
+- Use `ubc agent audit -p <project path>` / `ubc agent context -p <project path>`,
+  not file grepping.
+- Fail closed: when genuinely uncertain about an axis — including an empty
+  or unreadable body — score it 0 and say why in `reason`.
+- Exactly one verdict per need. Submitting again for the same id overwrites
+  the previous verdict, so re-running this skill is idempotent.
+- `ubc agent verdict-check -p <project path>` evaluates the WHOLE graph, so it
+  reports `ok: false` and lists OTHER stages' needs as missing while those
+  stages are still unreviewed. That is expected and does NOT mean your review
+  of this stage failed. Confirm your stage by checking that the needs you
+  reviewed appear in NONE of the problem buckets (missing, failing,
+  malformed, outdated, unverifiable).

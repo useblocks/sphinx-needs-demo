@@ -1,0 +1,94 @@
+# Criteria pack backing the `review-requirement` skill's verdict — installed
+# as `quality/requirement.toml`, wired via
+# `[quality.type_configs.<type>].criteria_file` in `ubproject.toml` for every
+# type the `reqs`-shaped stage produces (`req` in this preset).
+#
+# Every axis is JUDGMENT-ONLY and scored 0..2 (2 = fully meets, 1 = partial,
+# 0 = the FAIL condition) — this pack carries the rubric the skill used to
+# hard-code; the skill itself now only says "score every axis your
+# briefing's `criteria` names". `parent_fit` replaces the old purely
+# graph-checkable `traceability` axis: the structural trace gate already
+# confirms the link exists, so this axis instead judges whether the
+# requirement's CONTENT substantively engages with its parent's obligation.
+
+guidance = """
+- Fail closed: when genuinely uncertain whether an axis is met, score it 0 \
+rather than giving the benefit of the doubt, and explain the uncertainty in \
+your reasoning.
+- Be lenient with domain-specific terminology and abbreviations — assume \
+they are defined elsewhere in the project (e.g. a glossary) rather than \
+penalizing a requirement for using them without a local definition.
+- A short, clear requirement is not inherently deficient — judge substance, \
+not length; a crisp requirement can score full marks on every axis.
+- If the requirement's body is empty or unreadable, score every axis 0 and \
+say so — there is nothing else to judge."""
+
+[[criterion]]
+id = "parent_fit"
+name = "Parent Fit"
+description = """
+Whether the requirement substantively addresses the obligation of the \
+parent need it traces to, not merely links to it. The structural trace gate \
+already confirms the link exists; this axis judges whether the \
+requirement's CONTENT actually engages with what the parent asks for."""
+scoring_guide = """
+0: The requirement's content does not address the parent's obligation at all, or addresses a materially different concern — the link is present but the substance is not.
+1: The requirement addresses only part of the parent's obligation, or engages with it tangentially.
+2: The requirement substantively and clearly addresses (a distinct part of) the parent's obligation."""
+max_score = 2
+
+[[criterion]]
+id = "atomicity"
+name = "Atomicity"
+description = """
+Whether the requirement expresses exactly one obligation, not several \
+bundled together."""
+scoring_guide = """
+0: "And" conjoins two independent obligations, or removing any one clause would still leave a separate, complete requirement behind.
+1: The requirement covers more than one aspect, but they are closely related facets of a single obligation rather than fully independent requirements.
+2: The requirement expresses exactly one obligation."""
+max_score = 2
+
+[[criterion]]
+id = "verifiability"
+name = "Verifiability"
+description = """
+Whether a concrete test could confirm the requirement is met without \
+subjective reading."""
+scoring_guide = """
+0: The requirement relies on an unmeasured vague adjective (fast, scalable, robust, intuitive, efficient, appropriate, ...) or states no defined success condition.
+1: The requirement is directionally testable but leaves at least one measurable detail (a threshold, a unit, a condition) unspecified.
+2: A concrete test could confirm the requirement is met without any subjective judgement."""
+max_score = 2
+
+[[criterion]]
+id = "unambiguity"
+name = "Unambiguity"
+description = "Whether the requirement has exactly one valid reading."
+scoring_guide = """
+0: A competent reader could read the requirement in two genuinely different ways, or its conditional logic is vague (e.g. "where appropriate").
+1: The requirement is mostly clear but contains one ambiguous term or an underspecified edge case that does not change its core meaning.
+2: The requirement has exactly one valid reading."""
+max_score = 2
+
+[[criterion]]
+id = "comprehensibility"
+name = "Comprehensibility"
+description = """
+Whether the requirement is self-contained and intelligible without reading \
+adjacent requirements."""
+scoring_guide = """
+0: The requirement relies on an undefined abbreviation, or a forward reference to content the reader has not yet seen.
+1: The requirement is mostly self-contained but assumes minor context a reader would need to infer from elsewhere.
+2: The requirement is self-contained and intelligible on its own."""
+max_score = 2
+
+[[criterion]]
+id = "feasibility"
+name = "Feasibility"
+description = "Whether the requirement is implementable with known technology."
+scoring_guide = """
+0: The requirement states a physically impossible property, or contradicts another stated requirement.
+1: The requirement is feasible but pushes against a known constraint (performance, cost, available technology) worth flagging.
+2: The requirement is implementable with known technology and contradicts nothing else stated."""
+max_score = 2
