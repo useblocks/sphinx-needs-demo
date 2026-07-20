@@ -195,6 +195,15 @@ html_static_path = ["_static"]
 html_logo = "_images/sphinx-needs-logo.png"
 html_favicon = "_images/sphinx-needs-logo.svg"
 
+# Ship the raw RST text of every page with the build output. Each page's
+# unprocessed source is copied to ``_sources/<page>.rst.txt`` and referenced
+# via the ``sourcename``/``show_source`` entries of the page context, so the
+# HTML theme and the ubTrace export can show the raw RST — including the
+# unresolved variant syntax (``.. if::``, ``<{ var.* }>``) that produced the
+# variant-specific rendered content.
+html_copy_source = True
+html_show_sourcelink = True
+
 html_theme_options = {
     "sidebar_hide_name": True,
     "top_of_page_buttons": ["view", "edit"],

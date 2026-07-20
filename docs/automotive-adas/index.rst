@@ -214,9 +214,10 @@ and any other variant is selected on the command line with the ``-D`` override:
    # America, left-hand drive
    sphinx-build -b html -D needs_variant_data_file=variants/america.json docs docs/_build/html
 
-Depending on the selected variant, some need fields, prose values and even whole
-needs (via the ``if`` directive) change. The three variant definitions are shown
-below.
+Depending on the selected variant, some need fields, prose values, whole
+needs (via the ``if`` directive) and even the traced source code files (via a
+``src-trace`` directive inside an ``if`` block) change. The three variant
+definitions are shown below.
 
 .. dropdown:: variants/eu_left.json (default)
 
@@ -232,3 +233,32 @@ below.
 
    .. literalinclude:: /variants/america.json
       :language: json
+
+Raw RST of the variant examples
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A variant build only renders the resolved result, so the raw RST text of the
+variant-dependent places is included here to make the mechanics visible in
+every export. (The complete raw source of each page is also shipped with the
+build under ``_sources/<page>.rst.txt``.)
+
+.. dropdown:: SWREQ_028 / SWREQ_029 — whole needs switched via ``if`` (swe_1_sw_req_analysis.rst)
+
+   .. literalinclude:: swe_1_sw_req_analysis.rst
+      :language: rst
+      :start-after: variant-raw-rst-start
+      :end-before: variant-raw-rst-end
+
+.. dropdown:: REQ_017 / REQ_018 — field and prose values resolved from variant data (sys_2_req_analysis.rst)
+
+   .. literalinclude:: sys_2_req_analysis.rst
+      :language: rst
+      :start-after: variant-raw-rst-start
+      :end-before: variant-raw-rst-end
+
+.. dropdown:: Variant-specific code loading via codelinks (swe_3_sw_detailed_design.rst)
+
+   .. literalinclude:: swe_3_sw_detailed_design.rst
+      :language: rst
+      :start-after: variant-raw-rst-start
+      :end-before: variant-raw-rst-end

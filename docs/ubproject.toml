@@ -712,6 +712,11 @@ remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commi
 src_dir = "../src/c"  # Relative path to Rust source
 gitignore = true
 comment_type ="cpp"
+# The variant-specific implementations under src/c/variants are excluded from
+# the project-wide discovery. They are loaded explicitly (and only in the
+# matching variant build) via ``.. src-trace:: :file:`` inside an ``if``
+# directive, see automotive-adas/swe_3_sw_detailed_design.rst.
+exclude = ["variants/*"]
 
 [codelinks.projects.adas.analyse]
 get_need_id_refs = true

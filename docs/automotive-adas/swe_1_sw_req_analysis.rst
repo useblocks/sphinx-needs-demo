@@ -232,6 +232,8 @@ SWE.1 Software Requirements
    clearance margins, maximum speed, and steering rate limits, with abort behavior
    on detected obstacles.
 
+.. variant-raw-rst-start
+
 .. if:: var.vehicle.steering_side == "left"
 
    .. swreq:: Left-Hand Drive Turn Signal Priority
@@ -253,3 +255,5 @@ SWE.1 Software Requirements
 
       Implement turn signal logic optimized for right-hand drive vehicles,
       prioritizing left-side mirror checks for overtaking maneuvers.
+
+.. variant-raw-rst-end

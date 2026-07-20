@@ -162,6 +162,8 @@ SYS.2 Requirement Analysis
    Plan a feasible park trajectory into the chosen slot and command steering, throttle,
    and braking actuators to follow it within configured speed and clearance bounds.
 
+.. variant-raw-rst-start
+
 .. req:: Maximum Speed Limit for Adaptive Cruise Control
    :id: REQ_017
    :status: open
@@ -186,3 +188,5 @@ SYS.2 Requirement Analysis
    The lane keeping assistant shall prioritize warnings for blind spots on
    the :variant:`vehicle.driver_position` side, as this is the driver's
    position in :variant:`region.area` market vehicles.
+
+.. variant-raw-rst-end
