@@ -172,7 +172,7 @@ SYS.2 Requirement Analysis
    :speed_unit: <{ var.region.speed_unit }>
 
    The adaptive cruise control shall not exceed the configured maximum speed
-   of <{ var.region.speed_limit_highway }> :variant:`region.speed_unit`
+   of :variant:`region.speed_limit_highway` :variant:`region.speed_unit`
    on highways.
 
 .. req:: Lane Change Warning Direction
