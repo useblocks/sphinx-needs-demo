@@ -41,6 +41,12 @@ transition_length = 10
 [needs]
 build_json = true
 
+# Default variant data, so that ubCode/ubc can resolve variant expressions
+# (``.. if::``, ``<{ var.* }>``) statically. Safe for the per-variant CI
+# builds: Sphinx-Needs' TOML loader skips every key that is passed via
+# ``sphinx-build -D needs_variant_data_file=...`` (confoverrides win).
+variant_data_file = "variants/eu_left.json"
+
 # Schema validation configuration
 # see https://sphinx-needs.readthedocs.io/en/latest/schema/index.html
 schema_definitions_from_json = "schemas.json"
@@ -686,6 +692,23 @@ ignore_directives = [
   "test-file",
   "src-trace",
   "test-report"
+]
+
+# Suppress diagnostics that only stem from ubc limitations, not from real
+# issues in the project (all verified to be resolved in the actual Sphinx
+# build):
+[lint]
+message-ignores = [
+  # ubc 0.30.3 does not know the Sphinx-Needs ``if`` directive yet.
+  { codes = ["block.directive_unknown"], contains = "'if'" },
+  # Follow-up of the above: the turn-signal impl needs link to SWREQ_028/029,
+  # which are defined inside ``if`` blocks and are therefore invisible to ubc.
+  # ubc's src-trace also ignores the ``exclude`` patterns of source_discover,
+  # so it scans both variant files instead of only the active one.
+  { codes = ["needs.dead_link"], contains = "IMPL_TS_" },
+  # TF_TEST_* needs are generated at build time by the sphinx-test-reports
+  # ``test-file`` directive, which is in parse.ignore_directives.
+  { codes = ["needs.link_ref"], contains = "TF_TEST_" },
 ]
 
 ###############################################################################
