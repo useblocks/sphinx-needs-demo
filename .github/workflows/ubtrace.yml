@@ -6,12 +6,20 @@ on:
     tags:
       - 'v[0-9]*'
       - '[0-9]*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to build and deploy (tag name or "main")'
+        required: true
+        default: 'main'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
 
       - name: Install graphviz
         run: sudo apt-get install -y graphviz
@@ -27,7 +35,14 @@ jobs:
       - name: Compute UBTRACE_VERSION
         id: vars
         run: |
-          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            ref="${{ github.event.inputs.ref }}"
+            if [[ "$ref" == "main" ]]; then
+              version="main"
+            else
+              version="$ref"
+            fi
+          elif [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
             version="$GITHUB_REF_NAME"
           else
             version="main"
