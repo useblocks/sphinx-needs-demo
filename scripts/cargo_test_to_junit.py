@@ -32,6 +32,17 @@ RUST_TEST_TO_SPEC: dict[str, str] = {
     "interfaces::tests::test_user_command_variants": "TEST_BUTTON_DEBOUNCE",
 }
 
+# Map each test spec ID to the space-separated list of SW requirement IDs it
+# verifies.  These are emitted as a ``<properties><property name="verifies"
+# …/></properties>`` block so that sphinx-test-reports can map them to
+# sphinx-needs link fields via ``tr_property_link_types``.
+SPEC_TO_SWREQ: dict[str, str] = {
+    "TEST_TEMP_CONTROL": "SWREQ_TEMP_REGULATION",
+    "TEST_BREW_STRENGTH": "SWREQ_BREW_STRENGTH",
+    "TEST_BUTTON_DEBOUNCE": "SWREQ_BUTTON_INPUT",
+    "TEST_SAFETY_SHUTDOWN": "SWREQ_OVERTEMP_SHUTDOWN SWREQ_WATER_LEVEL",
+}
+
 
 def main() -> None:
     text = sys.stdin.read()
@@ -60,6 +71,10 @@ def main() -> None:
         )
         if status == "FAILED":
             ET.SubElement(tc, "failure", message="Test failed")
+        swreqs = SPEC_TO_SWREQ.get(spec_id)
+        if swreqs:
+            props = ET.SubElement(tc, "properties")
+            ET.SubElement(props, "property", name="verifies", value=swreqs)
 
     tree = ET.ElementTree(root)
     ET.indent(tree, space="  ")
