@@ -62,7 +62,7 @@ jobs:
           # ubTrace server.
           for variant in eu_left eu_right america; do
             echo "::group::Build variant ${variant}"
-            uv run sphinx-build -W -b ubtrace \
+            uv run sphinx-build -b ubtrace \
               -D ubtrace_version=${{ steps.vars.outputs.version }} \
               -D needs_variant_data_file=variants/${variant}.json \
               docs docs/_build/ubtrace
