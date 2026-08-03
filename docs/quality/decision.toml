@@ -1,0 +1,72 @@
+# Criteria pack backing the `review-decision` skill's verdict — installed as
+# `quality/decision.toml`, wired via
+# `[quality.type_configs.<type>].criteria_file` in `ubproject.toml` for the
+# type the `decisions` stage produces (`decision` in this preset).
+#
+# Every axis is JUDGMENT-ONLY and scored 0..2 (2 = fully meets, 1 = partial,
+# 0 = the FAIL condition) — this pack carries the rubric the skill used to
+# hard-code; the skill itself now only says "score every axis your
+# briefing's `criteria` names". Unlike the other three packs, this one has
+# NO `parent_fit` axis: a decision has no single trace parent (it typically
+# affects several needs via an outward link, not one upstream obligation to
+# fit), so the old graph-checkable `impact_traceability` axis is simply
+# dropped, not replaced.
+
+guidance = """
+- Fail closed: when genuinely uncertain whether an axis is met, score it 0 \
+rather than giving the benefit of the doubt, and explain the uncertainty in \
+your reasoning.
+- Be lenient with domain-specific terminology and abbreviations — assume \
+they are defined elsewhere in the project (e.g. a glossary) rather than \
+penalizing the decision for using them without a local definition.
+- A short, clear decision is not inherently deficient — judge substance, \
+not length; a crisp Context/Alternatives/Consequences/Rationale can score \
+full marks on every axis.
+- If the decision's body is empty or unreadable, score every axis 0 and \
+say so — there is nothing else to judge."""
+
+[[criterion]]
+id = "context_present"
+name = "Context Present"
+description = """
+Whether a Context section explains the problem and the constraints that \
+drove the decision."""
+scoring_guide = """
+0: No Context section is present, or it merely restates the title without explaining the underlying problem or constraints.
+1: A Context section is present but is thin — it names the problem without the constraints that drove the decision, or vice versa.
+2: A Context section clearly explains both the problem and the constraints that drove the decision."""
+max_score = 2
+
+[[criterion]]
+id = "alternatives_listed"
+name = "Alternatives Listed"
+description = "Whether at least two alternatives, including the chosen one, are enumerated."
+scoring_guide = """
+0: Only one option is presented, or the listed alternatives are too vague to distinguish from one another.
+1: At least two alternatives are listed, but one is described too thinly to judge on its own merits.
+2: At least two genuine, clearly described alternatives (including the chosen one) are enumerated."""
+max_score = 2
+
+[[criterion]]
+id = "consequences_present"
+name = "Consequences Present"
+description = """
+Whether the decision describes what changes, the trade-offs accepted, and \
+any follow-on work."""
+scoring_guide = """
+0: The decision states no consequences at all, or lists only positives with no trade-off language.
+1: Consequences are stated but incompletely — e.g. the trade-offs are named but follow-on work is not, or vice versa.
+2: The decision clearly describes what changes, the trade-offs accepted, and any follow-on work."""
+max_score = 2
+
+[[criterion]]
+id = "rationale_quality"
+name = "Rationale Quality"
+description = """
+Whether the rationale for the chosen option over the alternatives is \
+explicit and coherent."""
+scoring_guide = """
+0: The rationale is circular (e.g. "X because X is better") or is an ungrounded subjective preference.
+1: A rationale is given, but it leans on an unstated assumption or omits how the alternatives compare.
+2: The rationale for choosing this option over the alternatives is explicit, coherent, and grounded."""
+max_score = 2

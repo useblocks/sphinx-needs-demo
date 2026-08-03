@@ -1,0 +1,88 @@
+# Criteria pack backing the `review-feat` skill's verdict — installed as
+# `quality/feat.toml`, wired via
+# `[quality.type_configs.<type>].criteria_file` in `ubproject.toml` for every
+# type the `user_stories`-shaped stage produces (`user_story` in this
+# preset).
+#
+# Every axis is JUDGMENT-ONLY and scored 0..2 (2 = fully meets, 1 = partial,
+# 0 = the FAIL condition) — this pack carries the rubric the skill used to
+# hard-code; the skill itself now only says "score every axis your
+# briefing's `criteria` names". `parent_fit` replaces the old purely
+# graph-checkable `traceability` axis: the structural trace gate already
+# confirms the link exists, so this axis instead judges whether the need's
+# content substantively engages with its parent's obligation — and, since
+# this type is the ROOT of the V in some projects (this preset's own
+# `user_stories` stage included), a need with no parent to trace to is
+# treated as fully meeting this axis by default.
+
+guidance = """
+- Fail closed: when genuinely uncertain whether an axis is met, score it 0 \
+rather than giving the benefit of the doubt, and explain the uncertainty in \
+your reasoning.
+- Be lenient with domain-specific terminology and abbreviations — assume \
+they are defined elsewhere in the project (e.g. a glossary) rather than \
+penalizing the need for using them without a local definition.
+- A short, clear need is not inherently deficient — judge substance, not \
+length; a crisp need can score full marks on every axis.
+- If the need's body is empty or unreadable, score every axis 0 and say so \
+— there is nothing else to judge."""
+
+[[criterion]]
+id = "parent_fit"
+name = "Parent Fit"
+description = """
+Whether the need substantively addresses the obligation of the parent it \
+traces to, not merely links to it. The structural trace gate already \
+confirms the link exists; this axis judges whether the need's content \
+actually engages with what the parent asks for. When there is no parent to \
+trace to (this need type is the root of the V, with no upstream stage), \
+treat this axis as fully met by default."""
+scoring_guide = """
+0: The need's content does not address the parent's obligation at all, or addresses a materially different concern — the link is present but the substance is not (and a parent genuinely exists to trace to).
+1: The need addresses only part of the parent's obligation, or engages with it tangentially.
+2: The need substantively and clearly addresses the parent's obligation, OR this need has no parent to trace to (it is the root of the V for this project)."""
+max_score = 2
+
+[[criterion]]
+id = "single_user_capability"
+name = "Single User Capability"
+description = "Whether the need describes exactly one user-facing capability."
+scoring_guide = """
+0: The need covers two independently deliverable capabilities — either could ship without the other.
+1: The need is centred on one capability but folds in a closely related second aspect that could arguably ship separately.
+2: The need describes exactly one user-facing capability."""
+max_score = 2
+
+[[criterion]]
+id = "user_observable"
+name = "User Observable"
+description = """
+Whether the capability is directly observable by a user without reading \
+source code or internal logs."""
+scoring_guide = """
+0: The need describes an internal mechanism rather than something a user directly observes.
+1: The capability is user-observable, but the description leans on internal framing that makes the user-visible effect harder to see than it should be.
+2: The capability is directly and clearly observable by a user without reading source or internal logs."""
+max_score = 2
+
+[[criterion]]
+id = "no_mechanism_leak"
+name = "No Mechanism Leak"
+description = "Whether the body names no implementation constructs."
+scoring_guide = """
+0: The body names an implementation construct — a class, function, module, table, internal endpoint, or specific tech choice.
+1: The body stays mostly implementation-free but drops one incidental technical hint (e.g. a config key name) that is not load-bearing to the description.
+2: The body names no implementation constructs at all."""
+max_score = 2
+
+[[criterion]]
+id = "naming_clarity"
+name = "Naming Clarity"
+description = """
+Whether the title and body use stakeholder vocabulary a non-implementer \
+could confirm."""
+scoring_guide = """
+0: The title or body relies on an undefined abbreviation or technical shorthand that a non-implementer stakeholder could not confirm.
+1: The title and body are mostly in stakeholder vocabulary but lean on one term a non-implementer might need explained.
+2: The title and body use stakeholder vocabulary a non-implementer could confirm without help."""
+max_score = 2

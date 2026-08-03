@@ -1,0 +1,38 @@
+{
+  "agent": "copilot",
+  "axes": {
+    "atomicity": {
+      "reason": "One obligation: a lane detection algorithm. 'Process camera input' and 'identify lane markings' are facets of the same detection pipeline, not independent requirements.",
+      "score": 2
+    },
+    "comprehensibility": {
+      "reason": "Self-contained and intelligible on its own without reading adjacent requirements.",
+      "score": 2
+    },
+    "feasibility": {
+      "reason": "Camera-based lane detection is implementable with known technology and contradicts nothing else stated.",
+      "score": 2
+    },
+    "parent_fit": {
+      "reason": "NEED_001 requires detecting lane markings and steering; this requirement substantively addresses the lane-marking-detection half of that obligation.",
+      "score": 2
+    },
+    "unambiguity": {
+      "reason": "Core meaning is clear, but 'various lighting conditions' is an underspecified term open to interpretation on which conditions are in scope.",
+      "score": 1,
+      "suggestion": "Replace 'various lighting conditions' with an explicit enumerated list."
+    },
+    "verifiability": {
+      "reason": "Directionally testable, but 'accurately' has no defined accuracy threshold and 'various lighting conditions' names no concrete set of conditions to test against.",
+      "score": 1,
+      "suggestion": "State a detection accuracy target (e.g. >=95% true-positive rate) and enumerate the lighting conditions (day, night, dusk, glare) to validate."
+    }
+  },
+  "criteria": "requirement",
+  "criteria_fingerprint": "941b3ec6f6e1c2e4311154b93f3652b2180f8965a70193734339da329202a428",
+  "model": "claude-opus-4.8",
+  "need": "REQ_001",
+  "reviewed_fingerprint": "8eacca04f62062574f7c07d49d762484e05782d0f69d73da526103f4594a17f8",
+  "schema": 2,
+  "summary": "Substantively covers the lane-detection arm of NEED_001; single detection obligation, but 'accurately'/'various lighting conditions' leave the success condition unquantified."
+}

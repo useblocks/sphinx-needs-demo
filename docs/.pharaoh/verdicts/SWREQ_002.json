@@ -1,0 +1,36 @@
+{
+  "agent": "copilot",
+  "axes": {
+    "atomicity": {
+      "reason": "Single obligation: trigger a lane-departure warning.",
+      "score": 2
+    },
+    "comprehensibility": {
+      "reason": "Self-contained and intelligible on its own.",
+      "score": 2
+    },
+    "feasibility": {
+      "reason": "Lane-departure warning is implementable with known technology.",
+      "score": 2
+    },
+    "parent_fit": {
+      "reason": "Realises parent REQ_002 (Steering Control Logic / lane keeping) by warning when the vehicle leaves its lane without signalling.",
+      "score": 2
+    },
+    "unambiguity": {
+      "reason": "Single clear reading: warn on unsignalled lane departure.",
+      "score": 2
+    },
+    "verifiability": {
+      "reason": "No defined deviation threshold or warning latency, so the trigger point is not concretely testable.",
+      "score": 1,
+      "suggestion": "Specify the lateral-deviation threshold and maximum warning latency."
+    }
+  },
+  "criteria": "requirement",
+  "criteria_fingerprint": "941b3ec6f6e1c2e4311154b93f3652b2180f8965a70193734339da329202a428",
+  "model": "claude-opus-4.8",
+  "need": "SWREQ_002",
+  "reviewed_fingerprint": "86ac08da889013ce4621cb3b462213cbd31d2ae98ae67481ffcfc9db6793bff9",
+  "schema": 2
+}

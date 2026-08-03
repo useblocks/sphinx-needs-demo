@@ -1,0 +1,85 @@
+# Criteria pack backing the `review-arch` skill's verdict — installed as
+# `quality/arch.toml`, wired via
+# `[quality.type_configs.<type>].criteria_file` in `ubproject.toml` for every
+# type the `archs`-shaped stage produces (`arch` in this preset).
+#
+# Every axis is JUDGMENT-ONLY and scored 0..2 (2 = fully meets, 1 = partial,
+# 0 = the FAIL condition) — this pack carries the rubric the skill used to
+# hard-code; the skill itself now only says "score every axis your
+# briefing's `criteria` names". `parent_fit` replaces the old purely
+# graph-checkable `traceability` axis: the structural trace gate already
+# confirms the link exists, so this axis instead judges whether the
+# element's design content substantively engages with its parent
+# requirement's obligation.
+
+guidance = """
+- Fail closed: when genuinely uncertain whether an axis is met, score it 0 \
+rather than giving the benefit of the doubt, and explain the uncertainty in \
+your reasoning.
+- Be lenient with domain-specific terminology, technology names, and \
+abbreviations — assume they are defined elsewhere in the project (e.g. a \
+glossary) rather than penalizing the element for using them without a local \
+definition.
+- A short, clear architecture element is not inherently deficient — judge \
+substance, not length; a crisp element can score full marks on every axis.
+- If the element's body is empty or unreadable, score every axis 0 and say \
+so — there is nothing else to judge."""
+
+[[criterion]]
+id = "parent_fit"
+name = "Parent Fit"
+description = """
+Whether the architecture element substantively addresses the obligation of \
+the requirement(s) it traces to, not merely links to them. The structural \
+trace gate already confirms the link exists; this axis judges whether the \
+element's design content actually engages with what its parent \
+requirement asks for."""
+scoring_guide = """
+0: The element's content does not address its parent requirement's obligation at all, or addresses a materially different concern — the link is present but the substance is not.
+1: The element addresses only part of its parent requirement's obligation, or engages with it tangentially.
+2: The element substantively and clearly addresses (a distinct part of) its parent requirement's obligation."""
+max_score = 2
+
+[[criterion]]
+id = "design_clarity"
+name = "Design Clarity"
+description = "Whether the design names what is CHOSEN, not just what is wanted."
+scoring_guide = """
+0: The element merely restates the requirement in different words, or uses vagueness (e.g. "a suitable algorithm") without specifying the actual choice.
+1: The element names a choice but leaves a material design detail unspecified (e.g. names a pattern without its key parameters).
+2: The element clearly names the concrete choice made, not just the goal it serves."""
+max_score = 2
+
+[[criterion]]
+id = "completeness"
+name = "Completeness"
+description = """
+Whether the element addresses every externally-visible obligation of its \
+parent requirement(s)."""
+scoring_guide = """
+0: A linked requirement has an obligation that no part of the element covers.
+1: Every obligation is covered, but at least one is covered only partially or at a shallow level of detail.
+2: Every externally-visible obligation of the linked requirement(s) is addressed."""
+max_score = 2
+
+[[criterion]]
+id = "consistency"
+name = "Consistency"
+description = """
+Whether the element avoids contradicting a sibling element linked to the \
+same parent requirement."""
+scoring_guide = """
+0: The element contradicts a sibling element that shares the same parent requirement (e.g. conflicting responsibilities, incompatible choices).
+1: The element does not outright contradict a sibling, but overlaps with it in a way that is not clearly reconciled (e.g. unclear which of the two owns a shared responsibility).
+2: The element is consistent with every sibling linked to the same parent requirement."""
+max_score = 2
+
+[[criterion]]
+id = "implementability"
+name = "Implementability"
+description = "Whether the element is realisable by a single bounded implementation."
+scoring_guide = """
+0: The element leaves mutually-exclusive choices unresolved, or its scope is unbounded.
+1: The element is realisable, but at least one boundary or choice is left loose enough to need a judgement call during implementation.
+2: The element is realisable by a single, clearly bounded implementation."""
+max_score = 2
