@@ -114,9 +114,11 @@ Demonstration projects
 Each of the projects below is a fully independent Sphinx project with its
 own ``conf.py`` and ``ubproject.toml`` (they only share this repo's uv-managed
 virtual environment). They are built separately, so they are linked here
-rather than included in this project's toctree.
+(via intersphinx, see ``conf.py``) rather than included in this project's
+toctree. The sidebar on the left also links directly between all five
+projects.
 
-* `Basic Example <basic_example/index.html>`__
-* `Coffee Machine <coffee-machine/index.html>`__
-* `Automotive ADAS <automotive-adas/index.html>`__
-* `Safety Example <safety_example/index.html>`__
+* :doc:`Basic Example <basic_example:index>`
+* :doc:`Coffee Machine <coffee-machine:index>`
+* :doc:`Automotive ADAS <automotive-adas:index>`
+* :doc:`Safety Example <safety_example:index>`

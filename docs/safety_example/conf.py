@@ -29,7 +29,25 @@ extensions = [
     "sphinx_design",
     "sphinx_simplepdf",
     "sphinx_preview",
+    "sphinx.ext.intersphinx",
 ]
+
+###############################################################################
+# INTERSPHINX Config START
+###############################################################################
+
+# This project links to automotive-adas (see system_requirements.rst).
+# intersphinx validates that :doc: reference at build time instead of using a
+# hand-typed <a href> link, which can silently rot. The inventory is only
+# built when scripts/build_docs.sh builds all projects into one output tree;
+# a standalone build of this project alone won't have it.
+intersphinx_mapping = {
+    "automotive-adas": ("../automotive-adas", "../_build/site/automotive-adas/objects.inv"),
+}
+
+###############################################################################
+# INTERSPHINX Config END
+###############################################################################
 
 ###############################################################################
 # SPHINX-NEEDS Config START
@@ -60,7 +78,9 @@ preview_config = {
     "timeout": 0,
 }
 
-templates_path = ["_templates"]
+# _shared_templates is the single source for projects-nav.html, used by
+# every project directly (see html_sidebars below) instead of being copied.
+templates_path = ["../_shared_templates"]
 
 # List of files/folder to ignore.
 exclude_patterns = [
@@ -81,9 +101,10 @@ if shutil.which("dot") is None:
         "(e.g. 'apt-get install graphviz') and retry."
     )
 
-# We bring our own plantuml jar file.
+# The plantuml jar file lives once at docs/utils/, shared by every project
+# that needs it, instead of being duplicated per project.
 local_plantuml_path = os.path.join(
-    os.path.dirname(__file__), "utils", "plantuml-1.2022.14.jar"
+    os.path.dirname(__file__), "..", "utils", "plantuml-1.2022.14.jar"
 )
 plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
 plantuml_output_format = "svg"
@@ -94,10 +115,12 @@ plantuml_output_format = "svg"
 
 html_theme = "furo"
 
-html_static_path = ["_static"]
+# Shared with every project instead of duplicated per project.
+html_static_path = ["../_static"]
 
-html_logo = "_images/sphinx-needs-logo.png"
-html_favicon = "_images/sphinx-needs-logo.svg"
+# Shared with every project instead of duplicated per project.
+html_logo = "../_images/sphinx-needs-logo.png"
+html_favicon = "../_images/sphinx-needs-logo.svg"
 
 html_theme_options = {
     "sidebar_hide_name": True,
@@ -123,6 +146,26 @@ html_css_files = [
     "furo.css",
     "custom.css",
 ]
+
+# Used by _templates/projects-nav.html (synced from
+# docs/_shared_templates/projects-nav.html by scripts/build_docs.sh) to
+# highlight the current project in the cross-project sidebar nav.
+html_context = {
+    "current_project": "safety_example",
+}
+
+html_sidebars = {
+    "**": [
+        "sidebar/brand.html",
+        "sidebar/search.html",
+        "projects-nav.html",
+        "sidebar/scroll-start.html",
+        "sidebar/navigation.html",
+        "sidebar/ethical-ads.html",
+        "sidebar/scroll-end.html",
+        "sidebar/variant-selector.html",
+    ]
+}
 
 
 def rstjinja(app, docname, source):

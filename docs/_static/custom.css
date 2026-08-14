@@ -78,3 +78,9 @@ table.needs_style_blue_bar {
 table.needs_style_red_bar {
     background: linear-gradient(to right, transparent 99%, #db0707 1%) !important;
 }
+
+/* Cross-project sidebar nav (see docs/_shared_templates/projects-nav.html) */
+.current-project-label {
+    font-weight: 600;
+    opacity: 0.7;
+}

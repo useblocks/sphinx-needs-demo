@@ -27,7 +27,28 @@ extensions = [
     "sphinx_design",
     "sphinx_simplepdf",
     "sphinx_preview",
+    "sphinx.ext.intersphinx",
 ]
+
+###############################################################################
+# INTERSPHINX Config START
+###############################################################################
+
+# This project links to the four demo projects (see index.rst/demo_details.rst).
+# intersphinx validates those :doc: references at build time instead of using
+# hand-typed <a href> links, which can silently rot. Inventories are only
+# built when scripts/build_docs.sh builds all projects into one output tree;
+# a standalone build of this project alone won't have them.
+intersphinx_mapping = {
+    "basic_example": ("basic_example", "_build/site/basic_example/objects.inv"),
+    "coffee-machine": ("coffee-machine", "_build/site/coffee-machine/objects.inv"),
+    "automotive-adas": ("automotive-adas", "_build/site/automotive-adas/objects.inv"),
+    "safety_example": ("safety_example", "_build/site/safety_example/objects.inv"),
+}
+
+###############################################################################
+# INTERSPHINX Config END
+###############################################################################
 
 # The config for the preview features, which allows to "sneak" into a link.
 # Docs: https://sphinx-preview.readthedocs.io/en/latest/#configuration
@@ -48,7 +69,9 @@ preview_config = {
     "timeout": 0,
 }
 
-templates_path = ["_templates"]
+# _shared_templates is the single source for projects-nav.html, used by
+# every project directly (see html_sidebars below) instead of being copied.
+templates_path = ["_shared_templates"]
 
 # List of files/folder to ignore.
 # Sphinx builds all ``.rst`` files under this project, no matter if they are
@@ -103,6 +126,26 @@ html_css_files = [
     "furo.css",
     "custom.css",
 ]
+
+# Used by _templates/projects-nav.html (synced from
+# docs/_shared_templates/projects-nav.html by scripts/build_docs.sh) to
+# highlight the current project in the cross-project sidebar nav.
+html_context = {
+    "current_project": "",
+}
+
+html_sidebars = {
+    "**": [
+        "sidebar/brand.html",
+        "sidebar/search.html",
+        "projects-nav.html",
+        "sidebar/scroll-start.html",
+        "sidebar/navigation.html",
+        "sidebar/ethical-ads.html",
+        "sidebar/scroll-end.html",
+        "sidebar/variant-selector.html",
+    ]
+}
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on

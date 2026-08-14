@@ -8,8 +8,8 @@ across the demo projects of this repository.
 
 This landing project (the one rendering this very page) is intentionally minimal — it has no
 Sphinx-Needs objects of its own. Each of the four demonstration projects
-(`basic_example <basic_example/index.html>`__, `coffee-machine <coffee-machine/index.html>`__,
-`automotive-adas <automotive-adas/index.html>`__ and `safety_example <safety_example/index.html>`__)
+(:doc:`basic_example <basic_example:index>`, :doc:`coffee-machine <coffee-machine:index>`,
+:doc:`automotive-adas <automotive-adas:index>` and :doc:`safety_example <safety_example:index>`)
 is a fully independent Sphinx project with its own ``conf.py``/``ubproject.toml`` and only turns on
 the extensions it actually needs. The ``automotive-adas`` project uses the widest set, so it is used
 as the example below.

@@ -22,7 +22,7 @@ Sphinx-Needs objects
 
    Or even images:
 
-   .. image:: /_images/sphinx-needs-logo.png
+   .. image:: ../_images/sphinx-needs-logo.png
       :width: 50px
 
 .. spec:: Example Specification
