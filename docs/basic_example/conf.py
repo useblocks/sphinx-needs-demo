@@ -1,20 +1,20 @@
 # Configuration file for the Sphinx documentation builder.
 #
-# This is the *landing* project of the Sphinx-Needs demo. It only holds the
-# explanatory/introduction pages and links out to the four independent demo
-# projects (basic_example, coffee-machine, automotive-adas, safety_example),
-# each of which has its own conf.py/ubproject.toml and builds on its own.
+# This is an independent Sphinx project (its own conf.py + ubproject.toml).
+# It only shares this repo's uv-managed virtual environment with the other
+# demo projects (basic_example, coffee-machine, automotive-adas, safety_example).
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
+import shutil
 
 import jinja2
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "Sphinx-Needs Demo"
+project = "Sphinx-Needs Demo - Basic Example"
 copyright = "2026, team useblocks"
 author = "team useblocks"
 version = "1.0"
@@ -24,46 +24,25 @@ version = "1.0"
 
 # List of Sphinx extension to use.
 extensions = [
+    "sphinx_needs",
     "sphinx_design",
+    "sphinxcontrib.plantuml",
     "sphinx_simplepdf",
     "sphinx_preview",
-    "sphinx.ext.intersphinx",
 ]
 
 ###############################################################################
-# INTERSPHINX Config START
+# SPHINX-NEEDS Config START
 ###############################################################################
 
-# This project links to the four demo projects (see index.rst/demo_details.rst).
-# intersphinx validates those :doc: references at build time instead of using
-# hand-typed <a href> links, which can silently rot. Inventories are only
-# built when scripts/build_docs.sh builds all projects into one output tree;
-# a standalone build of this project alone won't have them.
-#
-# The inventory *file* location depends on where that combined tree actually
-# gets built - scripts/build_docs.sh's default is docs/_build/site, but e.g.
-# Read the Docs builds into $READTHEDOCS_OUTPUT/html instead. build_docs.sh
-# exports SPHINX_NEEDS_DEMO_SITE_ROOT with the real (absolute) output root so
-# this always finds the right file; the hardcoded fallback below only applies
-# to a manual, non-build_docs.sh invocation using the local default location.
-_site_root = os.environ.get("SPHINX_NEEDS_DEMO_SITE_ROOT")
-
-
-def _inventory_path(project_name):
-    if _site_root:
-        return os.path.join(_site_root, project_name, "objects.inv")
-    return f"_build/site/{project_name}/objects.inv"
-
-
-intersphinx_mapping = {
-    "basic_example": ("basic_example", _inventory_path("basic_example")),
-    "coffee-machine": ("coffee-machine", _inventory_path("coffee-machine")),
-    "automotive-adas": ("automotive-adas", _inventory_path("automotive-adas")),
-    "safety_example": ("safety_example", _inventory_path("safety_example")),
-}
+# Read the configuration from an external TOML file.
+# This makes it possible to use ubCode and its tools directly with
+# the project. Declarative configuration formats are also preferred as they
+# cannot contain logic and can be consumed by almost all languages.
+needs_from_toml = "ubproject.toml"
 
 ###############################################################################
-# INTERSPHINX Config END
+# SPHINX-NEEDS Config END
 ###############################################################################
 
 # The config for the preview features, which allows to "sneak" into a link.
@@ -87,7 +66,7 @@ preview_config = {
 
 # _shared_templates is the single source for projects-nav.html, used by
 # every project directly (see html_sidebars below) instead of being copied.
-templates_path = ["_shared_templates"]
+templates_path = ["../_shared_templates"]
 
 # List of files/folder to ignore.
 # Sphinx builds all ``.rst`` files under this project, no matter if they are
@@ -98,32 +77,45 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "demo_page_header.rst",
-    "demo_hints",
-    # Independent sub-projects: each has its own conf.py/ubproject.toml and
-    # is built separately (see scripts/build_docs.sh), so they must not be
-    # picked up as part of this landing project's own source tree.
-    "basic_example",
-    "coffee-machine",
-    "automotive-adas",
-    "safety_example",
 ]
+
+# PlantUML renders node/graph diagrams via Graphviz. If `dot` is missing,
+# PlantUML embeds the error inside the generated SVG instead of failing the
+# build, which sphinx-build -W cannot catch. Fail fast at config load time.
+if shutil.which("dot") is None:
+    raise RuntimeError(
+        "Graphviz 'dot' executable not found on PATH. "
+        "PlantUML/needflow requires it to render diagrams. Install graphviz "
+        "(e.g. 'apt-get install graphviz') and retry."
+    )
+
+# The plantuml jar file lives once at docs/utils/, shared by every project
+# that needs it, instead of being duplicated per project.
+local_plantuml_path = os.path.join(
+    os.path.dirname(__file__), "..", "utils", "plantuml-1.2022.14.jar"
+)
+plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
+plantuml_output_format = "svg"
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "furo"
 
-html_static_path = ["_static"]
+# Shared with every project instead of duplicated per project.
+html_static_path = ["../_static"]
 
-html_logo = "_images/sphinx-needs-logo.png"
-html_favicon = "_images/sphinx-needs-logo.svg"
+# Shared with every project instead of duplicated per project.
+html_logo = "../_images/sphinx-needs-logo.png"
+html_favicon = "../_images/sphinx-needs-logo.svg"
 
 html_theme_options = {
     "sidebar_hide_name": True,
     "top_of_page_buttons": ["view", "edit"],
     "source_repository": "https://github.com/useblocks/sphinx-needs-demo",
     "source_branch": "main",
-    "source_directory": "docs/",
+    "source_directory": "docs/basic_example/",
     "footer_icons": [
         {
             "name": "GitHub",
@@ -147,7 +139,7 @@ html_css_files = [
 # docs/_shared_templates/projects-nav.html by scripts/build_docs.sh) to
 # highlight the current project in the cross-project sidebar nav.
 html_context = {
-    "current_project": "",
+    "current_project": "basic_example",
 }
 
 html_sidebars = {
@@ -162,6 +154,7 @@ html_sidebars = {
         "sidebar/variant-selector.html",
     ]
 }
+
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on

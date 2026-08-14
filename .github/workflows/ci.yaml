@@ -15,12 +15,11 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version-file: ".python-version"
-      - name: Build docs
-        run: uv run sphinx-build -W -b html -D needs_variant_data_file=variants/eu_left.json . _build/html
-        working-directory: docs
-      - name: Build ubtrace
+      - name: Build all demo projects
+        run: scripts/build_docs.sh
+      - name: Build ubtrace (automotive-adas)
         run: uv run sphinx-build -W -b ubtrace -D needs_variant_data_file=variants/eu_left.json . _build/ubtrace
-        working-directory: docs
+        working-directory: docs/automotive-adas
   ubc:
     name: ubc
     runs-on: ubuntu-latest
@@ -30,5 +29,16 @@ jobs:
         with:
           version: "0.31.0b1"
           working-directory: docs
-      - name: Run 'ubc check docs/ with variant'
-        run: ubc check -c "needs.variant_data_file='docs/variants/eu_left.json'" docs/
+      - name: Run 'ubc check' on each independent project
+        # ubc only loads the single ubproject.toml found at (or above) the
+        # given path and then scans every .rst file under that path - it
+        # does not auto-discover nested ubproject.toml files in
+        # subdirectories. So each of the 5 independent projects must be
+        # checked separately with its own path, matching scripts/build_docs.sh.
+        run: |
+          set -euo pipefail
+          ubc check docs/
+          ubc check docs/basic_example/
+          ubc check docs/coffee-machine/
+          ubc check docs/safety_example/
+          ubc check -c "needs.variant_data_file='docs/automotive-adas/variants/eu_left.json'" docs/automotive-adas/

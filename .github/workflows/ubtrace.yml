@@ -55,6 +55,8 @@ jobs:
           UBTRACE_VERSION: ${{ steps.vars.outputs.version }}
         run: |
           set -euo pipefail
+          # ubtrace/variants are only relevant for the automotive-adas project;
+          # the other demo projects don't use variant data and aren't uploaded.
           # Build each ADAS variant and upload it individually. All variants build
           # into the same output directory, so each build must be uploaded before
           # the next one overwrites it. The variant dimensions (area/steering) are
@@ -65,7 +67,7 @@ jobs:
             uv run sphinx-build -b ubtrace \
               -D ubtrace_version=${{ steps.vars.outputs.version }} \
               -D needs_variant_data_file=variants/${variant}.json \
-              docs docs/_build/ubtrace
+              docs/automotive-adas docs/automotive-adas/_build/ubtrace
             echo "::endgroup::"
             echo "::group::Upload variant ${variant}"
             bash upload.sh

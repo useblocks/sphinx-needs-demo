@@ -1,0 +1,112 @@
+{
+  "$defs": {
+    "type-req": {
+      "properties": {
+        "type": {
+          "const": "req"
+        }
+      }
+    },
+    "type-spec": {
+      "properties": {
+        "type": {
+          "const": "spec"
+        }
+      }
+    },
+    "type-test": {
+      "properties": {
+        "type": {
+          "const": "test"
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "id": "req-id-pattern",
+      "severity": "info",
+      "message": "Requirement IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-req"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(R_|SWREQ_|REQ_|EX_REQ_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "spec-id-pattern",
+      "severity": "info",
+      "message": "Specification IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-spec"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(S_|SPEC_|EX_SPEC_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "test-id-pattern",
+      "severity": "info",
+      "message": "Test IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-test"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(T_|TEST_|EX_TEST_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "spec-links-to-req",
+      "severity": "info",
+      "message": "Specifications should link to requirements",
+      "select": {
+        "$ref": "#/$defs/type-spec"
+      },
+      "validate": {
+        "network": {
+          "links": {
+            "items": {
+              "local": {
+                "$ref": "#/$defs/type-req"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "test-has-spec-or-impl",
+      "severity": "info",
+      "message": "Test cases should link to either specs or implementations",
+      "select": {
+        "$ref": "#/$defs/type-test"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "links": {}
+          }
+        }
+      }
+    }
+  ]
+}

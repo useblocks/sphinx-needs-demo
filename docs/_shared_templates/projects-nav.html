@@ -1,0 +1,46 @@
+{#
+  Cross-project navigation between the Sphinx-Needs demo's independent
+  Sphinx projects (each has its own conf.py/ubproject.toml and build).
+
+  Canonical source: docs/_shared_templates/projects-nav.html
+  Copied verbatim into every project's _templates/ by scripts/build_docs.sh
+  before each build. Edit the canonical source, not the per-project copies
+  -- those get overwritten on the next build.
+
+  Each project sets html_context = {"current_project": "<slug>"} in its own
+  conf.py (root uses ""), so this one template renders correctly everywhere.
+  Links are built with pathto(..., 1) (Sphinx's "resource path" mode) so the
+  right number of "../" is added automatically, even for pages nested below
+  a project's own root (e.g. automotive-adas/ubcode_reports/index).
+
+  This only works when all projects are built together into one output tree,
+  e.g. via scripts/build_docs.sh -- a standalone single-project build won't
+  have the sibling projects to link to.
+#}
+{%- set current = current_project|default("") -%}
+{%- set demo_projects = [
+  ("", "🏠 Home"),
+  ("basic_example", "🧰 Basic Example"),
+  ("coffee-machine", "☕️ Coffee Machine"),
+  ("automotive-adas", "🚗 Automotive ADAS"),
+  ("safety_example", "🛡️ Safety Example"),
+] -%}
+<div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Demo Projects</span></p>
+  <ul>
+    {%- for slug, label in demo_projects %}
+    {%- if slug == current %}
+    <li class="toctree-l1 current"><span class="current-project-label">{{ label }}</span></li>
+    {%- else %}
+    {%- if current == "" %}
+    {%- set target = slug ~ "/index.html" %}
+    {%- elif slug == "" %}
+    {%- set target = "../index.html" %}
+    {%- else %}
+    {%- set target = "../" ~ slug ~ "/index.html" %}
+    {%- endif %}
+    <li class="toctree-l1"><a class="reference internal" href="{{ pathto(target, 1) }}">{{ label }}</a></li>
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+</div>

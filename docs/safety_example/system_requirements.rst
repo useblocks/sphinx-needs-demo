@@ -269,7 +269,7 @@ These 18 system requirements bridge the gap between functional safety requiremen
 
    For a detailed example of how system requirements are further decomposed into
    architectural and software requirements following the V-Model development process,
-   see the :doc:`/automotive-adas/index` example. That example demonstrates:
+   see the :doc:`automotive-adas <automotive-adas:index>` example. That example demonstrates:
 
    - System architecture design and component decomposition
    - Software requirement analysis and detailed design

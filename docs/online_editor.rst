@@ -109,7 +109,7 @@ Ideas for playing around
          :id: SPEC_MY
          :links: REQ_FIRST
 
-#. Get the traceability tree of the :need:`NEED_001` reqirement by using ``needflow``::
+#. Get the traceability tree of the ``NEED_001`` reqirement by using ``needflow``::
 
       .. needflow::
          :root_id: NEED_001

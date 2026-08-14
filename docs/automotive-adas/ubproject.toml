@@ -1,0 +1,378 @@
+"$schema" = "https://ubcode.useblocks.com/ubproject.schema.json"
+
+# This is the Sphinx-Needs configuration file in TOML format.
+# It is announced to Sphinx-Needs by putting
+#   needs_from_toml = "ubproject.toml"
+# into conf.py.
+# This is required to make the project work with ubCode.
+# For details see https://ubcode.useblocks.com
+
+[server]
+index_on_save = true
+
+[project]
+name = "Sphinx-Needs Demo - Automotive ADAS"
+description = "Full V-model showcase: system/software requirements, architecture, tests and releases for an ADAS stack"
+srcdir = "."
+
+[format_rst]
+fail_on_warning = []
+validate = true
+blockquote_indent = 2
+definition_list_indent = 2
+directive_indent = 3
+enum_list_auto = "preserve"
+enum_list_style = "preserve"
+field_list_align_body = false
+field_list_body_on_new_line = 20
+field_list_indent = 2
+literal_indent = 2
+paragraph_line_length = 70
+paragraph_semantic_wrap = false
+simple_table_space = 2
+substitution_indent = 3
+transition_char = "-"
+transition_length = 10
+
+[needs]
+build_json = true
+
+# Schema validation configuration
+# see https://sphinx-needs.readthedocs.io/en/latest/schema/index.html
+schema_definitions_from_json = "schemas.json"
+schema_severity = "warning"
+schema_debug_active = false
+
+# Force the author to set an ID by hand.
+id_required = true
+id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
+
+[needs.fields.role]
+nullable = true
+
+[needs.fields.contact]
+nullable = true
+
+[needs.fields.image]
+nullable = true
+
+[needs.fields.date]
+nullable = true
+
+[needs.fields.github]
+nullable = true
+
+[needs.fields.jira]
+nullable = true
+parse_variants = true
+
+[needs.fields.test_type]
+description = "Type of test (e.g. unit, integration)"
+nullable = true
+
+[needs.fields.effort]
+description = "Story points (Fibonacci sequence)"
+
+[needs.fields.effort.schema]
+type = "integer"
+enum = [1, 2, 3, 5, 8, 13, 21, 34]
+
+[needs.fields.approved]
+description = "Approval status of the requirement"
+
+[needs.fields.approved.schema]
+type = "boolean"
+
+# Variant-aware fields (ADAS variant demo: eu_left / eu_right / america)
+[needs.fields.max_speed]
+description = "Maximum speed limit, resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.max_speed.schema]
+type = "integer"
+
+[needs.fields.speed_unit]
+description = "Speed unit (km/h or mph), resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.driver_side]
+description = "Driver position side, resolved from variant data"
+nullable = true
+parse_variants = true
+
+[needs.fields.camera_position]
+description = "Primary camera orientation side, resolved from variant data"
+nullable = true
+parse_variants = true
+
+# Core field overrides for variant handling and global predicates
+[needs.fields.status]
+parse_variants = true
+
+[needs.fields.constraints]
+predicates = [
+  ["type in ['req']", "status_set"],
+  ["type in ['req']", "release_set"],
+]
+
+[needs.fields.layout]
+predicates = [
+  ["type in ['req']", "req_constraint"],
+  ["type not in ['req']", "adas"],
+]
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraints
+[needs.constraints.release_set]
+check_0 = "len(release)>0"
+error_message = "Requirement is not planned for any release!"
+severity = "CRITICAL"
+
+[needs.constraints.status_set]
+check_0 = "status is not None and status in ['open', 'in progress', 'closed']"
+error_message = "Status is invalid or not set!"
+severity = "LOW"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-constraint-failed-options
+[needs.constraint_failed_options.CRITICAL]
+force_style = false
+on_fail = ["warn"]
+style = ["red_bar"]
+
+[needs.constraint_failed_options.LOW]
+force_style = false
+on_fail = []
+style = ["blue_bar"]
+
+[[needs.types]]
+directive = "req"
+title = "Requirement"
+prefix = "R_"
+color = "#FFB300"
+style = "node"
+
+[[needs.types]]
+directive = "impl"
+title = "Implementation"
+prefix = "I_"
+color = "#fa8638"
+style = "node"
+
+[[needs.types]]
+directive = "test"
+title = "Test Case"
+prefix = "T_"
+color = "#A6BDD7"
+style = "node"
+
+[[needs.types]]
+directive = "person"
+title = "Person"
+prefix = "P_"
+color = "#C10020"
+style = "actor"
+
+[[needs.types]]
+directive = "team"
+title = "Team"
+prefix = "T_"
+color = "#CEA262"
+style = "node"
+
+[[needs.types]]
+directive = "release"
+title = "Release"
+prefix = "R_"
+color = "#817066"
+style = "node"
+
+[[needs.types]]
+directive = "arch"
+title = "Architecture"
+prefix = "_"
+color = "#4aac73"
+style = "node"
+
+[[needs.types]]
+directive = "need"
+title = "Need"
+prefix = "_"
+color = "#F6768E"
+style = "node"
+
+[[needs.types]]
+directive = "swarch"
+title = "SW_Architecture"
+prefix = "SWARCH_"
+color = "#2d86c1"
+style = "node"
+
+[[needs.types]]
+directive = "swreq"
+title = "SW_Requirement"
+prefix = "SWREQ_"
+color = "#a8f578"
+style = "node"
+
+# Link types for connecting needs to each other.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-links
+[needs.links.links]
+outgoing = "links outgoing"
+incoming = "links incoming"
+copy = false
+color = "#000000"
+
+# team -> person
+[needs.links.persons]
+incoming = "is working for"
+outgoing = "persons"
+
+# req -> release
+[needs.links.release]
+incoming = "contains"
+outgoing = "release"
+
+# req -> author
+[needs.links.author]
+incoming = "ownes"
+outgoing = "author"
+
+# impl -> spec, component, interface
+[needs.links.implements]
+incoming = "implemented by"
+outgoing = "implements"
+
+# test_case -> test_run
+# Automatically link test-runs with test-cases via tr_link dynamic function.
+# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/functions.html#tr-link
+[needs.links.runs]
+incoming = "test_cases"
+outgoing = "runs"
+predicates = [["type=='test'", "[[tr_link('id', 'case_name')]]"]]
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
+[needs.layouts.adas]
+grid = "simple_footer"
+
+[needs.layouts.adas.layout]
+head = [
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+  "<<meta_links_all()>>",
+]
+
+[needs.layouts.req_constraint]
+grid = "simple_footer"
+
+[needs.layouts.req_constraint.layout]
+head = [
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+  "<<meta_links_all()>>",
+]
+footer = ["**Process feedback**: <<meta('constraints_error')>>"]
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-string-links
+[needs.string_links.github_link]
+# Links to the related github issue
+link_name = "SN Demo #{{value}}"
+link_url = "https://github.com/useblocks/sphinx-needs-demo/issues/{{value}}"
+options = ["github"]
+regex = "^(?P<value>\\w+)$"
+
+[needs.string_links.jira_link]
+# Links to the related jira issue
+link_name = "JIRA ADAS #{{value}}"
+link_url = "https://useblocks.atlassian.net/browse/ADAS-{{value}}"
+options = ["jira"]
+regex = "^(?P<value>\\w+)$"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-services
+[needs.services.github-issues]
+id_prefix = "GH_ISSUE_"
+max_amount = 2
+max_content_lines = 20
+need_type = "swreq"
+url = "https://api.github.com/"
+
+[needs.services.github-prs]
+id_prefix = "GH_PR_"
+max_amount = 2
+max_content_lines = 20
+need_type = "impl"
+url = "https://api.github.com/"
+
+# ubCode setting: display a needs.json file in the extension view
+[needs_json]
+path = "./_build/html/needs.json"
+src = "."
+
+# ubCode setting: run a script command
+[scripts]
+sphinx = "sphinx-build -b html . _build/html"
+
+[parse]
+ignore_directives = [
+  "test-file",
+  "src-trace",
+  "test-report"
+]
+
+[parse.extend_directives.if-builder]
+# see https://sphinx-simplepdf.readthedocs.io/en/latest/directives.html#if-builder
+description = "Sphinx-SimplePDF builder specific content"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = false
+
+[parse.extend_directives.button-link]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+description = "Sphinx-Design button with link"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = true
+
+###############################################################################
+# SPHINX-CODELINKS Configuration
+###############################################################################
+# Configuration for linking source code to sphinx-needs artifacts
+# see https://codelinks.useblocks.com/
+
+[codelinks]
+set_local_url = true            # Enable local code html and URL generation
+local_url_field = "local-url"   # Need's field name for local URL
+set_remote_url = true           # Enable remote url generation
+remote_url_field = "remote-url" # Need's field name for remote URL
+
+# Configuration for the ADAS c project
+[codelinks.projects.adas]
+remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commit}/{path}#L{line}"
+
+[codelinks.projects.adas.source_discover]
+src_dir = "../../src/c"  # Relative path to C source
+gitignore = true
+comment_type = "cpp"
+
+[codelinks.projects.adas.analyse]
+get_need_id_refs = true
+get_oneline_needs = true      # Extract oneline need definitions from code
+
+[codelinks.projects.adas.analyse.oneline_comment_style]
+start_sequence = "@ "         # Start sequence: "// @ "
+field_split_char = ","        # Separator between fields
+# Define the fields in the oneline comments
+needs_fields = [
+  { "name" = "title", "type" = "str" },
+  { "name" = "id", "type" = "str" },
+  { "name" = "type", "type" = "str", "default" = "impl" },
+  { "name" = "implements", "type" = "list[str]", "default" = [] },
+]

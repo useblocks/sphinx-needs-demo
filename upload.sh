@@ -12,13 +12,14 @@ export UBTRACE_PROJECT=sphinx-needs-demo
 export UBTRACE_VERSION="${UBTRACE_VERSION:-main}"
 
 # Build the docs. ubt_sphinx writes its output under
-#   docs/_build/ubtrace/<ubtrace_organization>/<ubtrace_project>/<ubtrace_version>/
+#   docs/automotive-adas/_build/ubtrace/<ubtrace_organization>/<ubtrace_project>/<ubtrace_version>/
 # so the values above must match the conf.py settings (or the -D
-# override passed to sphinx-build at build time).
-# sphinx-build -b ubtrace docs docs/_build/ubtrace
+# override passed to sphinx-build at build time). automotive-adas is the
+# only demo project using variants/ubtrace.
+# sphinx-build -b ubtrace docs/automotive-adas docs/automotive-adas/_build/ubtrace
 
 # Package the version directory (the one that directly contains needs.json):
-BUILD_DIR="docs/_build/ubtrace/${UBTRACE_ORG}/${UBTRACE_PROJECT}/${UBTRACE_VERSION}"
+BUILD_DIR="docs/automotive-adas/_build/ubtrace/${UBTRACE_ORG}/${UBTRACE_PROJECT}/${UBTRACE_VERSION}"
 tar -czf /tmp/build.tar.gz -C "${BUILD_DIR}" .
 
 # Upload it:
