@@ -28,6 +28,14 @@ build:
       # otherwise `pip install .` fails to resolve them and aborts before
       # installing anything at all (including sphinx-needs itself).
       - pip install --extra-index-url https://pypi.useblocks.com/ "ubt-sphinx==0.8.1" "ubt-runtime==0.6.0"
+    post_install:
+      # The `python.install` config below does NOT actually run once
+      # build.jobs.build.html is set (confirmed from an actual RTD build's
+      # command list: pip install . never appeared, only this job's own
+      # commands did, and the build then failed with "No module named
+      # sphinx_needs"). So install this project's real dependencies
+      # explicitly here instead of relying on python.install to do it.
+      - pip install .
     build:
       html:
         # docs/ now holds five independent Sphinx projects (their own
@@ -45,7 +53,11 @@ build:
 # Optional but recommended, declare the Python requirements required
 # to build your documentation
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
-# Dependencies are installed via uv sync in post_create_environment
+#
+# NOTE: this alone does not actually install anything once
+# build.jobs.build.html is set above - see jobs.post_install, which does the
+# real `pip install .`. Left here mainly for RTD's dashboard/tooling to
+# still see the declared install method.
 python:
    install:
    - method: pip
