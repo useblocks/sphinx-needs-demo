@@ -1,6 +1,9 @@
 # Pharaoh configuration for sphinx-needs-demo.
-# Need types and link types are read from docs/ubproject.toml. They are not
-# re-defined here.
+# docs/ now holds five independent Sphinx-Needs projects, each with its own
+# ubproject.toml (docs/basic_example, docs/coffee-machine, docs/automotive-adas,
+# docs/safety_example; the landing project at docs/ubproject.toml defines no
+# need/link types). Need types and link types are read from those per-project
+# files. They are not re-defined here.
 
 [pharaoh]
 # "advisory" (default): suggests workflow but never blocks.

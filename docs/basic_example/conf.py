@@ -1,20 +1,20 @@
 # Configuration file for the Sphinx documentation builder.
 #
-# This is the *landing* project of the Sphinx-Needs demo. It only holds the
-# explanatory/introduction pages and links out to the four independent demo
-# projects (basic_example, coffee-machine, automotive-adas, safety_example),
-# each of which has its own conf.py/ubproject.toml and builds on its own.
+# This is an independent Sphinx project (its own conf.py + ubproject.toml).
+# It only shares this repo's uv-managed virtual environment with the other
+# demo projects (basic_example, coffee-machine, automotive-adas, safety_example).
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
+import shutil
 
 import jinja2
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "Sphinx-Needs Demo"
+project = "Sphinx-Needs Demo - Basic Example"
 copyright = "2026, team useblocks"
 author = "team useblocks"
 version = "1.0"
@@ -24,10 +24,26 @@ version = "1.0"
 
 # List of Sphinx extension to use.
 extensions = [
+    "sphinx_needs",
     "sphinx_design",
+    "sphinxcontrib.plantuml",
     "sphinx_simplepdf",
     "sphinx_preview",
 ]
+
+###############################################################################
+# SPHINX-NEEDS Config START
+###############################################################################
+
+# Read the configuration from an external TOML file.
+# This makes it possible to use ubCode and its tools directly with
+# the project. Declarative configuration formats are also preferred as they
+# cannot contain logic and can be consumed by almost all languages.
+needs_from_toml = "ubproject.toml"
+
+###############################################################################
+# SPHINX-NEEDS Config END
+###############################################################################
 
 # The config for the preview features, which allows to "sneak" into a link.
 # Docs: https://sphinx-preview.readthedocs.io/en/latest/#configuration
@@ -59,15 +75,26 @@ exclude_patterns = [
     "Thumbs.db",
     ".DS_Store",
     "demo_page_header.rst",
-    "demo_hints",
-    # Independent sub-projects: each has its own conf.py/ubproject.toml and
-    # is built separately (see scripts/build_docs.sh), so they must not be
-    # picked up as part of this landing project's own source tree.
-    "basic_example",
-    "coffee-machine",
-    "automotive-adas",
-    "safety_example",
 ]
+
+# PlantUML renders node/graph diagrams via Graphviz. If `dot` is missing,
+# PlantUML embeds the error inside the generated SVG instead of failing the
+# build, which sphinx-build -W cannot catch. Fail fast at config load time.
+if shutil.which("dot") is None:
+    raise RuntimeError(
+        "Graphviz 'dot' executable not found on PATH. "
+        "PlantUML/needflow requires it to render diagrams. Install graphviz "
+        "(e.g. 'apt-get install graphviz') and retry."
+    )
+
+# We bring our own plantuml jar file.
+# These options tell Sphinxcontrib-PlantUML we it can find this file.
+local_plantuml_path = os.path.join(
+    os.path.dirname(__file__), "utils", "plantuml-1.2022.14.jar"
+)
+plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
+plantuml_output_format = "svg"
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -84,7 +111,7 @@ html_theme_options = {
     "top_of_page_buttons": ["view", "edit"],
     "source_repository": "https://github.com/useblocks/sphinx-needs-demo",
     "source_branch": "main",
-    "source_directory": "docs/",
+    "source_directory": "docs/basic_example/",
     "footer_icons": [
         {
             "name": "GitHub",
@@ -103,6 +130,7 @@ html_css_files = [
     "furo.css",
     "custom.css",
 ]
+
 
 # Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
 # This allows us to use the powerfull jinja-features to create content in a loop, react on

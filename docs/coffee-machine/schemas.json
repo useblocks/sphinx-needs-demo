@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "type-req": {
+      "properties": {
+        "type": {
+          "const": "req"
+        }
+      }
+    },
+    "type-impl": {
+      "properties": {
+        "type": {
+          "const": "impl"
+        }
+      }
+    },
+    "type-test": {
+      "properties": {
+        "type": {
+          "const": "test"
+        }
+      }
+    },
+    "type-swreq": {
+      "properties": {
+        "type": {
+          "const": "swreq"
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "id": "req-id-pattern",
+      "severity": "info",
+      "message": "Requirement IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-req"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(R_|SWREQ_|REQ_|EX_REQ_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "impl-id-pattern",
+      "severity": "info",
+      "message": "Implementation IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-impl"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(I_|IMPL_|GH_PR_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "test-id-pattern",
+      "severity": "info",
+      "message": "Test IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-test"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(T_|TEST_|EX_TEST_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "swreq-id-pattern",
+      "severity": "info",
+      "message": "SW Requirement IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-swreq"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(SWREQ_|GH_ISSUE_)[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "impl-has-implements-links",
+      "severity": "info",
+      "message": "Implementations should use 'implements' link to connect to specifications, components, or interfaces",
+      "select": {
+        "$ref": "#/$defs/type-impl"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "implements": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "test-has-spec-or-impl",
+      "severity": "info",
+      "message": "Test cases should link to either specs or implementations",
+      "select": {
+        "$ref": "#/$defs/type-test"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "specs": {},
+            "links": {}
+          }
+        }
+      }
+    }
+  ]
+}

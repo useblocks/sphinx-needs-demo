@@ -108,11 +108,15 @@ Page Content
    online_editor
    pharaoh
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Demonstration
+Demonstration projects
+-----------------------
 
-   basic_example/index
-   coffee-machine/index
-   automotive-adas/index
-   safety_example/index
+Each of the projects below is a fully independent Sphinx project with its
+own ``conf.py`` and ``ubproject.toml`` (they only share this repo's uv-managed
+virtual environment). They are built separately, so they are linked here
+rather than included in this project's toctree.
+
+* `Basic Example <basic_example/index.html>`__
+* `Coffee Machine <coffee-machine/index.html>`__
+* `Automotive ADAS <automotive-adas/index.html>`__
+* `Safety Example <safety_example/index.html>`__

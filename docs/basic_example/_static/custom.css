@@ -1,0 +1,80 @@
+span.sp_preview_icon {
+    color: rgba(0,0,0,0.6) !important
+}
+
+table.need {
+    width: 100% !important;
+}
+
+table.need tbody {
+    display: table;
+    width: 100%
+}
+
+/* table.NEEDS_TABLE {
+    width: 100% !important
+}
+
+table.NEEDS_TABLE tbody, table.NEEDS_TABLE thead {
+    width: 100% !important;
+    display: table;
+
+} */
+
+span.need-part a.internal {
+    vertical-align: super;
+    font-size: 0.8em;
+
+}
+
+table.needs_type_need tr.head td {
+    border-bottom: 4px solid #F6768E !important;
+}
+
+table.needs_type_req tr.head td {
+    border-bottom: 4px solid #FFB300 !important;
+}
+
+table.needs_type_swreq tr.head td {
+    border-bottom: 4px solid #a8f578 !important;
+}
+
+table.needs_type_swarch tr.head td {
+    border-bottom: 4px solid #2d86c1 !important;
+}
+
+table.needs_type_arch tr.head td {
+    border-bottom: 4px solid #4aac73 !important;
+}
+
+table.needs_type_test tr.head td {
+    border-bottom: 4px solid #A6BDD7 !important;
+}
+
+table.needs_type_impl tr.head td {
+    border-bottom: 4px solid #fa8638 !important;
+}
+
+table.needs_type_release tr.head td {
+    border-bottom: 4px solid #817066 !important;
+}
+
+table.needs_type_person tr.head td  {
+    border-bottom: 4px solid #C10020 !important;
+}
+
+table.needs_type_team tr.head td  {
+    border-bottom: 4px solid #CEA262 !important;
+}
+
+table.needs_type_spec tr.head td  {
+    border-bottom: 4px solid #ec6dd7 !important;
+}
+
+table.needs_style_blue_bar {
+    background: linear-gradient(to right, transparent 99%, #0fbcf9 1%) !important;
+}
+
+table.needs_style_red_bar {
+    background: linear-gradient(to right, transparent 99%, #db0707 1%) !important;
+}

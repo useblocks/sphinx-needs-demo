@@ -1,0 +1,157 @@
+"$schema" = "https://ubcode.useblocks.com/ubproject.schema.json"
+
+# This is the Sphinx-Needs configuration file in TOML format.
+# It is announced to Sphinx-Needs by putting
+#   needs_from_toml = "ubproject.toml"
+# into conf.py.
+# This is required to make the project work with ubCode.
+# For details see https://ubcode.useblocks.com
+
+[server]
+index_on_save = true
+
+[project]
+name = "Sphinx-Needs Demo - Safety Example"
+description = "ISO 26262 HARA / safety-goal / FSR / system-requirement traceability showcase"
+srcdir = "."
+
+[format_rst]
+fail_on_warning = []
+validate = true
+blockquote_indent = 2
+definition_list_indent = 2
+directive_indent = 3
+enum_list_auto = "preserve"
+enum_list_style = "preserve"
+field_list_align_body = false
+field_list_body_on_new_line = 20
+field_list_indent = 2
+literal_indent = 2
+paragraph_line_length = 70
+paragraph_semantic_wrap = false
+simple_table_space = 2
+substitution_indent = 3
+transition_char = "-"
+transition_length = 10
+
+[needs]
+build_json = true
+
+# Schema validation configuration
+# see https://sphinx-needs.readthedocs.io/en/latest/schema/index.html
+schema_definitions_from_json = "schemas.json"
+schema_severity = "warning"
+schema_debug_active = false
+
+# Force the author to set an ID by hand.
+id_required = true
+id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
+
+[needs.fields.asil]
+description = "Automotive Safety Integrity Level (ISO 26262)"
+
+[needs.fields.asil.schema]
+type = "string"
+enum = ["QM", "A", "B", "C", "D"]
+
+[needs.fields.scenario]
+description = "Operational scenario for hazard occurrence"
+nullable = true
+
+[needs.fields.safe_state]
+description = "Target safe state for safety goal"
+nullable = true
+
+[[needs.types]]
+directive = "hazard"
+title = "Hazard"
+prefix = "HAZ_"
+color = "#DC143C"    # Crimson red - high visibility for safety-critical hazards
+style = "node"
+
+[[needs.types]]
+directive = "safety_goal"
+title = "Safety Goal"
+prefix = "SG_"
+color = "#FF8C00"         # Dark orange - warning/safety indicator
+style = "node"
+
+[[needs.types]]
+directive = "fsr"
+title = "Functional Safety Requirement"
+prefix = "FSR_"
+color = "#FFD700"                       # Gold - important derived safety requirement
+style = "node"
+
+[[needs.types]]
+directive = "sysreq"
+title = "System Requirement"
+prefix = "SYSREQ_"
+color = "#9B59B6"            # Purple - system-level requirements
+style = "node"
+
+# Link types for connecting needs to each other.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-links
+
+# safety_goal -> hazard
+[needs.links.mitigates]
+incoming = "mitigated by"
+outgoing = "mitigates"
+color = "#DC143C"
+
+# fsr -> safety_goal
+[needs.links.derives_from]
+incoming = "decomposed to"
+outgoing = "derives from"
+color = "#FF8C00"
+
+# sysreq -> fsr
+[needs.links.implements]
+incoming = "implemented by"
+outgoing = "implements"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
+[needs.layouts.safety]
+grid = "simple_footer"
+
+[needs.layouts.safety.layout]
+head = [
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+  "<<meta_all(no_links=True, exclude=['constraints_error'])>>",
+  "<<meta_links_all()>>",
+]
+footer = ["**ASIL**: <<meta('asil')>>"]
+
+[needs.fields.layout]
+predicates = [
+  ["True", "safety"],
+]
+
+# ubCode setting: display a needs.json file in the extension view
+[needs_json]
+path = "./_build/html/needs.json"
+src = "."
+
+# ubCode setting: run a script command
+[scripts]
+sphinx = "sphinx-build -b html . _build/html"
+
+[parse.extend_directives.if-builder]
+# see https://sphinx-simplepdf.readthedocs.io/en/latest/directives.html#if-builder
+description = "Sphinx-SimplePDF builder specific content"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = false
+
+[parse.extend_directives.button-link]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+description = "Sphinx-Design button with link"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = true

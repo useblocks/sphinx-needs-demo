@@ -1,0 +1,237 @@
+"$schema" = "https://ubcode.useblocks.com/ubproject.schema.json"
+
+# This is the Sphinx-Needs configuration file in TOML format.
+# It is announced to Sphinx-Needs by putting
+#   needs_from_toml = "ubproject.toml"
+# into conf.py.
+# This is required to make the project work with ubCode.
+# For details see https://ubcode.useblocks.com
+
+[server]
+index_on_save = true
+
+[project]
+name = "Sphinx-Needs Demo - Coffee Machine"
+description = "BrewMaster Pro 3000 embedded SW architecture and traceability showcase"
+srcdir = "."
+
+[format_rst]
+fail_on_warning = []
+validate = true
+blockquote_indent = 2
+definition_list_indent = 2
+directive_indent = 3
+enum_list_auto = "preserve"
+enum_list_style = "preserve"
+field_list_align_body = false
+field_list_body_on_new_line = 20
+field_list_indent = 2
+literal_indent = 2
+paragraph_line_length = 70
+paragraph_semantic_wrap = false
+simple_table_space = 2
+substitution_indent = 3
+transition_char = "-"
+transition_length = 10
+
+[needs]
+build_json = true
+
+# Schema validation configuration
+# see https://sphinx-needs.readthedocs.io/en/latest/schema/index.html
+schema_definitions_from_json = "schemas.json"
+schema_severity = "warning"
+schema_debug_active = false
+
+# Force the author to set an ID by hand.
+id_required = true
+id_regex = "[A-Z_]{3,10}(_[\\d]{1,3})*"
+
+[[needs.types]]
+directive = "req"
+title = "Requirement"
+prefix = "R_"
+color = "#FFB300"
+style = "node"
+
+[[needs.types]]
+directive = "impl"
+title = "Implementation"
+prefix = "I_"
+color = "#fa8638"
+style = "node"
+
+[[needs.types]]
+directive = "test"
+title = "Test Case"
+prefix = "T_"
+color = "#A6BDD7"
+style = "node"
+
+[[needs.types]]
+directive = "swreq"
+title = "SW_Requirement"
+prefix = "SWREQ_"
+color = "#a8f578"
+style = "node"
+
+[[needs.types]]
+directive = "component"
+title = "Component"
+prefix = "COMP_"
+color = "#3498db"
+style = "component"
+
+[[needs.types]]
+directive = "interface"
+title = "Interface"
+prefix = "INTF_"
+color = "#16a085"
+style = "interface"
+
+[[needs.types]]
+directive = "layer"
+title = "Architectural Layer"
+prefix = "LAYER_"
+color = "#8e44ad"
+style = "package"
+
+[[needs.types]]
+directive = "seq_msg"
+title = "Sequence Message"
+prefix = "SEQMSG_"
+color = "#e8e8e8"
+style = "artifact"
+
+# Link types for connecting needs to each other.
+# Docs: https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-links
+[needs.links.parent_needs]
+outgoing = "parent needs"
+incoming = "child needs"
+copy = false
+color = "#333333"
+
+# swreq -> req
+[needs.links.reqs]
+incoming = "specified by"
+outgoing = "specifies"
+
+# impl -> spec, component, interface
+[needs.links.implements]
+incoming = "implemented by"
+outgoing = "implements"
+
+# test_case -> swreq
+[needs.links.specs]
+incoming = "test_cases"
+outgoing = "specs"
+
+# test_case -> test_run
+# Automatically link test-runs with test-cases via tr_link dynamic function.
+# Docs: https://sphinx-test-reports.readthedocs.io/en/latest/functions.html#tr-link
+[needs.links.runs]
+incoming = "test_cases"
+outgoing = "runs"
+predicates = [["type=='test'", "[[tr_link('id', 'case_name')]]"]]
+
+# component -> interface (socket consumer side)
+[needs.links.uses]
+incoming = "used by"
+outgoing = "uses"
+color = "#3498db"
+style = "dashed"
+style_start = "-"
+style_end = "-("
+
+# interface -> component: interface is provided by a component
+[needs.links.provided_by]
+incoming = "provides"
+outgoing = "provided by"
+color = "#16a085"
+style = "bold"
+style_start = "-"
+style_end = "-"
+
+# component -> seq_msg -> component: used for needsequence startup sequence
+[needs.links.startup_calls]
+outgoing = "sends"
+incoming = "sent by"
+copy = false
+color = "#27ae60"
+
+# component -> seq_msg -> component: used for needsequence safety shutdown sequence
+[needs.links.shutdown_calls]
+outgoing = "sends"
+incoming = "sent by"
+copy = false
+color = "#c0392b"
+
+# see https://sphinx-needs.readthedocs.io/en/latest/configuration.html#needs-layouts
+[needs.layouts.default]
+grid = "simple_footer"
+
+[needs.layouts.default.layout]
+head = [
+  "<<meta(\"type_name\")>>: **<<meta(\"title\")>>** <<meta_id()>>  <<collapse_button(\"meta\", collapsed=\"icon:arrow-down-circle\", visible=\"icon:arrow-right-circle\", initial=False)>> ",
+]
+meta = [
+  "<<meta_all(no_links=True)>>",
+  "<<meta_links_all()>>",
+]
+
+[needs.fields.layout]
+predicates = [
+  ["True", "default"],
+]
+
+# ubCode setting: display a needs.json file in the extension view
+[needs_json]
+path = "./_build/html/needs.json"
+src = "."
+
+# ubCode setting: run a script command
+[scripts]
+sphinx = "sphinx-build -b html . _build/html"
+
+[parse]
+ignore_directives = [
+  "test-file",
+  "src-trace",
+  "test-report"
+]
+
+###############################################################################
+# SPHINX-CODELINKS Configuration
+###############################################################################
+# Configuration for linking source code to sphinx-needs artifacts
+# see https://codelinks.useblocks.com/
+
+[codelinks]
+set_local_url = true
+local_url_field = "local-url"
+set_remote_url = true
+remote_url_field = "remote-url"
+
+# Configuration for the coffee-machine Rust project
+[codelinks.projects.coffee_machine]
+remote_url_pattern = "https://github.com/useblocks/sphinx-needs-demo/blob/{commit}/{path}#L{line}"
+
+[codelinks.projects.coffee_machine.source_discover]
+src_dir = "../../crates"  # Relative path to Rust source
+gitignore = true
+comment_type = "rust"
+
+[codelinks.projects.coffee_machine.analyse]
+get_need_id_refs = false      # Don't extract need ID references (just for simple linking)
+get_oneline_needs = true      # Extract oneline need definitions from code
+
+[codelinks.projects.coffee_machine.analyse.oneline_comment_style]
+start_sequence = "@ "         # Start sequence: "// @ "
+field_split_char = ","        # Separator between fields
+# Define the fields in the oneline comments
+needs_fields = [
+  { "name" = "title", "type" = "str" },
+  { "name" = "id", "type" = "str" },
+  { "name" = "type", "type" = "str", "default" = "impl" },
+  { "name" = "implements", "type" = "list[str]", "default" = [] },
+]

@@ -68,8 +68,9 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
+# Sphinx documentation (each independent demo project has its own _build/)
 docs/_build/
+docs/**/_build/
 
 # PyBuilder
 .pybuilder/
@@ -159,6 +160,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 docs/github_images
+docs/**/github_images
 
 # Pharaoh ephemeral state (do not commit). Project tailoring at .pharaoh/project/ IS committed.
 .pharaoh/runs/
@@ -167,4 +169,4 @@ docs/github_images
 .pharaoh/cache/
 
 
-docs/reports/_build
+docs/automotive-adas/reports/_build

@@ -8,7 +8,7 @@
 .. team:: Software Development Project for ADAS Components
    :id: ADAS
    :persons: PETER, ALFRED, ROBERT, STEVEN, THOMAS
-   :image: docs/_images/adas.png
+   :image: _images/adas.png
    :layout: clean_l
 
    This project focuses on developing a modular software platform for

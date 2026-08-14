@@ -1,0 +1,265 @@
+{
+  "$defs": {
+    "type-req": {
+      "properties": {
+        "type": {
+          "const": "req"
+        }
+      }
+    },
+    "type-impl": {
+      "properties": {
+        "type": {
+          "const": "impl"
+        }
+      }
+    },
+    "type-test": {
+      "properties": {
+        "type": {
+          "const": "test"
+        }
+      }
+    },
+    "type-person": {
+      "properties": {
+        "type": {
+          "const": "person"
+        }
+      }
+    },
+    "type-team": {
+      "properties": {
+        "type": {
+          "const": "team"
+        }
+      }
+    },
+    "type-swarch": {
+      "properties": {
+        "type": {
+          "const": "swarch"
+        }
+      }
+    },
+    "type-swreq": {
+      "properties": {
+        "type": {
+          "const": "swreq"
+        }
+      }
+    },
+    "valid-status": {
+      "properties": {
+        "status": {
+          "enum": [
+            "open",
+            "in progress",
+            "closed",
+            "passed",
+            "failed"
+          ]
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "id": "req-id-pattern",
+      "severity": "info",
+      "message": "Requirement IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-req"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(R_|SWREQ_|REQ_|EX_REQ_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "impl-id-pattern",
+      "severity": "info",
+      "message": "Implementation IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-impl"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(I_|IMPL_|GH_PR_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "test-id-pattern",
+      "severity": "info",
+      "message": "Test IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-test"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(T_|TEST_|EX_TEST_)[A-Za-z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "person-id-pattern",
+      "severity": "info",
+      "message": "Person IDs should ideally follow the pattern P_* but names are also acceptable",
+      "select": {
+        "$ref": "#/$defs/type-person"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(P_[A-Z0-9_]+|[A-Z]+)$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "swarch-id-pattern",
+      "severity": "warning",
+      "message": "SW Architecture IDs should follow the pattern SWARCH_*",
+      "select": {
+        "$ref": "#/$defs/type-swarch"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^SWARCH_[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "swreq-id-pattern",
+      "severity": "info",
+      "message": "SW Requirement IDs should follow consistent patterns",
+      "select": {
+        "$ref": "#/$defs/type-swreq"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "id": {
+              "pattern": "^(SWREQ_|GH_ISSUE_)[A-Z0-9_]+$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "automotive-req-status-required",
+      "severity": "warning",
+      "message": "Requirements must have a valid status set",
+      "select": {
+        "$ref": "#/$defs/type-req"
+      },
+      "validate": {
+        "local": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/valid-status"
+            }
+          ],
+          "required": [
+            "status"
+          ]
+        }
+      }
+    },
+    {
+      "id": "automotive-req-release-required",
+      "severity": "warning",
+      "message": "Requirements must be linked to a release",
+      "select": {
+        "$ref": "#/$defs/type-req"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "release": {
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "required": [
+            "release"
+          ]
+        }
+      }
+    },
+    {
+      "id": "impl-has-implements-links",
+      "severity": "info",
+      "message": "Implementations should use 'implements' link to connect to specifications, components, or interfaces",
+      "select": {
+        "$ref": "#/$defs/type-impl"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "implements": {
+              "type": "array",
+              "minItems": 1
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "test-has-spec-or-impl",
+      "severity": "info",
+      "message": "Test cases should link to either specs or implementations",
+      "select": {
+        "$ref": "#/$defs/type-test"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "links": {}
+          }
+        }
+      }
+    },
+    {
+      "id": "team-has-persons",
+      "severity": "info",
+      "message": "Team needs should have persons assigned",
+      "select": {
+        "$ref": "#/$defs/type-team"
+      },
+      "validate": {
+        "local": {
+          "properties": {
+            "persons": {
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "required": [
+            "persons"
+          ]
+        }
+      }
+    }
+  ]
+}

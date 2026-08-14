@@ -1,20 +1,20 @@
 # Configuration file for the Sphinx documentation builder.
 #
-# This is the *landing* project of the Sphinx-Needs demo. It only holds the
-# explanatory/introduction pages and links out to the four independent demo
-# projects (basic_example, coffee-machine, automotive-adas, safety_example),
-# each of which has its own conf.py/ubproject.toml and builds on its own.
+# This is an independent Sphinx project (its own conf.py + ubproject.toml).
+# It only shares this repo's uv-managed virtual environment with the other
+# demo projects (basic_example, coffee-machine, automotive-adas, safety_example).
 #
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 import os
+import shutil
 
 import jinja2
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "Sphinx-Needs Demo"
+project = "Sphinx-Needs Demo - Safety Example"
 copyright = "2026, team useblocks"
 author = "team useblocks"
 version = "1.0"
@@ -24,19 +24,31 @@ version = "1.0"
 
 # List of Sphinx extension to use.
 extensions = [
+    "sphinx_needs",
+    "sphinxcontrib.plantuml",
     "sphinx_design",
     "sphinx_simplepdf",
     "sphinx_preview",
 ]
 
+###############################################################################
+# SPHINX-NEEDS Config START
+###############################################################################
+
+# Read the configuration from an external TOML file.
+# This makes it possible to use ubCode and its tools directly with
+# the project. Declarative configuration formats are also preferred as they
+# cannot contain logic and can be consumed by almost all languages.
+needs_from_toml = "ubproject.toml"
+
+###############################################################################
+# SPHINX-NEEDS Config END
+###############################################################################
+
 # The config for the preview features, which allows to "sneak" into a link.
 # Docs: https://sphinx-preview.readthedocs.io/en/latest/#configuration
 preview_config = {
-    # Add a preview icon only for this type of links
-    # This is very theme and HTML specific. In this case the Furo main article area.
     "selector": "article#furo-main-content a",
-    # A list of selectors, where no preview icon shall be added, because it makes often no sense.
-    # For instance the own ID of a need object, or the link on an image to open the image.
     "not_selector": "div.needs_head a, h1 a, h2 a, a.headerlink, a.back-to-top, a.image-reference, em.sig-param a, a.paginate_button, a.sd-btn, a[href*='#L'], div.highlight a",
     "set_icon": True,
     "icon_only": True,
@@ -51,23 +63,31 @@ preview_config = {
 templates_path = ["_templates"]
 
 # List of files/folder to ignore.
-# Sphinx builds all ``.rst`` files under this project, no matter if they are
-# part of a toctree or not. So as we have some rst-templates, we need to tell
-# Sphinx to ignore these files.
 exclude_patterns = [
     "_build",
     "Thumbs.db",
     ".DS_Store",
     "demo_page_header.rst",
-    "demo_hints",
-    # Independent sub-projects: each has its own conf.py/ubproject.toml and
-    # is built separately (see scripts/build_docs.sh), so they must not be
-    # picked up as part of this landing project's own source tree.
-    "basic_example",
-    "coffee-machine",
-    "automotive-adas",
-    "safety_example",
 ]
+
+# Sphinx-Needs features like ``needflow`` render via PlantUML, which itself
+# renders node/graph diagrams via Graphviz. If `dot` is missing, rendering
+# embeds the error inside the generated SVG instead of failing the build,
+# which sphinx-build -W cannot catch. Fail fast at config load time.
+if shutil.which("dot") is None:
+    raise RuntimeError(
+        "Graphviz 'dot' executable not found on PATH. "
+        "needflow requires it to render diagrams. Install graphviz "
+        "(e.g. 'apt-get install graphviz') and retry."
+    )
+
+# We bring our own plantuml jar file.
+local_plantuml_path = os.path.join(
+    os.path.dirname(__file__), "utils", "plantuml-1.2022.14.jar"
+)
+plantuml = f"java -Djava.awt.headless=true -jar {local_plantuml_path}"
+plantuml_output_format = "svg"
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -84,7 +104,7 @@ html_theme_options = {
     "top_of_page_buttons": ["view", "edit"],
     "source_repository": "https://github.com/useblocks/sphinx-needs-demo",
     "source_branch": "main",
-    "source_directory": "docs/",
+    "source_directory": "docs/safety_example/",
     "footer_icons": [
         {
             "name": "GitHub",
@@ -104,12 +124,7 @@ html_css_files = [
     "custom.css",
 ]
 
-# Some special vodoo to render each rst-file by jinja, before it gets handled by Sphinx.
-# This allows us to use the powerfull jinja-features to create content in a loop, react on
-# external data input, or include templates with parameters.
-# In our case we use it mostly to set the "demo page details" header in each page.
-# A good blog post about this can be found here:
-# Docs: https://ericholscher.com/blog/2016/jul/25/integrating-jinja-rst-sphinx/
+
 def rstjinja(app, docname, source):
     """
     Render our pages as a jinja template for fancy templating goodness.
@@ -130,9 +145,5 @@ def rstjinja(app, docname, source):
     os.chdir(old_cwd)
 
 
-# This function allows us to register any kind of black magic for Sphinx :)
 def setup(app):
-    # We connect our jinja-function from above with the "source-read" event of Sphinx,
-    # which gets called for every file before Sphinx starts to handle the file on its own.
-    # This allows us to manipulate the content.
     app.connect("source-read", rstjinja)

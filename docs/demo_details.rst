@@ -3,9 +3,16 @@
 
 🔍 Demo details
 ===============
-This page gives some details about extensions, configurations and other important files, which were used
-to define this documentation project.
+This page gives some details about extensions, configurations and other important files, which are used
+across the demo projects of this repository.
 
+This landing project (the one rendering this very page) is intentionally minimal — it has no
+Sphinx-Needs objects of its own. Each of the four demonstration projects
+(`basic_example <basic_example/index.html>`__, `coffee-machine <coffee-machine/index.html>`__,
+`automotive-adas <automotive-adas/index.html>`__ and `safety_example <safety_example/index.html>`__)
+is a fully independent Sphinx project with its own ``conf.py``/``ubproject.toml`` and only turns on
+the extensions it actually needs. The ``automotive-adas`` project uses the widest set, so it is used
+as the example below.
 
 Extensions
 ----------
@@ -52,11 +59,16 @@ or::
 
 conf.py
 ~~~~~~~
-The whole configuration file of this project.
+The configuration file of the ``automotive-adas`` project, the demo project using the
+widest set of extensions (Sphinx-Needs, sphinx-codelinks, PlantUML, Sphinx-Test-Reports,
+Sphinx-SimplePDF, autodoc/viewcode, variant builds and the ubtrace uploader).
+
+This landing project's own ``conf.py`` is much smaller, since it has no Sphinx-Needs
+objects to configure.
 
 Details are explained as comments in the file itself.
 
-.. literalinclude:: conf.py
+.. literalinclude:: automotive-adas/conf.py
    :language: python
    :linenos:
 
