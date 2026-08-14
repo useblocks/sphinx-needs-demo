@@ -26,12 +26,22 @@ fi
 
 mkdir -p "${OUTPUT_DIR}"
 
+# Prefer `uv run` (used locally and in CI, resolves this repo's shared venv
+# from any project directory). Fall back to a plain sphinx-build if uv isn't
+# on PATH - e.g. on Read the Docs, where dependencies are installed with
+# `pip install .` into RTD's own active venv and uv is never installed.
+if command -v uv >/dev/null 2>&1; then
+  SPHINX_BUILD=(uv run sphinx-build)
+else
+  SPHINX_BUILD=(sphinx-build)
+fi
+
 build() {
   local project_dir="$1"
   local out_subdir="$2"
   shift 2
   echo "::group::Build ${project_dir#"${REPO_ROOT}/"}"
-  uv run sphinx-build -W -b html "$@" "${project_dir}" "${OUTPUT_DIR}/${out_subdir}"
+  "${SPHINX_BUILD[@]}" -W -b html "$@" "${project_dir}" "${OUTPUT_DIR}/${out_subdir}"
   echo "::endgroup::"
 }
 
