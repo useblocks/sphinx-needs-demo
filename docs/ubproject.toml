@@ -64,9 +64,18 @@ content = true
 content_required = true
 options = false
 
-# Note: button-link is natively understood by ubc already; an explicit
-# extend_directives entry for it just conflicts with (and is ignored in
-# favor of) that built-in registration, so it's deliberately not declared here.
+[parse.extend_directives.button-link]
+# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
+# Required on ubc <= 0.31.0 (button-link isn't a built-in there, and without
+# this it's a hard "unknown directive" error). On newer ubc versions
+# button-link is built in and this declaration just conflicts with (and is
+# ignored in favor of) that built-in - hence the message-ignore below.
+description = "Sphinx-Design button with link"
+argument = true
+argument_required = true
+content = true
+content_required = true
+options = true
 
 # ubCode setting: run a script command
 [scripts]
