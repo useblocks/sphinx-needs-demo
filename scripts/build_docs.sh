@@ -25,6 +25,12 @@ if [ "$#" -gt 0 ]; then
 fi
 
 mkdir -p "${OUTPUT_DIR}"
+# Resolve to an absolute path and export it so the landing project and
+# safety_example's conf.py can find sibling projects' objects.inv for
+# intersphinx regardless of where this output dir actually is (e.g. Read the
+# Docs builds into $READTHEDOCS_OUTPUT/html, not the local default).
+OUTPUT_DIR="$(cd "${OUTPUT_DIR}" && pwd)"
+export SPHINX_NEEDS_DEMO_SITE_ROOT="${OUTPUT_DIR}"
 
 # Prefer `uv run` (used locally and in CI, resolves this repo's shared venv
 # from any project directory). Fall back to a plain sphinx-build if uv isn't

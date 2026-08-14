@@ -18,6 +18,24 @@ name = "Sphinx-Needs Demo"
 description = "Landing page for the Sphinx-Needs Demo playground"
 srcdir = "."
 
+# ubc's own file discovery (independent of Sphinx's conf.py exclude_patterns,
+# which does the equivalent job for the actual Sphinx build). Without this,
+# `ubc check docs/` recurses into the 4 independent sub-projects too and
+# checks their .rst files against this project's config (which has no
+# [needs] table at all), reporting every need directive there as unknown.
+[source]
+extend_exclude = [
+  "basic_example",
+  "coffee-machine",
+  "automotive-adas",
+  "safety_example",
+  # Excluded from the actual Sphinx build too (see conf.py exclude_patterns):
+  # demo_page_header.rst is a jinja-included partial, not a standalone page,
+  # and demo_hints/ is dead/orphaned content kept only for historical reasons.
+  "demo_page_header.rst",
+  "demo_hints",
+]
+
 [format_rst]
 fail_on_warning = []
 validate = true
@@ -46,15 +64,9 @@ content = true
 content_required = true
 options = false
 
-[parse.extend_directives.button-link]
-# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
-# not yet part of ubCode internal directives
-description = "Sphinx-Design button with link"
-argument = true
-argument_required = true
-content = true
-content_required = true
-options = true
+# Note: button-link is natively understood by ubc already; an explicit
+# extend_directives entry for it just conflicts with (and is ignored in
+# favor of) that built-in registration, so it's deliberately not declared here.
 
 # ubCode setting: run a script command
 [scripts]

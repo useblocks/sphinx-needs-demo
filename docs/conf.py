@@ -39,11 +39,27 @@ extensions = [
 # hand-typed <a href> links, which can silently rot. Inventories are only
 # built when scripts/build_docs.sh builds all projects into one output tree;
 # a standalone build of this project alone won't have them.
+#
+# The inventory *file* location depends on where that combined tree actually
+# gets built - scripts/build_docs.sh's default is docs/_build/site, but e.g.
+# Read the Docs builds into $READTHEDOCS_OUTPUT/html instead. build_docs.sh
+# exports SPHINX_NEEDS_DEMO_SITE_ROOT with the real (absolute) output root so
+# this always finds the right file; the hardcoded fallback below only applies
+# to a manual, non-build_docs.sh invocation using the local default location.
+_site_root = os.environ.get("SPHINX_NEEDS_DEMO_SITE_ROOT")
+
+
+def _inventory_path(project_name):
+    if _site_root:
+        return os.path.join(_site_root, project_name, "objects.inv")
+    return f"_build/site/{project_name}/objects.inv"
+
+
 intersphinx_mapping = {
-    "basic_example": ("basic_example", "_build/site/basic_example/objects.inv"),
-    "coffee-machine": ("coffee-machine", "_build/site/coffee-machine/objects.inv"),
-    "automotive-adas": ("automotive-adas", "_build/site/automotive-adas/objects.inv"),
-    "safety_example": ("safety_example", "_build/site/safety_example/objects.inv"),
+    "basic_example": ("basic_example", _inventory_path("basic_example")),
+    "coffee-machine": ("coffee-machine", _inventory_path("coffee-machine")),
+    "automotive-adas": ("automotive-adas", _inventory_path("automotive-adas")),
+    "safety_example": ("safety_example", _inventory_path("safety_example")),
 }
 
 ###############################################################################

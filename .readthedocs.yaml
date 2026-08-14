@@ -22,9 +22,12 @@ build:
       - echo "DOT details"
       - which dot
     post_create_environment:
-      # ubt-sphinx is only available on the private pypi.useblocks.com index, not on PyPI.
-      # RTD's pip install uses PyPI by default, so we pre-install it here before the main install runs.
-      - pip install --extra-index-url https://pypi.useblocks.com/ "ubt-sphinx==0.8.1"
+      # ubt-sphinx and ubt-runtime are only available on the private
+      # pypi.useblocks.com index, not on PyPI. RTD's pip install uses PyPI by
+      # default, so we pre-install both here before the main install runs -
+      # otherwise `pip install .` fails to resolve them and aborts before
+      # installing anything at all (including sphinx-needs itself).
+      - pip install --extra-index-url https://pypi.useblocks.com/ "ubt-sphinx==0.8.1" "ubt-runtime==0.6.0"
     build:
       html:
         # docs/ now holds five independent Sphinx projects (their own

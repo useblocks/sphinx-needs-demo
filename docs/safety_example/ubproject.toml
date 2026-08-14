@@ -15,6 +15,24 @@ name = "Sphinx-Needs Demo - Safety Example"
 description = "ISO 26262 HARA / safety-goal / FSR / system-requirement traceability showcase"
 srcdir = "."
 
+# Excluded from the actual Sphinx build too (see conf.py exclude_patterns):
+# demo_page_header.rst is a jinja-included partial, not a standalone page.
+[source]
+extend_exclude = [
+  "demo_page_header.rst",
+]
+
+# `type_name` (a sphinx-needs dynamic column) and `:colwidths:` (a real
+# needtable option) are both valid - sphinx-build never warns about them -
+# but ubc's static needtable validator/renderer doesn't support them yet.
+[[lint.message-ignores]]
+codes = ["needs.option_invalid"]
+contains = "type_name"
+
+[[lint.message-ignores]]
+codes = ["needs.option_unsupported"]
+contains = "colwidths"
+
 [format_rst]
 fail_on_warning = []
 validate = true
@@ -147,11 +165,6 @@ content = true
 content_required = true
 options = false
 
-[parse.extend_directives.button-link]
-# see https://sphinx-design.readthedocs.io/en/latest/badges_buttons.html#buttons
-description = "Sphinx-Design button with link"
-argument = true
-argument_required = true
-content = true
-content_required = true
-options = true
+# Note: button-link is natively understood by ubc already; an explicit
+# extend_directives entry for it just conflicts with (and is ignored in
+# favor of) that built-in registration, so it's deliberately not declared here.

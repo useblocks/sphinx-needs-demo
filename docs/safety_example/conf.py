@@ -41,8 +41,22 @@ extensions = [
 # hand-typed <a href> link, which can silently rot. The inventory is only
 # built when scripts/build_docs.sh builds all projects into one output tree;
 # a standalone build of this project alone won't have it.
+#
+# The inventory *file* location depends on where that combined tree actually
+# gets built - scripts/build_docs.sh's default is docs/_build/site, but e.g.
+# Read the Docs builds into $READTHEDOCS_OUTPUT/html instead. build_docs.sh
+# exports SPHINX_NEEDS_DEMO_SITE_ROOT with the real (absolute) output root so
+# this always finds the right file; the hardcoded fallback below only applies
+# to a manual, non-build_docs.sh invocation using the local default location.
+_site_root = os.environ.get("SPHINX_NEEDS_DEMO_SITE_ROOT")
+
+if _site_root:
+    _automotive_adas_inventory = os.path.join(_site_root, "automotive-adas", "objects.inv")
+else:
+    _automotive_adas_inventory = "../_build/site/automotive-adas/objects.inv"
+
 intersphinx_mapping = {
-    "automotive-adas": ("../automotive-adas", "../_build/site/automotive-adas/objects.inv"),
+    "automotive-adas": ("../automotive-adas", _automotive_adas_inventory),
 }
 
 ###############################################################################
